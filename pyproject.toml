@@ -32,8 +32,9 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Source = "https://github.com/neurospin-deepinsight/brainprep"
-Tracker = "https://github.com/neurospin-deepinsight/brainprep/issues"
+Development = "https://github.com/AGrigis/pysphinxdoc"
+Tracker = "https://github.com/AGrigis/pysphinxdoc/issues"
+Homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
 
 [tool.setuptools]
 platforms = ["Linux", "OSX"]
@@ -43,7 +44,7 @@ script-files = [
 ]
 
 [tool.setuptools.dynamic]
-version = {attr = "brainprep.info.__version__"}
+version = {attr = "brainprep.__version__"}
 
 [tool.setuptools.packages.find]
 exclude = ["doc"]
