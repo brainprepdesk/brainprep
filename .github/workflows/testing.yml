@@ -1,12 +1,23 @@
+# Workflow to perform testings and code coverage.
+#
+# To run this check locally from the `doc` folder:
+#
+# .. code-block:: bash
+#
+#   $ nosetests --with-coverage --cover-package=brainprep --verbosity=2
+###
 name: "TESTING"
 
 on:
   push:
     branches:
       - "master"
+      - "main"
+      - "dev"
   pull_request:
     branches:
       - "*"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,14 +31,15 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+        cache: "pip"
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         python -m pip install pynose coverage coveralls

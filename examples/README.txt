@@ -1,4 +1,4 @@
-.. _sphx_glr_auto_gallery:
+.. _examples:
 
-Brain MRI PreProcessing Use Cases
-=================================
+Examples
+========

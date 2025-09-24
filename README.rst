@@ -1,117 +1,169 @@
 **Usage**
 
-|PythonVersion|_ |License| |PoweredBy|_
+.. image:: https://img.shields.io/badge/python-3.12-blue
+    :target: https://github.com/AGrigis/pysphinxdoc
+    :alt: Python Version
+
+.. image:: https://img.shields.io/badge/License-CeCILL--B-blue.svg
+    :target: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
+    :alt: License
+
+.. image:: https://img.shields.io/badge/Powered%20by-CEA%2FNeuroSpin-blue.svg
+    :target: https://joliot.cea.fr/drf/joliot/Pages/Entites_de_recherche/NeuroSpin.aspx
+    :alt: Powered By
 
 **Development**
 
-|Coveralls|_ |Testing|_ |Pep8|_ |Doc|_
+.. image:: https://coveralls.io/repos/neurospin-deepinsight/brainprep/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/neurospin-deepinsight/brainprep
+    :alt: Code Coverage
+
+.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/testing.yml/badge.svg
+    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+    :alt: Testing
+
+.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/pep8.yml/badge.svg
+    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+    :alt: Github Actions Linter Status
+
+.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/documentation.yml/badge.svg
+    :target: https://neurospin-deepinsight.github.io/brainprep/stable
+    :alt: Github Actions Doc Build Status
+
 
 **Release**
 
-|PyPi|_ |DockerANAT|_ |DockerMRIQC|_ |DockerFMRIPREP|_ |DockerDMRIPREP|_
+.. image:: https://badge.fury.io/py/brainprep.svg
+    :target: https://pypi.org/project/brainprep
+    :alt: Pypi Package
+
+.. image:: https://img.shields.io/docker/pulls/neurospin/brainprep-anat
+    :target: https://hub.docker.com/r/neurospin/brainprep-anat
+    :alt: Docker Anat
+
+.. image:: https://img.shields.io/docker/pulls/neurospin/brainprep-mriqc
+    :target: https://hub.docker.com/r/neurospin/brainprep-mriqc
+    :alt: Docker MRI QC
+
+.. image:: https://img.shields.io/docker/pulls/neurospin/brainprep-fmriprep
+    :target: https://hub.docker.com/r/neurospin/brainprep-fmriprep
+    :alt: Docker fMRI Prep
+
+.. image:: https://img.shields.io/docker/pulls/neurospin/brainprep-dmriprep
+    :target: https://hub.docker.com/r/neurospin/brainprep-dmriprep
+    :alt: Docker dMRI Prep
 
 
-.. |PythonVersion| image:: https://img.shields.io/badge/python-3.9%20%7C%203.12-blue
-.. _PythonVersion: target:: https://img.shields.io/badge/python-3.9%20%7C%203.12-blue
-
-.. |Coveralls| image:: https://coveralls.io/repos/neurospin-deepinsight/brainprep/badge.svg?branch=master&service=github
-.. _Coveralls: target:: https://coveralls.io/github/neurospin-deepinsight/brainprep
-
-.. |Testing| image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/testing.yml/badge.svg
-.. _Testing: target:: https://github.com/neurospin-deepinsight/brainprep/actions
-
-.. |Pep8| image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/pep8.yml/badge.svg
-.. _Pep8: target:: https://github.com/neurospin-deepinsight/brainprep/actions
-
-.. |PyPi| image:: https://badge.fury.io/py/brainprep.svg
-.. _PyPi: target:: https://badge.fury.io/py/brainprep
-
-.. |Doc| image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/documentation.yml/badge.svg
-.. _Doc: target:: https://neurospin-deepinsight.github.io/brainprep
-
-.. |License| image:: https://img.shields.io/badge/License-CeCILLB-blue.svg
-.. _License: target:: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
-
-.. |PoweredBy| image:: https://img.shields.io/badge/Powered%20by-CEA%2FNeuroSpin-blue.svg
-.. _PoweredBy: target:: https://joliot.cea.fr/drf/joliot/Pages/Entites_de_recherche/NeuroSpin.aspx
-
-.. |DockerANAT| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-anat
-.. _DockerANAT: target:: https://hub.docker.com/r/neurospin/brainprep-anat
-
-.. |DockerMRIQC| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-mriqc
-.. _DockerMRIQC: target:: https://hub.docker.com/r/neurospin/brainprep-mriqc
-
-.. |DockerFMRIPREP| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-fmriprep
-.. _DockerFMRIPREP: target:: https://hub.docker.com/r/neurospin/brainprep-fmriprep
-
-.. |DockerDMRIPREP| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-dmriprep
-.. _DockerDMRIPREP: target:: https://hub.docker.com/r/neurospin/brainprep-dmriprep
+brainprep
+=========
 
 
-brainprep: tools for brain MRI Deep Learning pre-processing
-===========================================================
+What is ``brainprep``?
+======================
 
-\:+1: If you are using the code please add a star to the repository :+1:
+``brainprep`` is a comprehensive toolbox designed to streamline the
+preprocessing of brain MRI data for deep learning applications. It offers a
+suite of standardized scripts tailored for anatomical, functional, and
+diffusion magnetic resonance imaging (MRI), ensuring consistent and
+high-quality data preparation across studies. In addition to preprocessing
+pipelines, brainprep includes robust quality control (QC) routines to help
+researchers assess data integrity and detect potential artifacts or anomalies.
 
-`brainprep` is a toolbox that provides common Deep Learning brain anatomical,
-functional and diffusion MR images pre-processing scripts, as well as Quality
-Control (QC) routines.
-You can list all available workflows by running the following command in a
-command prompt:
+To explore the full range of available workflows, simply run the following
+command in your terminal:
 
-.. code::
+.. code-block:: bash
 
     brainprep --help
 
-The general idea is to provide containers to execute these workflows in order
-to enforce reproducible research.
+Each workflow is encapsulated within a containerized environment, promoting
+reproducibility and simplifying deployment across different systems.
+By leveraging container technology, brainprep minimizes dependency issues
+and ensures that preprocessing steps can be executed reliably, regardless of
+the underlying hardware or operating system.
 
-This work is made available by a `community of people
-<https://github.com/neurospin-deepinsight/brainprep/blob/master/AUTHORS.rst>`_,
-amoung which the CEA Neurospin BAOBAB laboratory.
+Whether you're working on large-scale neuroimaging datasets or developing
+novel deep learning models for brain analysis, brainprep provides a modular,
+scalable, and reproducible foundation to accelerate your research.
 
    
-Important links
----------------
+Important Links
+===============
 
-* Official source code repo: https://github.com/neurospin-deepinsight/brainprep
-* HTML documentation (latest release): https://neurospin-deepinsight.github.io/brainprep
-* Release notes: https://github.com/neurospin-deepinsight/brainprep/blob/master/CHANGELOG.rst
-
-
-Where to start
---------------
-
-Examples are available in the `gallery <https://neurospin-deepinsight.github.io/brainprep/auto_gallery/index.html>`_. You can also refer to the `API documentation <https://neurospin-deepinsight.github.io/brainprep/generated/documentation.html>`_.
+- Official source code repo: https://github.com/neurospin-deepinsight/brainprep
+- HTML documentation (stable release): https://neurospin-deepinsight.github.io/brainprep/stable
+- HTML documentation (dev): https://neurospin-deepinsight.github.io/brainprep/dev
 
 
 Install
--------
+=======
 
-The code is tested for the current stable PyTorch and torchvision versions, but should work with other versions as well. Make sure you have installed all the package dependencies. Complete instructions are available `here <https://neurospin-deepinsight.github.io/brainprep/generated/installation.html>`_.
+Latest release
+--------------
+
+**1. Setup a virtual environment**
+
+We recommend that you install ``brainprep`` in a virtual Python environment,
+either managed with the standard library ``venv`` or with ``conda``.
+Either way, create and activate a new python environment.
+
+With ``venv``:
+
+.. code-block:: bash
+
+    python3 -m venv /<path_to_new_env>
+    source /<path_to_new_env>/bin/activate
+
+Windows users should change the last line to ``\<path_to_new_env>\Scripts\activate.bat``
+in order to activate their virtual environment.
+
+With ``conda``:
+
+.. code-block:: bash
+
+    conda create -n brainprep python=3.12
+    conda activate brainprep
+
+**2. Install brainprep with pip**
+
+Execute the following command in the command prompt / terminal
+in the proper python environment:
+
+.. code-block:: bash
+
+    python3 -m pip install -U brainprep
 
 
-Contributing
-------------
+Check installation
+------------------
 
-If you want to contribute to brainprep, be sure to review the `contribution guidelines <./CONTRIBUTING.rst>`_.
+Try importing brainprep in a Python / iPython session:
+
+.. code-block:: python
+
+    import brainprep
+
+If no error is raised, you have installed brainprep correctly.
 
 
-License
--------
+Dependencies
+============
 
-This project is under the following `LICENSE <./LICENSE.rst>`_.
+The required dependencies to use the software are listed
+in the file `pyproject.toml <https://github.com/neurospin-deepinsight/brainprep/blob/main/pyproject.toml>`_.
 
 
 Citation
 ========
 
-There is no paper published yet about `brainprep`.
+There is no paper published yet about ``brainprep``.
 We suggest that you aknowledge the brainprep team or reference to the code
-repository: |link-to-paper|. Thank you.
+repository. Thank you.
 
-.. |link-to-paper| raw:: html
+.. code-block:: text
 
-      <a href="https://github.com/neurospin-deepinsight/brainprep "target="_blank">
-      Grigis, A. et al. (2022) BrainPrep source code (Version 0.01) [Source code].
-      https://github.com/neurospin-deepinsight/brainprep </a>
+    @misc{brainprep,
+        title = {{BrainPrep source code (Version 1.0.0)}},
+        author = {Grigis, Antoine and Victor, Julie and Dorval, Loic and Duchesnay, Edouard},
+        url = {https://github.com/neurospin-deepinsight/brainprep},
+    }

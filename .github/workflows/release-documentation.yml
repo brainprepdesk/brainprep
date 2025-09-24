@@ -1,25 +1,16 @@
-# Workflow to build doc, upload it as artifact, and deploy it for the
-# master, main and dev branches.
+# Workflow to build doc, and deploy it using the version as a subdomain.
 #
 # To run this check locally from the `doc` folder:
 #
 # .. code-block:: bash
 #
-#   $ sphinxdoc -v 2 -p $MODULE_DIR -n brainprep -o $MODULE_DIR/doc
+#   $ sphinxdoc -v 2 -p $MODULE_DIR -n $MODULE_NAME -o $MODULE_DIR/doc
 #   $ cd $MODULE_DIR/doc
 #   $ make html-strict
 ###
-name: "DocumentationBuilder"
+name: "DocumentationRelease"
 
 on:
-  push:
-    branches:
-      - "master"
-      - "main"
-      - "dev"
-  pull_request:
-    branches:
-      - "*"
   workflow_dispatch:
 
 env:
@@ -41,17 +32,6 @@ jobs:
       id: extract-branch
       shell: bash
       run: echo "BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-    - name: Identify deploy type
-      id: deploy-type
-      run: |
-        if ${{ github.ref == 'refs/heads/master' ||
-            github.ref == 'refs/heads/main' }}; then
-            echo "DEPLOY_TYPE=stable" >> $GITHUB_OUTPUT
-        elif ${{ github.ref == 'refs/heads/dev' }}; then
-            echo "DEPLOY_TYPE=dev" >> $GITHUB_OUTPUT
-        else
-          echo "DEPLOY_TYPE=pr" >> $GITHUB_OUTPUT
-        fi
     - name: Checkout repository
       uses: actions/checkout@v5
       with:
@@ -76,7 +56,7 @@ jobs:
       run: |
         DIR=$(pwd)
         which python
-        sphinxdoc -v 2 -p $DIR -n brainprep -o $DIR/doc
+        sphinxdoc -v 2 -p $DIR -n hopla -o $DIR/doc
     - name: Compute documentation
       run: |
         DIR=$(pwd)
@@ -87,18 +67,27 @@ jobs:
     - name: Upload documentation as an artifact
       uses: actions/upload-artifact@v4
       env:
-        DEPLOY_TYPE: ${{ steps.deploy-type.outputs.DEPLOY_TYPE }}
+        BRANCH: ${{ steps.extract-branch.outputs.BRANCH }}
       with: 
-        name: doc-${{ env.DEPLOY_TYPE }}
+        name: doc-${{ env.BRANCH }}
         retention-days: 1
         path: |
             doc/_build/html
+    - name: Extract module version
+      id: extract-version
+      shell: python
+      run: |
+        import os
+        import hopla
+        with open(os.environ["GITHUB_OUTPUT"], "a") as of:
+          of.write(f"VERSION={hopla.__version__}")
     - name: Deploy
       env:
-        DEPLOY_TYPE: ${{ steps.deploy-type.outputs.DEPLOY_TYPE }}
-      if: env.DEPLOY_TYPE != 'pr'
+        BRANCH: ${{ steps.extract-branch.outputs.BRANCH }}
+        ENV: ${{ steps.extract-version.outputs.VERSION }}
+      if: env.BRANCH == 'master' || env.BRANCH == 'main'
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/_build/html
-        destination_dir: ./${{ env.DEPLOY_TYPE }}
+        destination_dir: ./${{ env.VERSION }}

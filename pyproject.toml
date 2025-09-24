@@ -9,7 +9,7 @@ requires-python = ">=3.9"
 authors = [
     {name = "brainprep developers", email = "antoine.grigis@cea.fr"},
 ]
-license = {text = "CeCILL-B"}
+license = "CECILL-B"
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Console",
