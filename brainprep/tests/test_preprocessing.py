@@ -16,7 +16,7 @@ import inspect
 import nibabel
 import numpy as np
 import brainprep
-from brainprep.color_utils import print_title, print_subtitle
+from brainprep.utils import print_title, print_subtitle
 
 
 class TestPreprocessing(unittest.TestCase):

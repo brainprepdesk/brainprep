@@ -36,6 +36,37 @@ for quasi-raw images. Additionally, we also monitored the Noise Contrast
 Ratio (NCR) and Image Quality Rating (IQR) as two metrics of quality and
 we retained only images at a threshold below 4.
 
+Featured examples
+-----------------
+
+.. grid::
+
+  .. grid-item-card::
+    :link: ../auto_examples/plot_vbm.html
+    :link-type: url
+    :columns: 12 12 12 12
+    :class-card: sd-shadow-sm
+    :margin: 2 2 auto auto
+
+    .. grid::
+      :gutter: 3
+      :margin: 0
+      :padding: 0
+
+      .. grid-item::
+        :columns: 12 4 4 4
+
+        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_vbm_thumb.png
+
+      .. grid-item::
+        :columns: 12 8 8 8
+
+        .. div:: sd-font-weight-bold
+
+          VBM
+
+        Explore how to perform this analysis with a container.
+
 References
 ----------
 

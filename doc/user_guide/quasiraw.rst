@@ -33,6 +33,37 @@ we use the average correlation (using Fisher's z-transform) between registered
 images as a metric of quality and we retained only images at a threshold
 higher than 0.5.
 
+Featured examples
+-----------------
+
+.. grid::
+
+  .. grid-item-card::
+    :link: ../auto_examples/plot_quasiraw.html
+    :link-type: url
+    :columns: 12 12 12 12
+    :class-card: sd-shadow-sm
+    :margin: 2 2 auto auto
+
+    .. grid::
+      :gutter: 3
+      :margin: 0
+      :padding: 0
+
+      .. grid-item::
+        :columns: 12 4 4 4
+
+        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_quasiraw_thumb.png
+
+      .. grid-item::
+        :columns: 12 8 8 8
+
+        .. div:: sd-font-weight-bold
+
+          Quasi RAW
+
+        Explore how to perform this analysis with a container.
+
 References
 ----------
 

@@ -21,7 +21,7 @@ from html import unescape
 import subprocess
 import brainprep
 from brainprep.utils import load_images, create_clickable, listify
-from brainprep.color_utils import print_title, print_result
+from brainprep.utils import print_title, print_result
 from brainprep.qc import (
     parse_cat12vbm_qc, plot_pca, compute_mean_correlation,
     parse_cat12vbm_report, check_files, parse_cat12vbm_roi)

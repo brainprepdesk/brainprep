@@ -16,7 +16,7 @@ Table of contents
    :numbered:
    :maxdepth: 1
 
-   qa.rst
+   quality_assurance.rst
    defacing.rst
    quasiraw.rst
    vbm.rst

@@ -21,7 +21,7 @@ import pandas as pd
 from html import unescape
 import brainprep
 from brainprep.utils import create_clickable, listify
-from brainprep.color_utils import print_title, print_result
+from brainprep.utils import print_title, print_result
 from brainprep.qc import parse_fsreconall_stats
 from brainprep.plotting import plot_fsreconall, plot_hists
 

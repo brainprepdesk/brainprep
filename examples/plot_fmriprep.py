@@ -1,49 +1,57 @@
-# -*- coding: utf-8 -*-
 """
-fmriprep pre-processing use case
-================================
+fMRI Pre-Processings
+====================
 
-Credit: A Grigis
+Simple example.
 
-Example on how to run thefmriprep pre-processing using the brainprep
-Singularity container.
+Example on how to run the fMRI pre-processing using brainprep.
+See :ref:`user guide <fmriprep>` for details.
+
+Data
+----
+
+Let's first get some anatomical data.
 """
-# sphinx_gallery_thumbnail_path = '_static/carousel/fmriprep.png'
 
-import os
-import subprocess
-from brainrise.datasets import MRIToyDataset
+from pathlib import Path
+from brainprep.datasets import AnatomicalDataset
 
-#############################################################################
-# Please tune these parameters.
+datadir = Path("/tmp/brainprep-data")
+datadir.mkdir(parents=True, exist_ok=True)
+dataset = AnatomicalDataset(datadir)
+data = dataset.fetch(
+    subject="01",
+    modality="T1w",
+    dtype="cross_sectional",
+)
+print(data)
 
-DATADIR = "/tmp/brainprep-data"
-OUTDIR = "/tmp/brainprep-out"
-WORKDIR = "/tmp/brainprep-out/work"
-HOMEDIR = "/tmp/brainprep-home"
-SCRIPT = "fmriprep"
-SIMG = "/volatile/nsap/brainprep/fmriprep/brainprep-fmriprep-latest.simg"
 
-for path in (DATADIR, OUTDIR, HOMEDIR, WORKDIR):
-    if not os.path.isdir(path):
-        os.mkdir(path)
-dataset = MRIToyDataset(root=DATADIR)
-t1w_file = os.path.join(DATADIR, os.path.basename(MRIToyDataset.t1w_url))
+# %%
+# Container
+# ---------
+# 
+# Now let's perform the pre-processing on a brainprep container.
+
+datadir = str(datadir)
+outdir = "/tmp/brainprep-out"
+homedir = "/tmp/brainprep-home"
+t1w_file = str(data["sub-01"])
 func_file = t1w_file
 desc_file = t1w_file
-cmd = ["singularity", "run", "--bind", "{0}:/data".format(DATADIR),
-       "--bind", "{0}:/out".format(OUTDIR), "--home", HOMEDIR, "--cleanenv",
-       SIMG,
-       "brainprep", SCRIPT,
-       t1w_file.replace(DATADIR, "/data"),
-       func_file.replace(DATADIR, "/data"),
-       desc_file.replace(DATADIR, "/data"),
-       "sub-error",
-       "--outdir", "/out",
-       "--workdir", "/out/work"]
-
-#############################################################################
-# You can now execute this command.
-
+cmd = [
+    "apptainer", "run",
+    "--bind", f"{datadir}:/data",
+    "--bind", f"{outdir}:/out",
+    "--home", homedir,
+    "--cleanenv",
+    "docker://neurospin/brainprep-fmriprep:latest",
+    "brainprep", "fmriprep",
+    t1w_file.replace(datadir, "/data"),
+    func_file.replace(datadir, "/data"),
+    desc_file.replace(datadir, "/data"),
+    "sub-error",
+    "--outdir", "/out",
+    "--workdir", "/out/work"
+]
 print(" ".join(cmd))
-

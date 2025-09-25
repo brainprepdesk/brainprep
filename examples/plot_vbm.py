@@ -1,11 +1,11 @@
 """
-Quasi RAW Pre-Processing
-========================
+VBM pre-processing 
+==================
 
 Simple example.
 
-Example on how to run the brain parcellation pre-processing using brainprep.
-See :ref:`user guide <quasiraw>` for details.
+Example on how to run the VBM pre-processing using brainprep.
+See :ref:`user guide <vbm>` for details.
 
 Data
 ----
@@ -37,7 +37,6 @@ datadir = str(datadir)
 outdir = "/tmp/brainprep-out"
 homedir = "/tmp/brainprep-home"
 t1w_file = str(data["sub-01"])
-mask_file = t1w_file
 cmd = [
     f"SINGULARITYENV_FS_LICENSE={license}",
     "apptainer", "run",
@@ -46,10 +45,8 @@ cmd = [
     "--home", homedir,
     "--cleanenv",
     "docker://neurospin/brainprep-anat:latest",
-    "brainprep", "quasiraw",
+    "brainprep", "vbm",
     t1w_file.replace(datadir, "/data"),
-    mask_file.replace(datadir, "/data"),
     "/out",
-    "--no-bids",
 ]
 print(" ".join(cmd))

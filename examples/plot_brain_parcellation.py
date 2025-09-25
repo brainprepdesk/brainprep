@@ -1,11 +1,11 @@
 """
-Quasi RAW Pre-Processing
-========================
+Brain Parcellation
+==================
 
 Simple example.
 
 Example on how to run the brain parcellation pre-processing using brainprep.
-See :ref:`user guide <quasiraw>` for details.
+See :ref:`user guide <brain_parcellation>` for details.
 
 Data
 ----
@@ -36,8 +36,9 @@ print(data)
 datadir = str(datadir)
 outdir = "/tmp/brainprep-out"
 homedir = "/tmp/brainprep-home"
+license = "/out/license.txt"
 t1w_file = str(data["sub-01"])
-mask_file = t1w_file
+mask_file = None
 cmd = [
     f"SINGULARITYENV_FS_LICENSE={license}",
     "apptainer", "run",
@@ -46,10 +47,10 @@ cmd = [
     "--home", homedir,
     "--cleanenv",
     "docker://neurospin/brainprep-anat:latest",
-    "brainprep", "quasiraw",
+    "brainprep", "brainparc",
+    "sub-test",
     t1w_file.replace(datadir, "/data"),
-    mask_file.replace(datadir, "/data"),
     "/out",
-    "--no-bids",
 ]
 print(" ".join(cmd))
+

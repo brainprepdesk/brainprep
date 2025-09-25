@@ -1,11 +1,11 @@
 """
-Quasi RAW Pre-Processing
-========================
+Quality Assurance
+=================
 
 Simple example.
 
-Example on how to run the brain parcellation pre-processing using brainprep.
-See :ref:`user guide <quasiraw>` for details.
+Example on how to run the quality assurance pre-processing using brainprep.
+See :ref:`user guide <quality_assurance>` for details.
 
 Data
 ----
@@ -33,23 +33,21 @@ print(data)
 # 
 # Now let's perform the pre-processing on a brainprep container.
 
+
 datadir = str(datadir)
 outdir = "/tmp/brainprep-out"
 homedir = "/tmp/brainprep-home"
-t1w_file = str(data["sub-01"])
-mask_file = t1w_file
+license = "/out/license.txt"
 cmd = [
-    f"SINGULARITYENV_FS_LICENSE={license}",
     "apptainer", "run",
     "--bind", f"{datadir}:/data",
     "--bind", f"{outdir}:/out",
     "--home", homedir,
     "--cleanenv",
-    "docker://neurospin/brainprep-anat:latest",
-    "brainprep", "quasiraw",
-    t1w_file.replace(datadir, "/data"),
-    mask_file.replace(datadir, "/data"),
-    "/out",
-    "--no-bids",
-]
+    "docker://neurospin/brainprep-mriqc:latest",
+    "brainprep", "qa",
+    "/data",
+    "sub-unknown",
+    "--outdir", "/out",
+    "--workdir", "/out/work"]
 print(" ".join(cmd))

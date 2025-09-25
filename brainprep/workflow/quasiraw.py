@@ -19,7 +19,7 @@ import numpy as np
 from html import unescape
 import brainprep
 from brainprep.utils import load_images, create_clickable, listify
-from brainprep.color_utils import print_title, print_result
+from brainprep.utils import print_title, print_result
 from brainprep.qc import plot_pca, compute_mean_correlation, check_files
 from brainprep.plotting import plot_images, plot_hists
 

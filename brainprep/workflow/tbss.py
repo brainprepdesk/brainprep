@@ -16,7 +16,7 @@ import os
 import shutil
 import brainprep
 from brainprep.utils import check_command, execute_command
-from brainprep.color_utils import print_title, print_subtitle, print_result
+from brainprep.utils import print_title, print_subtitle, print_result
 
 
 def brainprep_tbss_preproc(outdir, fa_file=None, data=None, bvecs=None,

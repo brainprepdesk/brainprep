@@ -55,6 +55,36 @@ the correlation score. In addition we use the Euler number as a metric of
 quality and we retaine images at a threshold greater than -217, as specified in
 :footcite:p:`rosen2018`.
 
+Featured examples
+-----------------
+
+.. grid::
+
+  .. grid-item-card::
+    :link: ../auto_examples/plot_brain_parcellation.html
+    :link-type: url
+    :columns: 12 12 12 12
+    :class-card: sd-shadow-sm
+    :margin: 2 2 auto auto
+
+    .. grid::
+      :gutter: 3
+      :margin: 0
+      :padding: 0
+
+      .. grid-item::
+        :columns: 12 4 4 4
+
+        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_brain_parcellation_thumb.png
+
+      .. grid-item::
+        :columns: 12 8 8 8
+
+        .. div:: sd-font-weight-bold
+
+          Brain Parcellation
+
+        Explore how to perform this analysis with a container.
 
 References
 ----------

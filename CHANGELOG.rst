@@ -1,18 +1,19 @@
 .. -*- mode: rst -*-
 
-0.0.1
-=====
+1.0.0.dev
+=========
 
-Will be released in September 2022
-
-Highlights
+HIGHLIGHTS
 ----------
 
-Work in progress.
-This release includes different workflows to process antomical, functional and
-diffusion MR images.
-All workflows are integrated in dedicated containers to enforce reproducible
-research.
+NEW
+---
+
+- :bdg-success:`Doc` Create doc with `furo <https://github.com/pradyunsg/furo>`_.
+- :bdg-success:`API` All worflows generate a log file.
+
+Fixes
+-----
 
 Enhancements
 ------------
@@ -20,7 +21,25 @@ Enhancements
 Changes
 -------
 
-The following workflows are released:
+
+
+0.0.2
+=====
+
+**Released September 2022**
+
+HIGHLIGHTS
+----------
+
+- :bdg-success:`API` This release includes different workflows to process
+  antomical, functional and diffusion MR images.
+- :bdg-success:`API` All workflows are integrated in a dedicated container
+  to enforce reproducible research.
+
+NEW
+---
+
+- :bdg-success:`API` The following workflows are released:
 
 * fsreconall
 * fsreconall-summary
@@ -40,14 +59,12 @@ The following workflows are released:
 * tbss
 * dmriprep
 
-Bug fixes
----------
+Fixes
+-----
 
-Contributors
+Enhancements
 ------------
 
-The following people contributed to this release (from ``git shortlog -ns v0.0.1``)::
+Changes
+-------
 
-* 61  Antoine Grigis
-* 38  LoicDorval
-* 26  JulieNeuro

@@ -22,7 +22,7 @@ from nilearn.image import clean_img
 from nilearn.maskers import NiftiLabelsMasker
 from nilearn.connectome import ConnectivityMeasure
 from nilearn.interfaces.fmriprep import load_confounds
-from .color_utils import print_subtitle, print_result
+from .utils import print_subtitle, print_result
 
 
 # Define global parameters

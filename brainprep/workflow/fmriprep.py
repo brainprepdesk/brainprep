@@ -16,7 +16,7 @@ import os
 import tempfile
 import brainprep
 import shutil
-from brainprep.color_utils import print_subtitle
+from brainprep.utils import print_subtitle
 
 
 def brainprep_fmriprep(anatomical, functionals, subjid, descfile, fsdir,

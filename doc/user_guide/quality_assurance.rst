@@ -1,4 +1,4 @@
-.. _qa:
+.. _quality_assurance:
 
 Quality Assurance
 =================
@@ -30,6 +30,37 @@ Group-level reports help compare quality across subjects and sites.
 
 **Quality control**: We exclude data that MRIQC flags as deviating significantly
 from the group.
+
+Featured examples
+-----------------
+
+.. grid::
+
+  .. grid-item-card::
+    :link: ../auto_examples/plot_quality_assurance.html
+    :link-type: url
+    :columns: 12 12 12 12
+    :class-card: sd-shadow-sm
+    :margin: 2 2 auto auto
+
+    .. grid::
+      :gutter: 3
+      :margin: 0
+      :padding: 0
+
+      .. grid-item::
+        :columns: 12 4 4 4
+
+        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_quality_assurance_thumb.png
+
+      .. grid-item::
+        :columns: 12 8 8 8
+
+        .. div:: sd-font-weight-bold
+
+          Quality Assurance
+
+        Explore how to perform this analysis with a container.
 
 References
 ----------

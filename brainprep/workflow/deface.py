@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2021 - 2023
+# NSAp - Copyright (C) CEA, 2021 - 2026
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -11,24 +10,49 @@
 Interface for brain imaging defacing.
 """
 
-# System import
+from typing import Optional
+
+import matplotlib.pyplot as plt
 import nibabel
 import numpy as np
 from nilearn import plotting
-import matplotlib.pyplot as plt
+
 import brainprep
-from brainprep.color_utils import print_title, print_result
+from ..utils import (
+    Bunch,
+    print_result,
+    print_title,
+)
 
 
-def brainprep_deface(anatomical, outdir):
-    """ Define defacing pre-processing workflow.
+def brainprep_deface(
+        anatomical: str,
+        outdir: str) -> None:
+    """ Defacing pre-processing workflow.
+
+    The ``mri_deface`` FSL defacing function :footcite:p:`almagro2018deface`
+    is applied with default settings. It removes the face and ears.
 
     Parameters
     ----------
     anatomical: str
-        path to the anatomical T1w Nifti file.
+        path to the anatomical T1w image.
     outdir: str
         the destination folder.
+
+    Notes
+    -----
+    Give a T1w image as input.
+
+    Examples
+    --------
+    >>> from brainprep.workflow import brainprep_deface
+    >>> brainprep_deface(anatomical_file, outdir)
+
+    References
+    ----------
+
+    .. footbibliography::
     """
     print_title("Launch FSL defacing...")
     deface_anat, mask_anat = brainprep.deface(anatomical, outdir)
@@ -36,16 +60,21 @@ def brainprep_deface(anatomical, outdir):
     print_result(mask_anat)
 
 
-def brainprep_deface_qc(anatomical, anatomical_deface, deface_root,
-                        thr_mask=0.6):
-    """ Define defacing qc workflow.
+def brainprep_deface_qc(
+        anatomical: str,
+        anatomical_deface: str,
+        deface_root: str,
+        thr_mask: Optional[float] = 0.6) -> None:
+    """ Defacing QC workflow.
 
     Parameters
     ----------
     anatomical: str
-        path to the anatomical T1w Nifti file.
+        path to the anatomical T1w image.
     anatomical_deface: str
-        path to the defaced anatomical T1w Nifti file.
+        path to the defaced anatomical T1w image
+        (see :func:`~brainprep.workflow.deface.brainprep_deface` function to
+        generate this image).
     deface_root: str
         the destination filename root (without extension).
     thr_mask: float, default 0.6

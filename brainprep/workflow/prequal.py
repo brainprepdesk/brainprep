@@ -18,7 +18,7 @@ import shutil
 import tempfile
 import subprocess
 import pandas as pd
-from brainprep.color_utils import (
+from brainprep.utils import (
     print_result, print_subtitle, print_title, print_command)
 from brainprep.plotting import plot_hists
 from brainprep.utils import listify

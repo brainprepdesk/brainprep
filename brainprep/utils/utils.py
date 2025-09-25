@@ -20,7 +20,7 @@ import subprocess
 import numpy as np
 import pandas as pd
 import nibabel
-from .color_utils import print_command, print_error
+from .color import print_command, print_error
 
 
 def execute_command(command):
