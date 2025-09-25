@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.workflow.fsreconall.brainprep_fsreconall_longitudinal
+===============================================================
+
+.. currentmodule:: brainprep.workflow.fsreconall
+
+.. autofunction:: brainprep_fsreconall_longitudinal
+
+.. include:: brainprep.workflow.fsreconall.brainprep_fsreconall_longitudinal.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

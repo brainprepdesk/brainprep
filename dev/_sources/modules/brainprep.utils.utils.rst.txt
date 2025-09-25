@@ -1,0 +1,33 @@
+:mod:`brainprep.utils.utils`: Module that contains some utility functions.
+==========================================================================
+
+.. automodule:: brainprep.utils.utils
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.utils.utils
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    check_command
+    check_version
+    create_clickable
+    execute_command
+    get_bids_keys
+    listify
+    load_images
+    ungzip_file
+    write_matlabbatch
+
+
+
+

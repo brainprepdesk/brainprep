@@ -1,0 +1,29 @@
+:mod:`brainprep.tbss`: FSL TBSS tools.
+======================================
+
+.. automodule:: brainprep.tbss
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.tbss
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    dtifit
+    tbss_1_preproc
+    tbss_2_reg
+    tbss_3_postreg
+    tbss_4_prestats
+
+
+
+

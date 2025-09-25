@@ -1,0 +1,26 @@
+:mod:`brainprep.workflow.deface`: Interface for brain imaging defacing.
+=======================================================================
+
+.. automodule:: brainprep.workflow.deface
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.deface
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_deface
+    brainprep_deface_qc
+
+
+
+

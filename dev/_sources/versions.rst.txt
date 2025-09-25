@@ -1,0 +1,14 @@
+.. _versions:
+
+========
+Versions
+========
+
+Web-based documentation is available for versions listed below:
+
+
+* `dev documentation <https://neurospin-deepinsight.github.io/brainprep/dev>`_
+
+* `stable documentation <https://neurospin-deepinsight.github.io/brainprep/stable>`_
+
+* `0.0.2 documentation <https://neurospin-deepinsight.github.io/brainprep/0.0.2>`_

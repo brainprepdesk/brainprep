@@ -1,0 +1,187 @@
+brainprep
+=========
+
+
+
+Package that provides tools for brain MRI Deep Leanring PreProcessing.
+
+
+
+.. grid::
+
+    .. grid-item-card:: :fas:`rocket` Quickstart
+        :link: quickstart
+        :link-type: ref
+        :columns: 12 12 4 4
+        :class-card: sd-shadow-md
+        :class-title: sd-text-primary
+        :margin: 2 2 0 0
+
+        Get started with brainprep
+
+    .. grid-item-card:: :fas:`th` Examples
+        :link: auto_examples/index.html
+        :link-type: url
+        :columns: 12 12 4 4
+        :class-card: sd-shadow-md
+        :class-title: sd-text-primary
+        :margin: 2 2 0 0
+
+        Discover functionalities by reading examples
+
+    .. grid-item-card:: :fas:`book` User guide
+        :link: user_guide
+        :link-type: ref
+        :columns: 12 12 4 4
+        :class-card: sd-shadow-md
+        :class-title: sd-text-primary
+        :margin: 2 2 0 0
+
+        Learn about brainprep
+
+
+Featured works
+--------------
+
+.. raw:: html
+
+    <br/>
+    <div class="sphx-glr-thumbnails">
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform quality analysis…">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_quality_assurance_thumb.png
+    :alt: Basic brainprep example
+
+  :ref:`sphx_glr_auto_examples_plot_quality_assurance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform defacing…">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_defacing_thumb.png
+    :alt: Basic brainprep example
+
+  :ref:`sphx_glr_auto_examples_plot_defacing.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform brain parcellation…">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_brain_parcellation_thumb.png
+    :alt: Basic brainprep example
+
+  :ref:`sphx_glr_auto_examples_plot_brain_parcellation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform VBM…">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_vbm_thumb.png
+    :alt: Basic brainprep example
+
+  :ref:`sphx_glr_auto_examples_plot_vbm.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform Quasi Raw…">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_quasiraw_thumb.png
+    :alt: Basic brainprep example
+
+  :ref:`sphx_glr_auto_examples_plot_quasiraw.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform fMRI preprocessing…">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_fmriprep_thumb.png
+    :alt: Basic brainprep example
+
+  :ref:`sphx_glr_auto_examples_plot_fmriprep.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+    </div>
+
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+   :includehidden:
+   :titlesonly:
+
+   quickstart.md
+   auto_examples/index.rst
+   user_guide/index.rst
+   modules/index.rst
+   modules/search.rst
+
+.. toctree::
+   :hidden:
+   :caption: Development
+
+   contributing.rst
+   ci.rst
+   maintenance.rst
+   whats_new.rst
+   authors.rst
+   license.rst
+   versions.rst

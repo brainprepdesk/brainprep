@@ -1,0 +1,99 @@
+.. _api-search:
+
+==========
+API Search
+==========
+
+This is the class and function reference of ``brainprep``. Please refer to
+the :ref:`user guide <user_guide>` for more information and usage examples.
+
+.. raw:: html
+
+    <!-- Block section -->
+
+    <div class='my-search-bar'>
+      <i class='icon fa fa-search'></i>
+      <input type='text' id='my-search' onkeyup='mySearch()' placeholder='Search for functions & classes...' title='Search'>
+    </div>
+    <ul id='my-search-entries'>
+      <li><a href='generated/AnatomicalDataset.html'>AnatomicalDataset</a></li>
+      <li><a href='generated/Bunch.html'>Bunch</a></li>
+      <li><a href='generated/HEX.html'>HEX</a></li>
+      <li><a href='generated/apply_affine.html'>apply_affine</a></li>
+      <li><a href='generated/apply_mask.html'>apply_mask</a></li>
+      <li><a href='generated/attr.html'>attr</a></li>
+      <li><a href='generated/bet2.html'>bet2</a></li>
+      <li><a href='generated/biasfield.html'>biasfield</a></li>
+      <li><a href='generated/brainprep_cat12vbm.html'>brainprep_cat12vbm</a></li>
+      <li><a href='generated/brainprep_cat12vbm_qc.html'>brainprep_cat12vbm_qc</a></li>
+      <li><a href='generated/brainprep_cat12vbm_roi.html'>brainprep_cat12vbm_roi</a></li>
+      <li><a href='generated/brainprep_deface.html'>brainprep_deface</a></li>
+      <li><a href='generated/brainprep_deface_qc.html'>brainprep_deface_qc</a></li>
+      <li><a href='generated/brainprep_fmriprep.html'>brainprep_fmriprep</a></li>
+      <li><a href='generated/brainprep_fmriprep_conn.html'>brainprep_fmriprep_conn</a></li>
+      <li><a href='generated/brainprep_fsreconall.html'>brainprep_fsreconall</a></li>
+      <li><a href='generated/brainprep_fsreconall_longitudinal.html'>brainprep_fsreconall_longitudinal</a></li>
+      <li><a href='generated/brainprep_fsreconall_qc.html'>brainprep_fsreconall_qc</a></li>
+      <li><a href='generated/brainprep_fsreconall_summary.html'>brainprep_fsreconall_summary</a></li>
+      <li><a href='generated/brainprep_mriqc.html'>brainprep_mriqc</a></li>
+      <li><a href='generated/brainprep_mriqc_summary.html'>brainprep_mriqc_summary</a></li>
+      <li><a href='generated/brainprep_prequal.html'>brainprep_prequal</a></li>
+      <li><a href='generated/brainprep_prequal_qc.html'>brainprep_prequal_qc</a></li>
+      <li><a href='generated/brainprep_quasiraw.html'>brainprep_quasiraw</a></li>
+      <li><a href='generated/brainprep_quasiraw_qc.html'>brainprep_quasiraw_qc</a></li>
+      <li><a href='generated/brainprep_tbss.html'>brainprep_tbss</a></li>
+      <li><a href='generated/brainprep_tbss_preproc.html'>brainprep_tbss_preproc</a></li>
+      <li><a href='generated/check_command.html'>check_command</a></li>
+      <li><a href='generated/check_files.html'>check_files</a></li>
+      <li><a href='generated/check_version.html'>check_version</a></li>
+      <li><a href='generated/colored.html'>colored</a></li>
+      <li><a href='generated/compute_mean_correlation.html'>compute_mean_correlation</a></li>
+      <li><a href='generated/compute_score.html'>compute_score</a></li>
+      <li><a href='generated/create_clickable.html'>create_clickable</a></li>
+      <li><a href='generated/deface.html'>deface</a></li>
+      <li><a href='generated/detect_outliers.html'>detect_outliers</a></li>
+      <li><a href='generated/dtifit.html'>dtifit</a></li>
+      <li><a href='generated/execute_command.html'>execute_command</a></li>
+      <li><a href='generated/fg.html'>fg</a></li>
+      <li><a href='generated/filter_iqms.html'>filter_iqms</a></li>
+      <li><a href='generated/func_connectivity.html'>func_connectivity</a></li>
+      <li><a href='generated/get_bids_keys.html'>get_bids_keys</a></li>
+      <li><a href='generated/get_fsreconall_masks.html'>get_fsreconall_masks</a></li>
+      <li><a href='generated/interhemi_projection.html'>interhemi_projection</a></li>
+      <li><a href='generated/interhemi_surfreg.html'>interhemi_surfreg</a></li>
+      <li><a href='generated/listify.html'>listify</a></li>
+      <li><a href='generated/load_images.html'>load_images</a></li>
+      <li><a href='generated/load_iqms.html'>load_iqms</a></li>
+      <li><a href='generated/localgi.html'>localgi</a></li>
+      <li><a href='generated/merge_dfs.html'>merge_dfs</a></li>
+      <li><a href='generated/mri_conversion.html'>mri_conversion</a></li>
+      <li><a href='generated/parse_cat12vbm_qc.html'>parse_cat12vbm_qc</a></li>
+      <li><a href='generated/parse_cat12vbm_report.html'>parse_cat12vbm_report</a></li>
+      <li><a href='generated/parse_cat12vbm_roi.html'>parse_cat12vbm_roi</a></li>
+      <li><a href='generated/parse_fsreconall_stats.html'>parse_fsreconall_stats</a></li>
+      <li><a href='generated/plot_fsreconall.html'>plot_fsreconall</a></li>
+      <li><a href='generated/plot_hists.html'>plot_hists</a></li>
+      <li><a href='generated/plot_images.html'>plot_images</a></li>
+      <li><a href='generated/plot_iqms.html'>plot_iqms</a></li>
+      <li><a href='generated/plot_pca.html'>plot_pca</a></li>
+      <li><a href='generated/print_command.html'>print_command</a></li>
+      <li><a href='generated/print_error.html'>print_error</a></li>
+      <li><a href='generated/print_result.html'>print_result</a></li>
+      <li><a href='generated/print_subtitle.html'>print_subtitle</a></li>
+      <li><a href='generated/print_title.html'>print_title</a></li>
+      <li><a href='generated/query_api.html'>query_api</a></li>
+      <li><a href='generated/recon_all.html'>recon_all</a></li>
+      <li><a href='generated/recon_all_custom_wm_mask.html'>recon_all_custom_wm_mask</a></li>
+      <li><a href='generated/recon_all_longitudinal.html'>recon_all_longitudinal</a></li>
+      <li><a href='generated/register_affine.html'>register_affine</a></li>
+      <li><a href='generated/reorient2std.html'>reorient2std</a></li>
+      <li><a href='generated/scale.html'>scale</a></li>
+      <li><a href='generated/stats2table.html'>stats2table</a></li>
+      <li><a href='generated/stylize.html'>stylize</a></li>
+      <li><a href='generated/tbss_1_preproc.html'>tbss_1_preproc</a></li>
+      <li><a href='generated/tbss_2_reg.html'>tbss_2_reg</a></li>
+      <li><a href='generated/tbss_3_postreg.html'>tbss_3_postreg</a></li>
+      <li><a href='generated/tbss_4_prestats.html'>tbss_4_prestats</a></li>
+      <li><a href='generated/ungzip_file.html'>ungzip_file</a></li>
+      <li><a href='generated/write_matlabbatch.html'>write_matlabbatch</a></li>
+    </ul>

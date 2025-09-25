@@ -1,0 +1,103 @@
+.. _continuous integration:
+
+
+Continuous integration
+======================
+
+Continuous Integration (CI) tests are implemented via GithHub workflows.
+
+
+Documentation build and deploy
+------------------------------
+
+.. using a mermaid flowchart: https://mermaid.js.org/syntax/flowchart.html
+
+.. mermaid:: mermaid/doc_deploy.mmd
+
+The development docs are built using GitHub Actions.
+
+The workflow ``.github/workflows/documentation.yml`` builds the doc and
+deploy it on the ``dev`` (respectively ``main``).
+
+On pull-request a successful build of the doc by
+``.github/workflows/documentation.yml`` has no trigger.
+
+
+GitHub Actions Specification
+----------------------------
+
+
+
+documentation.yml
+^^^^^^^^^^^^^^^^^
+
+Workflow file: `documentation.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/documentation.yml>`_
+
+Workflow to build doc, upload it as artifact, and deploy it for the
+master, main and dev branches.
+
+To run this check locally from the `doc` folder:
+
+.. code-block:: bash
+
+  $ sphinxdoc -v 2 -p $MODULE_DIR -n brainprep -o $MODULE_DIR/doc
+  $ cd $MODULE_DIR/doc
+  $ make html-strict
+
+
+linters.yml
+^^^^^^^^^^^
+
+Workflow file: `linters.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/linters.yml>`_
+
+Workflow to check code format.
+
+To run this check locally from the repository folder:
+
+.. code-block:: bash
+
+  $ ruff check brainprep
+
+
+pep8.yml
+^^^^^^^^
+
+Workflow file: `pep8.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/pep8.yml>`_
+
+Workflow to check code format.
+
+To run this check locally from the repository folder:
+
+.. code-block:: bash
+
+  $ pycodestyle brainprep --ignore="E121,E123,E126,E226,E24,E704,E402,E731,E722,E741,W503,W504,W605,E305"
+
+
+release-documentation.yml
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Workflow file: `release-documentation.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/release-documentation.yml>`_
+
+Workflow to build doc, and deploy it using the version as a subdomain.
+
+To run this check locally from the `doc` folder:
+
+.. code-block:: bash
+
+  $ sphinxdoc -v 2 -p $MODULE_DIR -n $MODULE_NAME -o $MODULE_DIR/doc
+  $ cd $MODULE_DIR/doc
+  $ make html-strict
+
+
+testing.yml
+^^^^^^^^^^^
+
+Workflow file: `testing.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/testing.yml>`_
+
+Workflow to perform testings and code coverage.
+
+To run this check locally from the `doc` folder:
+
+.. code-block:: bash
+
+  $ nosetests --with-coverage --cover-package=brainprep --verbosity=2

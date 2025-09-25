@@ -1,0 +1,27 @@
+:mod:`brainprep.workflow.cat12vbm`: Interface for CAT12 VBM.
+============================================================
+
+.. automodule:: brainprep.workflow.cat12vbm
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.cat12vbm
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_cat12vbm
+    brainprep_cat12vbm_qc
+    brainprep_cat12vbm_roi
+
+
+
+

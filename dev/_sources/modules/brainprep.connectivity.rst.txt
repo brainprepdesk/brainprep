@@ -1,0 +1,25 @@
+:mod:`brainprep.connectivity`: Import pre-processed images and confounds from fMRIPrep and generate
+===================================================================================================
+
+.. automodule:: brainprep.connectivity
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.connectivity
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    func_connectivity
+
+
+
+

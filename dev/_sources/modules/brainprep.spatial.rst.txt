@@ -1,0 +1,31 @@
+:mod:`brainprep.spatial`: Common functions to spatialy normalize the data.
+==========================================================================
+
+.. automodule:: brainprep.spatial
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.spatial
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    apply_affine
+    apply_mask
+    bet2
+    biasfield
+    register_affine
+    reorient2std
+    scale
+
+
+
+

@@ -1,0 +1,25 @@
+:mod:`brainprep.deface`: Common defacing functions.
+===================================================
+
+.. automodule:: brainprep.deface
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.deface
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    deface
+
+
+
+

@@ -1,0 +1,32 @@
+:mod:`brainprep.cortical`: Common cortical functions.
+=====================================================
+
+.. automodule:: brainprep.cortical
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.cortical
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    interhemi_projection
+    interhemi_surfreg
+    localgi
+    mri_conversion
+    recon_all
+    recon_all_custom_wm_mask
+    recon_all_longitudinal
+    stats2table
+
+
+
+
