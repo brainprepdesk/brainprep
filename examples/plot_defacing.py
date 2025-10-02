@@ -33,4 +33,9 @@ print(data)
 # 
 # Now let's perform the pre-processing on a brainprep container.
 
+from brainprep.workflow import brainprep_deface
 
+brainprep_deface(
+    anatomical=data["sub-01"],
+    outdir="/tmp/brainprep-defacinng",
+)

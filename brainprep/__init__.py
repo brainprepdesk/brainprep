@@ -11,7 +11,7 @@
 Package that provides tools for brain MRI Deep Leanring PreProcessing.
 """
 
-__version__ = "1.0.0.dev"
+from ._version import __version__
 from .utils import (
     write_matlabbatch, check_command, check_version, execute_command)
 from .spatial import (

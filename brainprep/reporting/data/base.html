@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css"
+      integrity="sha512-X/RSQYxFb/tvuz6aNRTfKXDnQzmnzoawgEQ4X8nZNftzs8KFFH23p/BA6D2k0QCM4R0sY1DEy9MIY9b3fwi+bg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+      integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+      crossorigin="anonymous"
+    />
+    
+    <style type="text/css">
+       {{ css }}
+    </style>
+
+    <title>BrainPrepQC</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/refs/heads/dev/doc/logos/favicon.ico"
+    />
+  </head>
+  <body>
+
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <i class="fa fa-close js-menu-toggle"></i>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+    
+    
+    <div class="site-navbar-wrap">
+      <div class="site-navbar-top">
+        <div class="container py-3">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <div class="d-flex mr-auto">
+                <div class="d-flex align-items-center mr-4">
+                  <span class="d-none d-md-inline-block">{{ title }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 text-right">
+              <div class="mr-auto">
+                <a href="https://github.com/neurospin-deepinsight/brainprep" class="p-2 pl-0"><i class="fa fa-github"></i></a>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-navbar site-navbar-target js-sticky-header">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-2">
+              <h1 class="my-0 site-logo"><a href="#workflow-details-{{ uuid }}">Home</a></h1>
+            </div>
+            <div class="col-10">
+              <nav class="site-navigation text-right" role="navigation">
+                <div class="container">
+                  <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><i class="fa fa-bars fa-2x"></i><span class="h3"></span></a></div>
+
+                  <ul class="site-menu main-menu js-clone-nav d-none d-lg-block">
+                    {% block nav %}
+                    {% endblock nav %}
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="hero"></div>
+
+    <div class="pure-g d-flex justify-content-center my-1">
+      <div
+        class="pure-u-7-8 pure-u-md-7-8 d-flex flex-column justify-content-space-around main-container"
+      >
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </div>
+  
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.min.js"
+      integrity="sha512-QABeEm/oYtKZVyaO8mQQjePTPplrV8qoT7PrwHDJCBLqZl5UmuPi3APEcWwtTNOiH24psax69XPQtEo5dAkGcA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      {{ js }}
+      {% for workflow in workflows %}
+        {% if workflow.content and workflow.content|length > 1 %}
+          document.addEventListener("DOMContentLoaded", function () {
+            new Carousel("{{ workflow.id }}-{{ uuid }}", {{ range(1, workflow.content|length + 1) | list }});
+          });
+        {% endif %}
+      {% endfor %}
+    </script>
+  </body>
+</html>

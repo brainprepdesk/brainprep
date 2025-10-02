@@ -7,15 +7,18 @@
 ##########################################################################
 
 """
-Module that implements tools.
+Module that implements datasets.
 """
 
-from .bunch import Bunch
-from .color import *
-from .decorators import (
-    runtime,
-    signature,
-)
-from .utils import *
 
-__all__ = []
+from .anatomical import (
+    AnatomicalDataset,
+)
+from .utils import (
+    git_download,
+)
+
+__all__ = [
+    "AnatomicalDataset",
+    "git_download"
+]

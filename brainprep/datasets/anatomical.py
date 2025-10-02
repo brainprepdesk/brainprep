@@ -10,14 +10,15 @@
 Fetch some data.
 """
 
-from typing import Optional
-
 import os
 from pathlib import Path
-import shutil
-import requests
-from .utils import (
+from typing import Optional
+
+from ..utils import (
     Bunch,
+)
+from .utils import (
+    git_download,
 )
 
 
@@ -150,29 +151,9 @@ class AnatomicalDataset:
 
         for url, destination in to_download:
             if not os.path.isfile(destination):
-                self.git_download(url, destination)
+                git_download(url, destination)
 
         return dataset
-
-    @classmethod
-    def git_download(
-            cls,
-            url: str,
-            destination: Path) -> None:
-        """ Download data from GitHub.
-
-        Parameters
-        ----------
-        url: str
-            the link to the data.
-        destination: Path
-            the location of the downloaded data.
-        """
-        response = requests.get(url, stream=True)
-        with destination.open("wb") as of:
-            response.raw.decode_content = False
-            shutil.copyfileobj(response.raw, of)
-        del response
 
     def sanity_check(
             self,

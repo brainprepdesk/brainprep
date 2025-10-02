@@ -7,15 +7,12 @@
 ##########################################################################
 
 """
-Module that implements tools.
+Module that implements reporting tools.
 """
 
-from .bunch import Bunch
-from .color import *
-from .decorators import (
-    runtime,
-    signature,
-)
-from .utils import *
 
-__all__ = []
+from .html_reporting import (
+    generate_qc_report,
+)
+
+__all__ = ["generate_qc_report"]

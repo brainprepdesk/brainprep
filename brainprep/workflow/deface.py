@@ -22,9 +22,13 @@ from ..utils import (
     Bunch,
     print_result,
     print_title,
+    runtime,
+    signature,
 )
 
 
+@runtime
+@signature
 def brainprep_deface(
         anatomical: str,
         outdir: str) -> None:
@@ -54,10 +58,11 @@ def brainprep_deface(
 
     .. footbibliography::
     """
-    print_title("Launch FSL defacing...")
-    deface_anat, mask_anat = brainprep.deface(anatomical, outdir)
-    print_result(deface_anat)
-    print_result(mask_anat)
+    #print_title("Launch FSL defacing...")
+    deface_anat, mask_anat = None, None # brainprep.deface(anatomical, outdir)
+    #print_result(deface_anat)
+    #print_result(mask_anat)
+    return Bunch(deface_anat=deface_anat, mask_anat=mask_anat)
 
 
 def brainprep_deface_qc(
