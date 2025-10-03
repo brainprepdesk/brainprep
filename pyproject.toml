@@ -1,6 +1,8 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools-scm"]
+requires = ["setuptools>=64", "wheel", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
 
 [project]
 name = "brainprep"
@@ -25,9 +27,11 @@ dependencies = [
     "nilearn",
     "matplotlib",
     "seaborn",
-    "requests",
     "progressbar2",
-    "fire"
+    "requests",
+    "decorator",
+    "Jinja2",
+    "fire",
 ]
 dynamic = ["version"]
 
@@ -44,7 +48,7 @@ script-files = [
 ]
 
 [tool.setuptools.dynamic]
-version = {attr = "brainprep.__version__"}
+version = {attr = "brainprep._version.__version__"}
 
 [tool.setuptools.packages.find]
 exclude = ["doc"]
