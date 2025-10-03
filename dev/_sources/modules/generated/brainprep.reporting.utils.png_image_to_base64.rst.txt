@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.reporting.utils.png_image_to_base64
+=============================================
+
+.. currentmodule:: brainprep.reporting.utils
+
+.. autofunction:: png_image_to_base64
+
+.. include:: brainprep.reporting.utils.png_image_to_base64.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

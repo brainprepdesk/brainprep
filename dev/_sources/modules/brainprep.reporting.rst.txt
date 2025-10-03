@@ -1,0 +1,39 @@
+:mod:`brainprep.reporting`: Module that implements reporting tools.
+===================================================================
+
+.. automodule:: brainprep.reporting
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    RSTReport
+
+.. .. autoclasstree:: brainprep.reporting
+       :strict:
+       :align: center
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    generate_qc_report
+
+
+
+

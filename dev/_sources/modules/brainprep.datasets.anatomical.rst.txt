@@ -1,0 +1,29 @@
+:mod:`brainprep.datasets.anatomical`: Fetch some data.
+======================================================
+
+.. automodule:: brainprep.datasets.anatomical
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.datasets.anatomical
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    AnatomicalDataset
+
+.. .. autoclasstree:: brainprep.datasets.anatomical
+       :strict:
+       :align: center
+
+
+
+
+
+

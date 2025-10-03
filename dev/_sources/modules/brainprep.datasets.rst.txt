@@ -1,5 +1,5 @@
-:mod:`brainprep.datasets`: Fetch some data.
-===========================================
+:mod:`brainprep.datasets`: Module that implements datasets.
+===========================================================
 
 .. automodule:: brainprep.datasets
    :no-members:
@@ -23,6 +23,16 @@ Classes
        :align: center
 
 
+Functions
+---------
+
+.. currentmodule:: brainprep.datasets
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    git_download
 
 
 

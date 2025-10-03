@@ -33,4 +33,12 @@ print(data)
 # 
 # Now let's perform the pre-processing on a brainprep container.
 
+from brainprep.workflow import brainprep_deface
+from brainprep.reporting import RSTReport
 
+report = RSTReport()
+brainprep_deface(
+    anatomical=data["sub-01"],
+    outdir="/tmp/brainprep-defacinng",
+)
+print(report)

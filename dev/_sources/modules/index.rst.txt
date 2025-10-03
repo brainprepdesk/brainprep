@@ -12,10 +12,16 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
 
    brainprep.connectivity.rst
    brainprep.cortical.rst
+   brainprep.datasets.anatomical.rst
    brainprep.datasets.rst
+   brainprep.datasets.utils.rst
    brainprep.deface.rst
    brainprep.plotting.rst
    brainprep.qc.rst
+   brainprep.reporting.html_reporting.rst
+   brainprep.reporting.rst
+   brainprep.reporting.rst_reporting.rst
+   brainprep.reporting.utils.rst
    brainprep.spatial.rst
    brainprep.tbss.rst
    brainprep.utils.bunch.rst

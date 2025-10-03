@@ -24,4 +24,5 @@ Table of contents
    dmriprep.rst
    tbss.rst
    fmriprep.rst
+   reporting.rst
    glossary.rst

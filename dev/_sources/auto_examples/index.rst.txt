@@ -53,6 +53,23 @@ Examples
 
 .. only:: html
 
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_html_reporting_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_plot_html_reporting.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">HTML reporting</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
   .. image:: /auto_examples/images/thumb/sphx_glr_plot_quality_assurance_thumb.png
     :alt:
 
@@ -78,6 +95,23 @@ Examples
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Quasi RAW Pre-Processing</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_rst_reporting_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_plot_rst_reporting.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">RST reporting</div>
     </div>
 
 
@@ -127,8 +161,10 @@ Examples
 
    /auto_examples/plot_brain_parcellation
    /auto_examples/plot_defacing
+   /auto_examples/plot_html_reporting
    /auto_examples/plot_quality_assurance
    /auto_examples/plot_quasiraw
+   /auto_examples/plot_rst_reporting
    /auto_examples/plot_vbm
    /auto_examples/plot_fmriprep
 
