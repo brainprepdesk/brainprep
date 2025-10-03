@@ -23,32 +23,59 @@ from .utils import (
 
 
 def generate_qc_report(title, docstring, version, date, data):
-    """ Generate a QC report.
+    """
+    Generate a quality control (QC) report as an interactive HTML document.
 
-    Reports are useful to visualize steps in a processing workflow.
+    This function compiles visual and tabular data into a structured HTML
+    report using a predefined template. It is useful for documenting and
+    reviewing steps in a data processing workflow.
 
     Parameters
     ----------
-    title: str
-        The report title.
-    docstring: str
-        The introductory docstring for the reported object.
-    version: str
-        A version.
-    date: str
-        A timestamp.
-    data: dict
-        A dictionary holding the data to be added to the report.
-        The keys must match exactly the ones used in the template:
-            - name (str): a title.
-            - content (str or list of str): an image or a list of images.
-            - overlay (str): overlaid iamge, to appear on hover.
-            - tables: (DataFrame or list of FataFrame): tables.
+    title : str
+        The title displayed at the top of the report.
+    docstring : str
+        A descriptive introduction or summary of the report's purpose.
+    version : str
+        Version identifier for the report or associated software.
+    date : str
+        Timestamp indicating when the report was generated.
+    data : list of dict
+        A list of dictionaries, each representing a workflow step. Each
+        dictionary must contain the following keys:
+            - name (str): Title of the step.
+            - content (Path or list of Path): Image(s) to display.
+            - overlay (Path): Image(s) to show on hover.
+            - tables (DataFrame or list of DataFrame): Tabular data to include.
 
     Returns
     -------
-    report: HTMLReport
-        An instance of a populated HTML report.
+    report : HTMLReport
+        An instance of `HTMLReport` containing the rendered HTML content.
+
+    Notes
+    -----
+    - Images are converted to base64 for inline embedding.
+    - Tables are rendered as HTML using `dataframe_to_html`.
+
+    Examples
+    --------
+    >>> from pathlib import Path
+    >>> from pandas import DataFrame
+    >>> data = [{
+    ...     "name": "Step 1",
+    ...     "content": Path("image1.png"),
+    ...     "overlay": Path("image1_overlay.png"),
+    ...     "tables": DataFrame({"A": [1, 2], "B": [3, 4]})
+    ... }]
+    >>> report = generate_qc_report(
+    ...     title="QC Summary",
+    ...     docstring="Overview of preprocessing steps.",
+    ...     version="1.0",
+    ...     date="2025-10-03",
+    ...     data=data
+    ... )
+    >>> report.save_as_html("qc_report.html")
     """
     template_path = Path(__file__).parent / "data" / "body.html"
     css_path = Path(__file__).parent / "data" / "style.css"
@@ -104,25 +131,50 @@ def generate_qc_report(title, docstring, version, date, data):
 
 
 class HTMLReport:
-    """ Render HTML content in a web page.
+    """
+    Render and manage HTML content for display in web pages or Jupyter
+    notebooks.
 
-    Different rendering are possible:
+    This class encapsulates HTML content and provides utilities for rendering
+    it inline (e.g., in Jupyter), resizing the display area, and exporting to
+    an HTML file.
+    It supports iframe embedding and integrates with notebook display
+    protocols.
+
+    The different rendering are available as follows:
     - print the object to get the content of the web page.
     - from a Jupyter notebook, the plot will be displayed inline if this object
       is the output of a cell.
     - use :meth:`~brainprep.reporting.HTMLDocument.save_as_html` to save it as
       an html file.
     - use :meth:`~brainprep.reporting.HTMLDocument.get_iframe` to have it
-      wrapped in an iframe
+      wrapped in an iframe.
 
     Parameters
     ----------
-    html: str
-        The page content.
-    width: int, defaut 800
-        Width of the document.
-    height: int, defaut 800
-        Height of the document.
+    html : str
+        The HTML content to be rendered.
+    width : int, default 800
+        Width of the display area in pixels.
+    height : int, defaul 800
+        Height of the display area in pixels.
+
+    Attributes
+    ----------
+    html : str
+        The raw HTML content.
+    width : int
+        Current width of the display area.
+    height : int
+        Current height of the display area.
+
+    Examples
+    --------
+    >>> html = "<h1>Hello, world!</h1>"
+    >>> report = HTMLReport(html)
+    >>> print(report)
+    <h1>Hello, world!</h1>
+    >>> report.save_as_html("output.html")
     """
     def __init__(
             self,
@@ -139,7 +191,8 @@ class HTMLReport:
             self,
             width: int,
             height: int) -> Self:
-        """ Resize the document displayed.
+        """
+        Resize the document displayed.
 
         Parameters
         ----------
@@ -160,7 +213,8 @@ class HTMLReport:
             self,
             width: Optional[int] = None,
             height: Optional[int] = None) -> str:
-        """ Get the document wrapped in an inline frame.
+        """
+        Get the document wrapped in an inline frame.
 
         Notes
         -----
@@ -192,7 +246,8 @@ class HTMLReport:
         return wrapped
 
     def _repr_html_(self):
-        """ Return html representation of the plot.
+        """
+         Return iframe-wrapped HTML for Jupyter notebook rendering.
 
         Notes
         -----
@@ -203,7 +258,8 @@ class HTMLReport:
         return self.get_iframe()
 
     def _repr_mimebundle_(self, include=None, exclude=None):
-        """ Return html representation of the plot.
+        """
+        Return html representation of the plot.
 
         Notes
         -----
@@ -220,8 +276,8 @@ class HTMLReport:
     def save_as_html(
             self,
             file_name: str) -> None:
-        """ Save the plot in an HTML file, that can later be opened
-        in a browser.
+        """
+        Save the plot in an HTML file, that can later be opened in a browser.
 
         Parameters
         ----------
