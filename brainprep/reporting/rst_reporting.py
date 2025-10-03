@@ -98,12 +98,14 @@ class RSTReport(metaclass=SingletonReport):
     instance exists.
 
     Different renderings are possible:
+
     - print the object to get the Bunch content.
-    - use :meth:`~brainprep.reporting.RSTReport.save_as_rst` to save it as
-      a rst file.
+    - use :meth:`~brainprep.reporting.rst_reporting.RSTReport.save_as_rst` to
+      save it as a rst file.
 
     To add a new data entry to the report under a given identifier and name
-    use the :meth:`~brainprep.reporting.RSTReport.register` method.
+    use the :meth:`~brainprep.reporting.rst_reporting.RSTReport.register`
+    method.
 
     Parameters
     ----------
@@ -160,7 +162,7 @@ class RSTReport(metaclass=SingletonReport):
 
         Two data types are supported:
         - string for the 'module' and 'description' data elements.
-        - :class:`~brainprep.util.Bunch` otherwise.
+        - :class:`~brainprep.utils.bunch.Bunch` otherwise.
 
         Parameters
         ----------

@@ -43,10 +43,10 @@ def generate_qc_report(title, docstring, version, date, data):
     data : list of dict
         A list of dictionaries, each representing a workflow step. Each
         dictionary must contain the following keys:
-            - name (str): Title of the step.
-            - content (Path or list of Path): Image(s) to display.
-            - overlay (Path): Image(s) to show on hover.
-            - tables (DataFrame or list of DataFrame): Tabular data to include.
+        - name (str): Title of the step.
+        - content (Path or list of Path): Image(s) to display.
+        - overlay (Path): Image(s) to show on hover.
+        - tables (DataFrame or list of DataFrame): Tabular data to include.
 
     Returns
     -------
@@ -142,13 +142,14 @@ class HTMLReport:
     protocols.
 
     The different rendering are available as follows:
+
     - print the object to get the content of the web page.
     - from a Jupyter notebook, the plot will be displayed inline if this object
       is the output of a cell.
-    - use :meth:`~brainprep.reporting.HTMLDocument.save_as_html` to save it as
-      an html file.
-    - use :meth:`~brainprep.reporting.HTMLDocument.get_iframe` to have it
-      wrapped in an iframe.
+    - use :meth:`~brainprep.reporting.html_reporting.HTMLReport.save_as_html`
+      to save it as an html file.
+    - use :meth:`~brainprep.reporting.html_reporting.HTMLReport.get_iframe`
+      to have it wrapped in an iframe.
 
     Parameters
     ----------

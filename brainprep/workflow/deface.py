@@ -22,13 +22,11 @@ from ..utils import (
     Bunch,
     print_result,
     print_title,
-    runtime,
-    signature,
 )
+from ..reporting import log_runtime
 
 
-@runtime
-@signature
+@log_runtime
 def brainprep_deface(
         anatomical: str,
         outdir: str) -> None:
