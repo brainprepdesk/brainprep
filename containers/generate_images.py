@@ -47,7 +47,7 @@ def main(working_dir):
         cmds += "sudo docker build --no-cache --tag brainprep-$IMG .\n"
         cmds += "sudo docker images\n"
         cmds += ("sudo docker save -o brainprep-$IMG-{0}.tar "
-                 "brainprep-$IMG:{0}\n".format(today))
+                 "brainprep-$IMG:latest\n".format(today))
         cmds += "sudo chmod 755 brainprep-$IMG-{}.tar\n".format(today)
         cmds += ("sudo SINGULARITY_TMPDIR=$WDIR/tmp SINGULARITY_CACHEDIR="
                  "$WDIR/cache singularity build brainprep-$IMG-{}.simg "
