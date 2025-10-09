@@ -28,6 +28,7 @@ fg_colors = {
     "title": "gold_3b",
     "subtitle": "orange_4b",
     "command": "grey_46",
+    "info": "blue_1",
     "result": "pink_3",
     "error": "red"}
 
@@ -665,17 +666,23 @@ def print_subtitle(title):
 
 def print_command(command):
     if IS_COLOR_TERM:
-        command = stylize(command, fg(fg_colors["command"]))
+        command = stylize(f"[command] {command}", fg(fg_colors["command"]))
     print(command)
+
+
+def print_info(info):
+    if IS_COLOR_TERM:
+        info = stylize(f"[info] {info}", fg(fg_colors["info"]))
+    print(info)
 
 
 def print_result(result):
     if IS_COLOR_TERM:
-        result = stylize(result, fg(fg_colors["result"]))
+        result = stylize(f"[output] {result}", fg(fg_colors["result"]))
     print(result)
 
 
 def print_error(error):
     if IS_COLOR_TERM:
-        error = stylize(error, fg(fg_colors["error"]))
+        error = stylize(f"[error] {error}", fg(fg_colors["error"]))
     print(error)

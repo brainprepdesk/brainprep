@@ -4,7 +4,7 @@ Defacing
 
 Simple example.
 
-Example on how to run the defacing pre-processing using brainprep.
+Example on how to run the defacing pre-processing using BrainPrep.
 See :ref:`user guide <defacing>` for details.
 
 Data
@@ -28,17 +28,36 @@ print(data)
 
 
 # %%
+# Analysis
+# --------
+# 
+# Let's now perform preprocessing using the BrainPrep.
+# As with many tutorials, we won't execute the code directly here.
+# However, feel free to set the 'dryrun' configuration to False
+# to actually run each step and generate results on disk.
+
+
+from brainprep.workflow import brainprep_defacing
+from brainprep.wrappers import WrapperConfig
+from brainprep.reporting import RSTReport
+
+outdir = Path("/tmp/brainprep-defacing")
+outdir.mkdir(parents=True, exist_ok=True)
+report = RSTReport()
+with WrapperConfig(dryrun=True):
+    brainprep_defacing(
+        t1_file=data["sub-01"],
+        output_dir=outdir,
+        keep_intermediate=True,
+    )
+print(report)
+
+
+# %%
 # Container
 # ---------
 # 
-# Now let's perform the pre-processing on a brainprep container.
+# Let's now perform preprocessing using the BrainPrep container.
+#
+# Coming soon!
 
-from brainprep.workflow import brainprep_deface
-from brainprep.reporting import RSTReport
-
-report = RSTReport()
-brainprep_deface(
-    anatomical=data["sub-01"],
-    outdir="/tmp/brainprep-defacinng",
-)
-print(report)

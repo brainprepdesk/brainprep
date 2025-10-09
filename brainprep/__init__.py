@@ -20,7 +20,6 @@ from .spatial import (
 from .cortical import (
     recon_all, localgi, stats2table, interhemi_surfreg, interhemi_projection,
     mri_conversion, recon_all_custom_wm_mask, recon_all_longitudinal)
-from .deface import deface
 from .connectivity import func_connectivity
 from .tbss import (
     dtifit, tbss_1_preproc, tbss_2_reg, tbss_3_postreg, tbss_4_prestats)

@@ -14,6 +14,10 @@ import os
 from pathlib import Path
 from typing import Optional
 
+from ..typing import (
+    Directory,
+    File,
+)
 from ..utils import (
     Bunch,
 )
@@ -23,7 +27,8 @@ from .utils import (
 
 
 class AnatomicalDataset:
-    """ Anatomical dataset.
+    """
+    Anatomical dataset.
 
     This `dataset <https://github.com/muschellij2/open_ms_data>`_ contains
     Magnetic Resonance (MR) images of Multiple Sclerosis (MS)
@@ -38,8 +43,8 @@ class AnatomicalDataset:
 
     Attributes
     ----------
-    datadir: Path
-        directory where data will be stored.
+    datadir: Directory
+        Directory where data will be stored.
 
     Examples
     --------
@@ -55,7 +60,7 @@ class AnatomicalDataset:
     ... )
     >>> print(data)
     Bunch(
-      sub-01: PosixPath('/tmp/brainprep-data/sub-01_T1w.nii.gz')
+      sub-01: PosixPath('/tmp/brainprep-data/sub-01/anat/sub-01_T1w.nii.gz')
     )
 
     Raises
@@ -65,13 +70,13 @@ class AnatomicalDataset:
         :meth:`~brainprep.datasets.AnatomicalDataset.fetch` method.
     """
     _url = (
-        "https://raw.github.com/muschellij2/open_ms_data/master/"
-        "{dtype}/raw/patient{subject}/{basename}.nii.gz"
+        "https://raw.githubusercontent.com/muschellij2/open_ms_data/refs/"
+        "heads/master/{dtype}/raw/patient{subject}/{basename}.nii.gz"
     )
 
     def __init__(
             self,
-            datadir: Path) -> None:
+            datadir: Directory) -> None:
         """ Init class.
         """
         self.datadir = datadir
@@ -84,8 +89,8 @@ class AnatomicalDataset:
             [f"{str(subject).zfill(2)}" for subject in range(1, 21)],
         ]
         self.allowed_modalities = [
-            "T1w",
-            "T2w",
+            "T1W",
+            "T2W",
             "FLAIR",
         ]
         self.timepoints = [
@@ -118,7 +123,7 @@ class AnatomicalDataset:
             'sub-{subject}_ses-{timepoint}' for cross sectional and
             longitudinal data, respectively.
         """
-        self.sanity_check(subject, modality, dtype)
+        self.sanity_check(subject, modality.upper(), dtype)
 
         dataset = Bunch()
         to_download = []
@@ -132,20 +137,30 @@ class AnatomicalDataset:
                 )
                 destination = (
                     self.datadir /
+                    "rawdata" /
+                    f"sub-{subject}" /
+                    f"ses-{timepoint}" /
+                    "anat" /
                     f"sub-{subject}_ses-{timepoint}_{modality}.nii.gz"
                 )
+                destination.parent.mkdir(parents=True, exist_ok=True)
                 dataset[f"sub-{subject}_ses-{timepoint}"] = destination
                 to_download.append((url, destination))
         else:
             url = self._url.format(
                 dtype=dtype,
                 subject=subject,
-                basename=modality,
+                basename=modality.upper(),
             )
             destination = (
                 self.datadir /
+                "rawdata" /
+                f"sub-{subject}" /
+                "ses-01" /
+                "anat" /
                 f"sub-{subject}_{modality}.nii.gz"
             )
+            destination.parent.mkdir(parents=True, exist_ok=True)
             dataset[f"sub-{subject}"] = destination
             to_download.append((url, destination))
 

@@ -11,7 +11,24 @@ Module that implements tools.
 """
 
 from .bunch import Bunch
-from .color import *
-from .utils import *
+from .color import (
+    print_command,
+    print_error,
+    print_info,
+    print_result,
+    print_subtitle,
+    print_title,
+)
+from .utils import (
+    bids,
+    check_command,
+    check_version,
+    create_clickable,
+    execute_command,
+    listify,
+    load_images,
+    parse_bids_keys,
+    write_matlabbatch,
+)
 
 __all__ = []

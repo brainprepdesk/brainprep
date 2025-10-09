@@ -14,6 +14,9 @@ import brainprep.workflow as wf
 
 
 fire.Fire({
+    "subject-level-qa": wf.brainprep_quality_assurance,
+    "group-level-qa": wf.brainprep_group_quality_assurance,
+    "defacing": wf.brainprep_defacing,
     "fsreconall": wf.brainprep_fsreconall,
     "fsreconall-summary": wf.brainprep_fsreconall_summary,
     "fsreconall-qc": wf.brainprep_fsreconall_qc,
@@ -25,10 +28,6 @@ fire.Fire({
     "quasiraw-qc": wf.brainprep_quasiraw_qc,
     "fmriprep": wf.brainprep_fmriprep,
     "fmriprep-conn": wf.brainprep_fmriprep_conn,
-    "mriqc": wf.brainprep_mriqc,
-    "mriqc-summary": wf.brainprep_mriqc_summary,
-    "deface": wf.brainprep_deface,
-    "deface-qc": wf.brainprep_deface_qc,
     "tbss-preproc": wf.brainprep_tbss_preproc,
     "tbss": wf.brainprep_tbss,
     "dmriprep": wf.brainprep_prequal,

@@ -20,7 +20,7 @@ import progressbar
 from nilearn import plotting
 import matplotlib.pyplot as plt
 import seaborn as sns
-from .utils import get_bids_keys
+from .utils import parse_bids_keys
 
 
 def plot_images(nii_files, cut_coords, outdir):

@@ -20,7 +20,10 @@ from typing import Union
 from decorator import decorator
 
 from .._version import __version__
-from ..utils import Bunch
+from ..utils import (
+    Bunch,
+    print_title,
+)
 
 
 class SingletonReport(type):
@@ -37,9 +40,6 @@ class SingletonReport(type):
     ----------
     _instance : object or None
         The singleton instance of the class.
-    _count : int
-        Counter tracking how many times a reloadable instance has been
-        requested.
 
     Parameters
     ----------
@@ -65,24 +65,22 @@ class SingletonReport(type):
     True
     """
     _instance = None
-    _count = 0
 
     def __call__(cls, *args, **kwargs):
-        if kwargs.get("reloadable"):
-            cls._count += 1
-        else:
-            cls._count = 0
+        is_reloadable = kwargs.get("reloadable", False)
+        is_increment = kwargs.get("increment", False)
         if cls._instance is None:
             cls._instance = super().__call__(
                 *args, **kwargs
             )
         inst = cls._instance
-        if kwargs.get("reloadable"):
-            inst._reloadable = True
-        else:
-            inst._reloadable = False
-        if "reloadable" not in kwargs or not kwargs["reloadable"]:
+        if not is_reloadable:
+            inst._count = 0
             inst._registry.clear()
+        if is_increment:
+            inst._count += 1
+        inst._reloadable = is_reloadable
+        inst._increment = is_increment
         return inst
 
 
@@ -111,6 +109,8 @@ class RSTReport(metaclass=SingletonReport):
     ----------
     reloadable : bool, default False
         If False, the report content is automatically reset upon instantiation.
+    increment : bool, default False
+        If False, the inner step counter is not incremented upon instantiation.
 
     Attributes
     ----------
@@ -118,11 +118,14 @@ class RSTReport(metaclass=SingletonReport):
         Internal storage for all registered report data.
     _reloadable : bool
         Indicates whether the report instance is reloadable.
+    _count : int
+        Counter tracking how many times a reloadable instance has been
+        requested.
 
     Notes
     -----
     Supported data types for registration include:
-    - `str` for metadata fields "module" and "description".
+    - `str` for metadata fields "module" "trace" and "description".
     - `Bunch` for other structured data blocks.
 
     Examples
@@ -146,11 +149,15 @@ class RSTReport(metaclass=SingletonReport):
     >>> report.save_as_rst("report.rst")
     """
     _registry = Bunch()
+    _str_fields = ("module", "trace", "description")
 
     def __init__(
             self,
-            reloadable: bool = False) -> None:
+            reloadable: bool = False,
+            increment: bool = False) -> None:
         self._reloadable = reloadable
+        self._increment = increment
+        self._count = 0
 
     def register(
             self,
@@ -161,7 +168,7 @@ class RSTReport(metaclass=SingletonReport):
         Add a new data entry to the report under a given identifier and name.
 
         Two data types are supported:
-        - string for the 'module' and 'description' data elements.
+        - string for the 'module', 'trace' and 'description' data elements.
         - :class:`~brainprep.utils.bunch.Bunch` otherwise.
 
         Parameters
@@ -185,7 +192,7 @@ class RSTReport(metaclass=SingletonReport):
                 "Duplicated name in registery."
             )
         if not (isinstance(data, Bunch) or
-                (isinstance(data, str) and name in ("module", "description"))
+                (isinstance(data, str) and name in self._str_fields)
                 ):
             raise ValueError(
                 "Registered data must be of type Bunch or str."
@@ -210,12 +217,15 @@ class RSTReport(metaclass=SingletonReport):
         for identifier, record in self._registry.items():
             module = record.get("module", "")
             description = record.get("description")
-            title = f"{identifier.upper()}:{module}"
-            report += f"{title}\n{'=' * len(title)}\n\n"
+            trace = record.get("trace")
+            title = f"{identifier.upper()}: {module}"
+            report += f"\n\n{title}\n{'=' * len(title)}\n\n"
             if description is not None:
                 report += f"{textwrap.dedent(description)}\n\n"
+            if trace is not None:
+                report += f"Depends on: {trace}\n\n"
             for name, data in record.items():
-                if name in ("module", "description"):
+                if name in self._str_fields:
                     continue
                 report += f"{name.title()}\n{'-' * len(name)}\n\n"
                 for key, val in data.items():
@@ -226,7 +236,7 @@ class RSTReport(metaclass=SingletonReport):
 
 
 @decorator
-def log_runtime(func, *args, **kw):
+def log_runtime(func, title=None, bunched=True, *args, **kw):
     """
     Decorator that logs runtime metadata and input/output details of a
     function call.
@@ -240,10 +250,15 @@ def log_runtime(func, *args, **kw):
     ----------
     func : callable
         The function to be decorated.
+    title : str, default None
+        A title to display.
+    bunched : bool, default True
+        Return a bunch object with a default 'outputs' key.
     *args : tuple
         Positional arguments passed to `func`.
     **kw : dict
-        Keyword arguments passed to `func`.
+        Keyword arguments passed to `func`. If a `report_file` keyword argument
+        is passed, the logged runtime metada are saved in this file.
 
     Returns
     -------
@@ -290,10 +305,18 @@ def log_runtime(func, *args, **kw):
       )
     )
     """
-    report = RSTReport(reloadable=True)
-    identifier = f"step{RSTReport._count}"
+    if title is not None:
+        print_title(f"{title}...")
+    trace = trace_module_calls()
+    report = RSTReport(
+        reloadable=True,
+        increment=True,
+    )
+    identifier = f"step{report._count}"
     report.register(identifier, "module", f"{func.__module__}.{func.__name__}")
     report.register(identifier, "description", func.__doc__)
+    if trace:
+        report.register(identifier, "trace", trace)
     inputs = Bunch(
         **inspect.getcallargs(func, *args, **kw)
     )
@@ -301,9 +324,13 @@ def log_runtime(func, *args, **kw):
     start = datetime.datetime.now()
     outputs = func(*args, **kw)
     if not isinstance(outputs, Bunch):
-        outputs = Bunch(outputs=outputs)
+        _outputs = Bunch(outputs=outputs)
+    else:
+        _outputs = outputs
     end = datetime.datetime.now()
-    report.register(identifier, "outputs", outputs)
+    report.register(identifier, "outputs", _outputs)
+    if bunched:
+        outputs = _outputs
     runtime = Bunch(
         start=str(start),
         end=str(start),
@@ -313,4 +340,87 @@ def log_runtime(func, *args, **kw):
         hostname=platform.node(),
     )
     report.register(identifier, "runtime", runtime)
+    if title is not None:
+        print_title(f"{title} done.")
     return outputs
+
+
+@decorator
+def save_runtime(func, *args, **kw):
+    """
+    Decorator that save logged runtime metadata in a 'output_dir' folder.
+
+    Parameters
+    ----------
+    func : callable
+        The function to be decorated.
+    *args : tuple
+        Positional arguments passed to `func`.
+    **kw : dict
+        Keyword arguments passed to `func`. An `output_dir` keyword argument
+        is expected.
+
+    Returns
+    -------
+    outputs : outputs
+        The output returned by the decorated function.
+
+    Examples
+    --------
+    >>> @log_runtime
+    ... @save_runtime
+    ... def add(a, b, output_dir="/tmp"):
+    ...     '''Adds two numbers.'''
+    ...     return a + b
+    >>> result = add(3, 5)
+
+    Raises
+    ------
+    ValueError
+        If the `output_dir` keyword argument is not defined.
+    """
+    inputs = inspect.getcallargs(func, *args, **kw)
+    if "output_dir" not in inputs:
+        raise ValueError(
+            f"This decorator needs an 'output_dir' function argument."
+        )
+    report = RSTReport(reloadable=True)
+    report_file = Path(inputs.get("output_dir")) / "report.rst"
+    outputs = func(*args, **kw)
+    report.save_as_rst(report_file)
+    return outputs
+
+
+def trace_module_calls(root_module_names=("workflow", "interfaces")):
+    """
+    Return the trace of function calls from the specified module and
+    its submodules.
+
+    This function walks through the current call stack and filters out
+    frames whose module name starts with the given root module names.
+
+    Parameters
+    ----------
+    root_module_names : tuple of str, default ('workflow', 'interfaces')
+        The root module name to filter by (e.g., 'interfaces').
+        All submodules like 'brainprep.interfaces.submodule' will be included.
+
+    Returns
+    -------
+    trace: str
+        A string representing the chain of function calls from the specified
+        modules, joined by '->'.
+
+    Notes
+    -----
+    This uses the module name from the frame's global context, which is more
+    reliable than filenames when working with packages.
+    """
+    trace = []
+    stack = inspect.stack()
+    names = [f"brainprep.{mod}" for mod in root_module_names]
+    for frame_info in reversed(stack):
+        module_name = frame_info.frame.f_globals.get("__name__", "")
+        if module_name.startswith(tuple(names)):
+            trace.append(f"{module_name}.{frame_info.function}")
+    return "->".join(trace)

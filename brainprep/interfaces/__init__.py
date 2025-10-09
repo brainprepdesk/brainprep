@@ -7,19 +7,25 @@
 ##########################################################################
 
 """
-Module that implements reporting tools.
+Module that implements interfaces.
 """
 
-
-from .html_reporting import generate_qc_report
-from .rst_reporting import (
-    RSTReport,
-    log_runtime,
-    save_runtime,
+from .custom import (
+    defacing_mask_diff,
+)
+from .fsl import (
+    deface,
+    reorient,
+)
+from .mriqc import (
+    group_level_qa,
+    subject_level_qa,
+)
+from .plotting import (
+    defacing_mosaic,
 )
 
 __all__ = [
-    "RSTReport",
-    "generate_qc_report",
-    "log_runtime",
+    "deface",
+    "reorient",
 ]

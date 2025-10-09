@@ -19,17 +19,27 @@ import requests
 def git_download(
         url: str,
         destination: Path) -> None:
-    """ Download data from GitHub.
+    """
+    Download data from GitHub URL and saves it locally.
 
     Parameters
     ----------
     url: str
-        the link to the data.
+        Direct URL to the raw data file on GitHub.
     destination: Path
-        the location of the downloaded data.
+        Path to the saved data file.
     """
-    response = requests.get(url, stream=True)
+    # Ensure it's a raw GitHub URL
+    if "raw.githubusercontent.com" not in url:
+        raise ValueError(
+            f"URL '{url}' does not point to 'raw.githubusercontent.com'."
+        )
+
+    # Download the data
+    response = requests.get(url)
+    response.raise_for_status()
+
+    # Save the data
     with destination.open("wb") as of:
-        response.raw.decode_content = False
-        shutil.copyfileobj(response.raw, of)
+        of.write(response.content)
     del response

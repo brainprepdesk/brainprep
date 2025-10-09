@@ -7,19 +7,13 @@
 ##########################################################################
 
 """
-Module that implements reporting tools.
+Types or Type aliases used by BrainPrep.
 """
 
+from pathlib import Path
+from typing import TypeAlias
 
-from .html_reporting import generate_qc_report
-from .rst_reporting import (
-    RSTReport,
-    log_runtime,
-    save_runtime,
-)
 
-__all__ = [
-    "RSTReport",
-    "generate_qc_report",
-    "log_runtime",
-]
+Url: TypeAlias = str | None
+File: TypeAlias = str | Path | None
+Directory: TypeAlias = str | Path | None

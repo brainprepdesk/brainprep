@@ -22,7 +22,7 @@ import xml.etree.ElementTree as ET
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
-from .utils import get_bids_keys
+from .utils import parse_bids_keys
 
 
 def check_files(input_files):

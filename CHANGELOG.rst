@@ -10,7 +10,10 @@ NEW
 ---
 
 - :bdg-success:`Doc` Create doc with `furo <https://github.com/pradyunsg/furo>`_.
-- :bdg-success:`API` All worflows generate a log file.
+- :bdg-success:`API` Worflows generate a report file.
+- :bdg-success:`API` Worflows generate BIDS-compliant organization.
+- :bdg-success:`API` New workflows can generate HTML reporting.
+- :bdg-success:`API` Toy datasets have been added to test the module.
 
 Fixes
 -----
@@ -18,10 +21,14 @@ Fixes
 Enhancements
 ------------
 
+- :bdg-success:`API` A `keep_intermediate` argument has been added to all
+  workflows to retain intermediate results; useful for debugging.
+
 Changes
 -------
 
-
+- :bdg-success:`API` Building blocks are now grouped in an interfaces
+  submodule.
 
 0.0.2
 =====

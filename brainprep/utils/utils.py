@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2021 - 2022
+# NSAp - Copyright (C) CEA, 2021 - 2025
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -11,16 +10,124 @@
 Module that contains some utility functions.
 """
 
-# Imports
+import json
 import os
 import re
 import sys
 import gzip
+import inspect
 import subprocess
 import numpy as np
 import pandas as pd
 import nibabel
+
+from decorator import decorator
+from pathlib import Path
+
 from .color import print_command, print_error
+from .._version import __version__
+
+
+@decorator
+def bids(func, process=None, bids_file=None, container=None, *args, **kw):
+    """
+    BIDS specification.
+
+    Decorator that computes a BIDS-compliant output directory path
+    based on the input BIDS file and injects it into the function.
+
+    Decorator that ensures BIDS-compliant metadata is written to the output
+    directory.
+
+    Parameters
+    ----------
+    func : callable
+        The function to be decorated.
+    process : str
+        Name of the processing pipeline (e.g., 'fmriprep', 'custom').
+    bids_file : Union[File,Iterable[File]]
+        Name of the argument in the function that contains the BIDS file path.
+    container : str
+        The name of the container (e.g., Docker image) used to run the
+        pipeline.
+    *args : tuple
+        Positional arguments passed to `func`.
+    **kw : dict
+        Keyword arguments passed to `func`.
+
+    Returns
+    -------
+    wrapper : function
+        A wrapped function with computed 'output_dir' injected.
+
+    Raises
+    ------
+    ValueError
+        If the decorated function has no `bids_file` or 'output_dir'
+        arguments.
+    """
+    inputs = inspect.getcallargs(func, *args, **kw)
+
+    if process is None:
+        return func(**inputs)
+
+    subject_level = bids_file is not None
+    if subject_level:
+        for key in (bids_file, "output_dir"):
+            if key not in inputs:
+                raise ValueError(
+                    f"This decorator needs a '{key}' function argument."
+                )
+        if isinstance(inputs[bids_file], (list, tuple)):
+            entities = parse_bids_keys(inputs[bids_file][0])
+        else:
+            entities = parse_bids_keys(inputs[bids_file])
+        output_dir = (
+            Path(inputs["output_dir"]) /
+            "derivatives" /
+            process /
+            f"sub-{entities['sub']}" /
+            f"ses-{entities['ses']}"
+        )
+        metadata_file = output_dir.parent.parent / "dataset_description.json"
+    else:
+        output_dir = (
+            Path(inputs["output_dir"]) /
+            "derivatives" /
+            process
+        )
+        metadata_file = output_dir / "dataset_description.json"
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    inputs["output_dir"] = output_dir
+
+    if not metadata_file.is_file():
+        metadata = {
+            "Name": f"{func.__module__}.{func.__name__}",
+            "BIDSVersion": "1.8.0",
+            "DatasetType": "derivative",
+            "GeneratedBy": [
+                {
+                    "Name": "brainprep",
+                    "Version": __version__,
+                    "CodeURL": ("https://github.com/neurospin-deepinsight/"
+                                "brainprep"),
+                }
+            ],
+        }
+        if container is not None:
+            metadata["GeneratedBy"][0].update(
+                {
+                    "Container": {
+                        "Type": "docker",
+                        "Tag": f"{container}:{__version__}"
+                      }
+                }
+            )
+        with metadata_file.open("w", encoding="utf-8") as of:
+            json.dump(metadata, of, indent=4)
+
+    return func(**inputs)
 
 
 def execute_command(command):
@@ -190,42 +297,55 @@ def ungzip_file(zfile, prefix="u", outdir=None):
     return unzfile
 
 
-def get_bids_keys(filename):
-    """ Extract BIDS 'participant_id', 'session' and 'run' keys from a
-    filename.
+def parse_bids_keys(bids_path):
+    """
+    Parses BIDS keys and modality from a filename or path with validation.
 
     Parameters
     ----------
-    filename: str
-        a bids path.
+    bids_path : str
+        The BIDS filename or full path.
 
     Returns
     -------
-    keys: dict
-        the retrieved BIDS keys/values, no key if no match. Add the file name
-        in 'ni_path'.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
     """
-    keys = {}
-    participant_re = re.compile("sub-([^_/]+)")
-    session_re = re.compile("ses-([^_/]+)")
-    run_re = re.compile("run-([a-zA-Z0-9]+)")
-    for name, regex in (("participant_id", participant_re),
-                        ("session", session_re),
-                        ("run", run_re)):
-        match = regex.findall(filename)
-        if len(set(match)) != 1:
-            if name == "participant_id":
-                raise ValueError(
-                    "Found several or no '{}' in path '{}'.".format(
-                        name, filename))
-        else:
-            keys[name] = match[0]
-    if "run" not in keys:
-        keys["run"] = "1"
-    if "session" not in keys:
-        keys["session"] = "V1"
-    keys["ni_path"] = filename
-    return keys
+    # Extract the filename from the path
+    filename = os.path.basename(bids_path)
+
+    # Regex pattern for BIDS entities
+    entity_pattern = (
+        r"(?P<entity>(sub|ses|task|acq|run|echo|rec|dir|mod|ce|part|"
+        r"recording))"
+        r"-(?P<value>[^_/]+)"
+    )
+    entities = {}
+    for match in re.finditer(entity_pattern, filename):
+        entity = match.group("entity")
+        value = match.group("value")
+        entities[entity] = value
+
+    # Extract modality (suffix before extension)
+    suffix_pattern = (
+        r"_(?P<modality>[a-zA-Z0-9]+)(?=\.(nii|nii\.gz|json|tsv|edf|vhdr"
+        r"|eeg|bvec|bval|csv))"
+    )
+    modality_match = re.search(suffix_pattern, filename)
+    if modality_match:
+        entities["modality"] = modality_match.group("modality")
+
+    # Define default values for missing entities
+    defaults = {
+        "ses": "01",
+        "run": "1",
+    }
+
+    # Fill in missing entities with defaults
+    for key, default in defaults.items():
+        entities.setdefault(key, default)
+
+    return entities
 
 
 def load_images(img_files, check_same_referential=True):

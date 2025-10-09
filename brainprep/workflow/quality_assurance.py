@@ -7,21 +7,140 @@
 ##########################################################################
 
 """
-Interface for mriqc.
+Interface for MRIQC.
 """
 
-# System import
 import os
-import json
-import glob
-import requests
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-import seaborn as sns
-import matplotlib.pyplot as plt
-import brainprep
-from brainprep.utils import print_title
+import shutil
+
+import brainprep.interfaces as interfaces
+
+from ..reporting import (
+    log_runtime,
+    save_runtime,
+)
+from ..typing import (
+    Directory,
+    File,
+)
+from ..utils import (
+    Bunch,
+    bids,
+)
+
+
+@bids(
+    process="quality_assurance",
+    bids_file="image_files",
+    container="neurospin/brainprep-qa")
+@log_runtime(
+    title="Subject Level Quality Assurance")
+@save_runtime
+def brainprep_quality_assurance(
+        image_files: list[File],
+        output_dir: Directory,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Subject level quality assurance pre-processing workflow for MRI images.
+
+    Applies MRIQC tool :footcite:p:`esteban2017mriqc` with subject level
+    default settings.
+
+    Parameters
+    ----------
+    image_files : list[File]
+        Path to the input image files of one subject.
+    output_dir : Directory
+        Directory where the quality assurance related outputs will be saved
+        (i.e., the root of your dataset).
+    keep_intermediate : bool, default False
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging.
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+        - iqm_files : list[File] — paths to the subject level Image Quality
+          Metrics (IQMs).
+
+    Notes
+    -----
+    This workflow assumes the input images are organized in BIDS.
+
+    Examples
+    --------
+    >>> from brainprep.workflow import brainprep_quality_assurance
+    >>> brainprep_quality_assurance([t1_file, dwi_file], output_dir)
+
+    References
+    ----------
+
+    .. footbibliography::
+    """
+    workspace_dir, iqm_files = interfaces.subject_level_qa(
+        image_files,
+        output_dir,
+    )
+
+    if not keep_intermediate:
+        shutil.rmtree(workspace_dir)
+
+    return Bunch(
+        iqm_files=iqm_files,
+    )
+
+
+@bids(
+    process="quality_assurance")
+@log_runtime(
+    title="Group Level Quality Assurance")
+@save_runtime
+def brainprep_group_quality_assurance(
+        output_dir: Directory,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Group lebel quality assurance pre-processing workflow for MRI images.
+
+    Applies MRIQC tool :footcite:p:`esteban2017mriqc` with group level
+    default settings.
+
+    Parameters
+    ----------
+    output_dir : Directory
+        Directory where the quality assurance related outputs will be saved
+        (i.e., the root of your dataset).
+    keep_intermediate : bool, default False
+        If True, retains intermediate results (no effect on this workflow).
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+        - iqm_file : File — paths to the group level Image Quality Metrics
+          (IQMs).
+
+    Notes
+    -----
+    This workflow assumes the subject level analysis have already been.
+
+    Examples
+    --------
+    >>> from brainprep.workflow import brainprep_group_quality_assurance
+    >>> brainprep_group_quality_assurance(output_dir)
+
+    References
+    ----------
+
+    .. footbibliography::
+    """
+    iqm_file = interfaces.group_level_qa(
+        output_dir,
+    )
+
+    return Bunch(
+        iqm_file=iqm_file,
+    )
 
 
 def brainprep_mriqc(rawdir, subjid, outdir="/out", workdir="/work",
@@ -54,68 +173,6 @@ def brainprep_mriqc(rawdir, subjid, outdir="/out", workdir="/work",
             "--participant-label", subjid]
         brainprep.execute_command(cmd)
         open(status, "a").close()
-
-
-def brainprep_mriqc_summary(indir, outdir, filters=None):
-    """ Provide context for the image quality metrics (IQMs) shown in the
-    MRIQC reports.
-
-    Parameters
-    ----------
-    indir: str
-        the derivatives folder with the mriqc results.
-    outdir: str
-        the destination folder with the IQMs summary.
-    filters: list, default None
-        list of filters as strings: by default filter on the scanner field.
-    """
-    print_title("Launch mriqc summary...")
-    resource_dir = os.path.join(os.path.dirname(__file__), "resources")
-    api_data = {
-        "t1w": pd.read_csv(os.path.join(resource_dir, "iqm_T1w.csv")),
-        "t2w": pd.read_csv(os.path.join(resource_dir, "iqm_T2w.csv")),
-        "bold": pd.read_csv(os.path.join(resource_dir, "iqm_bold.csv"))}
-    selected_iqms = pd.read_csv(os.path.join(
-        resource_dir, "iqm_select.tsv"), sep="\t")
-    dtype_iqms = dict((row["ALIAS"], row["MAXIMIZE"])
-                      for _, row in selected_iqms.iterrows())
-    anat_iqms = selected_iqms[selected_iqms["APPLIES_TO"].isin(
-        ["structural", "structural, functional"])]["ALIAS"].values.tolist()
-    func_iqms = selected_iqms[selected_iqms["APPLIES_TO"].isin(
-        ["functional", "strucural, functional"])]["ALIAS"].values.tolist()
-    user_files = {
-        "t1w": glob.glob(os.path.join(
-            indir, "sub-*", "ses-*", "anat", "sub-*T1w.json")),
-        "t2w": glob.glob(os.path.join(
-            indir, "sub-*", "ses-*", "anat", "sub-*T2w.json")),
-        "bold": glob.glob(os.path.join(
-            indir, "sub-*", "ses-*", "func", "sub-*bold.json"))}
-    user_data = dict((key, load_iqms(val)) for key, val in user_files.items())
-    if filters is None:
-        fields = user_data["t1w"]["bids_meta.MagneticFieldStrength"].values
-        filters = []
-        for val in np.unique(fields):
-            filters.append("FIELD == {}".format(val))
-    api_data = dict((key, filter_iqms(val, filters))
-                    for key, val in api_data.items())
-    data = dict((key, merge_dfs(user_data[key], api_data[key]))
-                for key in user_data)
-    data = {
-        "t1w": data["t1w"][["_id", "source"] + anat_iqms],
-        "t2w": data["t2w"][["_id", "source"] + anat_iqms],
-        "bold": data["bold"][["_id", "source"] + func_iqms]}
-    for dtype, df in data.items():
-        print("--", dtype)
-        print(df)
-        plot_iqms(df, dtype, outdir, rm_outliers=True)
-        qc = detect_outliers(df)
-        score = compute_score(df, dtype_iqms)
-        df["score"] = score
-        df["qc"] = qc.astype(int)
-        df = df[df["source"] == "user"]
-        df = df.drop(columns=["source"])
-        df.to_csv(os.path.join(outdir, "{}_qc.tsv".format(dtype)), sep="\t",
-                  index=False)
 
 
 def compute_score(data, dtype_iqms):
@@ -205,74 +262,6 @@ def load_iqms(files):
         _data["_id"] = name
         data.append(_data)
     return pd.json_normalize(data)
-
-
-def filter_iqms(apidf, filters):
-    """ Filters the API table based on user-provided parameters. Filter
-    parameters should be a list of strings and string formats should
-    be "(VAR) (Operator) (Value)".
-
-    Example: ['TR == 3.0'] or ['TR > 1.0','FD < .3']
-
-    Notes
-    -----
-    Each filter element is SPACE separated!
-
-    Parameters
-    ----------
-    apidf: DataFrame
-        API table.
-    filters: list
-        list of filters as strings.
-
-    Returns
-    -------
-    filterdf: DataFrame
-        table  containing data pulled from the mriqc API, but filtered to
-        contain only your match specifications.
-    """
-    cols = apidf.columns
-    cols = cols.map(lambda x: x.replace(".", "_"))
-    apidf.columns = cols
-    expected_filters = {
-        "SNR": "snr", "TSNR": "tsnr", "SNR_WM": "snr_wm",
-        "SNR_CSF": "snr_csf", "CNR": "cnr", "EFC": "efc",
-        "FIELD": "bids_meta_MagneticFieldStrength",
-        "TE": "bids_meta_EchoTime", "TR": "bids_meta_RepetitionTime"}
-    query = []
-    for cond in filters:
-        var, op, val = cond.split(" ")
-        if var not in expected_filters:
-            raise ValueError("Unrecognize filtering variable: {}.".format(var))
-        cond_str = expected_filters[var] + op + val
-        query.append(cond_str)
-        query = [" or ".join(query)]
-    filterdf = apidf.query(" & ".join(query))
-    return filterdf
-
-
-def merge_dfs(userdf, apidf):
-    """ Merges the user dataframe and the filtered API dataframe
-    while adding a 'source' column.
-
-    Parameters
-    ----------
-    userdf: DataFrame
-        user mriqc table.
-    apidf: DataFrame
-        filtered API table.
-
-    Returns
-    -------
-    mergedf: DataFrame
-        a merged pandas dataframe containing the user and
-        the filtered API tables. A 'source' column  is added
-        with 'user' or 'api' entries for easy sorting/splitting.
-    """
-    userdf["source"] = "user"
-    apidf["source"] = "api"
-    mergedf = pd.concat([userdf, apidf], sort=True).fillna(0)
-    return mergedf
 
 
 def plot_iqms(data, dtype, outdir, rm_outliers=False):
@@ -379,72 +368,3 @@ def plot_iqms(data, dtype, outdir, rm_outliers=False):
         ax.spines["right"].set_visible(False)
         ax.set_ylabel(var_name)
         plt.savefig(os.path.join(outdir, "{}_{}.png".format(dtype, var_name)))
-
-
-def query_api(dtype, filters=None, maxpage=None):
-    """ Query the mriqc API using 3 element conditional statement.
-
-    Parameters
-    ----------
-    dtype: str
-        the data type: 'bold','T1w',or 'T2w'.
-    filters: list or str, default None
-        list of conditional phrases consisting of:
-        keyword to query + conditional argument + value. All
-        conditions checked against API as and phrases.
-    maxpage: int, default None
-        optionally define the maximum number of page to scroll.
-
-    Returns
-    -------
-    df: DataFrame
-        a table of all mriqc entries that satisfy the contitional
-        statement.
-    """
-    # API limits at a max results of 1k
-    url_root = "https://mriqc.nimh.nih.gov/api/v1/" + dtype
-    if filters is not None:
-        if isinstance(filters, str):
-            filters_str = filters
-        elif isinstance(filters, list):
-            filters_str = "&".join(filters)
-        else:
-            raise ValueError("The filters can either be a list of strings or "
-                             "a string.")
-    dfs = []
-    page = 0
-    last_page = -1
-    headers = {"content-type": "application/json", "Accept-Charset": "UTF-8"}
-    while True:
-        if page % 10 == 0:
-            print("On page {}/{}...".format(page, last_page))
-        if filters is not None:
-            page_url = url_root + "?max_results=1000&{}&page={}".format(
-                filters_str, page)
-        else:
-            page_url = url_root + "?max_results=1000&page={}".format(page)
-        req = requests.get(page_url, headers=headers)
-        data = req.json()
-        if last_page == -1:
-            last_page = int(
-                data["_links"]["last"]["href"].split("=")[-1])
-            last_page = min(last_page, maxpage)
-        dfs.append(pd.json_normalize(data["_items"]))
-        if page >= last_page:
-            break
-        else:
-            page += 1
-    df = pd.concat(dfs, ignore_index=True, sort=True)
-    return df
-
-
-if __name__ == "__main__":
-
-    dirname = os.path.dirname(__file__)
-    destdir = os.path.join(dirname, "resources")
-    for mod in ("T1w", "T2w", "bold"):
-        print_title("Fetching {} reference...".format(mod))
-        df = query_api(dtype=mod, filters=None, maxpage=5000)
-        print(df)
-        df.to_csv(os.path.join(destdir, "iqm_{}.tsv".format(mod)), sep="\t",
-                  index=False)
