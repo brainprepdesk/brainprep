@@ -37,9 +37,10 @@ ENV DEBIAN_FRONTEND="noninteractive" \
 RUN pip install --no-cache-dir git+https://github.com/neurospin-deepinsight/brainprep.git --break-system-packages
 
 
-# FSL-6.0.5.1
+# FSL-6.0.7
+ENV FSLVERSION="6.0.7"
 RUN echo "-------------------"
-RUN echo ">>>>fsl-6.0.5.1<<<<"
+RUN echo ">>>>fsl-$FSLVERSION<<<<"
 RUN echo "-------------------"
 RUN apt-get update -qq \
     && apt-get install -y -q --no-install-recommends \
@@ -64,26 +65,26 @@ RUN apt-get update -qq \
     && apt-get clean
 
 RUN rm -rf /var/lib/apt/lists/* \
-    && echo "Downloading FSL ..." \
-    && mkdir -p /opt/fsl-6.0.5.1 \
-    && curl -fsSL --retry 5 https://fsl.fmrib.ox.ac.uk/fsldownloads/fsl-6.0.5.1-centos7_64.tar.gz \
-    | tar -xz -C /opt/fsl-6.0.5.1 --strip-components 1
+    && echo "Downloading FSL installer ..." \
+    && curl -fsSL --retry 5 https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py -o /opt/fslinstaller.py
 
-RUN echo "Installing FSL conda environment ..." \
-    && bash /opt/fsl-6.0.5.1/etc/fslconf/fslpython_install.sh -f /opt/fsl-6.0.5.1
+RUN echo "Installing FSL..." \
+    && yes /opt/fsl-$FSLVERSION \
+    | python3 /opt/fslinstaller.py -V $FSLVERSION \
+    && rm /opt/fslinstaller.py
 
-ENV FSLDIR="/opt/fsl-6.0.5.1" \
-    PATH="/opt/fsl-6.0.5.1/bin:$PATH" \
+ENV FSLDIR="/opt/fsl-$FSLVERSION" \
+    PATH="/opt/fsl-$FSLVERSION/bin:$PATH" \
     FSLOUTPUTTYPE="NIFTI_GZ" \
     FSLMULTIFILEQUIT="TRUE" \
-    FSLTCLSH="/opt/fsl-6.0.5.1/bin/fsltclsh" \
-    FSLWISH="/opt/fsl-6.0.5.1/bin/fslwish" \
+    FSLTCLSH="/opt/fsl-$FSLVERSION/bin/fsltclsh" \
+    FSLWISH="/opt/fsl-$FSLVERSION/bin/fslwish" \
     FSLLOCKDIR="" \
     FSLMACHINELIST="" \
     FSLREMOTECALL="" \
     FSLGECUDAQ="cuda.q" \
-    POSSUMDIR="/opt/fsl-6.0.5.1" \
-    LD_LIBRARY_PATH="/opt/fsl-6.0.5.1:$LD_LIBRARY_PATH"
+    POSSUMDIR="/opt/fsl-$FSLVERSION" \
+    LD_LIBRARY_PATH="/opt/fsl-$FSLVERSION:$LD_LIBRARY_PATH"
 
 
 # Installing ANTs 2.3.4 (NeuroDocker build)
@@ -149,7 +150,7 @@ RUN curl -sSL https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/7.1.1/frees
     --exclude="freesurfer/subjects/V1_average" \
     --exclude="freesurfer/trctrain"
 
-ENV FSL_DIR="/opt/fsl-6.0.5.1" \
+ENV FSL_DIR="/opt/fsl-$FSLVERSION" \
     OS="Linux" \
     FS_OVERRIDE=0 \
     FIX_VERTEX_AREA="" \
@@ -182,7 +183,7 @@ ENV HOME="/home/brainprep"
 
 # Define labels
 MAINTAINER Antoine Grigis <antoine.grigis@cea.fr>
-LABEL description="FSL 6.0.5.1, ANTS 2.3.4, FreeSurfer v7.1.1, MATLAB Compiler Runtime R2017b v9.3 and CAT12.8.2 r2166 standalone docker image for brainprep 0.0.0"
+LABEL description="FSL $FSLVERSION, ANTS 2.3.4, FreeSurfer v7.1.1, MATLAB Compiler Runtime R2017b v9.3 and CAT12.8.2 r2166 standalone docker image for brainprep 0.0.0"
 LABEL maintainer="antoine.grigis@cea.fr"
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="brainprep" \
