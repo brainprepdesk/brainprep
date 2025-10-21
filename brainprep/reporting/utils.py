@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Module that implements reporting tools.
+Reporting tools.
 """
 
 import base64

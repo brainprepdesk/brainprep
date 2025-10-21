@@ -10,31 +10,24 @@
 Functions for running shell commands
 """
 
-from typing import Any, Callable, Optional, Union
-
-import contextvars
 import inspect
 import os
 import subprocess
 import sys
-from decorator import decorator
 from pathlib import Path
+from typing import Callable, Optional, Union
+
+from decorator import decorator
+
+from .config import (
+    DEFAULT_OPTIONS,
+    brainprep_options,
+)
 from .utils import (
     print_command,
     print_error,
     print_info,
     print_result,
-)
-
-
-DEFAULT_OPTIONS = {
-    "verbose": True,
-    "dryrun": False
-}
-
-cmdwrapper_options = contextvars.ContextVar(
-    "cmdwrapper_options",
-    default=DEFAULT_OPTIONS,
 )
 
 
@@ -80,13 +73,13 @@ def pywrapper(
     ...     ls_command("/tmp")
     None
     """
-    opts = cmdwrapper_options.get()
+    opts = brainprep_options.get()
     verbose = opts.get("verbose", DEFAULT_OPTIONS["verbose"])
     dryrun = opts.get("dryrun", DEFAULT_OPTIONS["dryrun"])
     inputs = inspect.getcallargs(func, *args, **kw)
     if "dryrun" not in inputs:
         raise ValueError(
-            f"This decorator needs a 'dryrun' function argument."
+            "This decorator needs a 'dryrun' function argument."
         )
 
     inputs["dryrun"] = dryrun
@@ -152,7 +145,7 @@ def cmdwrapper(
     ...     return ["ls", "-l", my_dir]
     >>> ls_command("/tmp")
     """
-    opts = cmdwrapper_options.get()
+    opts = brainprep_options.get()
     verbose = opts.get("verbose", DEFAULT_OPTIONS["verbose"])
     dryrun = opts.get("dryrun", DEFAULT_OPTIONS["dryrun"])
 
@@ -168,7 +161,7 @@ def cmdwrapper(
         )
 
     if (not isinstance(command, list) or
-            not all([isinstance(item, str) for item in command])):
+            not all(isinstance(item, str) for item in command)):
         raise ValueError(
             "Invalid command format: expected a list of strings."
         )
@@ -235,42 +228,6 @@ def _check_outputs(
         raise ValueError(
             "The ouputs must be either a path or a list/tuple of paths."
         )
-
-
-class WrapperConfig:
-    """
-    Context manager for modifying options passed to
-    :func:`~brainprep.interfaces.wrappers.cmdwrapper` when executing
-    commands from decorated functions.
-
-    Parameters
-    ----------
-    **options : dict
-        Keyword arguments intercepted by the wrapper function:
-        - verbose : bool, default True - print informations or not.
-        - dryrun : bool, default False - execute commands or not
-
-    Example
-    -------
-    >>> with WrapperConfig(dryrun=True):
-    ...     brainprep_deface('t1w.nii.gz', '/tmp')
-
-    Notes
-    -----
-    - The context variable `cmdwrapper_options` holds the current
-      configuration.
-    - Options are scoped to the `with` block and automatically restored
-      afterward.
-    """
-    def __init__(self, **options):
-        self.token = None
-        self.options = options
-
-    def __enter__(self):
-        self.token = cmdwrapper_options.set(self.options)
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        cmdwrapper_options.reset(self.token)
 
 
 def is_command_installed(command: str):

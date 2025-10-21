@@ -48,12 +48,12 @@ from brainprep.workflow import (
     brainprep_quality_assurance,
     brainprep_group_quality_assurance,
 )
-from brainprep.wrappers import WrapperConfig
+from brainprep.config import Config
 from brainprep.reporting import RSTReport
 
 outdir = Path("/tmp/brainprep-qa")
 outdir.mkdir(parents=True, exist_ok=True)
-with WrapperConfig(dryrun=True):
+with Config(dryrun=True):
     for subject in data:
         report = RSTReport()
         brainprep_quality_assurance(
@@ -64,6 +64,7 @@ with WrapperConfig(dryrun=True):
         print(report)
     report = RSTReport()
     brainprep_group_quality_assurance(
+        modalities=["T1w"],
         output_dir=outdir,
     )
     print(report)
@@ -75,17 +76,21 @@ with WrapperConfig(dryrun=True):
 # 
 # Let's now perform this preprocessing using the BrainPrep container.
 
-
 homedir = Path("/tmp/brainprep-home")
 homedir.mkdir(parents=True, exist_ok=True)
+devcodedir = Path(__file__).parent.parent
 subject = "sub-01"
 cmd = [
-    "apptainer",
+    "singularity",
     "run",
+    "shell",
+    "--bind", f"{devcodedir}:/opt/brainprep",
     "--bind", f"{datadir}:/data",
     "--bind", f"{outdir}:/out",
     "--home", f"{homedir}",
-    "--cleanenv",
+    "--env", "PYTHONPATH=/opt/brainprep",
+    "--env", "PREPEND_PATH=/opt/brainprep/brainprep/scripts",
+    "--containall",
     "docker://neurospin/brainprep-mriqc:latest",
     "brainprep", "subject-level-qa",
     "/data",

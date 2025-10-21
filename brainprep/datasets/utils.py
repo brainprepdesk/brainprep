@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Dataset tools.
+Dataset creation tools.
 """
 
 import shutil

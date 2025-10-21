@@ -7,9 +7,10 @@
 ##########################################################################
 
 """
-Fetch some data.
+Fetcher to downlaod anatomical data.
 """
 
+import json
 import os
 from pathlib import Path
 from typing import Optional
@@ -124,6 +125,19 @@ class AnatomicalDataset:
             longitudinal data, respectively.
         """
         self.sanity_check(subject, modality.upper(), dtype)
+
+        description_file = (
+            self.datadir /
+            "rawdata" /
+            "dataset_description.json"
+        )
+        if not description_file.is_file():
+            with open(description_file, "w") as of:
+                description = {
+                    "Name": "Example dataset",
+                    "BIDSVersion": "1.0.2",
+                }
+                json.dump(description, of, indent=4)
 
         dataset = Bunch()
         to_download = []

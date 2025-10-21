@@ -323,10 +323,11 @@ def log_runtime(func, title=None, bunched=True, *args, **kw):
     report.register(identifier, "inputs", inputs)
     start = datetime.datetime.now()
     outputs = func(*args, **kw)
-    if not isinstance(outputs, Bunch):
-        _outputs = Bunch(outputs=outputs)
-    else:
-        _outputs = outputs
+    _outputs = (
+        Bunch(outputs=outputs)
+        if not isinstance(outputs, Bunch)
+        else outputs
+    )
     end = datetime.datetime.now()
     report.register(identifier, "outputs", _outputs)
     if bunched:
@@ -382,7 +383,7 @@ def save_runtime(func, *args, **kw):
     inputs = inspect.getcallargs(func, *args, **kw)
     if "output_dir" not in inputs:
         raise ValueError(
-            f"This decorator needs an 'output_dir' function argument."
+            "This decorator needs an 'output_dir' function argument."
         )
     report = RSTReport(reloadable=True)
     report_file = Path(inputs.get("output_dir")) / "report.rst"
