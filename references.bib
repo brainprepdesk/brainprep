@@ -304,35 +304,6 @@
   title     = "Automated correction of improperly rotated diffusion gradient
                orientations in diffusion weighted {MRI}",
   author    = "Jeurissen, Ben and Leemans, Alexander and Sijbers, Jan",
-  abstract  = "Ensuring one is using the correct gradient orientations in a
-               diffusion MRI study can be a challenging task. As different
-               scanners, file formats and processing tools use different
-               coordinate frame conventions, in practice, users can end up with
-               improperly oriented gradient orientations. Using such wrongly
-               oriented gradient orientations for subsequent diffusion
-               parameter estimation will invalidate all rotationally variant
-               parameters and fiber tractography results. While large
-               misalignments can be detected by visual inspection, small
-               rotations of the gradient table (e.g. due to angulation of the
-               acquisition plane), are much more difficult to detect. In this
-               work, we propose an automated method to align the coordinate
-               frame of the gradient orientations with that of the
-               corresponding diffusion weighted images, using a metric based on
-               whole brain fiber tractography. By transforming the gradient
-               table and measuring the average fiber trajectory length, we
-               search for the transformation that results in the best global
-               'connectivity'. To ensure a fast calculation of the metric we
-               included a range of algorithmic optimizations in our
-               tractography routine. To make the optimization routine robust to
-               spurious local maxima, we use a stochastic optimization routine
-               that selects a random set of seed points on each evaluation.
-               Using simulations, we show that our method can recover the
-               correct gradient orientations with high accuracy and precision.
-               In addition, we demonstrate that our technique can successfully
-               recover rotated gradient tables on a wide range of clinically
-               realistic data sets. As such, our method provides a practical
-               and robust solution to an often overlooked pitfall in the
-               processing of diffusion MRI.",
   journal   = "Med. Image Anal.",
   publisher = "Elsevier BV",
   volume    =  18,
@@ -398,6 +369,62 @@
   number    = 2,
   pages     = "774--781",
   year      = 2012,
+}
+
+@aticle{dufumier2022openbhb,
+  title     = "{OpenBHB}: A large-scale multi-site brain {MRI} data-set for age
+               prediction and debiasing",
+  author    = "Dufumier, Benoit and Grigis, Antoine and Victor, Julie and
+               Ambroise, Corentin and Frouin, Vincent and Duchesnay, Edouard",
+  journal   = "Neuroimage",
+  publisher = "Elsevier BV",
+  volume    =  263,
+  number    =  119637,
+  pages     = "119637",
+  month     =  nov,
+  year      =  2022,
+}
+
+@article{schaer2008lgi,
+  title     = "A surface-based approach to quantify local cortical gyrification",
+  author    = "Schaer, Marie and Cuadra, Meritxell Bach and Tamarit, Lucas and
+               Lazeyras, Fran{\c c}ois and Eliez, Stephan and Thiran,
+               Jean-Philippe",
+  journal   = "IEEE Trans. Med. Imaging",
+  publisher = "Institute of Electrical and Electronics Engineers (IEEE)",
+  volume    =  27,
+  number    =  2,
+  pages     = "161--170",
+  month     =  feb,
+  year      =  2008,
+}
+
+@article{hoopes2022brainmask,
+  title     = "{SynthStrip}: skull-stripping for any brain image",
+  author    = "Hoopes, Andrew and Mora, Jocelyn S and Dalca, Adrian V and
+               Fischl, Bruce and Hoffmann, Malte",
+  journal   = "Neuroimage",
+  publisher = "Elsevier BV",
+  volume    =  260,
+  number    =  119474,
+  pages     = "119474",
+  month     =  oct,
+  year      =  2022,"
+}
+
+@article{greve2013xhemi,
+  title     = "A surface-based analysis of language lateralization and cortical
+               asymmetry",
+  author    = "Greve, Douglas N and Van der Haegen, Lise and Cai, Qing and
+               Stufflebeam, Steven and Sabuncu, Mert R and Fischl, Bruce and
+               Brysbaert, Marc",
+  journal   = "J. Cogn. Neurosci.",
+  publisher = "MIT Press",
+  volume    =  25,
+  number    =  9,
+  pages     = "1477--1492",
+  month     =  sep,
+  year      =  2013,
 }
 
 

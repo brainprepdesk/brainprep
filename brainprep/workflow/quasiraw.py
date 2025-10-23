@@ -8,94 +8,204 @@
 ##########################################################################
 
 """
-Interface for quasi-raw.
+Quasi-RAW pre-processing.
 """
 
-# System import
 import os
-import glob
-import nibabel
-import numpy as np
-from html import unescape
-import brainprep
-from brainprep.utils import load_images, create_clickable, listify
-from brainprep.utils import print_title, print_result
-from brainprep.qc import plot_pca, compute_mean_correlation, check_files
-from brainprep.plotting import plot_images, plot_hists
+from pathlib import Path
+import shutil
+
+import brainprep.interfaces as interfaces
+
+from ..reporting import (
+    log_runtime,
+    save_runtime,
+)
+from ..typing import (
+    Directory,
+    File,
+)
+from ..utils import (
+    Bunch,
+    bids,
+    coerceparams,
+    parse_bids_keys,
+    print_info,
+)
 
 
-def brainprep_quasiraw(anatomical, mask, outdir, target=None, no_bids=False):
-    """ Define quasi-raw pre-processing workflow.
+@bids(
+    process="quasiraw",
+    bids_file="anatomical_file",
+    container="neurospin/brainprep-quasiraw")
+@log_runtime(
+    title="Quasi-RAW")
+@save_runtime
+@coerceparams
+def brainprep_quasiraw(
+        anatomical_file: File,
+        output_dir: Directory,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Quasi-RAW pre-processing.
+
+    Applies the Quasi-RAW pre-processing described in
+    :footcite:p:`dufumier2022openbhb`. This includes:
+
+    1) Reorient the anatomical image to standard MNI152 template space.
+    2) Compute a brain mask using a skull-stripping tool.
+    3) Apply the brain mask to the anatomical image.
+    4) Resample the anatomical image to 1mm isotropic voxel size.
+    5) Resample the brain mask image to 1mm isotropic voxel size.
+    6) Perform N4 bias field correction.
+    7) Linearly (9 dof) register the image to the MNI152 1mm template space.
+    8) Apply the registration to the antomical image.
+    9) Apply the registration to the brain mask image.
+    10) Apply the brain mask to the registered anatomical image.
 
     Parameters
     ----------
-    anatomical: str
-        path to the anatomical T1w Nifti file.
-    mask: str
-        a binary mask to be applied.
-    outdir: str
-        the destination folder.
-    target: str
-        a custom target image for the registration.
-    no_bids: bool
-        set this option if the input files are not named following the
-        BIDS hierarchy.
+    anatomical_file: File
+        Path to the input image file.
+    output_dir: Directory
+        Directory where the outputs will be saved (i.e., the root of your
+        dataset).
+    keep_intermediate : bool, default False
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging.
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+        - aligned_anatomical_file : File - path to the aligned anatomical
+          image - a Nifti file with the suffix "_T1w".
+        - aligned_mask_file : File - path to the aligned mask image - a
+          Nifti file with the suffix "_mod-T1w_brainmask".
+        - transform_file : File - path to the 9 dof affine transformation - a
+          text file with the suffix "_mod-T1w_affine".
+
+    Notes
+    -----
+    This workflow assumes the anatomical image is organized in BIDS.
+
+    Examples
+    --------
+    >>> from brainprep.workflow import brainprep_quasiraw
+    >>> brainprep_quasiraw(t1_file, brain_mask_file, output_dir)
+
+    Raises
+    ------
+    ValueError
+        If the input anatomical file is not BIDS-compliant.
+
+    References
+    ----------
+
+    .. footbibliography::
     """
-    print_title("Set outputs and default target if applicable...")
-    if not os.path.isdir(outdir):
-        raise ValueError("{0} does not exist".format(outdir))
-    if target is None:
-        resource_dir = os.path.join(
-            os.path.dirname(brainprep.__file__), "resources")
-        target = os.path.join(
-            resource_dir, "MNI152_T1_1mm_brain.nii.gz")
-        print("set target:", target)
-    imfile = anatomical
-    maskfile = mask
-    targetfile = target
-    if no_bids:
-        basename = os.path.basename(imfile).split(".")[0] + "_desc-{0}_T1w"
-    else:
-        basename = os.path.basename(imfile).split(".")[0]
-        if not basename.endswith("_T1w"):
-            raise ValueError("The input file is not formatted in BIDS! "
-                             "Please use the --no-bids parameter.")
-        basename = basename.replace("_T1w", "_desc-{0}_T1w")
-    basefile = os.path.join(outdir, basename + ".nii.gz")
-    print("use base file name:", basefile)
-    stdfile = basefile.format("1std")
-    stdmaskfile = basefile.format("1maskstd")
-    brainfile = basefile.format("2brain")
-    scaledfile = basefile.format("3scaled")
-    bfcfile = basefile.format("4bfc")
-    regfile = basefile.format("5reg")
-    regmaskfile = basefile.format("5maskreg")
-    applyfile = basefile.format("6apply")
+    resource_dir = Path(interfaces.__file__).parent.parent / "resources"
+    template_file = resource_dir / "MNI152_T1_1mm_brain.nii.gz"
+    print_info(f"setting template file: {template_file}")
+    workspace_dir = output_dir / "workspace"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
 
-    print_title("Launch quasi-raw pre-processing...")
-    brainprep.reorient2std(imfile, stdfile)
-    brainprep.reorient2std(maskfile, stdmaskfile)
-    brainprep.apply_mask(stdfile, stdmaskfile, brainfile)
-    brainprep.scale(brainfile, scaledfile, scale=1)
-    brainprep.biasfield(scaledfile, bfcfile)
-    _, trffile = brainprep.register_affine(bfcfile, targetfile, regfile)
-    brainprep.apply_affine(stdmaskfile, regfile, regmaskfile, trffile,
-                           interp="nearestneighbour")
-    brainprep.apply_mask(regfile, regmaskfile, applyfile)
+    entities = parse_bids_keys(anatomical_file)
+    if len(entities) == 0:
+        raise ValueError(
+            f"The anatomical file '{anatomical_file}' is not BIDS-compliant."
+        )
 
-    print_title("Make datasets...")
-    if not os.path.exists(applyfile):
-        raise ValueError("{0} file doesn't exists".format(applyfile))
-    nii_img = nibabel.load(applyfile)
-    nii_arr = nii_img.get_fdata()
-    nii_arr = nii_arr.astype(np.float32)
-    npy_mat = applyfile.replace(".nii.gz", ".npy")
-    np.save(npy_mat, nii_arr)
+    reoriented_anatomical_file = interfaces.reorient(
+        anatomical_file,
+        workspace_dir / "01-reorient",
+        entities,
+    )
+    mask_file = interfaces.brainmask(
+        reoriented_anatomical_file,
+        workspace_dir / "02-brainmask",
+        entities,
+    )
+    masked_anatomical_file = interfaces.applymask(
+        reoriented_anatomical_file,
+        mask_file,
+        workspace_dir / "03-applymask",
+        entities,
+    )
+    scaled_anatomical_file, _ = interfaces.scale(
+        masked_anatomical_file,
+        1,
+        workspace_dir / "04-scale",
+        entities,
+    )
+    scaled_mask_file, _ = interfaces.scale(
+        mask_file,
+        1,
+        workspace_dir / "05-scale",
+        entities,
+    )
+    bc_anatomical_file, _ = interfaces.biasfield(
+        scaled_anatomical_file,
+        scaled_mask_file,
+        workspace_dir / "06-biasfield",
+        entities,
+    )
+    _, affine_transform_file = interfaces.affine(
+        bc_anatomical_file,
+        template_file,
+        workspace_dir / "07-affine",
+        entities,
+    )
+    aligned_anatomical_file = interfaces.applyaffine(
+        bc_anatomical_file,
+        template_file,
+        affine_transform_file,
+        workspace_dir / "08-applyaffine",
+        entities,
+        interpolation="spline",
+    )
+    aligned_mask_file = interfaces.applyaffine(
+        mask_file,
+        template_file,
+        affine_transform_file,
+        workspace_dir / "09-applyaffine",
+        entities,
+        interpolation="nearestneighbour",
+    )
+    aligned_anatomical_file = interfaces.applymask(
+        aligned_anatomical_file,
+        aligned_mask_file,
+        workspace_dir / "10-applymask",
+        entities,
+    )
+
+    mod = entities["mod"]
+    basename = "sub-{sub}_ses-{ses}_run-{run}".format(**entities)
+    output_anatomical_file = output_dir / f"{basename}_{mod}.nii.gz"
+    output_mask_file = output_dir / f"{basename}_mod-{mod}_brainmask.nii.gz"
+    output_transform_file = output_dir / f"{basename}_mod-{mod}_affine.txt"
+    interfaces.copyfiles(
+        [aligned_anatomical_file, aligned_mask_file, affine_transform_file],
+        [output_anatomical_file, output_mask_file, output_transform_file],
+        output_dir,
+    )
+
+    if not keep_intermediate:
+        print_info(f"cleaning workspace directory: {workspace_dir}")
+        shutil.rmtree(workspace_dir)
+
+    return Bunch(
+        aligned_anatomical_file=output_anatomical_file,
+        aligned_mask_file=output_mask_file,
+        transform_file=output_transform_file,
+    )
 
 
 def brainprep_quasiraw_qc(img_regex, outdir, brainmask_regex=None,
                           extra_img_regex=None, corr_thr=0.5):
-    """ Define the quasi-raw quality control workflow.
+    """
+    Quasi-RAW pre-processing quality control.
 
     Parameters
     ----------

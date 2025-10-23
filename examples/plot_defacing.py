@@ -44,7 +44,7 @@ from brainprep.reporting import RSTReport
 outdir = Path("/tmp/brainprep-defacing")
 outdir.mkdir(parents=True, exist_ok=True)
 report = RSTReport()
-with Config(dryrun=True):
+with Config(dryrun=True, verbose=True):
     brainprep_defacing(
         t1_file=data["sub-01"],
         output_dir=outdir,

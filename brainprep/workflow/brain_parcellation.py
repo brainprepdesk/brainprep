@@ -8,97 +8,195 @@
 ##########################################################################
 
 """
-Interface for FreeSurfer recon-all.
+Brain parcellation pre-processing.
 """
 
-# System import
 import os
-import glob
-import nibabel
-import warnings
-import numpy as np
-import pandas as pd
-from html import unescape
-import brainprep
-from brainprep.utils import create_clickable, listify
-from brainprep.utils import print_title, print_result
-from brainprep.qc import parse_fsreconall_stats
-from brainprep.plotting import plot_fsreconall, plot_hists
+from pathlib import Path
+import shutil
+from typing import Optional
+
+import brainprep.interfaces as interfaces
+
+from ..reporting import (
+    log_runtime,
+    save_runtime,
+)
+from ..typing import (
+    Directory,
+    File,
+)
+from ..utils import (
+    Bunch,
+    bids,
+    coerceparams,
+    find_stack_level,
+    parse_bids_keys,
+    print_deprecated,
+    print_info,
+)
 
 
-def brainprep_fsreconall(subjid, anatomical, outdir, template_dir,
-                         do_lgi=False, wm=None):
-    """ Define the FreeSurfer recon-all pre-processing workflow.
+@bids(
+    process="brain_parcellation",
+    bids_file="t1_file",
+    container="neurospin/brainprep-brainparc")
+@log_runtime(
+    title="Brain parcellation")
+@save_runtime
+@coerceparams
+def brainprep_brainparc(
+        t1_file: File,
+        template_dir: Directory,
+        output_dir: Directory,
+        do_lgi: bool = False,
+        wm_file: Optional[File] = None) -> Bunch:
+    """
+    Brain parcellation pre-processing.
+
+    Applies the brain parcellation pre-processing described in
+    :footcite:p:`dufumier2022openbhb`. This includes:
+
+    1) Automated cortical reconstruction and volumetric segmentation from
+       structural T1w MRI data using FreeSurfer's `recon-all`.
+    2) Compute local Gyrification Index (localGI or lGI) - optional.
+    3) Interhemispheric surface-based registration using the `fsaverage_sym`
+       template.
+    4) Project the different cortical features to the 'fsaverage_sym' template
+       space.
+    5) Convert FreeSurfer images back to original Nifti space.
 
     Parameters
     ----------
-    subjid: str
-        the subject identifier.
-    anatomical: str
-        path to the anatomical T1w Nifti file.
-    outdir: str
-        the destination folder.
-    template_dir: str
-        path to the 'fsaverage_sym' template.
-    do_lgi: bool
-        optionally perform the Local Gyrification Index (LGI) "
-        computation (requires Matlab).
-    wm: str
-        optionally give a path to the custom white matter mask (we assume
-        you have run recon-all at least upto wm.mgz creation). It has to be
+    t1_file : File
+        Path to the input T1w image file.
+    template_dir : Directory
+        Path to the 'fsaverage_sym' template.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+    do_lgi : bool, default False
+        Perform the Local Gyrification Index (LGI) computation - requires
+        Matlab.
+    wm_file : Optional[File], default None
+        Path to the custom white matter mask - we assume `recon-all` has been
+        run at least upto the 'wm.mgz' file creation. It has to be
         in the subject's FreeSurfer space (1mm iso + aligned with brain.mgz)
         with values in [0, 1] (i.e. probability of being white matter).
-        For example, it can be the 'brain_pve_2.nii.gz" white matter
-        probability map created by FSL Fast.
+        For example, it can be the 'brain_pve_2.nii.gz' white matter
+        probability map created by FSL `fast`.
+
+        .. deprecated:: 1.0.0
+
+        .. admonition:: Do not use ``wm_file``!
+           :class: important
+
+           This option was removed as it is never used in Population Imaging
+           studies. This parameter has no effect!
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+        - left_reg_file : File - left hemisphere registered to
+          `fsaverage_sym` symmetric template.
+        - right_reg_file : File - right hemisphere registered to
+          `fsaverage_sym` symmetric template via xhemi.
+        - features : tuple[File] - a tuple containing features in the
+          `fsaverage_sym` symmetric template - each feature file is a MGH
+          file with the suffix "fsaverage_sym" and is available in the
+          'surf' folder.
+        - images : tuple[File] — a tuple containing converted images - a
+          Nifti file available in the 'mri' folder.
+
+    Notes
+    -----
+    This workflow assumes the T1w image is organized in BIDS.
+
+    Examples
+    --------
+    >>> from brainprep.workflow import brainprep_brainparc
+    >>> brainprep_brainparc(t1_file, template_dir, output_dir)
+
+    Raises
+    ------
+    ValueError
+        If the input T1w file is not BIDS-compliant.
+
+    References
+    ----------
+
+    .. footbibliography::
     """
-    print_title("Launch FreeSurfer reconall...")
-    if wm is None:
-        brainprep.recon_all(
-            fsdir=outdir, anatfile=anatomical, sid=subjid,
-            reconstruction_stage="all", resume=False, t2file=None,
-            flairfile=None)
-    else:
-        brainprep.recon_all_custom_wm_mask(fsdir=outdir, sid=subjid, wm=wm)
-
+    entities = parse_bids_keys(t1_file)
+    if len(entities) == 0:
+        raise ValueError(
+            f"The T1w file '{t1_file}' is not BIDS-compliant."
+        )
+    if wm_file is not None:
+        print_deprecated(
+            "You passed a white matter file as input. This behavior is "
+            "deprecated and will be removed in version >1."
+        )
+    log_file = interfaces.reconall(
+        t1_file,
+        output_dir,
+        entities,
+        resume=False,
+    )
+    interfaces.freesurfer_command_status(
+        log_file,
+        command="recon-all",
+    )
     if do_lgi:
-        print_title("Launch FreeSurfer LGI computation...")
-        brainprep.localgi(fsdir=outdir, sid=subjid)
+        left_lgi_file, right_lgi_file = interfaces.localgi(
+            output_dir,
+            entities,
+        )
+        interfaces.freesurfer_command_status(
+            log_file,
+            command="recon-all",
+        )
+    left_reg_file, right_reg_file = interfaces.fsaveragesym_surfreg(
+        template_dir,
+        output_dir,
+        entities,
+    )
+    (lh_thickness_file, rh_thickness_file, lh_curv_file, rh_curv_file,
+     lh_area_file, rh_area_file, lh_pial_lgi_file, rh_pial_lgi_file,
+     lh_sulc_file, rh_sulc_file) = interfaces.fsaveragesym_projection(
+        left_reg_file,
+        right_reg_file,
+        template_dir,
+        output_dir,
+        entities,
+    )
+    (aparc_aseg_file, aparc_a2009s_aseg_file, aseg_file, wm_file,
+     rawavg_file, ribbon_file, brain_file) = interfaces.mgz_to_nii(
+        output_dir,
+        entities,
+    )
 
-    print_title("Launch FreeSurfer xhemi...")
-    brainprep.interhemi_surfreg(
-        fsdir=outdir, sid=subjid, template_dir=template_dir)
-
-    print_title("Launch FreeSurfer xhemi projection...")
-    brainprep.interhemi_projection(
-        fsdir=outdir, sid=subjid, template_dir=template_dir)
-
-    print_title("Launch FreeSurfer MRI conversions...")
-    brainprep.mri_conversion(fsdir=outdir, sid=subjid)
-
-    print_title("Make datasets...")
-    regex = os.path.join(outdir, subjid, "surf", "{0}.{1}.xhemi.mgh")
-    data, labels = [], []
-    for hemi in ("lh", "rh"):
-        for name in ("thickness", "curv", "area", "pial_lgi", "sulc"):
-            texture_file = regex.format(hemi, name)
-            if not os.path.isfile(texture_file):
-                warnings.warn(
-                    "Texture file not found: {}".format(texture_file),
-                    UserWarning)
-                continue
-            values = nibabel.load(texture_file).get_fdata().transpose(1, 2, 0)
-            key = "hemi-{}_texture-{}".format(hemi, name)
-            print("- {}: {}".format(key, values.shape))
-            data.append(values)
-            labels.append(key)
-    data = np.concatenate(data, axis=1)
-    print("- textures:", data.shape)
-    destfile = os.path.join(outdir, subjid, "channels.txt")
-    np.savetxt(destfile, labels, fmt="%s")
-    print_result(destfile)
-    destfile = os.path.join(outdir, subjid, "xhemi-textures.npy")
-    np.save(destfile, data)
-    print_result(destfile)
+    return Bunch(
+        left_reg_file=left_reg_file,
+        right_reg_file=right_reg_file,
+        lh_thickness_file=lh_thickness_file,
+        rh_thickness_file=rh_thickness_file,
+        lh_curv_file=lh_curv_file,
+        rh_curv_file=rh_curv_file,
+        lh_area_file=lh_area_file,
+        rh_area_file=rh_area_file,
+        lh_pial_lgi_file=lh_pial_lgi_file,
+        rh_pial_lgi_file=rh_pial_lgi_file,
+        lh_sulc_file=lh_sulc_file,
+        rh_sulc_file=rh_sulc_file,
+        aparc_aseg_file=aparc_aseg_file,
+        aparc_a2009s_aseg_file=aparc_a2009s_aseg_file,
+        aseg_file=aseg_file,
+        wm_file=wm_file,
+        rawavg_file=rawavg_file,
+        ribbon_file=ribbon_file,
+        brain_file=brain_file,
+    )
 
 
 def brainprep_fsreconall_longitudinal(

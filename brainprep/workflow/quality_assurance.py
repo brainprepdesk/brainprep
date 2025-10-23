@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Interface for MRIQC.
+Quality assurance.
 """
 
 import os
@@ -26,6 +26,9 @@ from ..typing import (
 from ..utils import (
     Bunch,
     bids,
+    coerceparams,
+    parse_bids_keys,
+    print_info,
 )
 
 
@@ -36,6 +39,7 @@ from ..utils import (
 @log_runtime(
     title="Subject Level Quality Assurance")
 @save_runtime
+@coerceparams
 def brainprep_quality_assurance(
         image_files: list[File],
         output_dir: Directory,
@@ -84,6 +88,7 @@ def brainprep_quality_assurance(
     )
 
     if not keep_intermediate:
+        print_info(f"cleaning workspace directory: {workspace_dir}")
         shutil.rmtree(workspace_dir)
 
     return Bunch(
@@ -96,6 +101,7 @@ def brainprep_quality_assurance(
 @log_runtime(
     title="Group Level Quality Assurance")
 @save_runtime
+@coerceparams
 def brainprep_group_quality_assurance(
         modalities: list[str],
         output_dir: Directory,
@@ -145,35 +151,3 @@ def brainprep_group_quality_assurance(
     return Bunch(
         iqm_file=iqm_file,
     )
-
-
-def brainprep_mriqc(rawdir, subjid, outdir="/out", workdir="/work",
-                    mriqc="mriqc"):
-    """ Define the mriqc pre-processing workflow.
-
-    Parameters
-    ----------
-    rawdir: str
-        the BIDS raw folder.
-    subjid: str
-        the subject identifier.
-    outdir: str
-        the destination folder.
-    workdir: str
-        the working folder.
-    mriqc: str
-        path to the mriqc binary.
-    """
-    print_title("Launch mriqc...")
-    status = os.path.join(outdir, subjid, "ok")
-    if not os.path.isfile(status):
-        cmd = [
-            mriqc,
-            rawdir,
-            outdir,
-            "participant",
-            "-w", workdir,
-            "--no-sub",
-            "--participant-label", subjid]
-        brainprep.execute_command(cmd)
-        open(status, "a").close()

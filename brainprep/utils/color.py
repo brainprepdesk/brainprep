@@ -26,11 +26,14 @@ IS_COLOR_TERM = "TERM" in os.environ and (
 # Dictionary of term colors used for printing to terminal
 fg_colors = {
     "title": "gold_3b",
-    "subtitle": "orange_4b",
+    "subtitle": "light_cyan_3",
     "command": "grey_46",
     "info": "blue_1",
     "result": "pink_3",
-    "error": "red"}
+    "error": "red",
+    "warn": "orange_4b",
+    "deprecated": "orange_4b",
+}
 
 
 def HEX(color):
@@ -652,37 +655,47 @@ def attr(color):
     return colored(color).attribute()
 
 
+def print_color(category, text):
+    if category not in fg_colors:
+        raise ValueError(
+            f"Please define an entry for '{catagory}' in the color table."
+        )
+    category = (
+        stylize(category, fg(fg_colors[category]))
+        if IS_COLOR_TERM
+        else category
+    )
+    text = f"[{category}] - {text}"
+    print(text)
+
+
 def print_title(title):
-    if IS_COLOR_TERM:
-        title = stylize(title, fg(fg_colors["title"]) + attr("bold"))
-    print(title)
+    print_color("title", title)
 
 
-def print_subtitle(title):
-    if IS_COLOR_TERM:
-        title = stylize(title, fg(fg_colors["subtitle"]))
-    print(title)
+def print_subtitle(subtitle):
+    print_color("subtitle", subtitle)
 
 
 def print_command(command):
-    if IS_COLOR_TERM:
-        command = stylize(f"[command] {command}", fg(fg_colors["command"]))
-    print(command)
+    print_color("command", command)
 
 
 def print_info(info):
-    if IS_COLOR_TERM:
-        info = stylize(f"[info] {info}", fg(fg_colors["info"]))
-    print(info)
+    print_color("info", info)
+
+
+def print_warn(warn):
+    print_color("warn", warn)
 
 
 def print_result(result):
-    if IS_COLOR_TERM:
-        result = stylize(f"[output] {result}", fg(fg_colors["result"]))
-    print(result)
+    print_color("result", result)
 
 
 def print_error(error):
-    if IS_COLOR_TERM:
-        error = stylize(f"[error] {error}", fg(fg_colors["error"]))
-    print(error)
+    print_color("error", error)
+
+
+def print_deprecated(deprecated):
+    print_color("deprecated", deprecated)

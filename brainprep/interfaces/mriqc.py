@@ -20,12 +20,18 @@ from ..typing import (
     Directory,
     File,
 )
+from ..utils import (
+    coerceparams,
+    outputdir,
+)
 from ..wrappers import cmdwrapper
 
 
 @log_runtime(
     bunched=False)
 @cmdwrapper
+@outputdir
+@coerceparams
 def subject_level_qa(
         image_files: list[File],
         output_dir: Directory) -> tuple[list[str], tuple[list[File]]]:
@@ -53,31 +59,31 @@ def subject_level_qa(
     ValueError
         If the output directory does not exist.
     """
-    image_files = [Path(path) for path in image_files]
-    rawdata_dir = str(image_files[0].parent.parent.parent.parent)
+    rawdata_dir = image_files[0].parent.parent.parent.parent
     subject = output_dir.parent.name.replace("sub-", "")
-    workspace_dir = str(output_dir / "workspace")
-    output_dir = str(Path(output_dir).resolve().parent.parent)
-
-    if not os.path.isdir(output_dir):
-        raise ValueError(
-            f"The output directory '{output_dir}' does not exist."
-        )
+    workspace_dir = output_dir / "workspace"
+    output_dir = output_dir.parent.parent
 
     iqm_files = [
         path.parent / f"{path.name.split('.')[0]}.json"
         for path in image_files
     ]
     iqm_files = [
-        Path(str(path).replace(rawdata_dir, output_dir))
+        Path(
+            str(path).replace(
+                str(rawdata_dir),
+                str(output_dir)
+            )
+        )
         for path in iqm_files
     ]
+
     command = [
         "mriqc",
-        rawdata_dir,
-        output_dir,
+        str(rawdata_dir),
+        str(output_dir),
         "participant",
-        "-w", workspace_dir,
+        "-w", str(workspace_dir),
         "--no-sub",
         "--no-datalad-get",
         "--notrack",
@@ -90,6 +96,8 @@ def subject_level_qa(
 @log_runtime(
     bunched=False)
 @cmdwrapper
+@outputdir
+@coerceparams
 def group_level_qa(
         modalities: list[str],
         output_dir: Directory) -> tuple[list[str], tuple[File]]:
@@ -115,22 +123,17 @@ def group_level_qa(
     ValueError
         If the output directory does not exist.
     """
-    output_dir = str(Path(output_dir).resolve())
-    rawdata_dir = str(Path(output_dir).parent.parent / "rawdata")
-
-    if not os.path.isdir(output_dir):
-        raise ValueError(
-            f"The output directory '{output_dir}' does not exist."
-        )
+    rawdata_dir = output_dir.parent.parent / "rawdata"
 
     iqm_files = [
-        Path(output_dir) / f"group_{mod}.tsv"
+        output_dir / f"group_{mod}.tsv"
         for mod in modalities
     ]
+
     command = [
         "mriqc",
-        rawdata_dir,
-        output_dir,
+        str(rawdata_dir),
+        str(output_dir),
         "group",
         "--no-sub",
         "--no-datalad-get",

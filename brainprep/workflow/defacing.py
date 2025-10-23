@@ -25,6 +25,9 @@ from ..typing import (
 from ..utils import (
     Bunch,
     bids,
+    coerceparams,
+    parse_bids_keys,
+    print_info,
 )
 
 
@@ -44,7 +47,11 @@ def brainprep_defacing(
 
     Applies FSL's `fsl_deface` tool :footcite:p:`almagro2018deface` with
     default settings to remove facial features (face and ears) from the input
-    image. The image is first reoriented before defacing.
+    image. This includes:
+
+    1) Reorient the T1w image to standard MNI152 template space.
+    2) Deface the T1w image.
+    3) Generate a mosaic image of the defaced T1w image. 
 
     Parameters
     ----------
@@ -80,21 +87,31 @@ def brainprep_defacing(
 
     .. footbibliography::
     """
+    entities = parse_bids_keys(t1_file)
+    if len(entities) == 0:
+        raise ValueError(
+            f"The T1w file '{t1_file}' is not BIDS-compliant."
+        )
+
     reoriented_t1_file = interfaces.reorient(
         t1_file,
         output_dir,
+        entities,
     )
     deface_t1_file, mask_file, vol_files = interfaces.deface(
         reoriented_t1_file,
         output_dir,
+        entities,
     )
     mosaic_file = interfaces.defacing_mosaic(
         mask_file,
         t1_file,
         output_dir,
+        entities,
     )
 
     if not keep_intermediate:
+        print_info(f"cleaning intermediate file: {reoriented_t1_file}")
         os.remove(reoriented_t1_file)
 
     return Bunch(

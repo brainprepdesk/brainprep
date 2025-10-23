@@ -13,18 +13,20 @@ Module that implements tools.
 from .bunch import Bunch
 from .color import (
     print_command,
+    print_deprecated,
     print_error,
     print_info,
     print_result,
     print_subtitle,
     print_title,
+    print_warn,
 )
 from .utils import (
     bids,
-    check_command,
-    check_version,
+    outputdir,
+    coerceparams,
     create_clickable,
-    execute_command,
+    find_stack_level,
     listify,
     load_images,
     parse_bids_keys,

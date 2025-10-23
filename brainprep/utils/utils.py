@@ -23,8 +23,20 @@ import nibabel
 
 from decorator import decorator
 from pathlib import Path
-
-from .color import print_command, print_error
+from typing import(
+    Any,
+    get_origin,
+    get_args,
+    Union,
+)
+from .color import (
+    print_command,
+    print_error,
+)
+from ..typing import (
+    Directory,
+    File,
+)
 from .._version import __version__
 
 
@@ -130,81 +142,127 @@ def bids(func, process=None, bids_file=None, container=None, *args, **kw):
     return func(**inputs)
 
 
-def execute_command(command):
-    """ Execute a command.
+@decorator
+def outputdir(func, *args, **kw):
+    """
+    Output directory creation.
+
+    Decorator that create the output directory.
 
     Parameters
     ----------
-    command: list of str
-        the command to be executed.
+    func : callable
+        The function to be decorated.
+    *args : tuple
+        Positional arguments passed to `func`.
+    **kw : dict
+        Keyword arguments passed to `func`.
+
+    Returns
+    -------
+    wrapper : function
+        A wrapped function with the 'output_dir' created on disk.
+
+    Raises
+    ------
+    ValueError
+        If the decorated function has no 'output_dir' argument.
     """
-    print_command(" ".join(command))
-    proc = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output, error = proc.communicate()
-    if proc.returncode != 0:
+    inputs = inspect.getcallargs(func, *args, **kw)
+
+    if "output_dir" not in inputs:
         raise ValueError(
-            "\nCommand {0} failed:\n\n- output:\n{1}\n\n- error: "
-            "{2}\n\n".format(" ".join(command),
-                             output.decode("utf8"),
-                             error.decode("utf8")))
+            "This decorator needs a 'output_dir' function argument."
+        )
+
+    Path(inputs["output_dir"]).mkdir(parents=True, exist_ok=True)
+
+    return func(**inputs)
 
 
-def check_command(command):
-    """ Check if a command is installed.
-
-    .. note:: This function is based on which linux command.
+@decorator
+def coerceparams(func, *args, **kw):
+    """
+    Converts arguments typed as `File` or `Directory` to `pathlib.Path`.
 
     Parameters
     ----------
-    command: str
-        the name of the command to locate.
+    func : callable
+        The function to be decorated.
+    *args : tuple
+        Positional arguments passed to `func`.
+    **kw : dict
+        Keyword arguments passed to `func`.
+
+    Returns
+    -------
+    wrapper : function
+        A wrapped function with the 'File' and 'Directory' arguments properly
+        typed.
+
+    Raises
+    ------
+    ValueError
+        If the decorated function have untyped arguments.
     """
-    if sys.platform != "linux":
-        raise ValueError("This code works only on a linux machine.")
-    process = subprocess.Popen(
-        ["which", command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    stdout = stdout.decode("utf8")
-    stderr = stderr.decode("utf8")
-    exitcode = process.returncode
-    if exitcode != 0:
-        print_error("Command {0}: {1}".format(command, stderr))
-        raise ValueError("Impossible to locate command '{0}'.".format(command))
+    inputs = inspect.getcallargs(func, *args, **kw)
+    sig = inspect.signature(func)
 
-
-def check_version(package_name, check_pkg_version):
-    """ Check installed version of a package.
-
-    .. note:: This function is based on dpkg linux command.
-
-    Parameters
-    ----------
-    package_name: str
-        the name of the package we want to check the version.
-    """
-    process = subprocess.Popen(
-        ["dpkg", "-s", package_name],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    stdout = stdout.decode("utf8")
-    stderr = stderr.decode("utf8")
-    exitcode = process.returncode
-    if check_pkg_version:
-        # local computer installation
-        if exitcode != 0:
-            version = None
-            print_error("Version {0}: {1}".format(package_name, stderr))
+    for name, param in sig.parameters.items():
+        if param.annotation is inspect.Parameter.empty:
             raise ValueError(
-                "Impossible to check package '{0}' version."
-                .format(package_name))
-        else:
-            versions = re.findall("Version: .*$", stdout, re.MULTILINE)
-            version = "|".join(versions)
-    else:
-        # specific installation
-        version = "custom install (no check)."
-    print("{0} - {1}".format(package_name, version))
+                "The decorated function must only have typed arguments."
+            )
+        inputs[name] = coerce_to_path(inputs[name], param.annotation)
+
+    return func(**inputs)
+
+
+def coerce_to_path(
+        value: Any,
+        expected_type: type) -> Any:
+    """
+    Recursively convert values to `pathlib.Path` based on expected type
+    annotations.
+
+    Parameters
+    ----------
+    value : Any
+        The input value to be coerced.
+    expected_type : type
+        The expected type annotation (e.g., `File`, `List[File]`,
+        `Dict[str, Directory]`, `Union[str, Directory]`).
+
+    Returns
+    -------
+    typed_value : Any
+        The coerced value, with `File` and `Directory` converted to
+        `pathlib.Path`.
+    """
+    origin = get_origin(expected_type)
+    args = get_args(expected_type)
+
+    if value is None:
+        return value
+
+    if expected_type in {File, Directory}:
+        return Path(value).resolve()
+
+    if origin is Union and (File in args or Directory in args):
+        return Path(value).resolve()
+
+    if origin in {list, tuple, set} and args:
+        container_type = origin
+        inner_type = args[0]
+        return container_type(coerce_to_path(inner_value, inner_type)
+                              for inner_value in value)
+
+    if origin is dict and len(args) == 2:
+        key_type, val_type = args
+        return {key: coerce_to_path(val, val_type)
+                for key, val in value.items()}
+
+    return value
 
 
 def write_matlabbatch(template, nii_files, tpm_file, darteltpm_file,
@@ -297,22 +355,23 @@ def ungzip_file(zfile, prefix="u", outdir=None):
     return unzfile
 
 
-def parse_bids_keys(bids_path):
+def parse_bids_keys(
+        bids_path: File) -> dict[str]:
     """
     Parses BIDS keys and modality from a filename or path with validation.
 
     Parameters
     ----------
-    bids_path : str
-        The BIDS filename or full path.
+    bids_path : File
+        The BIDS file.
 
     Returns
     -------
-    entities : dict
+    entities : dict[str]
         A dictionary of parsed BIDS entities including modality.
     """
     # Extract the filename from the path
-    filename = os.path.basename(bids_path)
+    filename = bids_path.name
 
     # Regex pattern for BIDS entities
     entity_pattern = (
@@ -335,10 +394,14 @@ def parse_bids_keys(bids_path):
     if modality_match:
         entities["modality"] = modality_match.group("modality")
 
+    # Update modality
+    if "mod" not in entities and "modality" in entities:
+        entities["mod"] = entities["modality"]
+
     # Define default values for missing entities
     defaults = {
         "ses": "01",
-        "run": "1",
+        "run": "01",
     }
 
     # Fill in missing entities with defaults
@@ -346,6 +409,34 @@ def parse_bids_keys(bids_path):
         entities.setdefault(key, default)
 
     return entities
+
+
+def find_stack_level() -> int:
+    """
+    Find the first place in the stack that is not inside brainprep.
+    Taken from the pandas codebase.
+    """
+    import brainprep
+
+    pkg_dir = Path(brainprep.__file__).parent
+
+    # https://stackoverflow.com/questions/17407119/python-inspect-stack-is-slow
+    frame = inspect.currentframe()
+    try:
+        n = 0
+        while frame:
+            filename = inspect.getfile(frame)
+            is_test_file = Path(filename).name.startswith("test_")
+            in_nilearn_code = filename.startswith(str(pkg_dir))
+            if not in_nilearn_code or is_test_file:
+                break
+            frame = frame.f_back
+            n += 1
+    finally:
+        # See note in
+        # https://docs.python.org/3/library/inspect.html#inspect.Traceback
+        del frame
+    return n
 
 
 def load_images(img_files, check_same_referential=True):

@@ -10,10 +10,12 @@ NEW
 ---
 
 - :bdg-success:`Doc` Create doc with `furo <https://github.com/pradyunsg/furo>`_.
-- :bdg-success:`API` Worflows generate a report file.
-- :bdg-success:`API` Worflows generate BIDS-compliant organization.
-- :bdg-success:`API` New workflows can generate HTML reporting.
-- :bdg-success:`API` Toy datasets have been added to test the module.
+- :bdg-success:`Enhancement` Worflows generate a report file.
+- :bdg-success:`Enhancement` Worflows generate BIDS-compliant organization.
+- :bdg-success:`Enhancement` New workflows can generate HTML reporting.
+- :bdg-success:`Datasets` Toy datasets have been added to test the module.
+- :bdg-success:`Enhancement` Quasi-RAW preprocessing compute the brain mask
+  using `mri_synthstrip <https://surfer.nmr.mgh.harvard.edu/docs/synthstrip>`_.
 
 Fixes
 -----
@@ -29,6 +31,13 @@ Changes
 
 - :bdg-success:`API` Building blocks are now grouped in an interfaces
   submodule.
+- :bdg-danger:`Deprecation` Path custom white matter mask to `recon-all` has
+  been deprecated.
+- :bdg-success:`Enhancement` Use '--no-annot' in surfreg to avoid using the
+  annotation (aparc) to help with the registration. This was described to
+  create some artifacts on the edge of the medial wall
+  (https://surfer.nmr.mgh.harvard.edu/fswiki/Xhemi).
+
 
 0.0.2
 =====

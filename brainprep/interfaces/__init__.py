@@ -10,12 +10,29 @@
 Module that implements interfaces.
 """
 
+from .ants import (
+    biasfield,
+)
 from .custom import (
+    copyfiles,
     defacing_mask_diff,
 )
+from .freesurfer import (
+    brainmask,
+    freesurfer_command_status,
+    fsaveragesym_projection,
+    fsaveragesym_surfreg,
+    localgi,
+    mgz_to_nii,
+    reconall,
+)
 from .fsl import (
+    affine,
+    applyaffine,
+    applymask,
     deface,
     reorient,
+    scale,
 )
 from .mriqc import (
     group_level_qa,

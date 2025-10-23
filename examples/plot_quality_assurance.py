@@ -38,7 +38,7 @@ print(data)
 # Analysis
 # --------
 # 
-# Let's now perform preprocessing using the BrainPrep.
+# Let's now perform the preprocessing using BrainPrep.
 # As with many tutorials, we won't execute the code directly here.
 # However, feel free to set the 'dryrun' configuration to False
 # to actually run each step and generate results on disk.
@@ -53,7 +53,7 @@ from brainprep.reporting import RSTReport
 
 outdir = Path("/tmp/brainprep-qa")
 outdir.mkdir(parents=True, exist_ok=True)
-with Config(dryrun=True):
+with Config(dryrun=True, verbose=True):
     for subject in data:
         report = RSTReport()
         brainprep_quality_assurance(
@@ -91,7 +91,7 @@ cmd = [
     "--env", "PYTHONPATH=/opt/brainprep",
     "--env", "PREPEND_PATH=/opt/brainprep/brainprep/scripts",
     "--containall",
-    "docker://neurospin/brainprep-mriqc:latest",
+    "docker://neurospin/brainprep-qa:latest",
     "brainprep", "subject-level-qa",
     "/data",
     "--image-files", f"[{data[subject]}]",

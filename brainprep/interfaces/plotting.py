@@ -23,17 +23,23 @@ from ..typing import (
     Directory,
     File,
 )
-from ..utils import parse_bids_keys
+from ..utils import (
+    coerceparams,
+    outputdir,
+)
 from ..wrappers import pywrapper
 
 
 @log_runtime(
     bunched=False)
 @pywrapper
+@outputdir
+@coerceparams
 def defacing_mosaic(
         im_file: File,
         mask_file: File,
         output_dir: Directory,
+        entities: dict,
         dryrun: bool = False) -> tuple[File]:
     """
     Generates a defacing mosaic image by overlaying a mask on an anatomical
@@ -47,6 +53,8 @@ def defacing_mosaic(
         Path to the defacing mask.
     output_dir : Directory
         Directory where the mosaic image will be saved.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
     dryrun : bool, default False
         If True, skip actual computation and file writing.
 
@@ -55,14 +63,9 @@ def defacing_mosaic(
     mosaic_file : File
         Path to the saved mosaic image.
     """
-    im_file = str(im_file)
-    mask_file = str(mask_file)
-    output_dir = os.path.abspath(str(output_dir))
-
-    entities = parse_bids_keys(im_file)
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-T1w_deface".format(
         **entities)
-    mosaic_file = os.path.join(output_dir, f"{basename}mosaic.png")
+    mosaic_file = output_dir / f"{basename}mosaic.png"
 
     if not dryrun:
         plotting.plot_roi(

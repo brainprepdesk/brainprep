@@ -15,7 +15,7 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Callable, Optional, Union
+from typing import Any, Callable, Optional, Union
 
 from decorator import decorator
 
@@ -90,13 +90,8 @@ def pywrapper(
             "Function must return a list or tuple of output paths, or None."
         )
 
-    for path in outputs or []:
-        if verbose:
-            print_result(path)
-        if not dryrun and not os.path.isfile(path):
-            raise FileNotFoundError(
-                f"Output file not found: {path}"
-            )
+    for item in outputs or []:
+        _check_outputs(item, dryrun, verbose)
 
     return outputs
 
@@ -138,6 +133,10 @@ def cmdwrapper(
     FileNotFoundError
         If any expected output file is missing.
 
+    Notes
+    -----
+    - A list of commands is authrized.
+
     Example
     -------
     >>> @cmdwrapper
@@ -160,26 +159,29 @@ def cmdwrapper(
             "or a tuple of (command list, (output files, ))."
         )
 
-    if (not isinstance(command, list) or
-            not all(isinstance(item, str) for item in command)):
+    if not _is_list_str(command) and not _is_list_list_str(command):
         raise ValueError(
-            "Invalid command format: expected a list of strings."
+            "Invalid command format: expected a list of strings or a list of "
+            "list of string for multiple commands."
         )
+    commands = [command] if _is_list_str(command) else command
     if verbose:
-        print_command(" ".join(command))
+        for cmd in commands:
+            print_command(" ".join(cmd))
 
     if not dryrun:
-        is_command_installed(command[0])
-        process = subprocess.Popen(
-            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-        if process.returncode != 0:
-            if verbose:
-                print_info(stdout.decode("utf-8"))
-                print_error(stderr.decode("utf-8"))
-            raise RuntimeError(
-                f"Command execution failed: {' '.join(command)}"
-            )
+        for cmd in commands:
+            is_command_installed(cmd[0])
+            process = subprocess.Popen(
+                cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout, stderr = process.communicate()
+            if process.returncode != 0:
+                if verbose:
+                    print_info(stdout.decode("utf-8"))
+                    print_error(stderr.decode("utf-8"))
+                raise RuntimeError(
+                    f"Command execution failed: {' '.join(cmd)}"
+                )
 
     for item in outputs or []:
         _check_outputs(item, dryrun, verbose)
@@ -190,6 +192,18 @@ def cmdwrapper(
         return outputs[0]
     else:
         return tuple(outputs)
+
+
+def _is_list_str(
+        command: Any) -> bool:
+    return (isinstance(command, list) and
+            all(isinstance(item, str) for item in command))
+
+
+def _is_list_list_str(
+        command: Any) -> bool:
+    return (isinstance(command, list) and
+            all(_is_list_str(item) for item in command))
 
 
 def _check_outputs(
@@ -220,6 +234,8 @@ def _check_outputs(
             _check_outputs(subitem, dryrun, verbose)
     elif isinstance(item, (str, Path)):
         path = Path(item)
+        if verbose:
+            print_info(f"checking output: {path}")
         if not dryrun and not path.exists():
             raise FileNotFoundError(
                 f"Output file/directory not found: {path}"

@@ -4,7 +4,7 @@ Brain Parcellation
 
 Simple example.
 
-Example on how to run the brain parcellation pre-processing using brainprep.
+Example on how to run the brain parcellation pre-processing using BrainPrep.
 See :ref:`user guide <brain_parcellation>` for details.
 
 Data
@@ -24,33 +24,73 @@ data = dataset.fetch(
     modality="T1w",
     dtype="cross_sectional",
 )
+data.update(
+    dataset.fetch(
+        subject="02",
+        modality="T1w",
+        dtype="cross_sectional",
+    )
+)
 print(data)
+
+
+# %%
+# Analysis
+# --------
+# 
+# Let's now perform the preprocessing using BrainPrep.
+# As with many tutorials, we won't execute the code directly here.
+# However, feel free to set the 'dryrun' configuration to False
+# to actually run each step and generate results on disk.
+
+
+from brainprep.workflow import (
+    brainprep_brainparc,
+)
+from brainprep.config import Config
+from brainprep.reporting import RSTReport
+
+outdir = Path("/tmp/brainprep-brainparc")
+outdir.mkdir(parents=True, exist_ok=True)
+with Config(dryrun=True, verbose=True):
+    for subject in data:
+        report = RSTReport()
+        brainprep_brainparc(
+            t1_file=data[subject],
+            template_dir=(datadir / "fsaverage_sym"),
+            output_dir=outdir,
+            do_lgi=False,
+            wm_file=(datadir / "deprecated")
+        )
+        #print(report)
 
 
 # %%
 # Container
 # ---------
 # 
-# Now let's perform the pre-processing on a brainprep container.
+# Let's now perform this preprocessing using the BrainPrep container.
 
-datadir = str(datadir)
-outdir = "/tmp/brainprep-out"
-homedir = "/tmp/brainprep-home"
-license = "/out/license.txt"
-t1w_file = str(data["sub-01"])
-mask_file = None
+homedir = Path("/tmp/brainprep-home")
+homedir.mkdir(parents=True, exist_ok=True)
+devcodedir = Path(__file__).parent.parent
+subject = "sub-01"
 cmd = [
-    f"SINGULARITYENV_FS_LICENSE={license}",
-    "apptainer", "run",
+    "singularity",
+    "run",
+    "shell",
+    "--bind", f"{devcodedir}:/opt/brainprep",
     "--bind", f"{datadir}:/data",
     "--bind", f"{outdir}:/out",
-    "--home", homedir,
-    "--cleanenv",
-    "docker://neurospin/brainprep-anat:latest",
+    "--home", f"{homedir}",
+    "--env", "PYTHONPATH=/opt/brainprep",
+    "--env", "PREPEND_PATH=/opt/brainprep/brainprep/scripts",
+    "--containall",
+    "docker://neurospin/brainprep-brainparc:latest",
     "brainprep", "brainparc",
-    "sub-test",
-    t1w_file.replace(datadir, "/data"),
-    "/out",
+    "/data",
+    "--image-files", f"[{data[subject]}]",
+    "--output-dir", "/out",
 ]
 print(" ".join(cmd))
 
