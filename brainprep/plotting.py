@@ -56,7 +56,7 @@ def plot_images(nii_files, cut_coords, outdir):
                 plotting.plot_anat(img, figure=fig, axes=axs[idx],
                                    cut_coords=cut, display_mode="ortho")
             plt.subplots_adjust(wspace=0, hspace=0, top=0.9, bottom=0.1)
-            keys = get_bids_keys(path)
+            keys = parse_bids_keys(path)
             participant_id = keys["participant_id"]
             session = keys["session"]
             run = keys["run"]
@@ -166,7 +166,7 @@ def plot_fsreconall(fs_dirs, outdir, include_cerebellum=False):
             axs[1].spines["top"].set_visible(False)
             axs[1].legend()
             plt.subplots_adjust(wspace=0, hspace=0, top=0.9, bottom=0.1)
-            keys = get_bids_keys(path)
+            keys = parse_bids_keys(path)
             participant_id = keys["participant_id"]
             session = keys["session"]
             run = keys["run"]

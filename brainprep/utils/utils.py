@@ -370,7 +370,7 @@ def load_images(img_files, check_same_referential=True):
     data = []
     info = {}
     for path in img_files:
-        keys = get_bids_keys(path)
+        keys = parse_bids_keys(path)
         participant_id = keys["participant_id"]
         session = keys.get("session", "V1")
         run = keys.get("run", "1")

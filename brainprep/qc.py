@@ -39,7 +39,7 @@ def check_files(input_files):
         raise ValueError("Input list of files must have the same number of "
                          "elements.")
     for item in zip(*input_files):
-        keys = [get_bids_keys(path) for path in item]
+        keys = [parse_bids_keys(path) for path in item]
         keys = ["{participant_id}_{session}_{run}".format(**item)
                 for item in keys]
         if len(np.unique(keys)) != 1:
@@ -175,7 +175,7 @@ def parse_fsreconall_stats(fs_dirs):
     """
     scores = {}
     for path in fs_dirs:
-        keys = get_bids_keys(path)
+        keys = parse_bids_keys(path)
         participant_id = keys["participant_id"]
         session = keys["session"]
         run = keys["run"]
@@ -227,7 +227,7 @@ def parse_cat12vbm_roi(
 
     for xml_file in xml_filenames:
         df_sub_key = pd.DataFrame()
-        xml_file_keys = get_bids_keys(xml_file)
+        xml_file_keys = parse_bids_keys(xml_file)
         participant_id = "sub-"+xml_file_keys['participant_id']
         session = xml_file_keys['session'] or '1'
         run = xml_file_keys['run'] or '1'
@@ -338,7 +338,7 @@ def parse_cat12vbm_qc(qc_files):
     """
     scores = {}
     for xml_file in qc_files:
-        keys = get_bids_keys(xml_file)
+        keys = parse_bids_keys(xml_file)
         participant_id = keys["participant_id"]
         session = keys["session"]
         run = keys["run"]
@@ -380,7 +380,7 @@ def parse_cat12vbm_report(img_files, cat12vbm_root):
     """
     reports = []
     for path in img_files:
-        keys = get_bids_keys(path)
+        keys = parse_bids_keys(path)
         participant_id = keys["participant_id"]
         session = keys["session"]
         name = os.path.basename(path)[4:]
