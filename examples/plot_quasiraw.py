@@ -46,7 +46,6 @@ print(data)
 
 from brainprep.workflow import (
     brainprep_quasiraw,
-    brainprep_quasiraw_qc,
 )
 from brainprep.config import Config
 from brainprep.reporting import RSTReport
