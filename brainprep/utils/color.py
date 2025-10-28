@@ -14,6 +14,12 @@ import os
 import platform
 
 
+from ..config import (
+    DEFAULT_OPTIONS,
+    brainprep_options,
+)
+
+
 IS_WINDOWS = platform.system() == "Windows"
 COLOR_TERMS = ["xterm-256color", "cygwin", "xterm-color"]
 IS_COLOR_TERM = "TERM" in os.environ and (
@@ -656,6 +662,12 @@ def attr(color):
 
 
 def print_color(category, text):
+
+    opts = brainprep_options.get()
+    verbose = opts.get("verbose", DEFAULT_OPTIONS["verbose"])
+    if category != "deprecated" and not verbose:
+        return
+
     if category not in fg_colors:
         raise ValueError(
             f"Please define an entry for '{catagory}' in the color table."
