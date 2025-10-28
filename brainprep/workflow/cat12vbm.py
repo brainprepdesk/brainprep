@@ -24,8 +24,9 @@ from brainprep.utils import load_images, create_clickable, listify
 from brainprep.utils import print_title, print_result
 from brainprep.qc import (
     parse_cat12vbm_qc, plot_pca, compute_mean_correlation,
-    parse_cat12vbm_report, check_files, parse_cat12vbm_roi)
+    parse_cat12vbm_report, check_files)#, parse_cat12vbm_roi)
 from brainprep.plotting import plot_images, plot_hists
+from brainprep.parse_xml import *
 
 
 def brainprep_cat12vbm(
@@ -123,7 +124,7 @@ def brainprep_cat12vbm(
         np.save(npy_mat, nii_arr)
 
 
-def brainprep_cat12vbm_roi(xml_filenames, output):
+def brainprep_cat12vbm_roi(xml_filenames, outdir):
     """ Parse cat12vbm rois workflow.
 
     Parameters
@@ -136,21 +137,26 @@ def brainprep_cat12vbm_roi(xml_filenames, output):
         the destination folder.
     """
     print_title("Parse cat12vbm rois...")
-    subprocess.check_call(["mkdir", "-p", output])
+    subprocess.check_call(["mkdir", "-p", outdir])
     if not isinstance(xml_filenames, list):
         xml_filenames = listify(xml_filenames)
-    xml_filenames = [glob.glob(regex) for regex in xml_filenames]
-    xml_filenames = [filename for sublist in xml_filenames
-                     for filename in sublist]
-    iterparse = {"neuromorphometrics": ["ids", "Vgm", "Vcsf", "Vwm"],
-                 "suit": ["ids", "Vgm", "Vwm"],
-                 "thalamic_nuclei": ["ids", "Vgm"],
-                 "thalamus": ["ids", "Vgm"]}
-    for key, value in iterparse.items():
-        output_file = os.path.join(output, f"{key}_cat12_vbm_roi.tsv")
-        rois_tsv_path = parse_cat12vbm_roi(xml_filenames, output_file,
-                                           iterparse={key: value})
-        print_result(rois_tsv_path)
+    # get all the files gven by the regex
+    if "label" in xml_filenames[0]:
+        assert "report" in xml_filenames[1]
+        label_xml_files = glob.glob(xml_filenames[0])
+        report_xml_files = glob.glob(xml_filenames[1])
+    else:
+        assert "label" in xml_filenames[1]
+        assert "report" in xml_filenames[0]
+        label_xml_files = glob.glob(xml_filenames[1])
+        report_xml_files = glob.glob(xml_filenames[0])
+    atlases = ["neuromorphometrics", "suit", "thalamic_nuclei", "thalamus"]
+    for atlas_name in atlases:
+        output_file = os.path.join(outdir, f"{atlas_name}_cat12_vbm_roi.tsv")
+        rois_tsv = parse_cat12vbm_roi_dataset(report_xml_files, label_xml_files,
+                                      atlas_name=atlas_name)
+        rois_tsv.to_csv(output_file, sep='\t', index=False)
+        print_result(f"{output_file} generated")
 
 
 def brainprep_cat12vbm_qc(
