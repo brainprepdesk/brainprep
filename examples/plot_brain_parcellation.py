@@ -46,6 +46,7 @@ print(data)
 
 from brainprep.workflow import (
     brainprep_brainparc,
+    brainprep_group_brainparc,
 )
 from brainprep.config import Config
 from brainprep.reporting import RSTReport
@@ -55,14 +56,21 @@ outdir.mkdir(parents=True, exist_ok=True)
 with Config(dryrun=True, verbose=True):
     for subject in data:
         report = RSTReport()
-        brainprep_brainparc(
+        outputs = brainprep_brainparc(
             t1_file=data[subject],
             template_dir=(datadir / "fsaverage_sym"),
             output_dir=outdir,
             do_lgi=False,
-            wm_file=(datadir / "deprecated")
+            wm_file=(datadir / "deprecated"),
+            keep_intermediate=True,
         )
+        (outputs.subject_dir / "stats").mkdir(parents=True, exist_ok=True)
         #print(report)
+    outputs = brainprep_group_brainparc(
+        output_dir=outdir,
+        euler_threshold=-217,
+        keep_intermediate=True,
+    )
 
 
 # %%

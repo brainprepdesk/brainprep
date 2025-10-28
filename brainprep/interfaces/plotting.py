@@ -12,11 +12,13 @@ Plotting functions.
 
 import os
 from pathlib import Path
-from typing import Union
+import itertools
+from typing import Optional, Union
 
 from nilearn import plotting
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -35,7 +37,7 @@ from ..wrappers import pywrapper
 @pywrapper
 @outputdir
 @coerceparams
-def defacing_mosaic(
+def plot_defacing_mosaic(
         im_file: File,
         mask_file: File,
         output_dir: Directory,
@@ -88,3 +90,150 @@ def defacing_mosaic(
         plt.savefig(mosaic_file)
 
     return (mosaic_file, )
+
+
+@log_runtime(
+    bunched=False)
+@pywrapper
+@outputdir
+@coerceparams
+def plot_histogram(
+        table_file: File,
+        col_name: str,
+        output_dir: Directory,
+        bar_coords: Optional[list[float]] = None,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Generates a histogram image with optional vertical bars.
+
+    Parameters
+    ----------
+    table_file : File
+        TSV table containing the data to be displayed.
+    col_name : str
+        Name of the column containing the histogram data.
+    bar_coords: list[float], default None
+        Coordianates of vertical lines to be displayed in red.
+    output_dir : Directory
+        Directory where the image with the histogram will be saved.
+    dryrun : bool, default False
+        If True, skip actual computation and file writing.
+
+    Returns
+    -------
+    histogram_file : File
+        Generted image with the histogram.
+    """
+    histogram_file = output_dir / f"histogram_{col_name}.png"
+
+    if not dryrun:
+
+        data = pd.read_csv(
+            histogram_file,
+            sep="\t",
+        )
+        arr = data[col_name].astype(float)
+        arr = arr[~np.isnan(arr)]
+        arr = arr[~np.isinf(arr)]
+
+        fig, ax = plt.subplots()
+        sns.histplot(
+            arr,
+            color="gray",
+            alpha=0.6,
+            ax=ax,
+            kde=True,
+            stat="density",
+            label=col_name,
+        )
+        for x_coord in bar_coords or []:
+            ax.axvline(x=x_coord, color="red")
+        ax.spines["right"].set_visible(False)
+        ax.spines["top"].set_visible(False)
+        ax.legend()
+
+        plt.savefig(histogram_file)
+
+    return (histogram_file, )
+
+
+@log_runtime(
+    bunched=False)
+@pywrapper
+@outputdir
+@coerceparams
+def plot_brainparc(
+        wm_mask_file: File,
+        gm_mask_file: File,
+        csf_mask_file: File,
+        output_dir: Directory,
+        entities: dict,
+        dryrun: bool = False) -> tuple[File]:
+    """
+
+    Parameters
+    ----------
+    wm_mask_file : File
+        Binary mask of white matter regions.
+    gm_mask_file : File
+        Binary mask of gray matter regions.
+    csf_mask_file : File
+        Binary mask of cerebrospinal fluid regions.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
+    dryrun : bool, default False
+        If True, skip actual computation and file writing.
+
+    Returns
+    -------
+    brainparc_image_file : File
+        Image of the GM mask and GM, WM, CSF tissues histograms.
+    """
+    basename = "sub-{sub}_ses-{ses}_run-{run}_brainparc".format(
+        **entities)
+    brainparc_image_file = output_dir / f"{basename}.png"
+
+    if not dryrun:
+
+        subject = f"run-{entities['run']}"
+        anat_file = output_dir / subject / "mri" / "norm.mgz"
+
+        fig, axs = plt.subplots(2)
+        plotting.plot_roi(
+            roi_img=gm_file,
+            bg_img=anat_file,
+            alpha=0.3,
+            figure=fig,
+            axes=axs[0],
+        )
+
+        anat_arr = nibabel.load(anat_file).get_fdata()
+        bins = np.histogram_bin_edges(
+            anat_arr[brain_mask],
+            bins="auto",
+        )
+        palette = itertools.cycle(sns.color_palette("Set1"))
+        for name, path in [("WM", wm_file),
+                           ("GM", gm_file),
+                           ("CSF", csf_file)]:
+            mask = nibabel.load(path).get_fdata().astype(int)
+            sns.histplot(
+                anat_arr[mask],
+                bins=bins,
+                color=next(palette),
+                alpha=0.6,
+                ax=axs[1],
+                kde=True,
+                stat="density",
+                label=name,
+            )
+        axs[1].spines["right"].set_visible(False)
+        axs[1].spines["top"].set_visible(False)
+        axs[1].legend()
+
+        plt.subplots_adjust(wspace=0, hspace=0, top=0.9, bottom=0.1)
+        plt.savefig(brainparc_image_file)
+
+    return (brainparc_image_file, )

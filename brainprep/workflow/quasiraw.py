@@ -39,7 +39,7 @@ from ..utils import (
     bids_file="anatomical_file",
     container="neurospin/brainprep-quasiraw")
 @log_runtime(
-    title="Quasi-RAW")
+    title="Subject Level Quasi-RAW")
 @save_runtime
 @coerceparams
 def brainprep_quasiraw(
@@ -202,8 +202,8 @@ def brainprep_quasiraw(
     )
 
 
-def brainprep_quasiraw_qc(img_regex, outdir, brainmask_regex=None,
-                          extra_img_regex=None, corr_thr=0.5):
+def brainprep_group_quasiraw(img_regex, outdir, brainmask_regex=None,
+                             extra_img_regex=None, corr_thr=0.5):
     """
     Quasi-RAW pre-processing quality control.
 

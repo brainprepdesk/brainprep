@@ -57,10 +57,14 @@ def pywrapper(
     Raises
     ------
     ValueError
-        If the decorated function returns an invalid value. or the `dryrun`
+        If the decorated function returns an invalid value or the `dryrun`
         keyword argument is not defined.
     FileNotFoundError
         If any expected output file is missing.
+
+    Notes
+    -----
+    - Check that the function outputs are valid.
 
     Example
     -------
@@ -69,7 +73,7 @@ def pywrapper(
     ...     if dryrun:
     ...         return None
     ...     return os.listdir(my_dir)
-    >>> with WrapperConfig(dryrun=True):
+    >>> with Config(dryrun=True):
     ...     ls_command("/tmp")
     None
     """
@@ -84,11 +88,6 @@ def pywrapper(
 
     inputs["dryrun"] = dryrun
     outputs = func(**inputs)
-
-    if outputs is not None and not isinstance(outputs, (list, tuple)):
-        raise ValueError(
-            "Function must return a list or tuple of output paths, or None."
-        )
 
     for item in outputs or []:
         _check_outputs(item, dryrun, verbose)
@@ -136,6 +135,7 @@ def cmdwrapper(
     Notes
     -----
     - A list of commands is authrized.
+    - Check that the function outputs are valid.
 
     Example
     -------
@@ -165,9 +165,8 @@ def cmdwrapper(
             "list of string for multiple commands."
         )
     commands = [command] if _is_list_str(command) else command
-    if verbose:
-        for cmd in commands:
-            print_command(" ".join(cmd))
+    for cmd in commands:
+        print_command(" ".join(cmd))
 
     if not dryrun:
         for cmd in commands:
@@ -176,9 +175,8 @@ def cmdwrapper(
                 cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             stdout, stderr = process.communicate()
             if process.returncode != 0:
-                if verbose:
-                    print_info(stdout.decode("utf-8"))
-                    print_error(stderr.decode("utf-8"))
+                print_info(stdout.decode("utf-8"))
+                print_error(stderr.decode("utf-8"))
                 raise RuntimeError(
                     f"Command execution failed: {' '.join(cmd)}"
                 )
@@ -234,8 +232,7 @@ def _check_outputs(
             _check_outputs(subitem, dryrun, verbose)
     elif isinstance(item, (str, Path)):
         path = Path(item)
-        if verbose:
-            print_info(f"checking output: {path}")
+        print_info(f"checking output: {path}")
         if not dryrun and not path.exists():
             raise FileNotFoundError(
                 f"Output file/directory not found: {path}"

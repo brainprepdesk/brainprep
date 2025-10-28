@@ -91,9 +91,9 @@ def copyfiles(
         source_image_files: list[File],
         destination_image_files: list[File],
         output_dir: Directory,
-        dryrun: bool = False) -> tuple[File]:
+        dryrun: bool = False) -> None:
     """
-    Move input image file to detination folder.
+    Copy input image files.
 
     Parameters
     ----------
@@ -110,3 +110,53 @@ def copyfiles(
         for src_path, dest_path in zip(source_image_files,
                                        destination_image_files):
             shutil.copy(src_path, dest_path)
+
+
+@log_runtime(
+    bunched=False)
+@pywrapper
+@outputdir
+def movedir(
+        source_dir: Directory,
+        output_dir: Directory,
+        content: bool = False,
+        dryrun: bool = False) -> None:
+    """
+    Move input directory.
+
+    Parameters
+    ----------
+    source_directory : Directory
+        Path to the directory to be moved.
+    output_dir : Directory
+        Directory where the folder is moved.
+    content : bool, default False
+        If True, copy only the content of the source directory.
+    dryrun : bool, default False
+        If True, skip actual computation and file writing.
+
+    Raises
+    ------
+    ValueError
+        If `source_directory` is not a directory.
+
+    Example
+    -------
+    >>> movedir("/tmp/source", "/tmp/destination", content=True)
+    """
+    if not dryrun:
+        if not source_directory.is_dir():
+            raise ValueError(
+                f"Source '{source_directory}' is not a directory."
+            )
+        if not content:
+            shutil.copytree(source_directory, output_dir)
+        else:
+            for item in source_directory.iterdir():
+                target = output_dir / item.name
+                if item.is_dir():
+                    shutil.copytree(item, target, dirs_exist_ok=True)
+                else:
+                    shutil.copy2(item, target)
+            if not any(source_directory.iterdir()):
+                source_directory.rmdir()

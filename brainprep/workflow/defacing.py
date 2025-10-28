@@ -36,7 +36,7 @@ from ..utils import (
     bids_file="t1_file",
     container="neurospin/brainprep-deface")
 @log_runtime(
-    title="Defacing")
+    title="Subject Level Defacing")
 @save_runtime
 def brainprep_defacing(
         t1_file: File,
@@ -51,7 +51,7 @@ def brainprep_defacing(
 
     1) Reorient the T1w image to standard MNI152 template space.
     2) Deface the T1w image.
-    3) Generate a mosaic image of the defaced T1w image. 
+    3) Generate a mosaic image of the defaced T1w image.
 
     Parameters
     ----------
@@ -103,7 +103,7 @@ def brainprep_defacing(
         output_dir,
         entities,
     )
-    mosaic_file = interfaces.defacing_mosaic(
+    mosaic_file = interfaces.plot_defacing_mosaic(
         mask_file,
         t1_file,
         output_dir,

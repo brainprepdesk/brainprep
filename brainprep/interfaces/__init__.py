@@ -13,13 +13,17 @@ Module that implements interfaces.
 from .ants import (
     biasfield,
 )
-from .custom import (
+from .utils import (
     copyfiles,
     defacing_mask_diff,
+    movedir,
 )
 from .freesurfer import (
     brainmask,
     freesurfer_command_status,
+    freesurfer_euler_numbers,
+    freesurfer_features_summary,
+    freesurfer_tissues,
     fsaveragesym_projection,
     fsaveragesym_surfreg,
     localgi,
@@ -39,7 +43,9 @@ from .mriqc import (
     subject_level_qa,
 )
 from .plotting import (
-    defacing_mosaic,
+    plot_brainparc,
+    plot_defacing_mosaic,
+    plot_histogram,
 )
 
 __all__ = [

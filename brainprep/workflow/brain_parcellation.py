@@ -42,7 +42,7 @@ from ..utils import (
     bids_file="t1_file",
     container="neurospin/brainprep-brainparc")
 @log_runtime(
-    title="Brain parcellation")
+    title="Subject Level Brain Parcellation")
 @save_runtime
 @coerceparams
 def brainprep_brainparc(
@@ -50,7 +50,8 @@ def brainprep_brainparc(
         template_dir: Directory,
         output_dir: Directory,
         do_lgi: bool = False,
-        wm_file: Optional[File] = None) -> Bunch:
+        wm_file: Optional[File] = None,
+        keep_intermediate: bool = False) -> Bunch:
     """
     Brain parcellation pre-processing.
 
@@ -92,11 +93,15 @@ def brainprep_brainparc(
 
            This option was removed as it is never used in Population Imaging
            studies. This parameter has no effect!
+    keep_intermediate : bool, default False
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging.
 
     Returns
     -------
     Bunch
         A dictionary-like object containing:
+        - subject_dir: Directory - the FreeSurfer subject directory.
         - left_reg_file : File - left hemisphere registered to
           `fsaverage_sym` symmetric template.
         - right_reg_file : File - right hemisphere registered to
@@ -107,6 +112,8 @@ def brainprep_brainparc(
           'surf' folder.
         - images : tuple[File] — a tuple containing converted images - a
           Nifti file available in the 'mri' folder.
+        - brainparc_image_file : File - a PNG image of the GM mask and GM, WM,
+          CSF tissues histograms.
 
     Notes
     -----
@@ -127,6 +134,10 @@ def brainprep_brainparc(
 
     .. footbibliography::
     """
+    workspace_dir = output_dir / "workspace"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
+
     entities = parse_bids_keys(t1_file)
     if len(entities) == 0:
         raise ValueError(
@@ -137,6 +148,7 @@ def brainprep_brainparc(
             "You passed a white matter file as input. This behavior is "
             "deprecated and will be removed in version >1."
         )
+
     log_file = interfaces.reconall(
         t1_file,
         output_dir,
@@ -175,8 +187,26 @@ def brainprep_brainparc(
         output_dir,
         entities,
     )
+    (wm_mask_file, gm_mask_file, csf_mask_file,
+     brain_mask_file) = interfaces.freesurfer_tissues(
+        workspace_dir,
+        output_dir,
+        entities,
+    )
+    brainparc_image_file = interfaces.plot_brainparc(
+        wm_mask_file,
+        gm_mask_file,
+        csf_mask_file,
+        output_dir,
+        entities,
+    )
+
+    if not keep_intermediate:
+        print_info(f"cleaning workspace directory: {workspace_dir}")
+        shutil.rmtree(workspace_dir)
 
     return Bunch(
+        subject_dir=output_dir / f"run-{entities['run']}",
         left_reg_file=left_reg_file,
         right_reg_file=right_reg_file,
         lh_thickness_file=lh_thickness_file,
@@ -196,6 +226,7 @@ def brainprep_brainparc(
         rawavg_file=rawavg_file,
         ribbon_file=ribbon_file,
         brain_file=brain_file,
+        brainparc_image_file=brainparc_image_file,
     )
 
 
@@ -231,125 +262,80 @@ def brainprep_fsreconall_longitudinal(
     print_result(long_sids)
 
 
-def brainprep_fsreconall_summary(fsdir, outdir):
-    """ Generate text/ascii tables of freesurfer parcellation stats data
-    '?h.aparc.stats' for both templates (Desikan & Destrieux) and
-    'aseg.stats'.
+@bids(
+    process="brain_parcellation",
+    container="neurospin/brainprep-brainparc")
+@log_runtime(
+    title="Group Level Brain Parcellation")
+@save_runtime
+@coerceparams
+def brainprep_group_brainparc(
+        output_dir: Directory,
+        euler_threshold: int = -217,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Goup level brain parcellation pre-processing.
+
+    Summarizes the generated FreeSurfer features and applies the quality
+    control described in :footcite:p:`rosen2018euler`. This includes:
+
+    1) Generate text/ascii tables of FreeSurfer parcellation stats data
+       '?h.aparc.stats' for both templates (Desikan & Destrieux) and
+       volumetric data for subcortical brain structures 'aseg.stats'.
+    2) Apply the FreeSurfer's Euler number, which summarizes the topological
+       complexity of the reconstructed cortical surface as a quality
+       control.
+    3) Generate a histogram showing the distribution of Euler numbers.
 
     Parameters
     ----------
-    fsdir: str
-        the FreeSurfer working directory with all the subjects.
-    outdir: str
-        the destination folder.
-    """
-    print_title("Launch FreeSurfer reconall summary...")
-    brainprep.stats2table(fsdir, outdir)
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+    euler_threshold : int, default -217
+        Quality control threshold on the Euler number.
+    keep_intermediate : bool, default False
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging.
 
-    print_title("Make datasets...")
-    regex = os.path.join(outdir, "{0}_stats_{1}_{2}.csv")
-    for template in ("aparc", "aparc2009s"):
-        data, labels = [], []
-        subjects, columns = None, None
-        for hemi in ("lh", "rh"):
-            for meas in ("area", "volume", "thickness", "thicknessstd",
-                         "meancurv", "gauscurv", "foldind", "curvind"):
-                table_file = regex.format(template, hemi, meas)
-                if not os.path.isfile(table_file):
-                    warnings.warn(
-                        "Table file not found: {}".format(table_file),
-                        UserWarning)
-                    continue
-                df = pd.read_csv(table_file, sep=",")
-                todrop = []
-                for name in (
-                        "MeanThickness", "WhiteSurfArea", "BrainSegVolNotVent",
-                        "eTIV"):
-                    if name in df:
-                        todrop.append(name)
-                df.drop(columns=todrop, inplace=True)
-                values = df.values
-                if subjects is None:
-                    subjects = values[:, 0]
-                else:
-                    assert (subjects == values[:, 0]).all(), (
-                        "Inconsistent subjects list.")
-                if columns is None:
-                    columns = df.columns[1:]
-                else:
-                    assert all(columns == df.columns[1:]), (
-                        "Inconsistent regions list.")
-                values = values[:, 1:]
-                values = np.expand_dims(values, axis=1)
-                key = "hemi-{}_measure-{}".format(hemi, meas)
-                print("- {}: {}".format(key, values.shape))
-                data.append(values)
-                labels.append(key)
-        data = np.concatenate(data, axis=1)
-        print("- data:", data.shape)
-        destfile = os.path.join(outdir, "channels-{}.txt".format(template))
-        np.savetxt(destfile, labels, fmt="%s")
-        print_result(destfile)
-        destfile = os.path.join(outdir, "subjects-{}.txt".format(template))
-        np.savetxt(destfile, subjects, fmt="%s")
-        print_result(destfile)
-        destfile = os.path.join(outdir, "rois-{}.txt".format(template))
-        np.savetxt(destfile, columns, fmt="%s")
-        print_result(destfile)
-        destfile = os.path.join(outdir, "roi-{}.npy".format(template))
-        np.save(destfile, data)
-        print_result(destfile)
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+        - summary_files : tuple[File] - a tuple containing FreeSurfer summary
+          stats - each file is a CSV file with the prefix 'aparc_*_stats' for
+          Desikan cortical feautes, 'aparc2009s_*_stats' for Destrieux cortical
+          features, and 'aseg_*_stats' for volumetric subcortical brain
+          structure features.
 
-
-def brainprep_fsreconall_qc(fs_regex, outdir, euler_thr=-217):
-    """ Define the FreeSurfer recon-all quality control workflow.
-
-    Parameters
+    References
     ----------
-    fs_regex: str
-        regex to the FreeSurfer recon-all directories for all subjects.
-    outdir: str
-        the destination folder.
-    euler_thr: int, default -217
-        control the quality control threshold on the Euler number score.
+
+    .. footbibliography::
     """
-    print_title("Parse data...")
-    if not os.path.isdir(outdir):
-        raise ValueError("Please specify a valid output directory.")
-    fs_dirs = sorted(glob.glob(fs_regex))
-    print("  FreeSurfer directories:", len(fs_dirs))
+    workspace_dir = output_dir / "workspace"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
 
-    print_title("Parse quality control scores...")
-    df_scores = parse_fsreconall_stats(fs_dirs)
+    summary_files = interfaces.freesurfer_features_summary(
+        workspace_dir,
+        output_dir,
+    )
+    euler_numbers_file, = interfaces.freesurfer_euler_numbers(
+        output_dir,
+    )
+    euler_numbers_histogram_file, = interfaces.plot_histogram(
+        euler_numbers_file,
+        "euler_number",
+        output_dir,
+        bar_coords=[euler_threshold],
+    )
 
-    print_title("Save quality control scores...")
-    df_qc = df_scores
-    df_qc["qc"] = (df_qc["euler"] > euler_thr).astype(int)
-    qc_path = os.path.join(outdir, "qc.tsv")
-    df_qc.sort_values(by=["euler"], inplace=True)
-    df_qc.to_csv(qc_path, index=False, sep="\t")
-    print(df_qc)
-    print_result(qc_path)
+    if not keep_intermediate:
+        print_info(f"cleaning workspace directory: {workspace_dir}")
+        shutil.rmtree(workspace_dir)
 
-    print_title("Save scores histograms...")
-    data = {"euler": {"data": df_qc["euler"].values, "bar": euler_thr}}
-    snap = plot_hists(data, outdir)
-    print_result(snap)
-
-    print_title("Save brain images ordered by Euler number...")
-    sorted_indices = df_qc.index.values.tolist()
-    snaps, snapdir = plot_fsreconall(
-        np.asarray(fs_dirs)[sorted_indices], outdir)
-    df_report = df_qc.copy()
-    df_report["snap_path"] = snaps
-    df_report["snap_path"] = df_report["snap_path"].apply(
-        create_clickable)
-    print_result(snapdir)
-
-    print_title("Save quality check ordered by Euler number...")
-    report_path = os.path.join(outdir, "qc.html")
-    html_report = df_report.to_html(index=False, table_id="table-brainprep")
-    html_report = unescape(html_report)
-    with open(report_path, "wt") as of:
-        of.write(html_report)
-    print_result(report_path)
+    return Bunch(
+            summary_files=summary_files,
+            euler_numbers_file=euler_numbers_file,
+            euler_numbers_histogram_file=euler_numbers_histogram_file,
+        )

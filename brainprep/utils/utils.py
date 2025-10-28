@@ -23,7 +23,7 @@ import nibabel
 
 from decorator import decorator
 from pathlib import Path
-from typing import(
+from typing import (
     Any,
     get_origin,
     get_args,

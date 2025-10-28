@@ -12,6 +12,7 @@ FreeSurfer functions.
 """
 
 import os
+import glob
 from pathlib import Path
 from typing import Optional, Union
 
@@ -134,7 +135,7 @@ def reconall(
 
     .. footbibliography::
     """
-    subject = f"sub-{entities['sub']}"
+    subject = f"run-{entities['run']}"
     log_file = output_dir / subject / "scripts" / "recon-all.log"
 
     command = [
@@ -202,7 +203,7 @@ def freesurfer_command_status(
 
     Examples
     --------
-    >>> reconall_status("/subjects/subj01/scripts/recon-all.log")
+    >>> reconall_status(".../scripts/recon-all.log")
     # Raises no exception if successful
     """
     if not dryrun:
@@ -276,13 +277,13 @@ def localgi(
 
     .. footbibliography::
     """
-    subject = f"sub-{entities['sub']}"
+    subject = f"run-{entities['run']}"
     left_lgi_file = output_dir / subject / "surf" / "lh.pial_lgi"
     right_lgi_file = output_dir / subject / "surf" / "rh.pial_lgi"
 
     command = [
         "recon-all", "-localGI",
-        "-subjid", subject, 
+        "-subjid", subject,
         "-sd", output_dir,
         "-no-isrunning"
     ]
@@ -324,7 +325,7 @@ def surfreg(
         Right hemisphere registered to `fsaverage_sym` symmetric template
         via xhemi.
     """
-    subject = f"sub-{entities['sub']}"
+    subject = f"run-{entities['run']}"
     left_reg_file = (
         output_dir / subject / "surf" / "lh.fsaverage_sym.sphere.reg"
     )
@@ -335,14 +336,14 @@ def surfreg(
     commands = [
         [
             "surfreg",
-            "--s", subject, 
+            "--s", subject,
             "--lh",
             "--t", "fsaverage_sym",
             "--no-annot",
         ],
         [
             "surfreg",
-            "--s", subject, 
+            "--s", subject,
             "--lh",
             "--t", "fsaverage_sym",
             "--no-annot",
@@ -381,7 +382,7 @@ def xhemireg(
     right_log_file : File
         The log of the right to left registration process.
     """
-    subject = f"sub-{entities['sub']}"
+    subject = f"run-{entities['run']}"
     left_log_file = output_dir / subject / "xhemi" / "xhemireg.lh.log"
     right_log_file = output_dir / subject / "xhemi" / "xhemireg.rh.log"
 
@@ -447,7 +448,7 @@ def fsaveragesym_surfreg(
         os.symlink(template_dir, _template_dir)
     template_dir = _template_dir
 
-    subject = f"sub-{entities['sub']}"
+    subject = f"run-{entities['run']}"
     os.environ["SUBJECTS_DIR"] = str(output_dir)
     left_reg_file = (
         output_dir / subject / "surf" / "lh.fsaverage_sym.sphere.reg"
@@ -581,7 +582,7 @@ def fsaveragesym_projection(
     - This function is resilient if a feature is missing. In this case a
       None is returned.
     """
-    subject = f"sub-{entities['sub']}"
+    subject = f"run-{entities['run']}"
     reg_map = {
         "lh": left_reg_file,
         "rh": right_reg_file,
@@ -697,7 +698,7 @@ def mgz_to_nii(
         - ribbon_file
         - brain_file
     """
-    subject = f"sub-{entities['sub']}"
+    subject = f"run-{entities['run']}"
     reference_file = output_dir / subject / "mri" / "rawavg.mgz"
 
     images = []
@@ -713,3 +714,440 @@ def mgz_to_nii(
         images.append(trg_file)
 
     return tuple(images)
+
+
+@log_runtime(
+    bunched=False)
+@cmdwrapper
+@coerceparams
+def aparcstats2table(
+        subjects: list[str],
+        session: str,
+        hemi: str,
+        measure: str,
+        output_dir: Directory) -> tuple[list[str], tuple[File]]:
+    """
+    Summarizes the stats data '?h.aparc.stats' for both templates (Desikan &
+    Destrieux) using FreeSurfer's `aparcstats2table`.
+
+    Parameters
+    ----------
+    subjects : list[str]
+        List with subject identifiers.
+    session : str
+        The current session.
+    hemi : str
+        The hemisphere: 'lh' or 'rh'.
+    measure : str
+        The cortical measure.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+
+    Returns
+    -------
+    command : list[str]
+        Summary command-line.
+    desikan_stat_file : File
+        Desikan template cortical features summary.
+    destrieux_stat_file : File
+        Destrieux template cortical features summary.
+    """
+    desikan_stat_file = (
+        output_dir /
+        f"aparc_ses-{session}_hemi-{hemi}_meas-{measure}_stats.csv"
+    )
+    destrieux_stat_file = (
+        output_dir /
+        f"aparc2009s_ses-{session}_hemi-{hemi}_meas-{measure}_stats.csv"
+    )
+    commands = [
+        [
+            "aparcstats2table",
+            "--hemi", hemi,
+            "--meas", measure,
+            "--tablefile", str(desikan_stat_file),
+            "--delimiter", "comma",
+            "--parcid-only",
+            "--subjects",
+        ] + subjects,
+        [
+            "aparcstats2table",
+            "--parc", "aparc.a2009s",
+            "--hemi", hemi,
+            "--meas", measure,
+            "--tablefile", str(destrieux_stat_file),
+            "--delimiter", "comma",
+            "--parcid-only",
+            "--subjects",
+        ] + subjects,
+    ]
+
+    return commands, (desikan_stat_file, destrieux_stat_file)
+
+
+@log_runtime(
+    bunched=False)
+@cmdwrapper
+@coerceparams
+def asegstats2table(
+        subjects: list[str],
+        session: str,
+        output_dir: File) -> tuple[list[str], tuple[File]]:
+    """
+    Summarizes the volumetric data for subcortical brain structures
+    'aseg.stats' using FreeSurfer's `asegstats2table`.
+
+    Parameters
+    ----------
+    subjects : list[str]
+        List with subject identifiers.
+    session : str
+        The current session.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+
+    Returns
+    -------
+    command : list[str]
+        Summary command-line.
+    volume_stat_file : File
+        Volumetric subcortical brain structure features summary.
+    """
+    volume_stat_file = output_dir / f"aseg_ses-{session}_stats.csv"
+
+    command = [
+        "asegstats2table",
+        "--meas", "volume",
+        "--tablefile", str(volume_stat_file),
+        "--delimiter", "comma",
+        "--subjects",
+    ] + subjects
+
+    return command, (volume_stat_file, )
+
+
+@log_runtime(
+    bunched=False)
+@outputdir
+@coerceparams
+def freesurfer_features_summary(
+        workspace_dir: Directory,
+        output_dir: Directory) -> tuple[File]:
+    """
+    Summarizes the generated FreeSurfer features for all subjects.
+
+    Generate text/ascii tables of FreeSurfer parcellation stats data
+    '?h.aparc.stats' for both templates (Desikan & Destrieux) and
+    volumetric data for subcortical brain structures 'aseg.stats'.
+    Parcellation stats includes:
+    - area
+    - volume
+    - thickness
+    - thicknessstd
+    - meancurv
+    - gauscurv
+    - foldind
+    - curvind
+
+    Parameters
+    ----------
+    workspace_dir: Directory
+        Working directory where FreeSurfer outputs are reorganized to
+        run new commands.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+
+    Returns
+    -------
+    statfiles: tuple
+        A tuple containing FreeSurfer summary stats. The data are returned in
+        the following order (the results for each timepoint are stacked):
+        - desikan_stat_lh_<meas>_file
+        - destrieux_stat_lh_<meas>_file
+        - desikan_stat_rh_<meas>_file
+        - destrieux_stat_rh_<meas>_file
+        - volume_stat_file
+
+    Notes
+    -----
+    - Creates FreeSurfer 'SUBJECTS_DIR' for each timepoint in a working
+      directory using symlinks.
+    """
+    stats_dirs = glob.glob(
+        str(output_dir / "*" / "*" / "run-*" / "stats")
+    )
+    subjects, sessions, runs = zip(*[
+        item.lstrip(os.sep).split(os.sep)[-4:-1]
+        for item in stats_dirs
+    ])
+    unique_sessions = set(sessions)
+
+    for sub, ses, run, source_dir in zip(subjects, sessions, runs, stats_dirs):
+        target_dir = workspace_dir / ses / f"{sub}_{run}"
+        target_dir.parent.mkdir(parents=True, exist_ok=True)
+        if not target_dir.is_symlink():
+            os.symlink(source_dir, target_dir)
+
+    summary_files = []
+    measures = [
+        "area", "volume", "thickness", "thicknessstd",
+        "meancurv", "gauscurv", "foldind", "curvind"
+    ]
+    for ses in unique_sessions:
+        data_dir = workspace_dir / ses
+        os.environ["SUBJECTS_DIR"] = str(data_dir)
+
+        for hemi in ["lh", "rh"]:
+            for meas in measures:
+                desikan_stat_file, destrieux_stat_file = aparcstats2table(
+                    subjects,
+                    ses.replace("ses-", ""),
+                    hemi,
+                    meas,
+                    output_dir,
+                )
+                summary_files.extend([
+                    desikan_stat_file,
+                    destrieux_stat_file,
+                ])
+
+        volume_stat_file = asegstats2table(
+            subjects,
+            ses.replace("ses-", ""),
+            output_dir,
+        )
+        summary_files.append(volume_stat_file)
+
+    return summary_files
+
+
+@log_runtime(
+    bunched=False)
+@pywrapper
+@outputdir
+@coerceparams
+def freesurfer_euler_numbers(
+        output_dir: Directory,
+        euler_threshold: int = -217,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Parse the FreeSurfer's Euler numbers for all subjects and applies the
+    quality control described in :footcite:p:`rosen2018euler`.
+
+    Parameters
+    ----------
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+    euler_threshold : int, default -217
+        Quality control threshold on the Euler number.
+    dryrun : bool, default False
+        If True, skip actual computation and file writing.
+
+    Returns
+    -------
+    euler_numbers_file : File
+        A TSV file containing FreeSurfer's averaged Euler numbers - the table
+        contains 'participant_id', 'session', 'run', and 'euler_number'
+        columns, as well as a binary 'qc' column containing the results
+        of the quality control.
+
+    References
+    ----------
+
+    .. footbibliography::
+    """
+    euler_numbers_file = output_dir / "euler_numbers.tsv"
+
+    if not dryrun:
+
+        log_files = glob.glob(
+            output_dir / "*" / "*" / "run-*" / "scripts" / "recon-all.log"
+        )
+
+        scores = pd.DataFrame(
+            columns=(
+                "participant_id",
+                "session",
+                "run",
+                "euler_number",
+            )
+        )
+        for path in log_files:
+            entities = parse_bids_keys(path)
+            lines = path.read_text().splitlines()
+            selection = [item for item in lines
+                         if item.startswith("orig.nofix lheno")]
+            assert len(selection) == 1, selection
+            _, left_euler_number, right_euler_number = selection[0].split("=")
+            left_euler_number, _ = left_euler_number.split(",")
+            left_euler_number = int(left_euler_number.strip())
+            right_euler_number = int(right_euler_number.strip())
+            scores.loc[len(df)] = [
+                participant_id,
+                session,
+                run,
+                0.5 * (left_euler_number + right_euler_number),
+            ]
+
+        scores["qc"] = (scores["euler_number"] > euler_thr).astype(int)
+        scores.to_csv(
+            euler_numbers_file,
+            index=False,
+            sep="\t",
+        )
+
+    return (euler_numbers_file, )
+
+
+@log_runtime(
+    bunched=False)
+@pywrapper
+@outputdir
+@coerceparams
+def freesurfer_tissues(
+        workspace_dir: Directory,
+        output_dir: Directory,
+        entities: dict,
+        include_cerebellum: bool = False,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Binary masks for white matter (WM), gray matter (GM), cerebrospinal
+    fluid (CSF), and whole brain based on FreeSurfer ribbon and wmparc
+    segmentations.
+
+    Ribbon-based structures:
+    - WM - Left/Right Cerebral White Matter.
+    - GM - Left/Right Cerebral Cortex.
+
+    wmparc-based structures:
+    - CC - Fornix, CC-Posterior, CC-Mid-Posterior, CC-Central,
+      CC-Mid-Anterior, CC-Anterior.
+    - CSF - Left-Lateral-Ventricle, Left-Inf-Lat-Vent,
+      3rd-Ventricle, 4th-Ventricle, CSF Left-Choroid-Plexus,
+      Right-Lateral-Ventricle, Right-Inf-Lat-Vent, Right-Choroid-Plexus.
+    - WM - Cerebellar-White-Matter-Left, Brain-Stem,
+      Cerebellar-White-Matter-Right.
+    - GM - Left-Cerebellar-Cortex, Right-Cerebellar-Cortex, Thalamus-Left,
+      Caudate-Left, Putamen-Left, Pallidum-Left, Hippocampus-Left,
+      Amygdala-Left, Accumbens-Left, Diencephalon-Ventral-Left,
+      Thalamus-Right, Caudate-Right, Putamen-Right, Pallidum-Right,
+      Hippocampus-Right, Amygdala-Right, Accumbens-Right,
+      Diencephalon-Ventral-Right.
+
+    Parameters
+    ----------
+    workspace_dir: Directory
+        Working directory where intermediate FreeSurfer outputs are generated.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
+    include_cerebellum : bool, default False
+        If False, omit cerebellum and brain stem.
+    dryrun : bool, default False
+        If True, skip actual computation and file writing.
+
+    Returns
+    -------
+    wm_mask_file : File
+        Binary mask of white matter regions.
+    gm_mask_file : File
+        Binary mask of gray matter regions.
+    csf_mask_file : File
+        Binary mask of cerebrospinal fluid regions.
+    brain_mask_file : File
+        Binary mask of the brain.
+
+    Notes
+    -----
+    This function uses predefined FreeSurfer label indices to classify tissue
+    types. It combines ribbon and wmparc segmentation maps to generate
+    comprehensive masks for downstream analysis or visualization. Use
+    FreeSurfer's `ribbon.mgz` and `wmparc.mgz` files.
+    """
+    subject = f"run-{entities['run']}"
+    wm_mask_file = workspace_dir / f"wm_{subject}.nii.gz"
+    gm_mask_file = workspace_dir / f"gm_{subject}.nii.gz"
+    csf_mask_file = workspace_dir / f"csf_{subject}.nii.gz"
+    brain_mask_file = workspace_dir / f"brain_{subject}.nii.gz"
+
+    if not dryrun:
+
+        ribbon_file = output_dir / subject / "mri" / "ribbon.mgz"
+        wmparc_file = output_dir / subject / "mri" / "wmparc.mgz"
+
+        ribbon_wm_structures = [
+            2, 41
+        ]
+        ribbon_gm_structures = [
+            3, 42
+        ]
+        wmparc_cc_structures = [
+            250, 251, 252, 253, 254, 255
+        ]
+        wmparc_csf_structures = [
+            4, 5, 14, 15, 24, 31, 43, 44, 63
+        ]
+        if include_cerebellum:
+            wmparc_wm_structures = [
+                7, 16, 46
+            ]
+            wmparc_gm_structures = [
+                8, 47, 10, 11, 12, 13, 17, 18, 26, 28, 49, 50,
+                51, 52, 53, 54, 58, 60
+            ]
+        else:
+            wmparc_wm_structures = [
+            ]
+            wmparc_gm_structures = [
+                10, 11, 12, 13, 17, 18, 26, 28, 49, 50, 51,
+                52, 53, 54, 58, 60
+            ]
+
+        im = nibabel.load(ribbon_file)
+        ribbon_arr = im.get_fdata()
+        wmparc_arr = nibabel.load(wmparc_file).get_fdata()
+
+        wm_mask_arr = np.logical_and(
+            np.logical_and(
+                np.logical_or(
+                    np.logical_or(
+                        np.in1d(ribbon_arr, ribbon_wm_structures),
+                        np.in1d(wmparc_arr, wmparc_wm_structures)),
+                    np.in1d(wmparc_arr, wmparc_cc_structures)),
+                np.logical_not(np.in1d(wmparc_arr, wmparc_csf_structures))),
+            np.logical_not(np.in1d(wmparc_arr, wmparc_gm_structures))
+        )
+        csf_mask_arr = np.in1d(wmparc_arr, wmparc_csf_structures)
+        gm_mask_arr = np.logical_or(
+            np.in1d(ribbon_arr, ribbon_gm_structures),
+            np.in1d(wmparc_arr, wmparc_gm_structures)
+        )
+
+        wm_mask_arr = np.reshape(wm_mask_arr, ribbon_arr.shape)
+        gm_mask_arr = np.reshape(gm_mask_arr, ribbon_arr.shape)
+        csf_mask_arr = np.reshape(csf_mask_arr, ribbon_arr.shape)
+
+        brain_mask_arr = np.logical_or(
+            np.logical_or(wm_mask_arr, gm_mask_arr),
+            csf_mask_arr
+        )
+
+        nibabel.save(
+            nibabel.Nifti1Image(wm_mask_arr, im.affine),
+            wm_mask_file,
+        )
+        nibabel.save(
+            nibabel.Nifti1Image(gm_mask_arr, im.affine),
+            gm_mask_file,
+        )
+        nibabel.save(
+            nibabel.Nifti1Image(csf_mask_arr, im.affine),
+            csf_mask_file,
+        )
+        nibabel.save(
+            nibabel.Nifti1Image(brain_mask_arr, im.affine),
+            brain_mask_file,
+        )
+
+    return (wm_mask_file, gm_mask_file, csf_mask_file, brain_mask_file)

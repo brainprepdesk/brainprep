@@ -13,13 +13,14 @@ Module that implements all user workflows.
 from .defacing import brainprep_defacing
 from .brain_parcellation import (
     brainprep_brainparc,
+    brainprep_group_brainparc,
 )
-# from .fsreconall import (
-#     brainprep_fsreconall, brainprep_fsreconall_summary,
-#     brainprep_fsreconall_qc, brainprep_fsreconall_longitudinal)
 # from .cat12vbm import (brainprep_cat12vbm, brainprep_cat12vbm_qc,
 #                        brainprep_cat12vbm_roi)
-from .quasiraw import brainprep_quasiraw, brainprep_quasiraw_qc
+from .quasiraw import (
+    brainprep_quasiraw,
+    # brainprep_group_quasiraw,
+)
 # from .fmriprep import brainprep_fmriprep, brainprep_fmriprep_conn
 from .quality_assurance import (
     brainprep_group_quality_assurance,
