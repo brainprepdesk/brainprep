@@ -1,6 +1,4 @@
-import glob
 import xml.etree.ElementTree as ET
-
 import pandas as pd
 
 from brainprep.utils.utils import parse_bids_keys
@@ -52,7 +50,9 @@ def get_cat12_total_volumes(report_xml_file):
 
 
 def flatten_roi_volumes(roi_volumes):
-    """
+    """ Transform the pandas dataframe with one row per brain tissue to a 
+    dataframe with only one row. Relabel the columns with suffixes to avoid 
+    ambiguities.
     
     Arguments
     ---------
