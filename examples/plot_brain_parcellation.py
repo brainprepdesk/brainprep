@@ -31,6 +31,7 @@ data.update(
         dtype="cross_sectional",
     )
 )
+del data["description"]
 print(data)
 
 

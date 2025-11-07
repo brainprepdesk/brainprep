@@ -40,6 +40,7 @@ from ..utils import (
 @bids(
     process="brain_parcellation",
     bids_file="t1_file",
+    add_subjects=True,
     container="neurospin/brainprep-brainparc")
 @log_runtime(
     title="Subject Level Brain Parcellation")
@@ -323,10 +324,10 @@ def brainprep_group_brainparc(
     euler_numbers_file, = interfaces.freesurfer_euler_numbers(
         output_dir,
     )
-    euler_numbers_histogram_file, = interfaces.plot_histogram(
+    euler_numbers_histogram_file = interfaces.plot_histogram(
         euler_numbers_file,
         "euler_number",
-        output_dir,
+        output_dir / "qc",
         bar_coords=[euler_threshold],
     )
 

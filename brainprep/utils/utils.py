@@ -41,7 +41,8 @@ from .._version import __version__
 
 
 @decorator
-def bids(func, process=None, bids_file=None, container=None, *args, **kw):
+def bids(func, process=None, bids_file=None, container=None,
+         add_subjects=False, *args, **kw):
     """
     BIDS specification.
 
@@ -62,6 +63,9 @@ def bids(func, process=None, bids_file=None, container=None, *args, **kw):
     container : str
         The name of the container (e.g., Docker image) used to run the
         pipeline.
+    add_subjects : bool, default False
+        If True, add a 'subjects' upper level directory in the output
+        directory, for instance to regroup subject level data.
     *args : tuple
         Positional arguments passed to `func`.
     **kw : dict
@@ -94,21 +98,35 @@ def bids(func, process=None, bids_file=None, container=None, *args, **kw):
             entities = parse_bids_keys(inputs[bids_file][0])
         else:
             entities = parse_bids_keys(inputs[bids_file])
-        output_dir = (
-            Path(inputs["output_dir"]) /
-            "derivatives" /
-            process /
-            f"sub-{entities['sub']}" /
-            f"ses-{entities['ses']}"
-        )
-        metadata_file = output_dir.parent.parent / "dataset_description.json"
+        if add_subjects:
+            output_dir = (
+                Path(inputs["output_dir"]) /
+                "derivatives" /
+                process /
+                "subjects" /
+                f"sub-{entities['sub']}" /
+                f"ses-{entities['ses']}"
+            )
+        else:
+            output_dir = (
+                Path(inputs["output_dir"]) /
+                "derivatives" /
+                process /
+                f"sub-{entities['sub']}" /
+                f"ses-{entities['ses']}"
+            )
     else:
         output_dir = (
             Path(inputs["output_dir"]) /
             "derivatives" /
             process
         )
-        metadata_file = output_dir / "dataset_description.json"
+    metadata_file = (
+        Path(inputs["output_dir"]) /
+        "derivatives" /
+        process /
+        "dataset_description.json"
+    )
 
     output_dir.mkdir(parents=True, exist_ok=True)
     inputs["output_dir"] = output_dir
@@ -375,7 +393,7 @@ def parse_bids_keys(
 
     # Regex pattern for BIDS entities
     entity_pattern = (
-        r"(?P<entity>(sub|ses|task|acq|run|echo|rec|dir|mod|ce|part|"
+        r"(?P<entity>(sub|ses|task|acq|run|echo|rec|dir|mod|ce|part|space|res|"
         r"recording))"
         r"-(?P<value>[^_/]+)"
     )
@@ -409,6 +427,49 @@ def parse_bids_keys(
         entities.setdefault(key, default)
 
     return entities
+
+
+def sidecar_from_file(
+        image_file: File) -> File:
+    """
+    Infers the corresponding JSON sidecar file for a given NIfTI image file.
+
+    This function checks that the input file has a `.nii.gz` extension and
+    attempts to locate a sidecar `.json` file with the same base name. If
+    either condition fails, it raises a ValueError.
+
+    Parameters
+    ----------
+    image_file : File
+        Path to the NIfTI image file with `.nii.gz` extension.
+
+    Returns
+    -------
+    sidecar_file : File
+        Path to the inferred JSON sidecar file.
+
+    Raises
+    ------
+    ValueError
+        If the input file does not have a `.nii.gz` extension.
+    ValueError
+        If the corresponding JSON sidecar file does not exist.
+
+    Examples
+    --------
+    >>> sidecar_from_file("sub-01_T1w.nii.gz")
+    PosixPath('sub-01_T1w.json')
+    """
+    if not str(image_file).endswith(".nii.gz"):
+        raise ValueError(
+            f"Input image file must be in NIIGZ format: {image_file}"
+        )
+    sidecar_file = Path(str(image_file).replace(".nii.gz", ".json"))
+    if not sidecar_file.is_file():
+        raise ValueError(
+            f"Sidecar infered from input image file not found: {sidecar_file}"
+        )
+    return sidecar_file
 
 
 def find_stack_level() -> int:

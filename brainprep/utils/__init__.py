@@ -30,6 +30,7 @@ from .utils import (
     listify,
     load_images,
     parse_bids_keys,
+    sidecar_from_file,
     write_matlabbatch,
 )
 

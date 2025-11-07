@@ -8,144 +8,187 @@
 ##########################################################################
 
 """
-Interface for fmriprep.
+Functional MRI PreProcessing
 """
 
-# System import
 import os
-import tempfile
-import brainprep
 import shutil
-from brainprep.utils import print_subtitle
+
+import brainprep.interfaces as interfaces
+
+from ..reporting import (
+    log_runtime,
+    save_runtime,
+)
+from ..typing import (
+    Directory,
+    File,
+)
+from ..utils import (
+    Bunch,
+    bids,
+    coerceparams,
+    parse_bids_keys,
+    print_info,
+)
 
 
-def brainprep_fmriprep(anatomical, functionals, subjid, descfile, fsdir,
-                       outdir="/out", workdir="/work", fmriprep="fmriprep"):
-    """ Define the fmriprep pre-processing workflow.
+@bids(
+    process="fmriprep",
+    bids_file="t1_file",
+    add_subjects=True,
+    container="neurospin/brainprep-fmriprep")
+@log_runtime(
+    title="Subject Level fMRI PreProcessing")
+@save_runtime
+@coerceparams
+def brainprep_fmriprep(
+        t1_file: File,
+        func_files: list[File],
+        dataset_description_file: File,
+        freesurfer_dir: Directory,
+        output_dir: Directory,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Subject level functional MRI pre-processing.
+
+    Applies fmriprep tool :footcite:p:`esteban2019fmriprep` with the following
+    setting:
+
+    1) T1-weighted volume was corrected for INU (intensity non-uniformity)
+       using N4BiasFieldCorrection and skull-stripped using
+       antsBrainExtraction.sh (using the OASIS template).
+    2) Brain mask estimated previously was refined with a custom variation of
+       the method to reconcile ANTs-derived and FreeSurfer-derived
+       segmentations of the cortical gray-matter of Mindboggle.
+    3) Spatial normalization to the ICBM 152 Nonlinear Asymmetrical template
+       version 2009c was performed through nonlinear registration with the
+       antsRegistration tool of ANTs, using brain-extracted versions of both
+       T1w volume and template.
+    4) Brain tissue segmentation of cerebrospinal fluid (CSF), white-matter
+       (WM) and gray-matter (GM) was performed on the brain-extracted T1w
+       using FSL fast.
+    5) Functional data was motion corrected using FSL mcflirt.
+    6) This was followed by co-registration to the corresponding T1w using
+       boundary-based registration with six degrees of freedom, using FreeSurfer
+       bbregister.
+    7) Motion correcting transformations, BOLD-to-T1w transformation and
+       T1w-to-template (MNI) warp were concatenated and applied in a single
+       step using ANTs antsApplyTransforms using Lanczos interpolation.
+    8) Physiological noise regressors were extracted applying CompCor.
+       Principal components were estimated for the two CompCor variants:
+       temporal (tCompCor) and anatomical (aCompCor).A mask to exclude signal
+       with cortical origin was obtained by eroding the brain mask, ensuring
+       it only contained subcortical structures. Six tCompCor components were
+       then calculated including only the top 5% variable voxels within that
+       subcortical mask. For aCompCor, six components were calculated within
+       the intersection of the subcortical mask and the union of CSF and WM
+       masks calculated in T1w space, after their projection to the native
+       space of each functional run.
+    9) Frame-wise displacement was calculated for each functional run using
+       Nipype.
+
+    Then, compute functional ROI-based functional connectivity from
+    pre-processed volumetric fMRI data based on the Schaefer 200 ROI atlas.
+    Connectivity is computed using Pearson correlation.
 
     Parameters
     ----------
-    anatomical: str
-        path to the anatomical T1w Nifti file.
-    functionals: list of str
-        path to the functional Nifti files.
-    subjid: str
-        the subject identifier.
-    descfile: str
-        the dataset description file. (bids)
-    fsdir: str
-        Path to existing FreeSurfer subjects directory to reuse.
-    outdir: str
-        the destination folder.
-    workdir: str
-        the working folder.
-    fmriprep: str
-        path to the fmriprep binary.
-    """
-    print_subtitle("Launch fmriprep...")
-    if not isinstance(functionals, list):
-        functionals = functionals.split(",")
-    destdir = os.path.join(outdir, "fmriprep_{0}".format(subjid))
-    status = os.path.join(destdir, subjid, "ok")
-    if not os.path.isfile(status):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            datadir = os.path.join(tmpdir, "data")
-            anatdir = os.path.join(datadir, subjid, "anat")
-            funcdir = os.path.join(datadir, subjid, "func")
-            resdir = os.path.join(tmpdir, "out")
-            for path in (anatdir, funcdir, resdir):
-                if not os.path.isdir(path):
-                    os.makedirs(path)
-            shutil.copy(anatomical, os.path.join(anatdir,
-                                                 os.path.basename(anatomical)))
-            shutil.copy(anatomical.replace(".nii.gz", ".json"),
-                        os.path.join(anatdir,
-                                     os.path.basename(anatomical.replace
-                                                      (".nii.gz", ".json"))))
-            for path in functionals:
-                shutil.copy(path, os.path.join(funcdir,
-                                               os.path.basename(path)))
-                shutil.copy(path.replace(".nii.gz", ".json"),
-                            os.path.join(funcdir, os.path.basename(path.replace
-                                                                   (".nii.gz",
-                                                                    ".json"))))
-            shutil.copy(descfile, os.path.join(datadir,
-                                               os.path.basename(descfile)))
-            cmd = [
-                fmriprep,
-                datadir,
-                resdir,
-                "participant",
-                "--fs-subjects-dir", fsdir,
-                "-w", workdir,
-                "--n_cpus", "1",
-                "--stop-on-first-crash",
-                "--fs-license-file", "/code/freesurfer.txt",
-                "--skip_bids_validation",
-                "--force bbr",
-                "--no-msm",
-                "--cifti-output", "91k",
-                "--output-spaces", (
-                    "MNI152NLin2009cAsym MNI152NLin6Asym:res-2 "
-                    "fsaverage fsLR"),
-                "--ignore", "slicetiming",
-                "--participant_label", subjid]
-            brainprep.execute_command(cmd)
-            shutil.move(resdir, destdir)
-            open(status, "a").close()
+    t1_file : File
+        Path to the input T1w image file.
+    func_files : list[File]
+        Path to the input functional image files of one subject.
+    dataset_description_file : File
+        Path to the BIDS dataset description file.
+    freesurfer_dir : Directory
+        Path to an existing FreeSurfer subjects directory where the reconall
+        command has already been performed.
+    output_dir : Directory
+        Directory where the prep-processing related outputs will be saved
+        (i.e., the root of your dataset).
+    keep_intermediate : bool, default False
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging.
 
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+        - fmri_rest_image_files: list[File] - pre-processed rfMRI NIFTI
+          volumes: 2mm MNI152NLin6Asym and MNI152NLin2009cAsym.
+        - fmri_rest_surf_files: File - pre-processed rfMRI CIFTI surfaces:
+          fsLR23k.
+        - qc_file: File - the HTML visual report for the subject's data.
+        - connectivity_files: list[File] - TSV files containing the ROI-to-ROI
+          connectivity matrix for each resting-state fMRI pre-processed
+          image.
 
-def brainprep_fmriprep_conn(fmri_file, counfounds_file, mask_file, tr,
-                            outdir="/work", low_pass=0.1, high_pass=0.01,
-                            scrub=5, fd_threshold=0.2, std_dvars_threshold=3,
-                            fwhm=0.):
-    """ Compute ROI-based functional connectivity from fMRIPrep pre-processing.
+    Notes
+    -----
+    This workflow assumes the T1w image is organized in BIDS.
 
-    Parameters
+    Examples
+    --------
+    >>> from brainprep.workflow import brainprep_fmriprep
+    >>> brainprep_fmriprep(t1_file, func_files, dataset_description_file,
+    ...                    freesurfer_dir, output_dir)
+
+    Raises
+    ------
+    ValueError
+        If the input T1w file is not BIDS-compliant.
+
+    References
     ----------
-    fmri_file: str
-        the fMRIPrep pre-processing file: ***desc-preproc_bold.nii.gz**.
-    counfounds_file: str
-        the path to the fMRIPrep counfounds file:
-        ***desc-confounds_regressors.tsv**.
-    mask_file: str
-        signal is only cleaned from voxels inside the mask. It should have the
-        same shape and affine as the ``fmri_file``:
-        ***desc-brain_mask.nii.gz**.
-    tr: float
-        the repetition time (TR) in seconds.
-    outdir: str
-        the destination folder.
-    low_pass: float, default 0.1
-        the low-pass filter cutoff frequency in Hz. Set it to ``None`` if you
-        dont want low-pass filtering.
-    high_pass: float, default 0.01
-        the high-pass filter cutoff frequency in Hz. Set it to ``None`` if you
-        dont want high-pass filtering.
-    scrub: int, default 5
-        after accounting for time frames with excessive motion, further remove
-        segments shorter than the given number. The default value is 5. When
-        the value is 0, remove time frames based on excessive framewise
-        displacement and DVARS only. One-hot encoding vectors are added as
-        regressors for each scrubbed frame.
-    fd_threshold: float, default 0.2
-        Framewise displacement threshold for scrub. This value is typically
-        between 0 and 1 mm.
-    std_dvars_threshold: float, default 3
-        standardized DVARS threshold for scrub. DVARs is defined as root mean
-        squared intensity difference of volume N to volume N + 1. D refers
-        to temporal derivative of timecourses, VARS referring to root mean
-        squared variance over voxels.
-    fwhm: float or list, default 0.
-        smoothing strength, expressed as as Full-Width at Half Maximum
-        (fwhm), in millimeters. Can be a single number ``fwhm=8``, the width
-        is identical along x, y and z or ``fwhm=0``, no smoothing is peformed.
-        Can be three consecutive numbers, ``fwhm=[1,1.5,2.5]``, giving the fwhm
-        along each axis.
+
+    .. footbibliography::
     """
-    print_subtitle("Launch fmriprep connectivity...")
-    brainprep.func_connectivity(
-        fmri_file, counfounds_file, mask_file, tr, outdir, low_pass=low_pass,
-        high_pass=high_pass, scrub=scrub, fd_threshold=fd_threshold,
-        std_dvars_threshold=std_dvars_threshold, detrend=True,
-        standardize=True, remove_volumes=True, fwhm=fwhm)
+    workspace_dir = output_dir / "workspace"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+
+    entities = parse_bids_keys(t1_file)
+    if len(entities) == 0:
+        raise ValueError(
+            f"The T1w file '{t1_file}' is not BIDS-compliant."
+        )
+
+    rfmri_outputs, qc_file = interfaces.fmriprep(
+        t1_file,
+        func_files,
+        dataset_description_file,
+        freesurfer_dir,
+        workspace_dir,
+        output_dir,
+        entities,
+    )
+    fmri_rest_image_files = sum([item[1] for item in rfmri_outputs], [])
+    fmri_rest_surf_files = [item[2] for item in rfmri_outputs]
+
+    connectivity_files = []
+    for fmri_data in rfmri_outputs:
+        counfounds_file = fmri_data[3]
+        for mask_file, fmri_rest_image_files in zip(
+                fmri_data[0], fmri_data[1]):
+            for fmri_rest_image_file in fmri_rest_image_files:
+                entities = parse_bids_keys(fmri_rest_image_file)
+                connectivity_files.append(
+                    interfaces.func_vol_connectivity(
+                        fmri_rest_image_file,
+                        mask_file,
+                        counfounds_file,
+                        output_dir,
+                        entities,
+                        fwhm=0.,
+                    )
+                )
+
+    if not keep_intermediate:
+        print_info(f"cleaning workspace directory: {workspace_dir}")
+        shutil.rmtree(workspace_dir)
+
+    return Bunch(
+        fmri_rest_image_files=fmri_rest_image_files,
+        fmri_rest_surf_files=fmri_rest_surf_files,
+        qc_file=qc_file,
+        connectivity_files=connectivity_files,
+    )

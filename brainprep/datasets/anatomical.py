@@ -21,6 +21,7 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
+    print_info,
 )
 from .utils import (
     git_download,
@@ -31,16 +32,11 @@ class AnatomicalDataset:
     """
     Anatomical dataset.
 
-    This `dataset <https://github.com/muschellij2/open_ms_data>`_ contains
+    This `dataset <https://github.com/muschellij2/open_ms_data>`_ 
+    :footcite:p:`lesjak2016data` contains
     Magnetic Resonance (MR) images of Multiple Sclerosis (MS)
     patients with corresponding ground truth segmentations of white matter
     lesion changes.
-
-    The cross-sectional data is from the "3D MR image database of Multiple
-    Sclerosis patients with white matter lesion segmentations".
-
-    The longitudinal data is from the "Longitudinal MR image database of
-    Multiple Sclerosis patients with white matter lesion change segmentation".
 
     Attributes
     ----------
@@ -67,8 +63,13 @@ class AnatomicalDataset:
     Raises
     ------
     ValueError
-        if an invalid data type, modality or subject is passed to the
+        If an invalid data type, modality or subject is passed to the
         :meth:`~brainprep.datasets.AnatomicalDataset.fetch` method.
+
+    References
+    ----------
+
+    .. footbibliography::
     """
     _url = (
         "https://raw.githubusercontent.com/muschellij2/open_ms_data/refs/"
@@ -122,8 +123,10 @@ class AnatomicalDataset:
         dataset: Bunch
             the fetched data path. Keys are either 'sub-{subject}' or
             'sub-{subject}_ses-{timepoint}' for cross sectional and
-            longitudinal data, respectively.
+            longitudinal data, respectively. A 'description' entry is
+            also available.
         """
+        dataset = Bunch()
         self.sanity_check(subject, modality.upper(), dtype)
 
         description_file = (
@@ -138,8 +141,8 @@ class AnatomicalDataset:
                     "BIDSVersion": "1.0.2",
                 }
                 json.dump(description, of, indent=4)
+        dataset["description"] = description_file
 
-        dataset = Bunch()
         to_download = []
         if dtype == "longitudinal":
             for timepoint in self.timepoints:
@@ -179,7 +182,8 @@ class AnatomicalDataset:
             to_download.append((url, destination))
 
         for url, destination in to_download:
-            if not os.path.isfile(destination):
+            if not destination.is_file():
+                print_info(f"downloading: {url}")
                 git_download(url, destination)
 
         return dataset

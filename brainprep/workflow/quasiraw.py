@@ -37,6 +37,7 @@ from ..utils import (
 @bids(
     process="quasiraw",
     bids_file="anatomical_file",
+    add_subjects=True,
     container="neurospin/brainprep-quasiraw")
 @log_runtime(
     title="Subject Level Quasi-RAW")

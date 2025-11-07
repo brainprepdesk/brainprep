@@ -18,6 +18,10 @@ from .utils import (
     defacing_mask_diff,
     movedir,
 )
+from .fmriprep import (
+    fmriprep,
+    func_vol_connectivity,
+)
 from .freesurfer import (
     brainmask,
     freesurfer_command_status,
@@ -46,6 +50,10 @@ from .plotting import (
     plot_brainparc,
     plot_defacing_mosaic,
     plot_histogram,
+)
+from .prequal import (
+    prequal,
+    prequal_stats,
 )
 
 __all__ = [

@@ -17,16 +17,22 @@ from .brain_parcellation import (
 )
 # from .cat12vbm import (brainprep_cat12vbm, brainprep_cat12vbm_qc,
 #                        brainprep_cat12vbm_roi)
+from .fmriprep import (
+    brainprep_fmriprep,
+)
 from .quasiraw import (
     brainprep_quasiraw,
     # brainprep_group_quasiraw,
 )
-# from .fmriprep import brainprep_fmriprep, brainprep_fmriprep_conn
+
 from .quality_assurance import (
     brainprep_group_quality_assurance,
     brainprep_quality_assurance,
 )
 # from .tbss import brainprep_tbss_preproc, brainprep_tbss
-# from .prequal import brainprep_prequal, brainprep_prequal_qc
+from .dmriprep import (
+    brainprep_dmriprep,
+    brainprep_group_dmriprep,
+)
 
 __all__ = []

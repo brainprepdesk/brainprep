@@ -349,7 +349,7 @@ def log_runtime(func, title=None, bunched=True, *args, **kw):
 @decorator
 def save_runtime(func, *args, **kw):
     """
-    Decorator that save logged runtime metadata in a 'output_dir' folder.
+    Decorator that save logged runtime metadata in a 'output_dir/logs' folder.
 
     Parameters
     ----------
@@ -386,7 +386,8 @@ def save_runtime(func, *args, **kw):
             "This decorator needs an 'output_dir' function argument."
         )
     report = RSTReport(reloadable=True)
-    report_file = Path(inputs.get("output_dir")) / "report.rst"
+    report_file = Path(inputs.get("output_dir")) / "logs" / "report.rst"
+    report_file.parent.mkdir(parents=True, exist_ok=True)
     outputs = func(*args, **kw)
     report.save_as_rst(report_file)
     return outputs

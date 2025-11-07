@@ -34,6 +34,7 @@ from ..utils import (
 @bids(
     process="defacing",
     bids_file="t1_file",
+    add_subjects=True,
     container="neurospin/brainprep-deface")
 @log_runtime(
     title="Subject Level Defacing")

@@ -14,6 +14,9 @@ Module that implements datasets.
 from .anatomical import (
     AnatomicalDataset,
 )
+from .multi_modal import (
+    MultiModalDataset,
+)
 from .utils import (
     git_download,
 )

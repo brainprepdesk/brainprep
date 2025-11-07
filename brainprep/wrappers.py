@@ -92,7 +92,12 @@ def pywrapper(
     for item in outputs or []:
         _check_outputs(item, dryrun, verbose)
 
-    return outputs
+    if outputs is None:
+        return None
+    elif len(outputs) == 1:
+        return outputs[0]
+    else:
+        return tuple(outputs)
 
 
 @decorator

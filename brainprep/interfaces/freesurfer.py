@@ -874,7 +874,7 @@ def freesurfer_features_summary(
       directory using symlinks.
     """
     stats_dirs = glob.glob(
-        str(output_dir / "*" / "*" / "run-*" / "stats")
+        str(output_dir / "subjects" / "*" / "*" / "run-*" / "stats")
     )
     subjects, sessions, runs = zip(*[
         item.lstrip(os.sep).split(os.sep)[-4:-1]
@@ -893,6 +893,8 @@ def freesurfer_features_summary(
         "area", "volume", "thickness", "thicknessstd",
         "meancurv", "gauscurv", "foldind", "curvind"
     ]
+    morphometry = output_dir / "morphometry"
+    morphometry.mkdir(parents=True, exist_ok=True)
     for ses in unique_sessions:
         data_dir = workspace_dir / ses
         os.environ["SUBJECTS_DIR"] = str(data_dir)
@@ -904,7 +906,7 @@ def freesurfer_features_summary(
                     ses.replace("ses-", ""),
                     hemi,
                     meas,
-                    output_dir,
+                    morphometry,
                 )
                 summary_files.extend([
                     desikan_stat_file,
@@ -914,7 +916,7 @@ def freesurfer_features_summary(
         volume_stat_file = asegstats2table(
             subjects,
             ses.replace("ses-", ""),
-            output_dir,
+            morphometry,
         )
         summary_files.append(volume_stat_file)
 
@@ -956,7 +958,8 @@ def freesurfer_euler_numbers(
 
     .. footbibliography::
     """
-    euler_numbers_file = output_dir / "euler_numbers.tsv"
+    euler_numbers_file = output_dir / "qc" / "euler_numbers.tsv"
+    euler_numbers_file.parent.mkdir(parents=True, exist_ok=True)
 
     if not dryrun:
 
