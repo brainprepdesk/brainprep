@@ -248,7 +248,8 @@ def _check_outputs(
         )
 
 
-def is_command_installed(command: str):
+def is_command_installed(
+        command: str) -> None:
     """
     Verifies if a command is installed on a Linux system using the `which`
     utility.

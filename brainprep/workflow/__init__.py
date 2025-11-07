@@ -7,16 +7,21 @@
 ##########################################################################
 
 """
-Module that implements all user workflows.
+Available workflows.
 """
 
-from .defacing import brainprep_defacing
+from .defacing import (
+    brainprep_defacing,
+)
 from .brain_parcellation import (
     brainprep_brainparc,
     brainprep_group_brainparc,
 )
-# from .cat12vbm import (brainprep_cat12vbm, brainprep_cat12vbm_qc,
-#                        brainprep_cat12vbm_roi)
+from .vbm import (
+    brainprep_group_vbm,
+    brainprep_longitudinal_vbm,
+    brainprep_vbm,
+)
 from .fmriprep import (
     brainprep_fmriprep,
 )
@@ -24,7 +29,6 @@ from .quasiraw import (
     brainprep_quasiraw,
     # brainprep_group_quasiraw,
 )
-
 from .quality_assurance import (
     brainprep_group_quality_assurance,
     brainprep_quality_assurance,

@@ -19,6 +19,10 @@ from typing import Union
 
 from decorator import decorator
 
+from ..config import (
+    DEFAULT_OPTIONS,
+    brainprep_options,
+)
 from .._version import __version__
 from ..utils import (
     Bunch,
@@ -272,6 +276,7 @@ def log_runtime(func, title=None, bunched=True, *args, **kw):
     - Inputs are captured using `inspect.getcallargs`.
     - Runtime metadata includes start and end timestamps, execution duration
       in hours, platform details, and hostname.
+    - Current configuration is captured.
 
     Examples
     --------
@@ -341,13 +346,18 @@ def log_runtime(func, title=None, bunched=True, *args, **kw):
         hostname=platform.node(),
     )
     report.register(identifier, "runtime", runtime)
+    config = Bunch(**DEFAULT_OPTIONS.copy())
+    config.update(
+        brainprep_options.get()
+    )
+    report.register(identifier, "config", config)
     if title is not None:
         print_title(f"{title} done.")
     return outputs
 
 
 @decorator
-def save_runtime(func, *args, **kw):
+def save_runtime(func, parent=False, *args, **kw):
     """
     Decorator that save logged runtime metadata in a 'output_dir/logs' folder.
 
@@ -355,6 +365,10 @@ def save_runtime(func, *args, **kw):
     ----------
     func : callable
         The function to be decorated.
+    parent : bool, default False
+        If True, logs will be saved in the parent output directory instead of
+        the output directory. This is useful when centralizing log files.
+    Default is False.
     *args : tuple
         Positional arguments passed to `func`.
     **kw : dict
@@ -386,7 +400,19 @@ def save_runtime(func, *args, **kw):
             "This decorator needs an 'output_dir' function argument."
         )
     report = RSTReport(reloadable=True)
-    report_file = Path(inputs.get("output_dir")) / "logs" / "report.rst"
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    if parent:
+        report_file = (
+            Path(inputs.get("output_dir")).parent /
+            "logs" /
+            f"report_{timestamp}.rst"
+        )
+    else:
+        report_file = (
+            Path(inputs.get("output_dir")) /
+            "logs" /
+            f"report_{timestamp}.rst"
+        )
     report_file.parent.mkdir(parents=True, exist_ok=True)
     outputs = func(*args, **kw)
     report.save_as_rst(report_file)

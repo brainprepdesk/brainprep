@@ -13,10 +13,17 @@ Module that implements interfaces.
 from .ants import (
     biasfield,
 )
+from .cat12 import (
+    cat12vbm,
+    cat12vbm_morphometry,
+    cat12vbm_stats,
+    write_catbatch,
+)
 from .utils import (
     copyfiles,
     defacing_mask_diff,
     movedir,
+    ungzfile,
 )
 from .fmriprep import (
     fmriprep,

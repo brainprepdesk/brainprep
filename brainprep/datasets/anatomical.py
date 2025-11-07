@@ -145,8 +145,8 @@ class AnatomicalDataset:
 
         to_download = []
         if dtype == "longitudinal":
-            for timepoint in self.timepoints:
-                basename = f"{timepoint}_{modality}"
+            for counter, timepoint in enumerate(self.timepoints):
+                basename = f"{timepoint}_{modality.upper()}"
                 url = self._url.format(
                     dtype=dtype,
                     subject=subject,
@@ -161,7 +161,7 @@ class AnatomicalDataset:
                     f"sub-{subject}_ses-{timepoint}_{modality}.nii.gz"
                 )
                 destination.parent.mkdir(parents=True, exist_ok=True)
-                dataset[f"sub-{subject}_ses-{timepoint}"] = destination
+                dataset[f"anat{counter + 1}"] = destination
                 to_download.append((url, destination))
         else:
             url = self._url.format(
@@ -178,7 +178,7 @@ class AnatomicalDataset:
                 f"sub-{subject}_{modality}.nii.gz"
             )
             destination.parent.mkdir(parents=True, exist_ok=True)
-            dataset[f"sub-{subject}"] = destination
+            dataset["anat"] = destination
             to_download.append((url, destination))
 
         for url, destination in to_download:

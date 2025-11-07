@@ -176,7 +176,7 @@ def prequal_stats(
     Parameters
     ----------
     output_dir : Directory
-        FreeSurfer working directory containing all the subjects.
+        Working directory containing the outputs.
     bundles : str
         Bundle names as define in PreQual.
     lower_fa_threshold : float, default 0.3
@@ -197,7 +197,7 @@ def prequal_stats(
     if not dryrun:
 
         stats_files =  glob.glob(
-            output_dir / "subjects" / "*" / "*" / "STATS" / "stats.csv"
+            output_dir.parent / "subjects" / "*" / "*" / "STATS" / "stats.csv"
         )
 
         stats = []

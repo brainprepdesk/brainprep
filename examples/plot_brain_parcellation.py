@@ -15,23 +15,23 @@ Let's first get some anatomical data.
 
 from pathlib import Path
 from brainprep.datasets import AnatomicalDataset
+from brainprep.utils import Bunch
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
 dataset = AnatomicalDataset(datadir)
-data = dataset.fetch(
-    subject="01",
-    modality="T1w",
-    dtype="cross_sectional",
-)
-data.update(
-    dataset.fetch(
+data = Bunch(
+    sub01=dataset.fetch(
+        subject="01",
+        modality="T1w",
+        dtype="longitudinal",
+    ),
+    sub02=dataset.fetch(
         subject="02",
         modality="T1w",
-        dtype="cross_sectional",
-    )
+        dtype="longitudinal",
+    ),
 )
-del data["description"]
 print(data)
 
 
@@ -55,10 +55,10 @@ from brainprep.reporting import RSTReport
 outdir = Path("/tmp/brainprep-brainparc")
 outdir.mkdir(parents=True, exist_ok=True)
 with Config(dryrun=True, verbose=True):
-    for subject in data:
+    for subject_data in data.values():
         report = RSTReport()
         outputs = brainprep_brainparc(
-            t1_file=data[subject],
+            t1_file=subject_data.anat,
             template_dir=(datadir / "fsaverage_sym"),
             output_dir=outdir,
             do_lgi=False,
@@ -66,7 +66,7 @@ with Config(dryrun=True, verbose=True):
             keep_intermediate=True,
         )
         (outputs.subject_dir / "stats").mkdir(parents=True, exist_ok=True)
-        #print(report)
+        print(report)
     outputs = brainprep_group_brainparc(
         output_dir=outdir,
         euler_threshold=-217,

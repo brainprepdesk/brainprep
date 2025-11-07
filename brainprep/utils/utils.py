@@ -42,7 +42,7 @@ from .._version import __version__
 
 @decorator
 def bids(func, process=None, bids_file=None, container=None,
-         add_subjects=False, *args, **kw):
+         add_subjects=False, longitudinal=False, *args, **kw):
     """
     BIDS specification.
 
@@ -66,6 +66,9 @@ def bids(func, process=None, bids_file=None, container=None,
     add_subjects : bool, default False
         If True, add a 'subjects' upper level directory in the output
         directory, for instance to regroup subject level data.
+    longitudinal : bool, default False
+        If True, add a 'longitudinal' upper level directory in the output
+        directory.
     *args : tuple
         Positional arguments passed to `func`.
     **kw : dict
@@ -88,38 +91,29 @@ def bids(func, process=None, bids_file=None, container=None,
         return func(**inputs)
 
     subject_level = bids_file is not None
+    output_dir = (
+        Path(inputs["output_dir"]) /
+        "derivatives" /
+        process
+    )
+    if longitudinal:
+        output_dir /= "longitudinal"
+    if add_subjects:
+        output_dir /= "subjects"
     if subject_level:
         for key in (bids_file, "output_dir"):
             if key not in inputs:
                 raise ValueError(
-                    f"This decorator needs a '{key}' function argument."
+                    f"The 'bids' decorator needs a '{key}' function argument."
                 )
         if isinstance(inputs[bids_file], (list, tuple)):
             entities = parse_bids_keys(inputs[bids_file][0])
         else:
             entities = parse_bids_keys(inputs[bids_file])
-        if add_subjects:
-            output_dir = (
-                Path(inputs["output_dir"]) /
-                "derivatives" /
-                process /
-                "subjects" /
-                f"sub-{entities['sub']}" /
-                f"ses-{entities['ses']}"
-            )
-        else:
-            output_dir = (
-                Path(inputs["output_dir"]) /
-                "derivatives" /
-                process /
-                f"sub-{entities['sub']}" /
-                f"ses-{entities['ses']}"
-            )
-    else:
         output_dir = (
-            Path(inputs["output_dir"]) /
-            "derivatives" /
-            process
+            output_dir /
+            f"sub-{entities['sub']}" /
+            f"ses-{entities['ses']}"
         )
     metadata_file = (
         Path(inputs["output_dir"]) /
@@ -190,7 +184,7 @@ def outputdir(func, *args, **kw):
 
     if "output_dir" not in inputs:
         raise ValueError(
-            "This decorator needs a 'output_dir' function argument."
+            "The 'outputdir' decorator needs a 'output_dir' function argument."
         )
 
     Path(inputs["output_dir"]).mkdir(parents=True, exist_ok=True)
@@ -281,96 +275,6 @@ def coerce_to_path(
                 for key, val in value.items()}
 
     return value
-
-
-def write_matlabbatch(template, nii_files, tpm_file, darteltpm_file,
-                      session, batch_file, outdir, model_long=1):
-    """ Complete matlab batch from template and unzip T1w file in the outdir.
-        Create the outdir.
-
-    Parameters
-    ----------
-    template: str
-        path to template batch to be completed.
-    nii_files: list
-        the Nifti images to be processed.
-    tpm_file: str
-        path to the SPM TPM file.
-    darteltpm_file: str
-        path to the CAT12 tempalte file.
-    batch_file: str
-        Filepath to the matlabbatch
-    outdir: str
-        the destination folder for cat12vbm outputs.
-    session: str
-        the session names, usefull for longitudinal preprocessings.
-        Warning session and nii files must be in the same order.
-    model_long: int
-        longitudinal model choice, default 1.
-        1 short time (weeks), 2 long time (years) between images sessions.
-    """
-    nii_files_str = ""
-    if session:
-        outdir = [os.path.join(outdir, ses) for ses in session]
-    if not isinstance(outdir, list):
-        outdir = [outdir]
-    for idx, path in enumerate(nii_files):
-        nii_files_str += "'{0}' \n".format(
-            ungzip_file(path, outdir=outdir[idx]))
-    with open(template, "r") as of:
-        stream = of.read()
-        stream = stream.format(model_long=model_long, anat_file=nii_files_str,
-                               tpm_file=tpm_file,
-                               darteltpm_file=darteltpm_file)
-    with open(batch_file, "w") as of:
-        of.write(stream)
-
-
-def ungzip_file(zfile, prefix="u", outdir=None):
-    """ Copy and ungzip the input file.
-
-    Parameters
-    ----------
-    zfile: str
-        input file to ungzip.
-    prefix: str, default 'u'
-        the prefix of the result file.
-    outdir: str, default None)
-        the output directory where ungzip file is saved. If not set use the
-        input image directory.
-
-    Returns
-    -------
-    unzfile: str
-        the ungzip file.
-    """
-    # Checks
-    if not os.path.isfile(zfile):
-        raise ValueError("'{0}' is not a valid filename.".format(zfile))
-    if outdir is not None:
-        if not os.path.isdir(outdir):
-            raise ValueError("'{0}' is not a valid directory.".format(outdir))
-    else:
-        outdir = os.path.dirname(zfile)
-
-    # Get the file descriptors
-    base, extension = os.path.splitext(zfile)
-    basename = os.path.basename(base)
-
-    # Ungzip only known extension
-    if extension in [".gz"]:
-        basename = prefix + basename
-        unzfile = os.path.join(outdir, basename)
-        with gzip.open(zfile, "rb") as gzfobj:
-            data = gzfobj.read()
-        with open(unzfile, "wb") as openfile:
-            openfile.write(data)
-
-    # Default, unknown compression extension: the input file is returned
-    else:
-        unzfile = zfile
-
-    return unzfile
 
 
 def parse_bids_keys(
@@ -498,82 +402,3 @@ def find_stack_level() -> int:
         # https://docs.python.org/3/library/inspect.html#inspect.Traceback
         del frame
     return n
-
-
-def load_images(img_files, check_same_referential=True):
-    """ Load a list of images in a BIDS organisation: check that all images
-    are in the same referential.
-
-    Parameters
-    ----------
-    img_files: list of str (n_subjects, )
-        path to images.
-
-    Returns
-    -------
-    imgs_arr: array (n_subjects, 1, image_axis0, image_axis1, ...)
-        the generated array.
-    df: pandas DataFrame
-        description of the array with columns 'participant_id',
-        'session', 'run', 'ni_path'.
-    """
-    ref_affine = None
-    ref_shape = None
-    data = []
-    info = {}
-    for path in img_files:
-        keys = get_bids_keys(path)
-        participant_id = keys["participant_id"]
-        session = keys.get("session", "V1")
-        run = keys.get("run", "1")
-        img = nibabel.load(path)
-        if ref_affine is None:
-            ref_affine = img.affine
-            ref_shape = img.shape
-        else:
-            assert np.allclose(ref_affine, img.affine), "Different affine."
-            assert ref_shape == img.shape, "Different shape."
-        data.append(np.expand_dims(img.get_fdata(), axis=0))
-        info.setdefault("participant_id", []).append(participant_id)
-        info.setdefault("session", []).append(session)
-        info.setdefault("run", []).append(run)
-        info.setdefault("ni_path", []).append(path)
-    df = pd.DataFrame.from_dict(info)
-    imgs_arr = np.asarray(data)
-    return imgs_arr, df
-
-
-def create_clickable(path_or_url):
-    """ Foramt a path or a URL as a HTML href.
-
-    Parameters
-    ----------
-    path_or_url: str
-        a path or a URL.
-
-    Returns
-    -------
-    url: str
-        a href formated URL.
-    """
-    url = "<a href='{}' target='_blank'>&plus;</a>".format(path_or_url)
-    return url
-
-
-def listify(obj):
-    """ Function to transform a coma separated string to a list of string.
-
-    Parameters
-    ----------
-    obj: list or string
-        the input data.
-
-    Returns
-    -------
-    list: list
-        the list of input data or input data.
-    """
-    if not isinstance(obj, list):
-        return obj.split(",")
-    else:
-        return obj

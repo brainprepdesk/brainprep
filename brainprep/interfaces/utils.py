@@ -160,3 +160,49 @@ def movedir(
                     shutil.copy2(item, target)
             if not any(source_directory.iterdir()):
                 source_directory.rmdir()
+
+
+@log_runtime(
+    bunched=False)
+@pywrapper
+@outputdir
+def ungzfile(
+        input_file: File,
+        output_file: File,
+        output_dir: Directory,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Ungzip input file.
+
+    Parameters
+    ----------
+    input_file : File
+        Path to the file to ungzip.
+    output_file : File
+        Path to the ungzip file.
+    output_dir : Directory
+        Directory where the unzip file is created.
+    dryrun : bool, default False
+        If True, skip actual computation and file writing.
+
+    Returns
+    -------
+    output_file : File
+        Path to the ungzip file.
+
+    Raises
+    ------
+    ValueError
+        If the input file is not compressed.
+    """
+    if input_file.suffix != ".gz":
+        raise ValueError(
+            f"The input file is not compressed: {input_file}"
+        )
+
+    if not dryrun:
+        with gzip.open(input_file, "rb") as gzfobj:
+            output_file.write_bytes(gzfobj.read())
+
+    return (output_file, )
+

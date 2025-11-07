@@ -46,7 +46,7 @@ outdir.mkdir(parents=True, exist_ok=True)
 report = RSTReport()
 with Config(dryrun=True, verbose=True):
     brainprep_defacing(
-        t1_file=data["sub-01"],
+        t1_file=data.anat,
         output_dir=outdir,
         keep_intermediate=True,
     )

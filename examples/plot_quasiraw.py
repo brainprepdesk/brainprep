@@ -14,24 +14,24 @@ Let's first get some anatomical data.
 """
 
 from pathlib import Path
+from brainprep.utils import Bunch
 from brainprep.datasets import AnatomicalDataset
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
 dataset = AnatomicalDataset(datadir)
-data = dataset.fetch(
-    subject="01",
-    modality="T1w",
-    dtype="cross_sectional",
-)
-data.update(
-    dataset.fetch(
+data = Bunch(
+    sub01=dataset.fetch(
+        subject="01",
+        modality="T1w",
+        dtype="cross_sectional",
+    ),
+    sub02=dataset.fetch(
         subject="02",
         modality="T1w",
         dtype="cross_sectional",
-    )
+    ),
 )
-del data["description"]
 print(data)
 
 
@@ -54,10 +54,10 @@ from brainprep.reporting import RSTReport
 outdir = Path("/tmp/brainprep-quasiraw")
 outdir.mkdir(parents=True, exist_ok=True)
 with Config(dryrun=True, verbose=True):
-    for subject in data:
+    for subject_data in data.values():
         report = RSTReport()
         brainprep_quasiraw(
-            anatomical_file=data[subject],
+            anatomical_file=subject_data.anat,
             output_dir=outdir,
             keep_intermediate=True,
         )
@@ -73,7 +73,6 @@ with Config(dryrun=True, verbose=True):
 homedir = Path("/tmp/brainprep-home")
 homedir.mkdir(parents=True, exist_ok=True)
 devcodedir = Path(__file__).parent.parent
-subject = "sub-01"
 cmd = [
     "singularity",
     "run",
@@ -88,7 +87,7 @@ cmd = [
     "docker://neurospin/brainprep-quasiraw:latest",
     "brainprep", "quasiraw",
     "/data",
-    "--image-files", f"[{data[subject]}]",
+    "--image-files", f"[{data.sub01.anat}]",
     "--output-dir", "/out",
 ]
 print(" ".join(cmd))

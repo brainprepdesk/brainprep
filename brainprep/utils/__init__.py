@@ -25,13 +25,9 @@ from .utils import (
     bids,
     outputdir,
     coerceparams,
-    create_clickable,
     find_stack_level,
-    listify,
-    load_images,
     parse_bids_keys,
     sidecar_from_file,
-    write_matlabbatch,
 )
 
 __all__ = []
