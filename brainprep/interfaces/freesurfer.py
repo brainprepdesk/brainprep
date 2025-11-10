@@ -11,10 +11,14 @@
 FreeSurfer functions.
 """
 
-import os
 import glob
-from pathlib import Path
-from typing import Optional, Union
+import itertools
+import os
+from typing import Optional
+
+import nibabel
+import numpy as np
+import pandas as pd
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -24,6 +28,7 @@ from ..typing import (
 from ..utils import (
     coerceparams,
     outputdir,
+    parse_bids_keys,
     print_info,
     print_warn,
 )
@@ -47,7 +52,7 @@ def brainmask(
     `mri_synthstrip`.
 
     `mri_synthstrip` is a FreeSurfer command-line tool that applies
-    SynthStrip, a deep learning–based skull-stripping method developed to
+    SynthStrip, a deep learning-ased skull-stripping method developed to
     work across diverse imaging modalities, resolutions, and subject
     population :footcite:p:`hoopes2022brainmask`.
 
@@ -128,7 +133,7 @@ def reconall(
     command : list[str]
         Brain parcellation command-line.
     log_file : File
-        The generated log file.
+        Generated log file.
 
     References
     ----------
@@ -160,6 +165,123 @@ def reconall(
         command[1] = "-make all"
 
     return command, (log_file, )
+
+
+@log_runtime(
+    bunched=False)
+@cmdwrapper
+@outputdir
+@coerceparams
+def reconall_longitudinal(
+        workspace_dir: Directory,
+        output_dir: Directory,
+        entities: dict) -> tuple[list[str], tuple[File]]:
+    """
+    Longitudinal brain parcellation using FreeSurfer's `recon-all`.
+
+    Assuming you have run recon-all for all timepoints of a given subject,
+    and that the results are stored in one subject directory per timepoint,
+    this function will:
+
+    1) generate a template for this subject using `recon-all`.
+    2) parcellation refinements using `recon-all` and the new generated
+       template.
+
+    Parameters
+    ----------
+    workspace_dir: Directory
+        Working directory where FreeSurfer outputs are reorganized to
+        run longitudinal commands.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subject
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
+
+    Returns
+    -------
+    command : list[str]
+        Brain parcellation command-line.
+    log_template_file : File
+        Generated log file for the template creation step.
+    log_files : list[File]
+        Generated log files for the parcellation refinements.
+
+    Raises
+    ------
+    ValueError
+        If a cross-sectional `recon-all` is not available or if multiple
+        subjects are passed as inputs.
+    """
+    subjects, sessions, runs = zip(*[
+        (info["sub"], info["ses"], info["run"])
+        for info in entities
+    ])
+    unique_subjects = set(subjects)
+    if len(unique_subjects) != 1:
+        raise ValueError(
+            f"Expect longitudinal data from one subject: {unique_subjects}"
+        )
+    subject = subjects[0]
+
+    workspace_subjects = []
+    for sub, ses, run in zip(subjects, sessions, runs):
+        source_dir = (
+            output_dir.parent.parent.parent /
+            "subjects" /
+            f"sub-{sub}" /
+            f"ses-{ses}" /
+            f"run-{run}"
+        )
+        if not source_dir.is_dir():
+            raise ValueError(
+                f"First run a cross sectional recon-all: {source_dir}"
+            )
+        target_dir = (
+            workspace_dir /
+            "data" /
+            f"sub-{sub}_ses-{ses}_run-{run}"
+        )
+        target_dir.parent.mkdir(parents=True, exist_ok=True)
+        if not target_dir.is_symlink():
+            os.symlink(source_dir, target_dir)
+        workspace_subjects.append(f"sub-{sub}_ses-{ses}_run-{run}")
+
+    template_name = f"sub-{subject}_template_ses-{':'.join(sessions)}"
+    log_template_file = (
+        output_dir / template_name / "scripts" / "recon-all.log"
+    )
+    log_files = [
+        (
+            output_dir /
+            f"{sub_name}.long.{template_name}" /
+            "scripts" /
+            "recon-all.log"
+        ) for sub_name in workspace_subjects
+    ]
+    commands = [
+        [
+            "recon-all",
+            "-base",
+            template_name,
+            *itertools.chain.from_iterable([
+                ["-tp", sub] for sub in workspace_subjects
+            ]),
+            "-all",
+            "-sd", str(output_dir),
+        ],
+        *[
+            [
+                "recon-all",
+                "-long",
+                sub,
+                template_name,
+                "-all",
+                "-sd", str(output_dir),
+            ] for sub in workspace_subjects
+        ],
+    ]
+
+    return commands, (log_template_file, log_files)
 
 
 @log_runtime(
@@ -769,7 +891,8 @@ def aparcstats2table(
             "--delimiter", "comma",
             "--parcid-only",
             "--subjects",
-        ] + subjects,
+            *subjects,
+        ],
         [
             "aparcstats2table",
             "--parc", "aparc.a2009s",
@@ -779,7 +902,8 @@ def aparcstats2table(
             "--delimiter", "comma",
             "--parcid-only",
             "--subjects",
-        ] + subjects,
+            *subjects,
+        ],
     ]
 
     return commands, (desikan_stat_file, destrieux_stat_file)
@@ -821,7 +945,8 @@ def asegstats2table(
         "--tablefile", str(volume_stat_file),
         "--delimiter", "comma",
         "--subjects",
-    ] + subjects
+        *subjects,
+    ]
 
     return command, (volume_stat_file, )
 
@@ -874,7 +999,7 @@ def freesurfer_features_summary(
       directory using symlinks.
     """
     stats_dirs = glob.glob(
-        str(output_dir / "subjects" / "*" / "*" / "run-*" / "stats")
+        str(output_dir / "subjects" / "sub-*" / "ses-*" / "run-*" / "stats")
     )
     subjects, sessions, runs = zip(*[
         item.lstrip(os.sep).split(os.sep)[-4:-1]
@@ -985,14 +1110,14 @@ def freesurfer_euler_numbers(
             left_euler_number, _ = left_euler_number.split(",")
             left_euler_number = int(left_euler_number.strip())
             right_euler_number = int(right_euler_number.strip())
-            scores.loc[len(df)] = [
-                participant_id,
-                session,
-                run,
+            scores.loc[len(scores)] = [
+                entities["sub"],
+                entities["ses"],
+                entities["run"],
                 0.5 * (left_euler_number + right_euler_number),
             ]
 
-        scores["qc"] = (scores["euler_number"] > euler_thr).astype(int)
+        scores["qc"] = (scores["euler_number"] > euler_threshold).astype(int)
         scores.to_csv(
             euler_numbers_file,
             index=False,

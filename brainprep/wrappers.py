@@ -11,7 +11,6 @@ Functions for running shell commands
 """
 
 import inspect
-import os
 import subprocess
 import sys
 from pathlib import Path
@@ -27,7 +26,6 @@ from .utils import (
     print_command,
     print_error,
     print_info,
-    print_result,
 )
 
 

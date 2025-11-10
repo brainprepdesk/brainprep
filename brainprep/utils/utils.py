@@ -122,7 +122,7 @@ def bids(func, process=None, bids_file=None, container=None,
         "dataset_description.json"
     )
 
-    output_dir.mkdir(parents=True, exist_ok=True)
+    metadata_file.parent.mkdir(parents=True, exist_ok=True)
     inputs["output_dir"] = output_dir
 
     if not metadata_file.is_file():

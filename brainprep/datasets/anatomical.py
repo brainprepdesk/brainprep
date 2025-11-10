@@ -32,7 +32,7 @@ class AnatomicalDataset:
     """
     Anatomical dataset.
 
-    This `dataset <https://github.com/muschellij2/open_ms_data>`_ 
+    This `dataset <https://github.com/muschellij2/open_ms_data>`_
     :footcite:p:`lesjak2016data` contains
     Magnetic Resonance (MR) images of Multiple Sclerosis (MS)
     patients with corresponding ground truth segmentations of white matter

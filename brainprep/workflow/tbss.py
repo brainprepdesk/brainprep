@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2021 - 2022
+# NSAp - Copyright (C) CEA, 2021 - 2025
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -8,15 +7,20 @@
 ##########################################################################
 
 """
-Interface for FSL TBSS.
+TBSS pre-processing.
 """
 
-# System import
 import os
 import shutil
+
 import brainprep
-from brainprep.utils import check_command, execute_command
-from brainprep.utils import print_title, print_subtitle, print_result
+from brainprep.utils import (
+    check_command,
+    execute_command,
+    print_result,
+    print_subtitle,
+    print_title,
+)
 
 
 def brainprep_tbss_preproc(outdir, fa_file=None, data=None, bvecs=None,
@@ -77,7 +81,7 @@ def brainprep_tbss_preproc(outdir, fa_file=None, data=None, bvecs=None,
     else:
         norm_fa_file = brainprep.tbss_2_reg(
             outdir, fa_file, use_fmrib58_fa_1mm=True, target_img=None)
-    print_title("Done.")
+    print_title(f"Done. {norm_fa_file}")
 
 
 def brainprep_tbss(outdir, use_fmrib58_fa_mean_and_skel=True, target=None,

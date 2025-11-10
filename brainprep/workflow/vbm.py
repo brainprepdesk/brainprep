@@ -8,16 +8,15 @@
 
 
 """
-dMRI pre-processing.
+Diffusion MRI pre-processing.
 """
-
-import os
-from pathlib import Path
-import shutil
-from typing import Optional
 
 import brainprep.interfaces as interfaces
 
+from ..config import (
+    DEFAULT_OPTIONS,
+    brainprep_options,
+)
 from ..reporting import (
     log_runtime,
     save_runtime,
@@ -30,10 +29,7 @@ from ..utils import (
     Bunch,
     bids,
     coerceparams,
-    find_stack_level,
     parse_bids_keys,
-    print_deprecated,
-    print_info,
 )
 
 
@@ -90,7 +86,7 @@ def brainprep_vbm(
         [t1_file],
         output_dir.parent,
         [entities],
-    )    
+    )
     gm_files, qc_files = interfaces.cat12vbm(
         [t1_file],
         batch_file,
@@ -167,7 +163,7 @@ def brainprep_longitudinal_vbm(
         t1_files,
         output_dir.parent,
         entities,
-    )    
+    )
     gm_files, qc_files = interfaces.cat12vbm(
         t1_files,
         batch_file,
@@ -193,6 +189,7 @@ def brainprep_group_vbm(
         output_dir: Directory,
         ncr_threshold: float = 4.5,
         iqr_threshold: float = 4.5,
+        correlation_threshold: float = 0.5,
         longitudinal: bool = False,
         keep_intermediate: bool = False) -> Bunch:
     """
@@ -226,6 +223,8 @@ def brainprep_group_vbm(
          Quality control threshold on the NCR scores.
     iqr_threshold : float, default 4.5
          Quality control threshold on the IQR scores.
+    correlation_threshold : float, default 0.5
+        Quality control threshold on the correlation score.
     longitudinal : bool, default False
         If True, consider the longitudinal data as inputs.
     keep_intermediate : bool, default False
@@ -238,25 +237,47 @@ def brainprep_group_vbm(
         A dictionary-like object containing:
         - morphometry_files : list[File] - a TSV file containing ROI-based
           GM, WM and CSF features for different atlases.
+        - correlations_file : File - a TSV file containing mean correlation
+          of each input image to the atlas image.
         - group_stats_file : File - a TSV file containing quality metrics
           such as NCR, ICR and IQR.
         - histogram_files : list[File] - PNG files containing histograms of
           selected important informations.
+
+    Notes
+    -----
+    - This workflow can either be used on cross-sectional or longitudinal
+      data.
     """
     if longitudinal:
         output_dir /= "longitudinal"
+    opts = brainprep_options.get()
+    darteltpm_file = opts.get(
+        "darteltpm_file", DEFAULT_OPTIONS["darteltpm_file"]
+    )
 
     morphometry_files = interfaces.cat12vbm_morphometry(
         output_dir / "morphometry",
     )
-    #FIXME: corr_mean
+
+    correlations_file = interfaces.mean_correlation(
+        output_dir / "subjects" / "sub-*" / "ses-*" / "mri" / "wm*_T1w.nii",
+        darteltpm_file,
+        output_dir / "qc",
+        correlation_threshold,
+    )
     group_stats_file = interfaces.cat12vbm_stats(
         output_dir / "qc",
         ncr_threshold,
         iqr_threshold,
     )
-
     histogram_files = [
+        interfaces.plot_histogram(
+            correlations_file,
+            "mean_correlation",
+            output_dir / "qc",
+            bar_coords=[correlation_threshold],
+        ),
         interfaces.plot_histogram(
             group_stats_file,
             "NCR",
@@ -273,6 +294,7 @@ def brainprep_group_vbm(
 
     return Bunch(
         morphometry_files=morphometry_files,
+        correlations_file=correlations_file,
         group_stats_file=group_stats_file,
         histogram_files=histogram_files,
     )

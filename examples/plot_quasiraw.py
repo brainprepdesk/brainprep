@@ -47,6 +47,7 @@ print(data)
 
 from brainprep.workflow import (
     brainprep_quasiraw,
+    brainprep_group_quasiraw,
 )
 from brainprep.config import Config
 from brainprep.reporting import RSTReport
@@ -62,6 +63,9 @@ with Config(dryrun=True, verbose=True):
             keep_intermediate=True,
         )
         print(report)
+    outputs = brainprep_group_quasiraw(
+        output_dir=outdir,
+    )
 
 
 # %%

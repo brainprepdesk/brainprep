@@ -8,13 +8,10 @@
 
 
 """
-dMRI pre-processing.
+Diffusion MRI pre-processing.
 """
 
-import os
-from pathlib import Path
 import shutil
-from typing import Optional
 
 import brainprep.interfaces as interfaces
 
@@ -30,9 +27,7 @@ from ..utils import (
     Bunch,
     bids,
     coerceparams,
-    find_stack_level,
     parse_bids_keys,
-    print_deprecated,
     print_info,
 )
 
@@ -186,23 +181,21 @@ def brainprep_group_dmriprep(
         upper_fa_threshold,
     )
 
-    histogram_files = []
-    histogram_files.append(
+    histogram_files = [
         interfaces.plot_histogram(
             group_stats_file,
             "eddy_avg_abs_displacement",
             output_dir / "qc",
-        )
-    )
-    for fa_bundle in bundles:
-        histogram_files.append(
+        ),
+        *[
             interfaces.plot_histogram(
                 group_stats_file,
                 fa_bundle,
                 output_dir / "qc",
                 bar_coords=[lower_fa_threshold, upper_fa_threshold],
-            )
-        )
+            ) for fa_bundle in bundles
+        ],
+    ]
 
     return Bunch(
         group_stats_file=group_stats_file,

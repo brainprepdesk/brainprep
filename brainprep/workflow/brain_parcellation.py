@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2021 - 2022
+# NSAp - Copyright (C) CEA, 2021 - 2025
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -11,8 +10,6 @@
 Brain parcellation pre-processing.
 """
 
-import os
-from pathlib import Path
 import shutil
 from typing import Optional
 
@@ -30,7 +27,6 @@ from ..utils import (
     Bunch,
     bids,
     coerceparams,
-    find_stack_level,
     parse_bids_keys,
     print_deprecated,
     print_info,
@@ -231,36 +227,114 @@ def brainprep_brainparc(
     )
 
 
-def brainprep_fsreconall_longitudinal(
-        sid, fsdirs, outdir, timepoints, do_lgi=False, wm=None):
-    """ Assuming you have run recon-all for all timepoints of a given subject,
-    and that the results are stored in one subject directory per timepoint,
-    this function will:
+@bids(
+    process="brain_parcellation",
+    bids_file="t1_files",
+    add_subjects=True,
+    longitudinal=True,
+    container="neurospin/brainprep-brainparc")
+@log_runtime(
+    title="Longitudinal Brain Parcellation")
+@save_runtime(
+    parent=True)
+@coerceparams
+def brainprep_longitudinal_brainparc(
+        t1_files: list[File],
+        output_dir: Directory,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Longitudinal brain parcellation preprocessing.
 
-    - create a template for the subject and process it with recon-all
-    - rerun recon-all for all timepoints of the subject using the template
+    Applies the longitudinal brain parcellation pre-processing described in
+    :footcite:p:`reuter2012freesurferlong`. This includes:
+
+    1) the creation of a template for this subject.
+    2) the parcellation refinementsfrom the new generated template.
 
     Parameters
     ----------
-    fsdirs: list of str
-        the FreeSurfer working directory where to find the the subject
-        associated timepoints.
-    sid: str
-        the current subject identifier.
-    outdir: str
-        destination folder.
-    timepoints: list of str, default None
-        the timepoint names in the same order as the ``subjfsdirs``.
-        Used to create the subject longitudinal IDs. By default timepoints
-        are "1", "2"...
+    t1_files : list[File]
+        Path to the t1 images.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+    keep_intermediate : bool, default False
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging.
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+        - subject_dirs: list[Directory] - the FreeSurfer subject directories.
+
+    Notes
+    -----
+    This workflow assumes the T1w images are organized in BIDS.
+
+    Examples
+    --------
+    >>> from brainprep.workflow import brainprep_longitudinal_brainparc
+    >>> brainprep_longitudinal_brainparc(t1_files, output_dir)
+
+    Raises
+    ------
+    ValueError
+        If the input T1w files are not BIDS-compliant.
+
+    References
+    ----------
+
+    .. footbibliography::
     """
-    print_title("Launch FreeSurfer reconall longitudinal...")
-    fsdirs = listify(fsdirs)
-    timepoints = listify(timepoints)
-    template_id, long_sids = brainprep.recon_all_longitudinal(
-        fsdirs, sid, outdir, timepoints)
-    print_result(template_id)
-    print_result(long_sids)
+    workspace_dir = (
+        output_dir.parent /
+        "workspace"
+    )
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
+
+    entities = [
+        parse_bids_keys(path) for path in t1_files
+    ]
+    for info, path in zip(entities, t1_files):
+        if len(info) == 0:
+            raise ValueError(
+                f"The T1w file '{path}' is not BIDS-compliant."
+            )
+
+    log_template_file, log_files = interfaces.reconall_longitudinal(
+        workspace_dir,
+        output_dir.parent,
+        entities,
+    )
+    for log_file in [log_template_file, *log_files]:
+        interfaces.freesurfer_command_status(
+            log_file,
+            command="recon-all",
+        )
+    subject_dirs = []
+    for log_file in log_files:
+        identifier = log_file.parent.parent.name.split(".long.")[0]
+        subject_name, session_name, run_name = identifier.split("_")
+        subject_dirs.append(
+            interfaces.movedir(
+                source_dir=log_file.parent.parent.parent,
+                output_dir=(
+                    output_dir.parent /
+                    session_name /
+                    run_name
+                ),
+                content=True,
+            )
+        )
+
+    if not keep_intermediate:
+        print_info(f"cleaning workspace directory: {workspace_dir}")
+        shutil.rmtree(workspace_dir)
+
+    return Bunch(
+        subject_dirs=subject_dirs,
+    )
 
 
 @bids(
@@ -273,6 +347,7 @@ def brainprep_fsreconall_longitudinal(
 def brainprep_group_brainparc(
         output_dir: Directory,
         euler_threshold: int = -217,
+        longitudinal: bool = False,
         keep_intermediate: bool = False) -> Bunch:
     """
     Goup level brain parcellation pre-processing.
@@ -294,6 +369,8 @@ def brainprep_group_brainparc(
         FreeSurfer working directory containing all the subjects.
     euler_threshold : int, default -217
         Quality control threshold on the Euler number.
+    longitudinal : bool, default False
+        If True, consider the longitudinal data as inputs.
     keep_intermediate : bool, default False
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging.
@@ -308,11 +385,18 @@ def brainprep_group_brainparc(
           features, and 'aseg_*_stats' for volumetric subcortical brain
           structure features.
 
+    Notes
+    -----
+    - This workflow can either be used on cross-sectional or longitudinal
+      data.
+
     References
     ----------
 
     .. footbibliography::
     """
+    if longitudinal:
+        output_dir /= "longitudinal"
     workspace_dir = output_dir / "workspace"
     workspace_dir.mkdir(parents=True, exist_ok=True)
     print_info(f"setting workspace directory: {workspace_dir}")
@@ -321,7 +405,7 @@ def brainprep_group_brainparc(
         workspace_dir,
         output_dir,
     )
-    euler_numbers_file, = interfaces.freesurfer_euler_numbers(
+    euler_numbers_file = interfaces.freesurfer_euler_numbers(
         output_dir,
     )
     euler_numbers_histogram_file = interfaces.plot_histogram(

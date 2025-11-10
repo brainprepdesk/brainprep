@@ -10,7 +10,6 @@
 Quality assurance.
 """
 
-import os
 import shutil
 
 import brainprep.interfaces as interfaces
@@ -27,7 +26,6 @@ from ..utils import (
     Bunch,
     bids,
     coerceparams,
-    parse_bids_keys,
     print_info,
 )
 

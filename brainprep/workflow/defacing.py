@@ -39,6 +39,7 @@ from ..utils import (
 @log_runtime(
     title="Subject Level Defacing")
 @save_runtime
+@coerceparams
 def brainprep_defacing(
         t1_file: File,
         output_dir: Directory,

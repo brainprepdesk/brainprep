@@ -8,35 +8,37 @@
 
 """
 Available workflows.
+
+from .tbss import brainprep_tbss_preproc, brainprep_tbss
 """
 
-from .defacing import (
-    brainprep_defacing,
-)
 from .brain_parcellation import (
     brainprep_brainparc,
     brainprep_group_brainparc,
+    brainprep_longitudinal_brainparc,
 )
-from .vbm import (
-    brainprep_group_vbm,
-    brainprep_longitudinal_vbm,
-    brainprep_vbm,
+from .defacing import (
+    brainprep_defacing,
+)
+from .dmriprep import (
+    brainprep_dmriprep,
+    brainprep_group_dmriprep,
 )
 from .fmriprep import (
     brainprep_fmriprep,
-)
-from .quasiraw import (
-    brainprep_quasiraw,
-    # brainprep_group_quasiraw,
 )
 from .quality_assurance import (
     brainprep_group_quality_assurance,
     brainprep_quality_assurance,
 )
-# from .tbss import brainprep_tbss_preproc, brainprep_tbss
-from .dmriprep import (
-    brainprep_dmriprep,
-    brainprep_group_dmriprep,
+from .quasiraw import (
+    brainprep_group_quasiraw,
+    brainprep_quasiraw,
+)
+from .vbm import (
+    brainprep_group_vbm,
+    brainprep_longitudinal_vbm,
+    brainprep_vbm,
 )
 
 __all__ = []

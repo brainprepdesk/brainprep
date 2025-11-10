@@ -10,15 +10,15 @@
 Plotting functions.
 """
 
-import os
-from pathlib import Path
 import itertools
-from typing import Optional, Union
+from typing import Optional
 
-from nilearn import plotting
-import numpy as np
 import matplotlib.pyplot as plt
+import nibabel
+import numpy as np
+import pandas as pd
 import seaborn as sns
+from nilearn import plotting
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -202,7 +202,7 @@ def plot_brainparc(
 
         fig, axs = plt.subplots(2)
         plotting.plot_roi(
-            roi_img=gm_file,
+            roi_img=gm_mask_file,
             bg_img=anat_file,
             alpha=0.3,
             figure=fig,
@@ -215,9 +215,9 @@ def plot_brainparc(
             bins="auto",
         )
         palette = itertools.cycle(sns.color_palette("Set1"))
-        for name, path in [("WM", wm_file),
-                           ("GM", gm_file),
-                           ("CSF", csf_file)]:
+        for name, path in [("WM", wm_mask_file),
+                           ("GM", gm_mask_file),
+                           ("CSF", csf_mask_file)]:
             mask = nibabel.load(path).get_fdata().astype(int)
             sns.histplot(
                 anat_arr[mask],

@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2021 - 2022
+# NSAp - Copyright (C) CEA, 2021 - 2025
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -11,7 +10,7 @@
 Functional MRI PreProcessing
 """
 
-import os
+import itertools
 import shutil
 
 import brainprep.interfaces as interfaces
@@ -70,8 +69,8 @@ def brainprep_fmriprep(
        using FSL fast.
     5) Functional data was motion corrected using FSL mcflirt.
     6) This was followed by co-registration to the corresponding T1w using
-       boundary-based registration with six degrees of freedom, using FreeSurfer
-       bbregister.
+       boundary-based registration with six degrees of freedom, using
+       FreeSurfer bbregister.
     7) Motion correcting transformations, BOLD-to-T1w transformation and
        T1w-to-template (MNI) warp were concatenated and applied in a single
        step using ANTs antsApplyTransforms using Lanczos interpolation.
@@ -161,7 +160,9 @@ def brainprep_fmriprep(
         output_dir,
         entities,
     )
-    fmri_rest_image_files = sum([item[1] for item in rfmri_outputs], [])
+    fmri_rest_image_files = list(itertools.chain.from_iterable(
+        [item[1] for item in rfmri_outputs]
+    ))
     fmri_rest_surf_files = [item[2] for item in rfmri_outputs]
 
     connectivity_files = []

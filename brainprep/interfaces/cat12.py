@@ -183,13 +183,13 @@ def write_catbatch(
         for im_file, trg_dir in zip(t1_files, output_dirs)
     ]
 
-    for src_file, trg_file  in zip(t1_files, unzip_t1_files):
+    for src_file, trg_file in zip(t1_files, unzip_t1_files):
         ungzfile(
             src_file,
             trg_file,
             trg_file.parent,
         )
-        
+
     content = template_batch.read_text()
     content = content.format(
         model_long=model_long,
@@ -243,8 +243,8 @@ def cat12vbm_morphometry(
 
     if not dryrun:
 
-        xml_files =  glob.glob(
-             output_dir.prent / "subjects" / "sub-*" / "ses-*" / "label" /
+        xml_files = glob.glob(
+            output_dir.prent / "subjects" / "sub-*" / "ses-*" / "label" /
             "catROI_*T1w.xml"
         )
         entities = [
@@ -336,7 +336,7 @@ def cat12vbm_stats(
 
     if not dryrun:
 
-        report_files =  glob.glob(
+        report_files = glob.glob(
             output_dir.parent / "subjects" / "sub-*" / "ses-*" / "report" /
             "cat_*T1w.xml"
         )

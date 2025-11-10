@@ -22,6 +22,7 @@ from .cat12 import (
 from .utils import (
     copyfiles,
     defacing_mask_diff,
+    mean_correlation,
     movedir,
     ungzfile,
 )
@@ -40,6 +41,7 @@ from .freesurfer import (
     localgi,
     mgz_to_nii,
     reconall,
+    reconall_longitudinal,
 )
 from .fsl import (
     affine,

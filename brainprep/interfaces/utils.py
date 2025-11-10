@@ -7,16 +7,18 @@
 ##########################################################################
 
 """
-Custom functions.
+Tools.
 """
 
-import numpy as np
-import os
+
+import glob
+import gzip
 import shutil
-from pathlib import Path
-from typing import Union
 
 import nibabel
+import numpy as np
+import pandas as pd
+from scipy.stats import pearsonr
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -26,6 +28,7 @@ from ..typing import (
 from ..utils import (
     coerceparams,
     outputdir,
+    parse_bids_keys,
 )
 from ..wrappers import pywrapper
 
@@ -120,13 +123,13 @@ def movedir(
         source_dir: Directory,
         output_dir: Directory,
         content: bool = False,
-        dryrun: bool = False) -> None:
+        dryrun: bool = False) -> tuple[Directory]:
     """
     Move input directory.
 
     Parameters
     ----------
-    source_directory : Directory
+    source_dir : Directory
         Path to the directory to be moved.
     output_dir : Directory
         Directory where the folder is moved.
@@ -135,31 +138,40 @@ def movedir(
     dryrun : bool, default False
         If True, skip actual computation and file writing.
 
+    Returns
+    -------
+    target_directory : Directory
+        Path to the moved directory.
+
     Raises
     ------
     ValueError
-        If `source_directory` is not a directory.
+        If `source_dir` is not a directory.
 
     Example
     -------
     >>> movedir("/tmp/source", "/tmp/destination", content=True)
     """
+    target_directory = output_dir
+    if not content:
+        target_directory /= source_dir.name
     if not dryrun:
-        if not source_directory.is_dir():
+        if not source_dir.is_dir():
             raise ValueError(
-                f"Source '{source_directory}' is not a directory."
+                f"Source '{source_dir}' is not a directory."
             )
         if not content:
-            shutil.copytree(source_directory, output_dir)
+            shutil.copytree(source_dir, output_dir)
         else:
-            for item in source_directory.iterdir():
+            for item in source_dir.iterdir():
                 target = output_dir / item.name
                 if item.is_dir():
                     shutil.copytree(item, target, dirs_exist_ok=True)
                 else:
                     shutil.copy2(item, target)
-            if not any(source_directory.iterdir()):
-                source_directory.rmdir()
+            if not any(source_dir.iterdir()):
+                source_dir.rmdir()
+    return (target_directory, )
 
 
 @log_runtime(
@@ -206,3 +218,94 @@ def ungzfile(
 
     return (output_file, )
 
+
+@log_runtime(
+    bunched=False)
+@pywrapper
+@outputdir
+def mean_correlation(
+        image_files_regex: str,
+        atlas_file: File,
+        output_dir: Directory,
+        correlation_threshold: float = 0.5,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Compute the mean Pearson correlation between a reference image and a list
+    of other images.
+
+    Parameters
+    ----------
+    image_files_regex : str
+        A REGEX to image files, each representing an image of the same shape
+        and geometry as `atlas_file`.
+    atlas_file : File
+        An file representing the reference image.
+    output_dir : Directory
+        Directory where a TSV file containing the mean correlation values is
+        created.
+    correlation_threshold : float, default 0.5
+        Quality control threshold on the correlation score.
+    dryrun : bool, default False
+        If True, skip actual computation and file writing.
+
+    Returns
+    -------
+    correlations_file : File
+        A TSV file containing the Pearson correlation coefficient between the
+        atlas image and each image pointed by the input REGEX.
+
+    Raises
+    ------
+    ValueError
+        If the atlas and an image have incompatible shape or geometry.
+    """
+    correlations_file = output_dir / "mean_correlations.tsv"
+    correlations_file.parent.mkdir(parents=True, exist_ok=True)
+
+    if not dryrun:
+
+        image_files = glob.glob(image_files_regex)
+        atlas_im = nibabel.load(atlas_file)
+        atlas_arr = atlas_im.get_fdata()
+
+        scores = pd.DataFrame(
+            columns=(
+                "participant_id",
+                "session",
+                "run",
+                "mean_correlation",
+            )
+        )
+        for path in image_files:
+            entities = parse_bids_keys(path)
+            im = nibabel.load(path)
+            arr = atlas_im.get_fdata()
+            if atlas_arr.shape != arr.shape:
+                raise ValueError(
+                    f"Atlas and image have incompatible shape: {path}"
+                )
+            if not np.allclose(atlas_im.affine, im.affine):
+                raise ValueError(
+                    f"Atlas and image have incompatible orientation: {path}"
+                )
+            corr, _ = pearsonr(
+                atlas_arr.flatten(),
+                arr.flatten(),
+            )
+            scores.loc[len(scores)] = [
+                entities["sub"],
+                entities["ses"],
+                entities["run"],
+                corr,
+            ]
+
+        scores["qc"] = (
+            scores["mean_correlation"] > correlation_threshold
+        ).astype(int)
+        scores.to_csv(
+            correlations_file,
+            index=False,
+            sep="\t",
+        )
+
+    return (correlations_file, )

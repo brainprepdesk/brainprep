@@ -12,16 +12,18 @@ fMRIprep functions.
 """
 
 import json
-import os
 import shutil
-from pathlib import Path
 
-from nilearn import datasets
-from nilearn import plotting
-from nilearn.image import clean_img
-from nilearn.maskers import NiftiLabelsMasker
+import numpy as np
+import pandas as pd
+from nilearn import (
+    datasets,
+    image,
+    plotting,
+)
 from nilearn.connectome import ConnectivityMeasure
 from nilearn.interfaces.fmriprep import load_confounds
+from nilearn.maskers import NiftiLabelsMasker
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -341,14 +343,14 @@ def func_vol_connectivity(
         )
 
         sidecar_file = (
-            fmri_rest_image_files.with_suffix("").with_suffix(".json")
+            fmri_rest_image_file.with_suffix("").with_suffix(".json")
         )
         with open(sidecar_file) as of:
             info = json.load(of)
         tr = info["RepetitionTime"]
 
         select_confounds, sample_mask = load_confounds(
-            fmri_file,
+            fmri_rest_image_file,
             strategy=["high_pass", "motion", "wm_csf", "global_signal"],
             motion="derivatives",
             wm_csf="basic",
@@ -360,8 +362,8 @@ def func_vol_connectivity(
         if not remove_volumes:
             sample_mask = None
 
-        clean_im = clean_img(
-            fmri_file,
+        clean_im = image.clean_img(
+            fmri_rest_image_file,
             standardize=standardize,
             detrend=detrend,
             confounds=select_confounds,
@@ -372,7 +374,7 @@ def func_vol_connectivity(
         )
 
         if np.array(fwhm).sum() > 0.0:
-            smooth_im = nl_img.smooth_img(clean_im, fwhm)
+            clean_im = image.smooth_img(clean_im, fwhm)
 
         masker = NiftiLabelsMasker(
             labels_img=atlas.maps,

@@ -11,19 +11,11 @@
 fMRIprep functions.
 """
 
-import json
+import glob
 import os
 import shutil
-from pathlib import Path
 
 import pandas as pd
-
-from nilearn import datasets
-from nilearn import plotting
-from nilearn.image import clean_img
-from nilearn.maskers import NiftiLabelsMasker
-from nilearn.connectome import ConnectivityMeasure
-from nilearn.interfaces.fmriprep import load_confounds
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -33,8 +25,6 @@ from ..typing import (
 from ..utils import (
     coerceparams,
     outputdir,
-    parse_bids_keys,
-    sidecar_from_file,
 )
 from ..wrappers import (
     cmdwrapper,
@@ -110,14 +100,14 @@ def prequal(
 
     .. footbibliography::
     """
-    sidecar_file = (
-        dwi_file.with_suffix("").with_suffix(".json")
-    )
-    # FIXME
+    # FIXME: update dataset for valid sidecars
+    # sidecar_file = (
+    #     dwi_file.with_suffix("").with_suffix(".json")
+    # )
     # with open(sidecar_file) as of:
     #     info = json.load(of)
-    pe = "i" # info["PhaseEncodingAxis"]
-    readout_time = 1 # info["EstimatedTotalReadoutTime"]
+    pe = "i"  # info["PhaseEncodingAxis"]
+    readout_time = 1  # info["EstimatedTotalReadoutTime"]
 
     if pe not in ("i", "j", "k", "i-", "j-", "k-"):
         raise ValueError(
@@ -145,7 +135,7 @@ def prequal(
     qc_file = output_dir / "PDF" / "dtiQA.pdf"
 
     command = [
-        "xvfb-run", 
+        "xvfb-run",
         "-a",
         "--server-num=1",
         "--server-args='-screen 0 1600x1280x24 -ac'",
@@ -165,7 +155,7 @@ def prequal(
 @coerceparams
 def prequal_stats(
         output_dir: Directory,
-        bundles : list[str],
+        bundles: list[str],
         lower_fa_threshold: int = 0.3,
         upper_fa_threshold: int = 0.75,
         dryrun: bool = False) -> tuple[File]:
@@ -182,7 +172,7 @@ def prequal_stats(
     lower_fa_threshold : float, default 0.3
         Quality control lower threshold on the fractional anisotropy (FA).
     upper_fa_threshold : float, default 0.75
-        Quality control upper threshold on the fractional anisotropy (FA
+        Quality control upper threshold on the fractional anisotropy (FA).
     dryrun : bool, default False
         If True, skip actual computation and file writing.
 
@@ -196,12 +186,12 @@ def prequal_stats(
 
     if not dryrun:
 
-        stats_files =  glob.glob(
+        stats_files = glob.glob(
             output_dir.parent / "subjects" / "*" / "*" / "STATS" / "stats.csv"
         )
 
         stats = []
-        for path in stat_files:
+        for path in stats_files:
             subject, session = path.split(os.sep)[-4: -2]
             df = pd.read_csv(path, index_col=0, header=None).T
             df.insert(0, "participant_id", subject)
