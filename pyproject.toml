@@ -35,6 +35,24 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+
+[project.optional-dependencies]
+dev = [
+    "nilearn[ci,doc]"
+]
+ci = [
+    "codespell",
+    "pycodestyle",
+    "ruff",
+    "pynose",
+    "coverage",
+    "coveralls",
+]
+doc = [
+    "matplotlib",
+    "git+https://github.com/AGrigis/pysphinxdoc.git@dev",
+]
+
 [project.urls]
 Development = "https://github.com/AGrigis/pysphinxdoc"
 Tracker = "https://github.com/AGrigis/pysphinxdoc/issues"
