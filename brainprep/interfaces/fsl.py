@@ -208,7 +208,7 @@ def scale(
     scaled_anatomical_file : File
         Scaled input image file.
     transform_file : File
-        The associated transformaton file.
+        The associated transformation file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_scale".format(
         **entities)
@@ -260,7 +260,7 @@ def affine(
     aligned_anatomical_file : File
         Aligned input image file.
     transform_file : File
-        The affine transformaton file.
+        The affine transformation file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_affine".format(
         **entities)
@@ -298,7 +298,7 @@ def applyaffine(
         entities: dict,
         interpolation: str = "spline") -> tuple[list[str], tuple[File]]:
     """
-    Apply an affine transformaton to a BIDS-compliant image file using FSL's
+    Apply an affine transformation to a BIDS-compliant image file using FSL's
     `flirt`.
 
     Parameters
@@ -308,7 +308,7 @@ def applyaffine(
     template_file: File
         Path to the image file defining the template space.
     transform_file : File
-        Path to the affine tranformation file.
+        Path to the affine transformation file.
     output_dir : Directory
         Directory where the aligned image will be saved.
     entities : dict
@@ -320,7 +320,7 @@ def applyaffine(
     Returns
     -------
     command : list[str]
-        Alignement command-line.
+        Alignment command-line.
     aligned_image_file : File
         Aligned input image file.
     """

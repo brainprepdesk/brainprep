@@ -361,7 +361,7 @@ def sidecar_from_file(
     sidecar_file = Path(str(image_file).replace(".nii.gz", ".json"))
     if not sidecar_file.is_file():
         raise ValueError(
-            f"Sidecar infered from input image file not found: {sidecar_file}"
+            f"Sidecar inferred from input image file not found: {sidecar_file}"
         )
     return sidecar_file
 

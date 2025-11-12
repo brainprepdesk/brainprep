@@ -297,7 +297,7 @@ def func_vol_connectivity(
     fwhm : float or list, default 0.
         Smoothing strength, expressed as as Full-Width at Half Maximum
         (fwhm), in millimeters. Can be a single number ``fwhm=8``, the width
-        is identical along x, y and z or ``fwhm=0``, no smoothing is peformed.
+        is identical along x, y and z or ``fwhm=0``, no smoothing is performed.
         Can be three consecutive numbers, ``fwhm=[1,1.5,2.5]``, giving the fwhm
         along each axis.
     dryrun : bool, default False

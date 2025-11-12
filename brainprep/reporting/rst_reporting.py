@@ -193,7 +193,7 @@ class RSTReport(metaclass=SingletonReport):
             self._registry[identifier] = Bunch()
         if name in self._registry[identifier]:
             raise ValueError(
-                "Duplicated name in registery."
+                "Duplicated name in registry."
             )
         if not (isinstance(data, Bunch) or
                 (isinstance(data, str) and name in self._str_fields)

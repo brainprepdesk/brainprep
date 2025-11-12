@@ -242,7 +242,7 @@ def brainprep_group_vbm(
         - group_stats_file : File - a TSV file containing quality metrics
           such as NCR, ICR and IQR.
         - histogram_files : list[File] - PNG files containing histograms of
-          selected important informations.
+          selected important information.
 
     Notes
     -----

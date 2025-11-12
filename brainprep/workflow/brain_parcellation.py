@@ -351,7 +351,7 @@ def brainprep_group_brainparc(
         longitudinal: bool = False,
         keep_intermediate: bool = False) -> Bunch:
     """
-    Goup level brain parcellation pre-processing.
+    Group level brain parcellation pre-processing.
 
     Summarizes the generated FreeSurfer features and applies the quality
     control described in :footcite:p:`rosen2018euler`. This includes:

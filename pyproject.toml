@@ -115,7 +115,7 @@ build-dir = "doc/build"
 all_files = "1"
 
 [tool.codespell]
-check_filenames = true
 builtin = "clear,rare,en-GB_to_en-US"
-ignore-words = "../github/codespellignore.txt"
+ignore-words = "./.github/codespellignore.txt"
 skip = "./.git,*.bib,./brainprep/resources/*,./AUTHORS.rst"
+quiet-level = 2

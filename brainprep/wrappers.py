@@ -242,7 +242,7 @@ def _check_outputs(
             )
     else:
         raise ValueError(
-            "The ouputs must be either a path or a list/tuple of paths."
+            "The outputs must be either a path or a list/tuple of paths."
         )
 
 

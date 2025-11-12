@@ -42,7 +42,7 @@ icvs_csf,"
 Intracranial volume fraction in CSF.<br>
 Values should move within a normative range.",anat,descriptive
 icvs_gm,"
-Intracranial volume fraction in grey matter.<br>
+Intracranial volume fraction in gray matter.<br>
 Values should move within a normative range.",anat,descriptive
 icvs_wm,"
 Intracranial volume fraction in white matter.<br>
@@ -57,7 +57,7 @@ qi_2,"Mortamet's quality index 2. A quality index accounting for effects of both
 Higher values indicate lower quality.",anat,noise
 rpve_csf,"Residual partial volume error in CSF.<br>
 Higher values indicate lower quality.",anat,other
-rpve_gm,"Residual partial volume error in grey matter.<br>
+rpve_gm,"Residual partial volume error in gray matter.<br>
 Higher values indicate lower quality.",anat,other
 rpve_wm,"Residual partial volume error in white matter.<br>
 Higher values indicate lower quality.",anat,other
@@ -65,7 +65,7 @@ snr,"Signal-to-noise ratio within the tissue mask.<br>
 Higher values indicate higher quality.",func,noise
 snr_csf,"Signal-to-noise ratio within the CSF mask.<br>
 Higher values indicate higher quality.",anat,noise
-snr_gm,"Signal-to-noise ratio within the grey matter mask.<br>
+snr_gm,"Signal-to-noise ratio within the gray matter mask.<br>
 Higher values indicate higher quality.",anat,noise
 snr_total,"Signal-to-noise ratio within the total mask.<br>
 Higher values indicate higher quality.",anat,noise
@@ -73,7 +73,7 @@ snr_wm,"Signal-to-noise ratio within the white matter mask.<br>
 Higher values indicate higher quality.",anat,noise
 snrd_csf,"Dietrich et al. (2007)'s signal-to-noise ratio in CSF.<br>
 Higher values indicate higher quality.",anat,noise
-snrd_gm,"Dietrich et al. (2007)'s signal-to-noise ratio in grey matter.<br>
+snrd_gm,"Dietrich et al. (2007)'s signal-to-noise ratio in gray matter.<br>
 Higher values indicate higher quality.",anat,noise
 snrd_total,"Dietrich et al. (2007)'s signal-to-noise ratio (total).<br>
 Higher values indicate higher quality.",anat,noise
@@ -121,7 +121,7 @@ summary_wm_p95,Summary statistics for average intensities in WM.,anat,descriptiv
 summary_wm_stdv,Summary statistics for average intensities in WM.,anat,descriptive
 tpm_overlap_csf,"TPM overlap: How well the CSF tissue probability maps overlap with those from the MNI ICBM 2009 template.<br>
 Higher values indicate better spatial normalization.",anat,other
-tpm_overlap_gm,"TPM overlap: How well the grey matter tissue probability maps overlap with those from the MNI ICBM 2009 template.<br>
+tpm_overlap_gm,"TPM overlap: How well the gray matter tissue probability maps overlap with those from the MNI ICBM 2009 template.<br>
 Higher values indicate better spatial normalization.",anat,other
 tpm_overlap_wm,"TPM overlap: How well the white matter tissue probability maps overlap with those from the MNI ICBM 2009 template.<br>
 Higher values indicate better spatial normalization.",anat,other

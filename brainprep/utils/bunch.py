@@ -70,7 +70,7 @@ class Bunch(dict):
 
     def __setstate__(self, state):
         # Bunch pickles generated with scikit-learn 0.16.* have an non
-        # empty __dict__. This causes a surprising behaviour when
+        # empty __dict__. This causes a surprising behavior when
         # loading these pickles scikit-learn 0.17: reading bunch.key
         # uses __dict__ but assigning to bunch.key use __setattr__ and
         # only changes bunch['key']. More details can be found at:

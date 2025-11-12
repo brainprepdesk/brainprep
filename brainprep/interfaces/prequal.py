@@ -179,7 +179,7 @@ def prequal_stats(
     Returns
     -------
     group_stats_file : File
-        A TSV file containing summary informations on fiber bunbles and
+        A TSV file containing summary information on fiber bunbles and
         displacements.
     """
     group_stats_file = output_dir / "group_stats.tsv"

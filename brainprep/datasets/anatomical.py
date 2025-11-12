@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Fetcher to downlaod anatomical data.
+Fetcher to download anatomical data.
 """
 
 import json
@@ -107,7 +107,7 @@ class AnatomicalDataset:
         Parameters
         ----------
         subject: str
-            the subject identifier. This indentifier must lie in ['01' - '30'],
+            the subject identifier. This identifier must lie in ['01' - '30'],
             ['01' - '20'], for cross sectional or longitudinal data
             respectively.
         modality: str
@@ -195,7 +195,7 @@ class AnatomicalDataset:
         Parameters
         ----------
         subject: str
-            the subject identifier. This indentifier must lie in ['01' - '30'],
+            the subject identifier. This identifier must lie in ['01' - '30'],
             ['01' - '20'], for cross sectional or longitudinal data
             respectively.
         modality: str

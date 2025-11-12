@@ -33,7 +33,7 @@ def dtifit(data, bvecs, bvals, mask, outname, wls=False):
     Parameters
     ----------
     data: str
-        diffusion weighted image data file: a 4D serie of volumes.
+        diffusion weighted image data file: a 4D series of volumes.
     bvecs: str
         b-vectors file containing gradient directions: an ASCII text file
         containing a list of gradient directions applied during diffusion

@@ -122,7 +122,7 @@ def plot_histogram(
     Returns
     -------
     histogram_file : File
-        Generted image with the histogram.
+        Generated image with the histogram.
     """
     histogram_file = output_dir / f"histogram_{col_name}.png"
 

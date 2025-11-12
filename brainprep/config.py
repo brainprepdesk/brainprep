@@ -59,7 +59,7 @@ class Config:
     ----------
     **options : dict
         Keyword arguments intercepted by the wrapper function:
-        - verbose : bool, default True - print informations or not.
+        - verbose : bool, default True - print information or not.
         - dryrun : bool, default False - execute commands or not
         - cat12_file : File - path to the CAT12 standalone executable.
         - spm12_dir : Directory - path to the SPM12 standalone executable.

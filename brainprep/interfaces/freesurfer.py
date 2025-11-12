@@ -125,7 +125,7 @@ def reconall(
     flair_file : Optional[File], default None
         Path to the input FLAIR image file - used to improve the pial surface.
     resume : bool, default False
-        If True, try to resume `recon-all`. This option is particulary usefull
+        If True, try to resume `recon-all`. This option is particularly useful
         when a custom segmentation is used in `recon-all`.
 
     Returns

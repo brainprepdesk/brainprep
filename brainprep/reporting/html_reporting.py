@@ -157,7 +157,7 @@ class HTMLReport:
         The HTML content to be rendered.
     width : int, default 800
         Width of the display area in pixels.
-    height : int, defaul 800
+    height : int, default 800
         Height of the display area in pixels.
 
     Attributes
@@ -219,7 +219,7 @@ class HTMLReport:
 
         Notes
         -----
-        Usueful for inserting the document content in another HTML page,
+        Useful for inserting the document content in another HTML page,
         i.e. in a Jupyter notebook.
 
         Parameters

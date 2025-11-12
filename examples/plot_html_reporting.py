@@ -59,7 +59,7 @@ data = [
 # Reporting
 # ---------
 # 
-# Now let's geerate the HTML report.
+# Now let's generate the HTML report.
 
 from brainprep.reporting import generate_qc_report
 

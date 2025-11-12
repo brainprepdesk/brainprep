@@ -143,7 +143,7 @@ def brainprep_group_dmriprep(
         upper_fa_threshold: int = 0.75,
         keep_intermediate: bool = False) -> Bunch:
     """
-    Goup level diffusion MRI pre-processing.
+    Group level diffusion MRI pre-processing.
 
     Parameters
     ----------
@@ -161,10 +161,10 @@ def brainprep_group_dmriprep(
     -------
     Bunch
         A dictionary-like object containing:
-        - group_stats_file : File - a TSV file containing summary informations
+        - group_stats_file : File - a TSV file containing summary information
           on fiber bunbles and displacements.
         - histogram_files : list[File] - PNG files containing histograms of
-          selected important informations.
+          selected important information.
     """
     bundles = (
         "Genu_of_corpus_callosum_med_fa",
