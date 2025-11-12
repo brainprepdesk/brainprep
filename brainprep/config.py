@@ -13,7 +13,6 @@ Configuration used by BrainPrep.
 import contextvars
 from pathlib import Path
 
-
 DEFAULT_OPTIONS = {
     "verbose": True,
     "dryrun": False,

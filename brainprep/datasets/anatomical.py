@@ -11,13 +11,10 @@ Fetcher to downlaod anatomical data.
 """
 
 import json
-import os
-from pathlib import Path
 from typing import Optional
 
 from ..typing import (
     Directory,
-    File,
 )
 from ..utils import (
     Bunch,

@@ -10,34 +10,24 @@
 Module that contains some utility functions.
 """
 
-import json
-import os
-import re
-import sys
-import gzip
 import inspect
-import subprocess
-import numpy as np
-import pandas as pd
-import nibabel
-
-from decorator import decorator
+import json
+import re
 from pathlib import Path
 from typing import (
     Any,
-    get_origin,
-    get_args,
     Union,
+    get_args,
+    get_origin,
 )
-from .color import (
-    print_command,
-    print_error,
-)
+
+from decorator import decorator
+
+from .._version import __version__
 from ..typing import (
     Directory,
     File,
 )
-from .._version import __version__
 
 
 @decorator

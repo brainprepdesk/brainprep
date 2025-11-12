@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
 # NSAp - Copyright (C) CEA, 2021
 # Distributed under the terms of the CeCILL-B license, as published by
@@ -12,12 +11,11 @@
 FSL TBSS tools.
 """
 
-# Imports
+
 import os
 import shutil
-from .utils import check_command, execute_command
-from .utils import print_subtitle, print_result
 
+from .utils import check_command, execute_command, print_result, print_subtitle
 
 # Global parameters
 FSL_EXTS = {
@@ -146,7 +144,7 @@ def tbss_1_preproc(tbss_dir, fa_file):
     print_subtitle("Launch tbss_1_preproc...")
     if not os.path.isdir(tbss_dir):
         os.mkdir(tbss_dir)
-    if not (os.getcwd() == tbss_dir):
+    if os.getcwd() != tbss_dir:
         os.chdir(tbss_dir)
     assert tbss_dir == os.path.dirname(fa_file), (
         "FA file must be in TBSS folder.")
@@ -159,10 +157,10 @@ def tbss_1_preproc(tbss_dir, fa_file):
     tbss_orig_dir = os.path.join(tbss_dir, "origdata")
     if not os.path.isdir(tbss_fa_dir):
         raise ValueError(
-            f"tbss_1_preproc did not create FA directory: {fa_dir}.")
+            f"tbss_1_preproc did not create FA directory: {tbss_fa_dir}.")
     if not os.path.isdir(tbss_orig_dir):
         raise ValueError(
-            f"tbss_1_preproc did not create orig directory: {orig_dir}.")
+            f"tbss_1_preproc did not create orig directory: {tbss_orig_dir}.")
     fa_file = os.path.join(
         tbss_fa_dir, fa_basename.replace(".nii.gz", "_FA.nii.gz"))
     if not os.path.isfile(fa_file):
@@ -201,7 +199,7 @@ def tbss_2_reg(tbss_dir, fa_file, use_fmrib58_fa_1mm=True, target_img=None):
     """
     print_subtitle("Launch tbss_2_reg...")
     tbss_fa_dir = os.path.join(tbss_dir, "FA")
-    if not (os.getcwd() == tbss_fa_dir):
+    if os.getcwd() != tbss_fa_dir:
         os.chdir(tbss_fa_dir)
     cmd = ["tbss_2_reg"]
     target_file = os.path.join(tbss_fa_dir, "target.nii.gz")
@@ -257,7 +255,7 @@ def tbss_3_postreg(tbss_dir, use_fmrib58_fa_mean_and_skel=True):
         path to the skeletonized mean FA.
     """
     print_subtitle("Launch tbss_3_postreg...")
-    if not (os.getcwd() == tbss_dir):
+    if os.getcwd() != tbss_dir:
         os.chdir(tbss_dir)
     cmd = ["tbss_3_postreg"]
     if use_fmrib58_fa_mean_and_skel:
@@ -307,7 +305,7 @@ def tbss_4_prestats(tbss_dir, threshold=0.2):
         text file indicating threshold used.
     """
     print_subtitle("Launch tbss_4_prestats...")
-    if not (os.getcwd() == tbss_dir):
+    if os.getcwd() != tbss_dir:
         os.chdir(tbss_dir)
     cmd = ["tbss_4_prestats", str(threshold)]
     check_command("tbss_4_prestats")

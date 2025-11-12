@@ -13,7 +13,6 @@ Types or Type aliases used by BrainPrep.
 from pathlib import Path
 from typing import TypeAlias
 
-
 Url: TypeAlias = str | None
 File: TypeAlias = str | Path | None
 Directory: TypeAlias = str | Path | None

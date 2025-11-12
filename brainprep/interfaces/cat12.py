@@ -11,23 +11,12 @@
 CAT12 functions.
 """
 
-import os
-import shutil
+import glob
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
-import xml.etree.ElementTree as ET
 import pandas as pd
 
-from nilearn import datasets
-from nilearn import plotting
-from nilearn.image import clean_img
-from nilearn.maskers import NiftiLabelsMasker
-from nilearn.connectome import ConnectivityMeasure
-from nilearn.interfaces.fmriprep import load_confounds
-
-from .utils import (
-    ungzfile,
-)
 from ..config import (
     DEFAULT_OPTIONS,
     brainprep_options,
@@ -41,11 +30,13 @@ from ..utils import (
     coerceparams,
     outputdir,
     parse_bids_keys,
-    sidecar_from_file,
 )
 from ..wrappers import (
     cmdwrapper,
     pywrapper,
+)
+from .utils import (
+    ungzfile,
 )
 
 
@@ -157,7 +148,7 @@ def write_catbatch(
     )
 
     assert len(t1_files) == len(entities)
-    longitudinal = False if len(t1_files) == 1 else True
+    longitudinal = len(t1_files) != 1
     if longitudinal:
         batch_file = (
             output_dir /

@@ -13,23 +13,19 @@ Fetcher to downlaod anatomical data.
 import gzip
 import json
 import os
-import requests
 import shutil
 import tarfile
-import pandas as pd
 from pathlib import Path
-from typing import Optional
+
+import pandas as pd
+import requests
 
 from ..typing import (
     Directory,
-    File,
 )
 from ..utils import (
     Bunch,
     print_info,
-)
-from .utils import (
-    git_download,
 )
 
 
@@ -222,15 +218,15 @@ class MultiModalDataset:
                     )
 
         for key, src_file in dataset.items():
-            if not src_file.suffix == ".nii":
+            if src_file.suffix != ".nii":
                 continue
             dest_file = src_file.with_suffix(".nii.gz")
             dataset[key] = dest_file
             if dest_file.is_file():
                 continue
-            with open(src_file, "rb") as f_in:
-                with gzip.open(dest_file, "wb") as f_out:
-                    shutil.copyfileobj(f_in, f_out)
+            with (open(src_file, "rb") as f_in,
+                  gzip.open(dest_file, "wb") as f_out):
+                shutil.copyfileobj(f_in, f_out)
             os.remove(src_file)
 
         return dataset
@@ -259,7 +255,7 @@ class MultiModalDataset:
             the data integrity status.
         """
         if session not in self.allowed_sessions:
-            raise ValueErrro(f"Unexpected session: {session}.")
+            raise ValueError(f"Unexpected session: {session}.")
         if modality not in self.allowed_modalities:
             raise ValueError(f"Unexpected modality: {modality}.")
         if subject not in self.allowed_subjects:

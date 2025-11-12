@@ -19,13 +19,6 @@ from .cat12 import (
     cat12vbm_stats,
     write_catbatch,
 )
-from .utils import (
-    copyfiles,
-    defacing_mask_diff,
-    mean_correlation,
-    movedir,
-    ungzfile,
-)
 from .fmriprep import (
     fmriprep,
     func_vol_connectivity,
@@ -63,6 +56,13 @@ from .plotting import (
 from .prequal import (
     prequal,
     prequal_stats,
+)
+from .utils import (
+    copyfiles,
+    defacing_mask_diff,
+    mean_correlation,
+    movedir,
+    ungzfile,
 )
 
 __all__ = [

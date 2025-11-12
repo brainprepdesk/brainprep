@@ -13,12 +13,10 @@ Utility methods to print the results in a terminal using term colors.
 import os
 import platform
 
-
 from ..config import (
     DEFAULT_OPTIONS,
     brainprep_options,
 )
-
 
 IS_WINDOWS = platform.system() == "Windows"
 COLOR_TERMS = ["xterm-256color", "cygwin", "xterm-color"]
@@ -42,7 +40,7 @@ fg_colors = {
 }
 
 
-def HEX(color):
+def hex(color):
 
     xterm_colors = {
         "0": "#000000",
@@ -308,7 +306,7 @@ def HEX(color):
     return new_xterm_colors[color]
 
 
-class colored(object):
+class Colored:
 
     def __init__(self, color):
 
@@ -317,7 +315,7 @@ class colored(object):
         self.color = color
 
         if str(color).startswith("#"):
-            self.HEX = HEX(color.lower())
+            self.HEX = hex(color.lower())
         else:
             self.HEX = ""
 
@@ -650,15 +648,15 @@ def stylize(text, styles, reset=True):
 
 
 def fg(color):
-    """ Alias for colored().foreground().
+    """ Alias for Colored().foreground().
     """
-    return colored(color).foreground()
+    return Colored(color).foreground()
 
 
 def attr(color):
-    """ Alias for colored().attribute().
+    """ Alias for Colored().attribute().
     """
-    return colored(color).attribute()
+    return Colored(color).attribute()
 
 
 def print_color(category, text):
@@ -670,7 +668,7 @@ def print_color(category, text):
 
     if category not in fg_colors:
         raise ValueError(
-            f"Please define an entry for '{catagory}' in the color table."
+            f"Please define an entry for '{category}' in the color table."
         )
     category = (
         stylize(category, fg(fg_colors[category]))

@@ -194,6 +194,7 @@ def brainprep_brainparc(
         wm_mask_file,
         gm_mask_file,
         csf_mask_file,
+        brain_mask_file,
         output_dir,
         entities,
     )

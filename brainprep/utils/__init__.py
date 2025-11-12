@@ -23,9 +23,9 @@ from .color import (
 )
 from .utils import (
     bids,
-    outputdir,
     coerceparams,
     find_stack_level,
+    outputdir,
     parse_bids_keys,
     sidecar_from_file,
 )

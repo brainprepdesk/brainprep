@@ -166,6 +166,7 @@ def plot_brainparc(
         wm_mask_file: File,
         gm_mask_file: File,
         csf_mask_file: File,
+        brain_mask_file:File,
         output_dir: Directory,
         entities: dict,
         dryrun: bool = False) -> tuple[File]:
@@ -179,6 +180,8 @@ def plot_brainparc(
         Binary mask of gray matter regions.
     csf_mask_file : File
         Binary mask of cerebrospinal fluid regions.
+    brain_mask_file : File
+        Binary brain mask file.
     output_dir : Directory
         FreeSurfer working directory containing all the subjects.
     entities : dict
@@ -210,8 +213,9 @@ def plot_brainparc(
         )
 
         anat_arr = nibabel.load(anat_file).get_fdata()
+        mask_arr = nibabel.load(brain_mask_file).get_fdata()
         bins = np.histogram_bin_edges(
-            anat_arr[brain_mask],
+            anat_arr[mask_arr],
             bins="auto",
         )
         palette = itertools.cycle(sns.color_palette("Set1"))

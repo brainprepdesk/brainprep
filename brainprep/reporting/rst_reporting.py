@@ -19,11 +19,11 @@ from typing import Union
 
 from decorator import decorator
 
+from .._version import __version__
 from ..config import (
     DEFAULT_OPTIONS,
     brainprep_options,
 )
-from .._version import __version__
 from ..utils import (
     Bunch,
     print_title,

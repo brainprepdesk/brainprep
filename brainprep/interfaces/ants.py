@@ -11,10 +11,6 @@
 ANTs functions.
 """
 
-import os
-from pathlib import Path
-from typing import Union
-
 from ..reporting import log_runtime
 from ..typing import (
     Directory,

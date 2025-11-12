@@ -10,7 +10,6 @@
 Dataset creation tools.
 """
 
-import shutil
 from pathlib import Path
 
 import requests
