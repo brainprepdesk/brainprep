@@ -33,6 +33,7 @@ from ..utils import (
 )
 
 
+@coerceparams
 @bids(
     process="brain_parcellation",
     bids_file="t1_file",
@@ -41,7 +42,6 @@ from ..utils import (
 @log_runtime(
     title="Subject Level Brain Parcellation")
 @save_runtime
-@coerceparams
 def brainprep_brainparc(
         t1_file: File,
         template_dir: Directory,
@@ -118,8 +118,45 @@ def brainprep_brainparc(
 
     Examples
     --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
     >>> from brainprep.workflow import brainprep_brainparc
-    >>> brainprep_brainparc(t1_file, template_dir, output_dir)
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_brainparc(
+    ...         t1_file=(
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
+    ...             "sub-01_ses-01_run-01_T1w.nii.gz"
+    ...         ),
+    ...         template_dir="/tmp/template",
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     )
+    >>> outputs
+    Bunch(
+      subject_dir: PosixPath('...')
+      left_reg_file: PosixPath('...')
+      right_reg_file: PosixPath('...')
+      lh_thickness_file: PosixPath('...')
+      rh_thickness_file: PosixPath('...')
+      lh_curv_file: PosixPath('...')
+      rh_curv_file: PosixPath('...')
+      lh_area_file: PosixPath('...')
+      rh_area_file: PosixPath('...')
+      lh_pial_lgi_file: PosixPath('...')
+      rh_pial_lgi_file: PosixPath('...')
+      lh_sulc_file: PosixPath('...')
+      rh_sulc_file: PosixPath('...')
+      aparc_aseg_file: PosixPath('...')
+      aparc_a2009s_aseg_file: PosixPath('...')
+      aseg_file: PosixPath('...')
+      wm_file: PosixPath('...')
+      rawavg_file: PosixPath('...')
+      ribbon_file: PosixPath('...')
+      brain_file: PosixPath('...')
+      brainparc_image_file: PosixPath('...')
+    )
+
 
     Raises
     ------
@@ -228,6 +265,7 @@ def brainprep_brainparc(
     )
 
 
+@coerceparams
 @bids(
     process="brain_parcellation",
     bids_file="t1_files",
@@ -238,7 +276,6 @@ def brainprep_brainparc(
     title="Longitudinal Brain Parcellation")
 @save_runtime(
     parent=True)
-@coerceparams
 def brainprep_longitudinal_brainparc(
         t1_files: list[File],
         output_dir: Directory,
@@ -274,8 +311,25 @@ def brainprep_longitudinal_brainparc(
 
     Examples
     --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
     >>> from brainprep.workflow import brainprep_longitudinal_brainparc
-    >>> brainprep_longitudinal_brainparc(t1_files, output_dir)
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_longitudinal_brainparc(
+    ...         t1_files=[
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
+    ...             "sub-01_ses-01_run-01_T1w.nii.gz",
+    ...             "/tmp/dataset/rawdata/sub-01/ses-02/anat/"
+    ...             "sub-01_ses-02_run-01_T1w.nii.gz",
+    ...         ],
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     ) # doctest: +SKIP
+    >>> outputs # doctest: +SKIP
+    Bunch(
+      subject_dirs: [PosixPath('...'), PosixPath('...')]
+    )
 
     Raises
     ------
@@ -338,13 +392,13 @@ def brainprep_longitudinal_brainparc(
     )
 
 
+@coerceparams
 @bids(
     process="brain_parcellation",
     container="neurospin/brainprep-brainparc")
 @log_runtime(
     title="Group Level Brain Parcellation")
 @save_runtime
-@coerceparams
 def brainprep_group_brainparc(
         output_dir: Directory,
         euler_threshold: int = -217,
@@ -390,6 +444,24 @@ def brainprep_group_brainparc(
     -----
     - This workflow can either be used on cross-sectional or longitudinal
       data.
+
+    Examples
+    --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
+    >>> from brainprep.workflow import brainprep_group_brainparc
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_group_brainparc(
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     ) # doctest: +SKIP
+    >>> outputs # doctest: +SKIP
+    Bunch(
+        summary_files=[PosixPath('...'),...,PosixPath('...')],
+        euler_numbers_file=PosixPath('...'),
+        euler_numbers_histogram_file=PosixPath('...')
+    )
 
     References
     ----------

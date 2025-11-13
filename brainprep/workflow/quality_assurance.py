@@ -30,6 +30,7 @@ from ..utils import (
 )
 
 
+@coerceparams
 @bids(
     process="quality_assurance",
     bids_file="image_files",
@@ -37,7 +38,6 @@ from ..utils import (
 @log_runtime(
     title="Subject Level Quality Assurance")
 @save_runtime
-@coerceparams
 def brainprep_quality_assurance(
         image_files: list[File],
         output_dir: Directory,
@@ -72,16 +72,38 @@ def brainprep_quality_assurance(
 
     Examples
     --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
     >>> from brainprep.workflow import brainprep_quality_assurance
-    >>> brainprep_quality_assurance([t1_file, dwi_file], output_dir)
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_quality_assurance(
+    ...         image_files=[
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
+    ...             "sub-01_ses-01_run-01_T1w.nii.gz",
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/dwi/"
+    ...             "sub-01_ses-01_run-01_dwi.nii.gz",
+    ...         ],
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     )
+    >>> outputs
+    Bunch(
+        iqm_files: [PosixPath('...'), PosixPath('...')]
+    )
 
     References
     ----------
 
     .. footbibliography::
     """
-    workspace_dir, iqm_files = interfaces.subject_level_qa(
+    workspace_dir = output_dir / "workspace"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
+
+    iqm_files = interfaces.subject_level_qa(
         image_files,
+        workspace_dir,
         output_dir,
     )
 
@@ -94,12 +116,12 @@ def brainprep_quality_assurance(
     )
 
 
+@coerceparams
 @bids(
     process="quality_assurance")
 @log_runtime(
     title="Group Level Quality Assurance")
 @save_runtime
-@coerceparams
 def brainprep_group_quality_assurance(
         modalities: list[str],
         output_dir: Directory,
@@ -133,8 +155,20 @@ def brainprep_group_quality_assurance(
 
     Examples
     --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
     >>> from brainprep.workflow import brainprep_group_quality_assurance
-    >>> brainprep_group_quality_assurance(output_dir)
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_group_quality_assurance(
+    ...         modalities=["T1w"],
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     )
+    >>> outputs
+    Bunch(
+        iqm_file: [PosixPath('...')]
+    )
 
     References
     ----------

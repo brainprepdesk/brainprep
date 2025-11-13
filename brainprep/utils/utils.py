@@ -351,8 +351,15 @@ def sidecar_from_file(
 
     Examples
     --------
-    >>> sidecar_from_file("sub-01_T1w.nii.gz")
-    PosixPath('sub-01_T1w.json')
+    >>> from pathlib import Path
+    >>> from brainprep.utils import sidecar_from_file
+    >>>
+    >>> image_file = Path("/tmp/sub-01_T1w.nii.gz")
+    >>> sidecar_file = Path("/tmp/sub-01_T1w.json")
+    >>> sidecar_file.touch()
+    >>>
+    >>> sidecar_from_file(image_file)
+    PosixPath('/tmp/sub-01_T1w.json')
     """
     if not str(image_file).endswith(".nii.gz"):
         raise ValueError(

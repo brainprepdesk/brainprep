@@ -32,6 +32,7 @@ from ..utils import (
 )
 
 
+@coerceparams
 @bids(
     process="dmriprep",
     bids_file="t1_file",
@@ -40,7 +41,6 @@ from ..utils import (
 @log_runtime(
     title="Subject Level Diffusion Pre-Processing")
 @save_runtime
-@coerceparams
 def brainprep_dmriprep(
         t1_file: File,
         dwi_file: File,
@@ -108,7 +108,7 @@ def brainprep_dmriprep(
             f"The T1w file '{t1_file}' is not BIDS-compliant."
         )
 
-    dwi_file, bvec_file, bval_file, qc_file = interfaces.prequal(
+    dwi_file, bvec_file, bval_file, qc_file = interfaces.prequal_wf(
         t1_file,
         dwi_file,
         bvec_file,
@@ -130,13 +130,13 @@ def brainprep_dmriprep(
     )
 
 
+@coerceparams
 @bids(
     process="dmriprep",
     container="neurospin/brainprep-dmriprep")
 @log_runtime(
     title="Group Level Diffusion Pre-Processing")
 @save_runtime
-@coerceparams
 def brainprep_group_dmriprep(
         output_dir: Directory,
         lower_fa_threshold: int = 0.3,

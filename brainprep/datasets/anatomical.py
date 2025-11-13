@@ -54,8 +54,10 @@ class AnatomicalDataset:
     ... )
     >>> print(data)
     Bunch(
-      sub-01: PosixPath('/tmp/brainprep-data/sub-01/anat/sub-01_T1w.nii.gz')
+      description: PosixPath('...')
+      anat: PosixPath('...')
     )
+
 
     Raises
     ------

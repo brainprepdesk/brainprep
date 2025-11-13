@@ -32,11 +32,11 @@ from ..utils import (
 from ..wrappers import pywrapper
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def plot_defacing_mosaic(
         im_file: File,
         mask_file: File,
@@ -92,11 +92,11 @@ def plot_defacing_mosaic(
     return (mosaic_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def plot_histogram(
         table_file: File,
         col_name: str,
@@ -157,16 +157,16 @@ def plot_histogram(
     return (histogram_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def plot_brainparc(
         wm_mask_file: File,
         gm_mask_file: File,
         csf_mask_file: File,
-        brain_mask_file:File,
+        brain_mask_file: File,
         output_dir: Directory,
         entities: dict,
         dryrun: bool = False) -> tuple[File]:

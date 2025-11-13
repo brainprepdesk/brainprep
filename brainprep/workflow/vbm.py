@@ -33,6 +33,7 @@ from ..utils import (
 )
 
 
+@coerceparams
 @bids(
     process="vbm",
     bids_file="t1_file",
@@ -41,7 +42,6 @@ from ..utils import (
 @log_runtime(
     title="Subject Level VBM Pre-Processing")
 @save_runtime
-@coerceparams
 def brainprep_vbm(
         t1_file: File,
         output_dir: Directory,
@@ -87,7 +87,7 @@ def brainprep_vbm(
         output_dir.parent,
         [entities],
     )
-    gm_files, qc_files = interfaces.cat12vbm(
+    gm_files, qc_files = interfaces.cat12vbm_wf(
         [t1_file],
         batch_file,
         output_dir.parent,
@@ -101,6 +101,7 @@ def brainprep_vbm(
     )
 
 
+@coerceparams
 @bids(
     process="vbm",
     bids_file="t1_files",
@@ -111,7 +112,6 @@ def brainprep_vbm(
     title="Longitudinal VBM Pre-Processing")
 @save_runtime(
     parent=True)
-@coerceparams
 def brainprep_longitudinal_vbm(
         t1_files: list[File],
         model: int,
@@ -164,7 +164,7 @@ def brainprep_longitudinal_vbm(
         output_dir.parent,
         entities,
     )
-    gm_files, qc_files = interfaces.cat12vbm(
+    gm_files, qc_files = interfaces.cat12vbm_wf(
         t1_files,
         batch_file,
         output_dir.parent,
@@ -178,13 +178,13 @@ def brainprep_longitudinal_vbm(
     )
 
 
+@coerceparams
 @bids(
     process="vbm",
     container="neurospin/brainprep-vbm")
 @log_runtime(
     title="Group Level VBM Pre-Processing")
 @save_runtime
-@coerceparams
 def brainprep_group_vbm(
         output_dir: Directory,
         ncr_threshold: float = 4.5,

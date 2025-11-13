@@ -32,6 +32,7 @@ from ..utils import (
 )
 
 
+@coerceparams
 @bids(
     process="quasiraw",
     bids_file="anatomical_file",
@@ -40,7 +41,6 @@ from ..utils import (
 @log_runtime(
     title="Subject Level Quasi-RAW")
 @save_runtime
-@coerceparams
 def brainprep_quasiraw(
         anatomical_file: File,
         output_dir: Directory,
@@ -90,8 +90,25 @@ def brainprep_quasiraw(
 
     Examples
     --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
     >>> from brainprep.workflow import brainprep_quasiraw
-    >>> brainprep_quasiraw(t1_file, brain_mask_file, output_dir)
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_quasiraw(
+    ...         anatomical_file=(
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
+    ...             "sub-01_ses-01_run-01_T1w.nii.gz"
+    ...         ),
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     )
+    >>> outputs
+    Bunch(
+      aligned_anatomical_file: PosixPath('...')
+      aligned_mask_file: PosixPath('...')
+      transform_file: PosixPath('...')
+    )
 
     Raises
     ------
@@ -201,13 +218,13 @@ def brainprep_quasiraw(
     )
 
 
+@coerceparams
 @bids(
     process="quasiraw",
     container="neurospin/brainprep-quasiraw")
 @log_runtime(
     title="Group Level Quasi-RAW")
 @save_runtime
-@coerceparams
 def brainprep_group_quasiraw(
         output_dir: Directory,
         correlation_threshold: float = 0.5,

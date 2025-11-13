@@ -62,10 +62,11 @@ def generate_qc_report(title, docstring, version, date, data):
     --------
     >>> from pathlib import Path
     >>> from pandas import DataFrame
+    >>>
     >>> data = [{
     ...     "name": "Step 1",
-    ...     "content": Path("image1.png"),
-    ...     "overlay": Path("image1_overlay.png"),
+    ...     "content": Path("/tmp/image1.png"),
+    ...     "overlay": Path("/tmp/image1_overlay.png"),
     ...     "tables": DataFrame({"A": [1, 2], "B": [3, 4]})
     ... }]
     >>> report = generate_qc_report(
@@ -74,8 +75,8 @@ def generate_qc_report(title, docstring, version, date, data):
     ...     version="1.0",
     ...     date="2025-10-03",
     ...     data=data
-    ... )
-    >>> report.save_as_html("qc_report.html")
+    ... ) # doctest: +SKIP
+    >>> report.save_as_html("/tmp/qc_report.html") # doctest: +SKIP
     """
     template_path = Path(__file__).parent / "data" / "body.html"
     css_path = Path(__file__).parent / "data" / "style.css"

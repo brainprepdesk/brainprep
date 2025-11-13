@@ -67,10 +67,18 @@ class Config:
         - tpm_file : File - path to the SPM TPM file.
         - darteltpm_file : File - path to the CAT12 template file.
 
-    Example
-    -------
-    >>> with Config(dryrun=True):
-    ...     brainprep_deface('t1w.nii.gz', '/tmp')
+    Examples
+    --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.interfaces import movedir
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     target_directory = movedir(
+    ...         source_dir="/tmp/source_dir",
+    ...         output_dir="/tmp/destination_dir",
+    ...     )
+    >>> target_directory
+    PosixPath('/tmp/destination_dir/source_dir')
 
     Notes
     -----

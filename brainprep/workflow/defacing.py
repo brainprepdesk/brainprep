@@ -10,7 +10,7 @@
 Brain imaging defacing.
 """
 
-import os
+import shutil
 
 import brainprep.interfaces as interfaces
 
@@ -31,6 +31,7 @@ from ..utils import (
 )
 
 
+@coerceparams
 @bids(
     process="defacing",
     bids_file="t1_file",
@@ -39,7 +40,6 @@ from ..utils import (
 @log_runtime(
     title="Subject Level Defacing")
 @save_runtime
-@coerceparams
 def brainprep_defacing(
         t1_file: File,
         output_dir: Directory,
@@ -81,14 +81,37 @@ def brainprep_defacing(
 
     Examples
     --------
-    >>> from brainprep.workflow import brainprep_deface
-    >>> brainprep_deface(t1_file, output_dir)
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
+    >>> from brainprep.workflow import brainprep_defacing
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_defacing(
+    ...         t1_file=(
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
+    ...             "sub-01_ses-01_run-01_T1w.nii.gz"
+    ...         ),
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     )
+    >>> outputs
+    Bunch(
+      deface_t1_file: PosixPath('...')
+      mask_file: PosixPath('...')
+      vol_files: [PosixPath('...'), PosixPath('...')]
+      mosaic_file: PosixPath('...')
+    )
+
 
     References
     ----------
 
     .. footbibliography::
     """
+    workspace_dir = output_dir / "workspace"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
+
     entities = parse_bids_keys(t1_file)
     if len(entities) == 0:
         raise ValueError(
@@ -97,7 +120,7 @@ def brainprep_defacing(
 
     reoriented_t1_file = interfaces.reorient(
         t1_file,
-        output_dir,
+        workspace_dir,
         entities,
     )
     deface_t1_file, mask_file, vol_files = interfaces.deface(
@@ -113,8 +136,8 @@ def brainprep_defacing(
     )
 
     if not keep_intermediate:
-        print_info(f"cleaning intermediate file: {reoriented_t1_file}")
-        os.remove(reoriented_t1_file)
+        print_info(f"cleaning workspace directory: {workspace_dir}")
+        shutil.rmtree(workspace_dir)
 
     return Bunch(
         deface_t1_file=deface_t1_file,

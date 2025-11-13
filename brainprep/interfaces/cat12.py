@@ -40,12 +40,12 @@ from .utils import (
 )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
-def cat12vbm(
+def cat12vbm_wf(
         t1_files: list[File],
         batch_file: File,
         output_dir: Directory,
@@ -103,11 +103,11 @@ def cat12vbm(
     return command, (gm_files, qc_files)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def write_catbatch(
         t1_files: list[File],
         output_dir: Directory,
@@ -197,11 +197,11 @@ def write_catbatch(
     return (batch_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def cat12vbm_morphometry(
         output_dir: Directory,
         dryrun: bool = False) -> tuple[File]:
@@ -282,11 +282,11 @@ def cat12vbm_morphometry(
     return (morphometry_files, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def cat12vbm_stats(
         output_dir: Directory,
         ncr_threshold: int = 4.5,

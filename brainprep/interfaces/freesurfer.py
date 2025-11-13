@@ -38,11 +38,11 @@ from ..wrappers import (
 )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def brainmask(
         image_file: File,
         output_dir: Directory,
@@ -91,11 +91,11 @@ def brainmask(
     return command, (mask_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def reconall(
         t1_file: File,
         output_dir: Directory,
@@ -167,11 +167,11 @@ def reconall(
     return command, (log_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def reconall_longitudinal(
         workspace_dir: Directory,
         output_dir: Directory,
@@ -284,10 +284,10 @@ def reconall_longitudinal(
     return commands, (log_template_file, log_files)
 
 
+@coerceparams
 @log_runtime(
     bunched=False)
 @pywrapper
-@coerceparams
 def freesurfer_command_status(
         log_file: File,
         command: str,
@@ -300,7 +300,7 @@ def freesurfer_command_status(
     log_file : File
         Path to the recon-all.log file.
     command : str
-        The name of the command-line that pproduces the log file - used as
+        The name of the command-line that produces the log file - used as
         a selector to define the success phrase.
     dryrun : bool, default False
         If True, skip actual computation and file writing.
@@ -322,11 +322,6 @@ def freesurfer_command_status(
       "FATAL:".
     - This function raises exceptions to signal failure or ambiguity, and
       does not return any value.
-
-    Examples
-    --------
-    >>> reconall_status(".../scripts/recon-all.log")
-    # Raises no exception if successful
     """
     if not dryrun:
 
@@ -363,11 +358,11 @@ def freesurfer_command_status(
         )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def localgi(
         output_dir: Directory,
         entities: dict) -> tuple[list[str], tuple[File]]:
@@ -413,11 +408,11 @@ def localgi(
     return command, (left_lgi_file, right_lgi_file)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def surfreg(
         output_dir: Directory,
         entities: dict) -> tuple[list[str], tuple[File]]:
@@ -476,11 +471,11 @@ def surfreg(
     return commands, (left_reg_file, right_reg_file)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def xhemireg(
         output_dir: Directory,
         entities: dict) -> tuple[list[str], tuple[File]]:
@@ -516,10 +511,10 @@ def xhemireg(
     return command, (left_log_file, right_log_file)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
-@outputdir
-@coerceparams
 def fsaveragesym_surfreg(
         template_dir: Directory,
         output_dir: Directory,
@@ -599,10 +594,10 @@ def fsaveragesym_surfreg(
     return (left_reg_file, right_reg_file)
 
 
+@coerceparams
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@coerceparams
 def mris_apply_reg(
         src_file: File,
         trg_file: File,
@@ -642,11 +637,11 @@ def mris_apply_reg(
     return command, (trg_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def fsaveragesym_projection(
         left_reg_file: File,
         right_reg_file: File,
@@ -739,10 +734,10 @@ def fsaveragesym_projection(
     return tuple(features)
 
 
+@coerceparams
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@coerceparams
 def mri_convert(
         src_file: File,
         trg_file: File,
@@ -779,10 +774,10 @@ def mri_convert(
     return command, (trg_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
-@outputdir
-@coerceparams
 def mgz_to_nii(
         output_dir: Directory,
         entities: dict) -> tuple[File]:
@@ -838,6 +833,7 @@ def mgz_to_nii(
     return tuple(images)
 
 
+@coerceparams
 @log_runtime(
     bunched=False)
 @cmdwrapper
@@ -909,10 +905,10 @@ def aparcstats2table(
     return commands, (desikan_stat_file, destrieux_stat_file)
 
 
+@coerceparams
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@coerceparams
 def asegstats2table(
         subjects: list[str],
         session: str,
@@ -951,10 +947,10 @@ def asegstats2table(
     return command, (volume_stat_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
-@outputdir
-@coerceparams
 def freesurfer_features_summary(
         workspace_dir: Directory,
         output_dir: Directory) -> tuple[File]:
@@ -1048,11 +1044,11 @@ def freesurfer_features_summary(
     return summary_files
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def freesurfer_euler_numbers(
         output_dir: Directory,
         euler_threshold: int = -217,
@@ -1127,11 +1123,11 @@ def freesurfer_euler_numbers(
     return (euler_numbers_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def freesurfer_tissues(
         workspace_dir: Directory,
         output_dir: Directory,

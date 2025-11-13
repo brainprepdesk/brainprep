@@ -32,6 +32,7 @@ from ..utils import (
 )
 
 
+@coerceparams
 @bids(
     process="fmriprep",
     bids_file="t1_file",
@@ -40,7 +41,6 @@ from ..utils import (
 @log_runtime(
     title="Subject Level fMRI PreProcessing")
 @save_runtime
-@coerceparams
 def brainprep_fmriprep(
         t1_file: File,
         func_files: list[File],
@@ -128,9 +128,36 @@ def brainprep_fmriprep(
 
     Examples
     --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
     >>> from brainprep.workflow import brainprep_fmriprep
-    >>> brainprep_fmriprep(t1_file, func_files, dataset_description_file,
-    ...                    freesurfer_dir, output_dir)
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_fmriprep(
+    ...         t1_file=(
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
+    ...             "sub-01_ses-01_run-01_T1w.nii.gz"
+    ...         ),
+    ...         func_files=[
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/func/"
+    ...             "sub-01_ses-01_task-rest_run-01_bold.nii.gz",
+    ...         ],
+    ...         dataset_description_file=(
+    ...             "/tmp/dataset/rawdata/dataset_description.json"
+    ...         ),
+    ...         freesurfer_dir=(
+    ...             "/tmp/dataset/derivatives/brain_parcellation/subjects"
+    ...         ),
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     ) # doctest: +SKIP
+    >>> outputs # doctest: +SKIP
+    Bunch(
+        fmri_rest_image_files=[PosixPath('...')],
+        fmri_rest_surf_files=[PosixPath('...')],
+        qc_file=PosixPath('...'),
+        connectivity_files=[PosixPath('...')],
+    )
 
     Raises
     ------
@@ -144,6 +171,7 @@ def brainprep_fmriprep(
     """
     workspace_dir = output_dir / "workspace"
     workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
 
     entities = parse_bids_keys(t1_file)
     if len(entities) == 0:
@@ -151,7 +179,7 @@ def brainprep_fmriprep(
             f"The T1w file '{t1_file}' is not BIDS-compliant."
         )
 
-    rfmri_outputs, qc_file = interfaces.fmriprep(
+    rfmri_outputs, qc_file = interfaces.fmriprep_wf(
         t1_file,
         func_files,
         dataset_description_file,

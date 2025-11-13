@@ -64,8 +64,8 @@ def pywrapper(
     -----
     - Check that the function outputs are valid.
 
-    Example
-    -------
+    Examples
+    --------
     >>> @pywrapper
     ... def ls_command(my_dir, dryrun=False):
     ...     if dryrun:

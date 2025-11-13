@@ -23,11 +23,11 @@ from ..utils import (
 from ..wrappers import cmdwrapper
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def biasfield(
         image_file: File,
         mask_file: File,

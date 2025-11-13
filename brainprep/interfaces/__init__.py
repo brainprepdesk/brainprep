@@ -14,13 +14,13 @@ from .ants import (
     biasfield,
 )
 from .cat12 import (
-    cat12vbm,
     cat12vbm_morphometry,
     cat12vbm_stats,
+    cat12vbm_wf,
     write_catbatch,
 )
 from .fmriprep import (
-    fmriprep,
+    fmriprep_wf,
     func_vol_connectivity,
 )
 from .freesurfer import (
@@ -54,12 +54,12 @@ from .plotting import (
     plot_histogram,
 )
 from .prequal import (
-    prequal,
     prequal_stats,
+    prequal_wf,
 )
 from .utils import (
     copyfiles,
-    defacing_mask_diff,
+    mask_diff,
     mean_correlation,
     movedir,
     ungzfile,

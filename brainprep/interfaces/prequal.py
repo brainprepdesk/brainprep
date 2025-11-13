@@ -32,12 +32,12 @@ from ..wrappers import (
 )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
-def prequal(
+def prequal_wf(
         t1_file: File,
         dwi_file: File,
         bvec_file: File,
@@ -148,11 +148,11 @@ def prequal(
     return command, (dwi_file, bvec_file, bval_file, qc_file)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def prequal_stats(
         output_dir: Directory,
         bundles: list[str],

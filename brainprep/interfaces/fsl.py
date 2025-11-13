@@ -11,6 +11,7 @@
 FSL functions.
 """
 
+from pathlib import Path
 from typing import Union
 
 from ..reporting import log_runtime
@@ -25,11 +26,11 @@ from ..utils import (
 from ..wrappers import cmdwrapper
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def reorient(
         image_file: File,
         output_dir: Directory,
@@ -66,11 +67,11 @@ def reorient(
     return command, (reorient_image_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def deface(
         t1_file: File,
         output_dir: Directory,
@@ -125,16 +126,16 @@ def deface(
         "-B",
         "-p", str(snap_pattern),
     ]
-    vol_files = [f"{snap_pattern}_{idx}.png" for idx in range(1, 3)]
+    vol_files = [Path(f"{snap_pattern}_{idx}.png") for idx in range(1, 3)]
 
     return command, (deface_file, mask_file, vol_files)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def applymask(
         image_file: File,
         mask_file: File,
@@ -176,11 +177,11 @@ def applymask(
     return command, (masked_image_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def scale(
         image_file: File,
         scale: int,
@@ -228,11 +229,11 @@ def scale(
     return command, (scaled_anatomical_file, transform_file)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def affine(
         anatomical_file: File,
         template_file: File,
@@ -285,11 +286,11 @@ def affine(
     return command, (aligned_anatomical_file, transform_file)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
 def applyaffine(
         image_file: File,
         template_file: File,

@@ -33,12 +33,12 @@ from ..utils import (
 from ..wrappers import pywrapper
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
-def defacing_mask_diff(
+def mask_diff(
         im1_file: File,
         im2_file: File,
         output_dir: Directory,
@@ -86,10 +86,11 @@ def defacing_mask_diff(
     return (mask_file, )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
 def copyfiles(
         source_image_files: list[File],
         destination_image_files: list[File],
@@ -115,10 +116,11 @@ def copyfiles(
             shutil.copy(src_path, dest_path)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
 def movedir(
         source_dir: Directory,
         output_dir: Directory,
@@ -147,10 +149,6 @@ def movedir(
     ------
     ValueError
         If `source_dir` is not a directory.
-
-    Example
-    -------
-    >>> movedir("/tmp/source", "/tmp/destination", content=True)
     """
     target_directory = output_dir
     if not content:
@@ -174,10 +172,10 @@ def movedir(
     return (target_directory, )
 
 
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
 def ungzfile(
         input_file: File,
         output_file: File,
@@ -219,10 +217,10 @@ def ungzfile(
     return (output_file, )
 
 
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
 def mean_correlation(
         image_files_regex: str,
         atlas_file: File,

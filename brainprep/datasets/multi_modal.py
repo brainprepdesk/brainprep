@@ -52,12 +52,16 @@ class MultiModalDataset:
     >>> dataset = MultiModalDataset(datadir)
     >>> data = dataset.fetch(
     ...     subject="01",
-    ...     modality="T1w",
-    ...     dtype="cross_sectional",
+    ...     modality="func",
+    ...     session="01",
     ... )
-    >>> print(data)
+    >>> data
     Bunch(
-      sub-01: PosixPath('/tmp/brainprep-data/sub-01/anat/sub-01_T1w.nii.gz')
+      description: PosixPath('...')
+      anat: PosixPath('...')
+      fmap1: PosixPath('...')
+      fmap2: PosixPath('...')
+      func: PosixPath('...')
     )
 
     Raises

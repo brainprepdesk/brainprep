@@ -42,12 +42,12 @@ from ..wrappers import (
 )
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @cmdwrapper
-@outputdir
-@coerceparams
-def fmriprep(
+def fmriprep_wf(
         t1_file: File,
         func_files: list[File],
         dataset_description_file: File,
@@ -199,11 +199,11 @@ def fmriprep(
     return command, (rfmri_outputs, qc_file)
 
 
+@coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-@outputdir
-@coerceparams
 def func_vol_connectivity(
         fmri_rest_image_file: File,
         mask_file: File,

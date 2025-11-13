@@ -13,6 +13,7 @@ from pathlib import Path
 
 
 class TestGalleryExamples(unittest.TestCase):
+
     def setUp(self):
         self.examples_dir = Path(__file__).parent.parent.parent / "examples"
 
@@ -37,23 +38,19 @@ class TestGalleryExamples(unittest.TestCase):
         runpy.run_path(str(script_path))
 
     def test_brain_parcellation(self):
-        script_path = self.examples_dir / "plot_defacing.py"
+        script_path = self.examples_dir / "plot_brain_parcellation.py"
         runpy.run_path(str(script_path))
 
     def test_vbm(self):
-        script_path = self.examples_dir / "plot_defacing.py"
+        script_path = self.examples_dir / "plot_vbm.py"
         runpy.run_path(str(script_path))
 
     def test_fmriprep(self):
-        script_path = self.examples_dir / "plot_defacing.py"
+        script_path = self.examples_dir / "plot_fmriprep.py"
         runpy.run_path(str(script_path))
 
     def test_dmriprep(self):
-        script_path = self.examples_dir / "plot_defacing.py"
-        runpy.run_path(str(script_path))
-
-    def test_defacing(self):
-        script_path = self.examples_dir / "plot_defacing.py"
+        script_path = self.examples_dir / "plot_dmriprep.py"
         runpy.run_path(str(script_path))
 
 

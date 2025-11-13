@@ -20,7 +20,7 @@ class Bunch(dict):
 
     Examples
     --------
-    >>> from nidl.utils import Bunch
+    >>> from brainprep.utils import Bunch
     >>> b = Bunch(a=1, b=2)
     >>> b['b']
     2
