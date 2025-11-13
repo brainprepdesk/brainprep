@@ -50,7 +50,7 @@ ci = [
 ]
 doc = [
     "matplotlib",
-    "git+https://github.com/AGrigis/pysphinxdoc.git@dev",
+    "pysphinxdoc @ git+https://github.com/AGrigis/pysphinxdoc.git@dev",
 ]
 
 [project.urls]
