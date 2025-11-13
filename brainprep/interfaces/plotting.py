@@ -136,7 +136,7 @@ def plot_histogram(
         arr = arr[~np.isnan(arr)]
         arr = arr[~np.isinf(arr)]
 
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         sns.histplot(
             arr,
             color="gray",

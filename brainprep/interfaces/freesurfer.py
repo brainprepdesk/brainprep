@@ -350,8 +350,8 @@ def freesurfer_command_status(
         ]
         if errors:
             raise RuntimeError(
-                f"Recon-all failed. Found {len(errors)} error(s):\n"
-                f"{'\n'.join(errors)}"
+                f"Recon-all failed. Found {len(errors)} error(s):\n" +
+                "\n".join(errors)
             )
         raise RuntimeError(
             "Recon-all status unclear. No success or error markers found."

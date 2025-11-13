@@ -260,7 +260,7 @@ def coerce_to_path(
                               for inner_value in value)
 
     if origin is dict and len(args) == 2:
-        key_type, val_type = args
+        _, val_type = args
         return {key: coerce_to_path(val, val_type)
                 for key, val in value.items()}
 

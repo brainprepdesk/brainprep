@@ -194,7 +194,7 @@ def brainprep_brainparc(
         command="recon-all",
     )
     if do_lgi:
-        left_lgi_file, right_lgi_file = interfaces.localgi(
+        _, _ = interfaces.localgi(
             output_dir,
             entities,
         )
@@ -370,7 +370,7 @@ def brainprep_longitudinal_brainparc(
     subject_dirs = []
     for log_file in log_files:
         identifier = log_file.parent.parent.name.split(".long.")[0]
-        subject_name, session_name, run_name = identifier.split("_")
+        _, session_name, run_name = identifier.split("_")
         subject_dirs.append(
             interfaces.movedir(
                 source_dir=log_file.parent.parent.parent,
