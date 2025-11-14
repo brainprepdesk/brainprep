@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "brainprep"
 readme = "README.rst"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [
     {name = "brainprep developers", email = "antoine.grigis@cea.fr"},
 ]
@@ -32,7 +32,6 @@ dependencies = [
     "decorator",
     "Jinja2",
     "fire",
-    "typing-extensions; python_version < '3.10'",
 ]
 dynamic = ["version"]
 
@@ -120,3 +119,24 @@ builtin = "clear,rare,en-GB_to_en-US"
 ignore-words = "./.github/codespellignore.txt"
 skip = "./.git,*.bib,./brainprep/resources/*,./AUTHORS.rst"
 quiet-level = 2
+
+[tool.numpydoc_validation]
+checks = [
+    "all",
+    "EX01",
+    "SA01",
+    "ES01",
+]
+exclude = [
+    '\.undocumented_method$',
+    '\.__repr__$',
+]
+exclude_files = [
+    '^tests/.*',
+    '^module/gui.*',
+]
+override_SS05 = [
+    '^Process ',
+    '^Assess ',
+    '^Access ',
+]
