@@ -10,8 +10,13 @@
 Types or Type aliases used by BrainPrep.
 """
 
+import sys
 from pathlib import Path
-from typing import TypeAlias
+
+if sys.version_info < (3, 10):
+    from typing_extensions import TypeAlias
+else:
+    from typing import TypeAlias
 
 Url: TypeAlias = str | None
 File: TypeAlias = str | Path | None
