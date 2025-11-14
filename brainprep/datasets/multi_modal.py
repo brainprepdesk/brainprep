@@ -45,16 +45,19 @@ class MultiModalDataset:
 
     Examples
     --------
+    >>> from brainprep.config import Config
     >>> from pathlib import Path
     >>> from brainprep.datasets import MultiModalDataset
+    >>>
     >>> datadir = Path("/tmp/brainprep-data")
     >>> datadir.mkdir(parents=True, exist_ok=True)
     >>> dataset = MultiModalDataset(datadir)
-    >>> data = dataset.fetch(
-    ...     subject="01",
-    ...     modality="func",
-    ...     session="01",
-    ... )
+    >>> with Config(verbose=False):
+    ...     data = dataset.fetch(
+    ...         subject="01",
+    ...         modality="func",
+    ...         session="01",
+    ...     )
     >>> data
     Bunch(
       description: PosixPath('...')

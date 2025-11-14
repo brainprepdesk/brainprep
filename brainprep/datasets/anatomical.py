@@ -42,17 +42,20 @@ class AnatomicalDataset:
 
     Examples
     --------
+    >>> from brainprep.config import Config
     >>> from pathlib import Path
     >>> from brainprep.datasets import AnatomicalDataset
+    >>>
     >>> datadir = Path("/tmp/brainprep-data")
     >>> datadir.mkdir(parents=True, exist_ok=True)
     >>> dataset = AnatomicalDataset(datadir)
-    >>> data = dataset.fetch(
-    ...     subject="01",
-    ...     modality="T1w",
-    ...     dtype="cross_sectional",
-    ... )
-    >>> print(data)
+    >>> with Config(verbose=False):
+    ...     data = dataset.fetch(
+    ...         subject="01",
+    ...         modality="T1w",
+    ...         dtype="cross_sectional",
+    ...     )
+    >>> data
     Bunch(
       description: PosixPath('...')
       anat: PosixPath('...')
@@ -134,6 +137,7 @@ class AnatomicalDataset:
             "dataset_description.json"
         )
         if not description_file.is_file():
+            description_file.parent.mkdir(parents=True, exist_ok=True)
             with open(description_file, "w") as of:
                 description = {
                     "Name": "Example dataset",
