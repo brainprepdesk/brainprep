@@ -44,5 +44,5 @@ jobs:
       with:
         path: examples,brainprep
         builtin: clear,rare,en-GB_to_en-US
-        ignore_words_file: ../codespellignore.txt
+        ignore_words_file: ./.github/codespellignore.txt
         skip: ./.git,*.bib,./brainprep/resources/*,./AUTHORS.rst
