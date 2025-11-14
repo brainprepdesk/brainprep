@@ -11,7 +11,6 @@ Brain parcellation pre-processing.
 """
 
 import shutil
-from typing import Optional
 
 import brainprep.interfaces as interfaces
 
@@ -47,7 +46,7 @@ def brainprep_brainparc(
         template_dir: Directory,
         output_dir: Directory,
         do_lgi: bool = False,
-        wm_file: Optional[File] = None,
+        wm_file: File | None = None,
         keep_intermediate: bool = False) -> Bunch:
     """
     Brain parcellation pre-processing.
@@ -351,7 +350,7 @@ def brainprep_longitudinal_brainparc(
     entities = [
         parse_bids_keys(path) for path in t1_files
     ]
-    for info, path in zip(entities, t1_files):
+    for info, path in zip(entities, t1_files, strict=True):
         if len(info) == 0:
             raise ValueError(
                 f"The T1w file '{path}' is not BIDS-compliant."

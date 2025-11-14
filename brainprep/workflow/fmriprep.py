@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Functional MRI PreProcessing
+Functional MRI pre-processing.
 """
 
 import itertools
@@ -197,7 +197,7 @@ def brainprep_fmriprep(
     for fmri_data in rfmri_outputs:
         counfounds_file = fmri_data[3]
         for mask_file, fmri_rest_image_files in zip(
-                fmri_data[0], fmri_data[1]):
+                fmri_data[0], fmri_data[1], strict=True):
             for fmri_rest_image_file in fmri_rest_image_files:
                 entities = parse_bids_keys(fmri_rest_image_file)
                 connectivity_files.append(

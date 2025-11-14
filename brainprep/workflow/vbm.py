@@ -153,7 +153,7 @@ def brainprep_longitudinal_vbm(
     entities = [
         parse_bids_keys(path) for path in t1_files
     ]
-    for info, path in zip(entities, t1_files):
+    for info, path in zip(entities, t1_files, strict=True):
         if len(info) == 0:
             raise ValueError(
                 f"The T1w file '{path}' is not BIDS-compliant."

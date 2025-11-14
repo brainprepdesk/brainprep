@@ -99,6 +99,11 @@ extend-select = [
     "RUF",
 ]
 ignore = [
+    "D401",     # First line of docstring should be in imperative mood
+    "D205",     # 1 blank line required between summary line and description
+    "D200",     # One-line docstring should fit on one line
+    "D103",     # Missing docstring in public function
+
 ]
 select = ["D"]   # enable docstring rules
 
