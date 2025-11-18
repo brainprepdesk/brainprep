@@ -82,7 +82,6 @@ def fmriprep_wf(
     command : list[str]
        Pre-processing command-line.
     outputs : tuple[File | list[File]]
-        The following output files:
         - mask_files : File - Brain masks in template spaces.
         - fmri_rest_image_files : list[File] - Pre-processed rfMRI volumes:
           2mm MNI152NLin6Asym and MNI152NLin2009cAsym.
@@ -231,24 +230,29 @@ def func_vol_connectivity(
     entities and specifies the atlas and metric used.
 
     Preprocessing steps:
+
     1. Detrending
     2. Low-pass and high-pass filtering
     3. Confound regression
     4. Standardization
 
     Filtering:
+
     - Low-pass removes high-frequency noise (> 0.1 Hz by default).
     - High-pass removes scanner drift and low-frequency fluctuations
       (< 0.01 Hz by default).
 
     Confounds:
+
     - 1 global signal
     - 12 motion parameters + derivatives
     - 8 discrete cosine basis regressors
     - 2 tissue-based confounds (white matter and CSF)
+
     Total: 23 base confound regressors
 
     Scrubbing:
+
     - Volumes with excessive motion (FD > 0.2 mm or standardized DVARS > 3)
       are removed.
     - Segments shorter than `scrub` frames are discarded.

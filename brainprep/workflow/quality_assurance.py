@@ -63,6 +63,7 @@ def brainprep_quality_assurance(
     -------
     Bunch
         A dictionary-like object containing:
+
         - iqm_files : list[File] — paths to the subject level Image Quality
           Metrics (IQMs).
 
@@ -147,6 +148,7 @@ def brainprep_group_quality_assurance(
     -------
     Bunch
         A dictionary-like object containing:
+
         - iqm_files : list[File] — paths to the group level Image Quality
           Metrics (IQMs).
 

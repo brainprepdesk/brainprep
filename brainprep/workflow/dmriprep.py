@@ -83,6 +83,7 @@ def brainprep_dmriprep(
     -------
     Bunch
         A dictionary-like object containing:
+
         - dwi_file: File - path to the NIIGZ pre-processed diffusion weighted
           image.
         - bvec_file: File - path to the TXT pre-processed bvec file.
@@ -168,6 +169,7 @@ def brainprep_group_dmriprep(
     -------
     Bunch
         A dictionary-like object containing:
+
         - group_stats_file : File - a TSV file containing summary information
           on fiber bunbles and displacements.
         - histogram_files : list[File] - PNG files containing histograms of

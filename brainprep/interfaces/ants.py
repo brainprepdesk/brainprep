@@ -53,7 +53,6 @@ def biasfield(
     command : list[str]
         Bias field correction command-line.
     outputs : tuple[File]
-        The following output files:
         - bc_image_file : File - The bias corrected input image file.
         - bc_field_file : File - The estimated bias field.
     """

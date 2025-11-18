@@ -97,6 +97,7 @@ def brainprep_brainparc(
     -------
     Bunch
         A dictionary-like object containing:
+
         - subject_dir: Directory - the FreeSurfer subject directory.
         - left_reg_file : File - left hemisphere registered to
           `fsaverage_sym` symmetric template.
@@ -302,6 +303,7 @@ def brainprep_longitudinal_brainparc(
     -------
     Bunch
         A dictionary-like object containing:
+
         - subject_dirs: list[Directory] - the FreeSurfer subject directories.
 
     Notes
@@ -433,6 +435,7 @@ def brainprep_group_brainparc(
     -------
     Bunch
         A dictionary-like object containing:
+
         - summary_files : tuple[File] - a tuple containing FreeSurfer summary
           stats - each file is a CSV file with the prefix 'aparc_*_stats' for
           Desikan cortical feautes, 'aparc2009s_*_stats' for Destrieux cortical

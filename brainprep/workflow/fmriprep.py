@@ -113,6 +113,7 @@ def brainprep_fmriprep(
     -------
     Bunch
         A dictionary-like object containing:
+
         - fmri_rest_image_files: list[File] - pre-processed rfMRI NIFTI
           volumes: 2mm MNI152NLin6Asym and MNI152NLin2009cAsym.
         - fmri_rest_surf_files: File - pre-processed rfMRI CIFTI surfaces:

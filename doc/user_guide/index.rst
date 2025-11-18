@@ -41,32 +41,37 @@ Analysis Levels
 ---------------
 
 1. **Subject-Level Analysis**
-   - Data is organized per individual subject.
-   - Root directory: `subjects/`.
-   - Each subject has a dedicated subdirectory named using a unique
-     identifier (e.g., `sub-001`, `sub-002`).
-   - Within each subject directory, session-specific data is stored in
-     subdirectories following the BIDS convention (e.g., `ses-01`, `ses-02`).
-   - Example path: `subjects/sub-001/ses-01/`.
+
+- Data is organized per individual subject.
+- Root directory: `subjects/`.
+- Each subject has a dedicated subdirectory named using a unique
+  identifier (e.g., `sub-001`, `sub-002`).
+- Within each subject directory, session-specific data is stored in
+  subdirectories following the BIDS convention (e.g., `ses-01`, `ses-02`).
+- Example path: `subjects/sub-001/ses-01/`.
 
 2. **Group-Level Analysis**
-   - Data is aggregated across subjects for group-level processing.
-   - Root directory: `qc/`, `morphometry/`, `statistic/`.
-   - Each group-level analysis type has its own named directory:
-     - `qc/` for quality control metrics.
-     - `morphometry/` for structural measurements.
-     - `statistic/` for statistical outputs.
-   - These directories contain results derived from multiple subjects and
-     sessions, often in tabular or summary formats.
+
+- Data is aggregated across subjects for group-level processing.
+- Root directory: `qc/`, `morphometry/`, `statistic/`.
+- Each group-level analysis type has its own named directory:
+
+  - `qc/` for quality control metrics.
+  - `morphometry/` for structural measurements.
+  - `statistic/` for statistical outputs.
+
+- These directories contain results derived from multiple subjects and
+  sessions, often in tabular or summary formats.
 
 3. **Longitudinal Analysis**
-   - Data is structured to support longitudinal studies across multiple
-     timepoints.
-   - Root directory: `longitudinal/`.
-   - Contains subject-wise data aggregated across sessions and timepoints.
-   - May include harmonized metrics, trajectory models, or longitudinal
-     statistical outputs.
-   - Example path: `longitudinal/subject/sub-001/ses-01/`.
+
+- Data is structured to support longitudinal studies across multiple
+  timepoints.
+- Root directory: `longitudinal/`.
+- Contains subject-wise data aggregated across sessions and timepoints.
+- May include harmonized metrics, trajectory models, or longitudinal
+  statistical outputs.
+- Example path: `longitudinal/subject/sub-001/ses-01/`.
 
 Metadata and Logs
 -----------------

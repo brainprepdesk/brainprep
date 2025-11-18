@@ -77,6 +77,7 @@ def brainprep_quasiraw(
     -------
     Bunch
         A dictionary-like object containing:
+
         - aligned_anatomical_file : File - path to the aligned anatomical
           image - a Nifti file with the suffix "_T1w".
         - aligned_mask_file : File - path to the aligned mask image - a
@@ -255,6 +256,7 @@ def brainprep_group_quasiraw(
     -------
     Bunch
         A dictionary-like object containing:
+
         - correlations_file : File - a TSV file containing mean correlation
           of each input image to the atlas image.
         - correlation_histogram_file : File - PNG file containing the

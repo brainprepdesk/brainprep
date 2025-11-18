@@ -51,7 +51,6 @@ def reorient(
     command : list[str]
         Reorientation command-line.
     outputs : tuple[File]
-        The following output files:
         - reorient_image_file : File - Reoriented input image file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-T1w_reorient".format(
@@ -94,7 +93,6 @@ def deface(
     command : list[str]
         Defacing command-line.
     outputs : tuple[File | list[File]]
-        The following output files:
         - deface_file : File - Defaced input T1w image file.
         - mask_file : File - Defacing binary mask.
         - vol_files : list[File] - Defacing 3d rendering.
@@ -160,7 +158,6 @@ def applymask(
     command : list[str]
         Masking command-line.
     outputs : tuple[File]
-        The following output files:
         - masked_image_file : File - masked input image file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_applymask".format(
@@ -207,7 +204,6 @@ def scale(
     command : list[str]
         Scaling command-line.
     outputs : tuple[File]
-        The following output files:
         - scaled_anatomical_file : File - Scaled input image file.
         - transform_file : File - The associated transformation file.
     """
@@ -259,7 +255,6 @@ def affine(
     command : list[str]
         Registration command-line.
     outputs : tuple[File]
-        The following output files:
         - aligned_anatomical_file : File - Aligned input image file.
         - transform_file : File - The affine transformation file.
     """
@@ -323,7 +318,6 @@ def applyaffine(
     command : list[str]
         Alignment command-line.
     outputs : tuple[File]
-        The following output files:
         - aligned_image_file : File - Aligned input image file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_applyaffine".format(

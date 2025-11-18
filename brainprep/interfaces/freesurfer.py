@@ -69,7 +69,6 @@ def brainmask(
     command : list[str]
         Skull-stripping command-line.
     outputs : tuple[File]
-        The following output files:
         - mask_file : File - Skull-stripped brain image file.
 
     References
@@ -135,7 +134,6 @@ def reconall(
     command : list[str]
         Brain parcellation command-line.
     outputs : tuple[File]
-        The following output files:
         - log_file : File - Generated log file.
 
     References
@@ -205,7 +203,6 @@ def reconall_longitudinal(
     command : list[str]
         Brain parcellation command-line.
     outputs : tuple[File | list[File]]
-        The following output files:
         - log_template_file : File - Generated log file for the template
           creation step.
         - log_files : list[File] - Generated log files for the parcellation
@@ -390,7 +387,6 @@ def localgi(
     command : list[str]
         LocalGI command-line.
     outputs : tuple[File]
-        The following output files:
         - left_lgi_file : File - The generated left hemisphere localGI file.
         - right_lgi_file : File - The generated right hemisphere localGI file.
 
@@ -442,7 +438,6 @@ def surfreg(
     command : list[str]
         Registration command-line.
     outputs : tuple[File]
-        The following output files:
         - left_reg_file : File - Left hemisphere registered to `fsaverage_sym`
           symmetric template.
         - right_reg_file : File - Right hemisphere registered to
@@ -501,7 +496,6 @@ def xhemireg(
     command : list[str]
         Mapping command-line.
     outputs : tuple[File]
-        The following output files:
         - left_log_file : File - The log of the left to right registration
           process.
         - right_log_file : File - The log of the right to left registration
@@ -633,7 +627,6 @@ def mris_apply_reg(
     command : list[str]
         Apply registration command-line.
     outputs : tuple[File]
-        The following output files:
         - trg_file : File - Target cortical features.
     """
     command = [
@@ -770,7 +763,6 @@ def mri_convert(
     command : list[str]
         Conversion command-line.
     outputs : tuple[File]
-        The following output files:
         - trg_file : File - Target image.
     """
     command = [
@@ -876,7 +868,6 @@ def aparcstats2table(
     command : list[str]
         Summary command-line.
     outputs : tuple[File]
-        The following output files:
         - desikan_stat_file : File - Desikan template cortical features
           summary.
         - destrieux_stat_file : File - Destrieux template cortical features
@@ -943,7 +934,6 @@ def asegstats2table(
     command : list[str]
         Summary command-line.
     outputs : tuple[File]
-        The following output files:
         - volume_stat_file : File - Volumetric subcortical brain structure
           features summary.
     """
@@ -1069,6 +1059,8 @@ def freesurfer_euler_numbers(
         euler_threshold: int = -217,
         dryrun: bool = False) -> tuple[File]:
     """
+    FreeSurfer quality control.
+
     Parse the FreeSurfer's Euler numbers for all subjects and applies the
     quality control described in :footcite:p:`rosen2018euler`.
 
@@ -1155,10 +1147,12 @@ def freesurfer_tissues(
     segmentations.
 
     Ribbon-based structures:
+
     - WM - Left/Right Cerebral White Matter.
     - GM - Left/Right Cerebral Cortex.
 
     wmparc-based structures:
+
     - CC - Fornix, CC-Posterior, CC-Mid-Posterior, CC-Central,
       CC-Mid-Anterior, CC-Anterior.
     - CSF - Left-Lateral-Ventricle, Left-Inf-Lat-Vent,

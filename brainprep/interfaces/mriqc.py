@@ -51,7 +51,6 @@ def subject_level_qa(
     command : list[str]
         Cross sectional quality analysis command-line.
     outputs : tuple[File | list[File]]
-        The following output files:
         - iqm_files : list[File] - IQM files.
     """
     rawdata_dir = image_files[0].parent.parent.parent.parent
@@ -110,7 +109,6 @@ def group_level_qa(
     command : list[str]
         Group quality analysis command-line.
     outputs : tuple[File | list[File]]
-        The following output files:
         - iqm_files : list[File] - Group IQM files.
     """
     rawdata_dir = output_dir.parent.parent / "rawdata"

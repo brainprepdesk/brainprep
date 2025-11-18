@@ -66,6 +66,7 @@ def brainprep_vbm(
     -------
     Bunch
         A dictionary-like object containing:
+
         - gm_file : File - path to the NIIGZ modulated, normalized gray matter
           segmentation of the input T1-weighted MRI image.
         - qc_file : File - path to the PDF visual report.
@@ -145,6 +146,7 @@ def brainprep_longitudinal_vbm(
     -------
     Bunch
         A dictionary-like object containing:
+
         - gm_files : list[File] - path to the NIIGZ modulated, normalized gray
           matter segmentations of the input T1-weighted MRI images.
         - qc_files : list[File] - path to the PDF visual reports.
@@ -215,6 +217,7 @@ def brainprep_group_vbm(
        quality metrics.
 
     The following quuality metrics are considered:
+
     - Image Correlation Ratio (ICR) - Measures how well the subject's image
       aligns with a reference template. High ICR suggests good
       registration quality.
@@ -245,6 +248,7 @@ def brainprep_group_vbm(
     -------
     Bunch
         A dictionary-like object containing:
+
         - morphometry_files : list[File] - a TSV file containing ROI-based
           GM, WM and CSF features for different atlases.
         - correlations_file : File - a TSV file containing mean correlation

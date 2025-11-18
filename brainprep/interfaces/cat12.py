@@ -55,7 +55,7 @@ def cat12vbm_wf(
 
     Parameters
     ----------
-    t1_files: list[File]
+    t1_files : list[File]
         Path to the T1 files.
     batch_file : File
         Path to the ready for execution CAT12 batch file
@@ -70,7 +70,6 @@ def cat12vbm_wf(
     command : list[str]
        Pre-processing command-line.
     outputs : tuple[File | list[File]]
-        The following output files:
         - gm_files : list[File] - Path to the modulated, normalized gray
           matter segmentations of the input T1-weighted MRI images.
         - qc_files : list[File] - Visual reports.
@@ -298,6 +297,7 @@ def cat12vbm_stats(
     quality control.
 
     The following quuality metrics are considered:
+
     - Image Correlation Ratio (ICR) - Measures how well the subject's image
       aligns with a reference template. High ICR suggests good
       registration quality.

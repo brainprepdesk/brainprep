@@ -82,7 +82,6 @@ def prequal_wf(
     command : list[str]
        Pre-processing command-line.
     outputs : tuple[File]
-        The following output files:
         - dwi_file : File - Path to the pre-processed diffusion weighted image.
         - bvec_file : File - Path to the pre-processed bvec file.
         - bval_file : File - Path to the pre-processed bval file.

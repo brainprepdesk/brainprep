@@ -70,6 +70,7 @@ def brainprep_defacing(
     -------
     Bunch
         A dictionary-like object containing:
+
         - deface_t1_file : File — path to the defaced image.
         - mask_file : File — path to the defacing mask.
         - snap_files : list[File] — paths to defacing snapshots.
