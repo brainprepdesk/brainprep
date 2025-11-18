@@ -105,9 +105,9 @@ def brainprep_fmriprep(
     output_dir : Directory
         Directory where the prep-processing related outputs will be saved
         (i.e., the root of your dataset).
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------

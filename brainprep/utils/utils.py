@@ -13,6 +13,7 @@ Module that contains some utility functions.
 import inspect
 import json
 import re
+from collections.abc import Callable, Iterable
 from pathlib import Path
 from typing import (
     Any,
@@ -31,8 +32,15 @@ from ..typing import (
 
 
 @decorator
-def bids(func, process=None, bids_file=None, container=None,
-         add_subjects=False, longitudinal=False, *args, **kw):
+def bids(
+        func: Callable,
+        process: str | None = None,
+        bids_file: File | Iterable[File] | None = None,
+        container: str | None = None,
+        add_subjects: bool = False,
+        longitudinal: bool = False,
+        *args: Any,
+        **kw: Any) -> Callable:
     """
     BIDS specification.
 
@@ -44,29 +52,31 @@ def bids(func, process=None, bids_file=None, container=None,
 
     Parameters
     ----------
-    func : callable
+    func : Callable
         The function to be decorated.
-    process : str
-        Name of the processing pipeline (e.g., 'fmriprep', 'custom').
-    bids_file : Union[File,Iterable[File]]
+    process : str | None
+        Name of the processing pipeline (e.g., 'fmriprep', 'custom'). Default
+        None.
+    bids_file : File |Iterable[File] | None
         Name of the argument in the function that contains the BIDS file path.
-    container : str
+        Default None.
+    container : str | None
         The name of the container (e.g., Docker image) used to run the
-        pipeline.
-    add_subjects : bool, default False
+        pipeline. Default None.
+    add_subjects : bool
         If True, add a 'subjects' upper level directory in the output
-        directory, for instance to regroup subject level data.
-    longitudinal : bool, default False
+        directory, for instance to regroup subject level data. Default False.
+    longitudinal : bool
         If True, add a 'longitudinal' upper level directory in the output
-        directory.
-    *args : tuple
+        directory. Default False.
+    *args : Any
         Positional arguments passed to `func`.
-    **kw : dict
+    **kw : Any
         Keyword arguments passed to `func`.
 
     Returns
     -------
-    wrapper : function
+    wrapper : Callable
         A wrapped function with computed 'output_dir' injected.
 
     Raises
@@ -145,7 +155,10 @@ def bids(func, process=None, bids_file=None, container=None,
 
 
 @decorator
-def outputdir(func, *args, **kw):
+def outputdir(
+        func: Callable,
+        *args: Any,
+        **kw: Any) -> Callable:
     """
     Output directory creation.
 
@@ -153,16 +166,16 @@ def outputdir(func, *args, **kw):
 
     Parameters
     ----------
-    func : callable
+    func : Callable
         The function to be decorated.
-    *args : tuple
+    *args : Any
         Positional arguments passed to `func`.
-    **kw : dict
+    **kw : Any
         Keyword arguments passed to `func`.
 
     Returns
     -------
-    wrapper : function
+    wrapper : Callable
         A wrapped function with the 'output_dir' created on disk.
 
     Raises
@@ -183,22 +196,25 @@ def outputdir(func, *args, **kw):
 
 
 @decorator
-def coerceparams(func, *args, **kw):
+def coerceparams(
+        func: Callable,
+        *args: Any,
+        **kw: Any) -> Callable:
     """
     Converts arguments typed as `File` or `Directory` to `pathlib.Path`.
 
     Parameters
     ----------
-    func : callable
+    func : Callable
         The function to be decorated.
-    *args : tuple
+    *args : Any
         Positional arguments passed to `func`.
-    **kw : dict
+    **kw : Any
         Keyword arguments passed to `func`.
 
     Returns
     -------
-    wrapper : function
+    wrapper : Callable
         A wrapped function with the 'File' and 'Directory' arguments properly
         typed.
 
@@ -345,9 +361,8 @@ def sidecar_from_file(
     Raises
     ------
     ValueError
-        If the input file does not have a `.nii.gz` extension.
-    ValueError
-        If the corresponding JSON sidecar file does not exist.
+        If the input file does not have a `.nii.gz` extension or if the
+        corresponding JSON sidecar file does not exist.
 
     Examples
     --------

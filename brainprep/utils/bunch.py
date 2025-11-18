@@ -8,7 +8,13 @@
 # SPDX-License-Identifier: BSD-3-Clause
 ##########################################################################
 
+"""
+An extension of dictionaries by enabling values to be accessed by a key or by
+an attribute.
+"""
+
 import warnings
+from typing import Any
 
 
 class Bunch(dict):
@@ -17,6 +23,11 @@ class Bunch(dict):
     Bunch objects are sometimes used as an output for functions and methods.
     They extend dictionaries by enabling values to be accessed by key,
     `bunch["value_key"]`, or by an attribute, `bunch.value_key`.
+
+    Parameters
+    ----------
+    **kwargs : Any
+        Passed to dictionary contructor.
 
     Examples
     --------
@@ -34,7 +45,7 @@ class Bunch(dict):
     6
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any):
         super().__init__(kwargs)
 
         # Map from deprecated key to warning message

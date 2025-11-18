@@ -44,7 +44,7 @@ def prequal_wf(
         bval_file: File,
         workspace_dir: Directory,
         output_dir: Directory,
-        entities: dict) -> tuple[list[str], tuple[list[File]]]:
+        entities: dict) -> tuple[list[str], tuple[File]]:
     """
     Diffusion MRI pre-processing.
 
@@ -81,14 +81,17 @@ def prequal_wf(
     -------
     command : list[str]
        Pre-processing command-line.
-    dwi_file : File
-        Path to the pre-processed diffusion weighted image.
-    bvec_file : File
-        Path to the pre-processed bvec file.
-    bval_file : File
-        Path to the pre-processed bval file.
-    qc_file : File
-        Visual report.
+    outputs : tuple[File]
+        The following output files:
+        - dwi_file : File - Path to the pre-processed diffusion weighted image.
+        - bvec_file : File - Path to the pre-processed bvec file.
+        - bval_file : File - Path to the pre-processed bval file.
+        - qc_file : File - Visual report.
+
+    Raises
+    ------
+    ValueError
+        If an invalid phase encoding is specified.
 
     Notes
     -----
@@ -156,8 +159,8 @@ def prequal_wf(
 def prequal_stats(
         output_dir: Directory,
         bundles: list[str],
-        lower_fa_threshold: int = 0.3,
-        upper_fa_threshold: int = 0.75,
+        lower_fa_threshold: float = 0.3,
+        upper_fa_threshold: float = 0.75,
         dryrun: bool = False) -> tuple[File]:
     """
     Parse the Prequal's stats for all subjects and applies a
@@ -167,14 +170,16 @@ def prequal_stats(
     ----------
     output_dir : Directory
         Working directory containing the outputs.
-    bundles : str
+    bundles : list[str]
         Bundle names as define in PreQual.
-    lower_fa_threshold : float, default 0.3
+    lower_fa_threshold : float
         Quality control lower threshold on the fractional anisotropy (FA).
-    upper_fa_threshold : float, default 0.75
+        Default 0.3.
+    upper_fa_threshold : float
         Quality control upper threshold on the fractional anisotropy (FA).
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+        Default 0.75.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------

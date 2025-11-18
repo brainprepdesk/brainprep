@@ -12,7 +12,6 @@ FSL functions.
 """
 
 from pathlib import Path
-from typing import Union
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -51,8 +50,9 @@ def reorient(
     -------
     command : list[str]
         Reorientation command-line.
-    reorient_image_file : File
-        Reoriented input image file.
+    outputs : tuple[File]
+        The following output files:
+        - reorient_image_file : File - Reoriented input image file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-T1w_reorient".format(
         **entities)
@@ -75,7 +75,7 @@ def reorient(
 def deface(
         t1_file: File,
         output_dir: Directory,
-        entities: dict) -> tuple[list[str], tuple[Union[File, list[File]]]]:
+        entities: dict) -> tuple[list[str], tuple[File | list[File]]]:
     """
     Defaces a BIDS-compliant T1-weighted anatomical image using FSL's
     `fsl_deface`.
@@ -93,12 +93,11 @@ def deface(
     -------
     command : list[str]
         Defacing command-line.
-    deface_file : File
-        Defaced input T1w image file.
-    mask_file : File
-        Defacing binary mask.
-    vol_files : list[File]
-        Defacing 3d rendering.
+    outputs : tuple[File | list[File]]
+        The following output files:
+        - deface_file : File - Defaced input T1w image file.
+        - mask_file : File - Defacing binary mask.
+        - vol_files : list[File] - Defacing 3d rendering.
 
     Raises
     ------
@@ -160,8 +159,9 @@ def applymask(
     -------
     command : list[str]
         Masking command-line.
-    masked_image_file : File
-        masked input image file.
+    outputs : tuple[File]
+        The following output files:
+        - masked_image_file : File - masked input image file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_applymask".format(
         **entities)
@@ -206,10 +206,10 @@ def scale(
     -------
     command : list[str]
         Scaling command-line.
-    scaled_anatomical_file : File
-        Scaled input image file.
-    transform_file : File
-        The associated transformation file.
+    outputs : tuple[File]
+        The following output files:
+        - scaled_anatomical_file : File - Scaled input image file.
+        - transform_file : File - The associated transformation file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_scale".format(
         **entities)
@@ -245,7 +245,7 @@ def affine(
 
     Parameters
     ----------
-    image_file : File
+    anatomical_file : File
         Path to the input image file.
     template_file: File
         Path to the image file defining the template space.
@@ -258,10 +258,10 @@ def affine(
     -------
     command : list[str]
         Registration command-line.
-    aligned_anatomical_file : File
-        Aligned input image file.
-    transform_file : File
-        The affine transformation file.
+    outputs : tuple[File]
+        The following output files:
+        - aligned_anatomical_file : File - Aligned input image file.
+        - transform_file : File - The affine transformation file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_affine".format(
         **entities)
@@ -314,16 +314,17 @@ def applyaffine(
         Directory where the aligned image will be saved.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    interpolation: str, default 'spline'
+    interpolation: str
         The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or
-        'spline'.
+        'spline'. Default 'spline'.
 
     Returns
     -------
     command : list[str]
         Alignment command-line.
-    aligned_image_file : File
-        Aligned input image file.
+    outputs : tuple[File]
+        The following output files:
+        - aligned_image_file : File - Aligned input image file.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_applyaffine".format(
         **entities)

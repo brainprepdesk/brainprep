@@ -45,7 +45,7 @@ from ..utils import (
 def brainprep_vbm(
         t1_file: File,
         output_dir: Directory,
-        keep_intermediate: bool = False):
+        keep_intermediate: bool = False) -> Bunch:
     """
     Voxel based morphometry (VBM) pre-processing.
 
@@ -58,9 +58,9 @@ def brainprep_vbm(
         Path to the t1 image.
     output_dir : Directory
         Path to the output directory.
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
@@ -70,6 +70,11 @@ def brainprep_vbm(
           segmentation of the input T1-weighted MRI image.
         - qc_file : File - path to the PDF visual report.
         - batch_file : File - path to the CAT12 batch file.
+
+    Raises
+    ------
+    ValueError
+        If the T1w file do not follow BIDS convension.
 
     References
     ----------
@@ -116,7 +121,7 @@ def brainprep_longitudinal_vbm(
         t1_files: list[File],
         model: int,
         output_dir: Directory,
-        keep_intermediate: bool = False):
+        keep_intermediate: bool = False) -> Bunch:
     """
     Longitudinal voxel based morphometry (VBM) pre-processing.
 
@@ -125,16 +130,16 @@ def brainprep_longitudinal_vbm(
 
     Parameters
     ----------
-    t1_file : File
+    t1_files : list[File]
         Path to the t1 image.
     model : int
         Longitudinal model choice: 1  short time (weeks), 2 long time (years)
         between images sessions.
     output_dir : Directory
         Path to the output directory.
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
@@ -144,6 +149,11 @@ def brainprep_longitudinal_vbm(
           matter segmentations of the input T1-weighted MRI images.
         - qc_files : list[File] - path to the PDF visual reports.
         - batch_file : File - path to the CAT12 batch file.
+
+    Raises
+    ------
+    ValueError
+        If the T1w file do not follow BIDS convension.
 
     References
     ----------
@@ -219,17 +229,17 @@ def brainprep_group_vbm(
     ----------
     output_dir : Directory
         Working directory containing all the subjects.
-    ncr_threshold : float, default 4.5
-         Quality control threshold on the NCR scores.
-    iqr_threshold : float, default 4.5
-         Quality control threshold on the IQR scores.
-    correlation_threshold : float, default 0.5
-        Quality control threshold on the correlation score.
-    longitudinal : bool, default False
-        If True, consider the longitudinal data as inputs.
-    keep_intermediate : bool, default False
+    ncr_threshold : float
+         Quality control threshold on the NCR scores. Default 4.5.
+    iqr_threshold : float
+         Quality control threshold on the IQR scores. Default 4.5.
+    correlation_threshold : float
+        Quality control threshold on the correlation score. Default 0.5.
+    longitudinal : bool
+        If True, consider the longitudinal data as inputs.  Default False.
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------

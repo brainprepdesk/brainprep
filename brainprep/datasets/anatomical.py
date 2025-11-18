@@ -11,7 +11,6 @@ Fetcher to download anatomical data.
 """
 
 import json
-from typing import Optional
 
 from ..typing import (
     Directory,
@@ -35,10 +34,15 @@ class AnatomicalDataset:
     patients with corresponding ground truth segmentations of white matter
     lesion changes.
 
+    Parameters
+    ----------
+    datadir : Directory
+        Directory where data will be stored.
+
     Attributes
     ----------
-    datadir: Directory
-        Directory where data will be stored.
+    _url : str
+        Internal URL used to fetch data.
 
     Examples
     --------
@@ -61,19 +65,13 @@ class AnatomicalDataset:
       anat: PosixPath('...')
     )
 
-
-    Raises
-    ------
-    ValueError
-        If an invalid data type, modality or subject is passed to the
-        :meth:`~brainprep.datasets.AnatomicalDataset.fetch` method.
-
     References
     ----------
 
     .. footbibliography::
     """
-    _url = (
+
+    _url: str = (
         "https://raw.githubusercontent.com/muschellij2/open_ms_data/refs/"
         "heads/master/{dtype}/raw/patient{subject}/{basename}.nii.gz"
     )
@@ -81,8 +79,6 @@ class AnatomicalDataset:
     def __init__(
             self,
             datadir: Directory) -> None:
-        """ Init class.
-        """
         self.datadir = datadir
         self.allowed_dtypes = [
             "cross_sectional",
@@ -106,23 +102,24 @@ class AnatomicalDataset:
             self,
             subject: str,
             modality: str,
-            dtype: Optional[str] = "cross_sectional") -> Bunch:
+            dtype: str = "cross_sectional") -> Bunch:
         """ Fetch data.
 
         Parameters
         ----------
-        subject: str
+        subject : str
             the subject identifier. This identifier must lie in ['01' - '30'],
             ['01' - '20'], for cross sectional or longitudinal data
             respectively.
-        modality: str
+        modality : str
             the modality to be fetched: 'T1w', 'T2w' or 'FLAIR'.
-        dtype: str, default 'cross_sectional'
+        dtype : str
             the type of data to download: 'cross_sectional' or 'longitudinal'.
+            Default 'cross_sectional'.
 
         Returns
         -------
-        dataset: Bunch
+        dataset : Bunch
             the fetched data path. Keys are either 'sub-{subject}' or
             'sub-{subject}_ses-{timepoint}' for cross sectional and
             longitudinal data, respectively. A 'description' entry is
@@ -195,24 +192,25 @@ class AnatomicalDataset:
             self,
             subject: str,
             modality: str,
-            dtype: Optional[str] = "cross_sectional") -> bool:
+            dtype: str = "cross_sectional") -> None:
         """ Check that the fetch parameters are correct.
 
         Parameters
         ----------
-        subject: str
+        subject : str
             the subject identifier. This identifier must lie in ['01' - '30'],
             ['01' - '20'], for cross sectional or longitudinal data
             respectively.
-        modality: str
+        modality : str
             the modality to be fetched: 'T1w', 'T2w' or 'FLAIR'.
-        dtype: str, default 'cross_sectional'
+        dtype : str
             the type of data to download: 'cross_sectional' or 'longitudinal'.
+            Default 'cross_sectional'
 
-        Returns
-        -------
-        valid: bool
-            the data integrity status.
+        Raises
+        ------
+        ValueError
+            If the fetch input parameters are not correct.
         """
         if dtype not in self.allowed_dtypes:
             raise ValueError("Unexpected data type.")

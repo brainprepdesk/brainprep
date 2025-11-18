@@ -87,7 +87,8 @@ class Config:
     - Options are scoped to the `with` block and automatically restored
       afterward.
     """
-    def __init__(self, **options):
+
+    def __init__(self, **options: dict):
         self.token = None
         self.options = options
 

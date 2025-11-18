@@ -27,6 +27,11 @@ def git_download(
         Direct URL to the raw data file on GitHub.
     destination: Path
         Path to the saved data file.
+
+    Raises
+    ------
+    ValueError
+        If the URL does not point to 'raw.githubusercontent.com'.
     """
     # Ensure it's a raw GitHub URL
     if "raw.githubusercontent.com" not in url:

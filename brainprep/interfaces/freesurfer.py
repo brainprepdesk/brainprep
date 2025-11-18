@@ -14,7 +14,6 @@ FreeSurfer functions.
 import glob
 import itertools
 import os
-from typing import Optional
 
 import nibabel
 import numpy as np
@@ -69,8 +68,9 @@ def brainmask(
     -------
     command : list[str]
         Skull-stripping command-line.
-    mask_file : File
-        Skull-stripped brain image file.
+    outputs : tuple[File]
+        The following output files:
+        - mask_file : File - Skull-stripped brain image file.
 
     References
     ----------
@@ -100,8 +100,8 @@ def reconall(
         t1_file: File,
         output_dir: Directory,
         entities: dict,
-        t2_file: Optional[File] = None,
-        flair_file: Optional[File] = None,
+        t2_file: File | None = None,
+        flair_file: File | None = None,
         resume: bool = False) -> tuple[list[str], tuple[File]]:
     """
     Brain parcellation using FreeSurfer's `recon-all`.
@@ -120,20 +120,23 @@ def reconall(
         FreeSurfer working directory containing all the subjects.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    t2_file : Optional[File], default None
+    t2_file : File | None
         Path to the input T2w image file - used to improve the pial surface.
-    flair_file : Optional[File], default None
+        Default None.
+    flair_file : File | None
         Path to the input FLAIR image file - used to improve the pial surface.
-    resume : bool, default False
+        Default None.
+    resume : bool
         If True, try to resume `recon-all`. This option is particularly useful
-        when a custom segmentation is used in `recon-all`.
+        when a custom segmentation is used in `recon-all`. Default False.
 
     Returns
     -------
     command : list[str]
         Brain parcellation command-line.
-    log_file : File
-        Generated log file.
+    outputs : tuple[File]
+        The following output files:
+        - log_file : File - Generated log file.
 
     References
     ----------
@@ -175,7 +178,7 @@ def reconall(
 def reconall_longitudinal(
         workspace_dir: Directory,
         output_dir: Directory,
-        entities: dict) -> tuple[list[str], tuple[File]]:
+        entities: dict) -> tuple[list[str], tuple[File | list[File]]]:
     """
     Longitudinal brain parcellation using FreeSurfer's `recon-all`.
 
@@ -201,10 +204,12 @@ def reconall_longitudinal(
     -------
     command : list[str]
         Brain parcellation command-line.
-    log_template_file : File
-        Generated log file for the template creation step.
-    log_files : list[File]
-        Generated log files for the parcellation refinements.
+    outputs : tuple[File | list[File]]
+        The following output files:
+        - log_template_file : File - Generated log file for the template
+          creation step.
+        - log_files : list[File] - Generated log files for the parcellation
+          refinements.
 
     Raises
     ------
@@ -215,7 +220,7 @@ def reconall_longitudinal(
     subjects, sessions, runs = zip(*[
         (info["sub"], info["ses"], info["run"])
         for info in entities
-    ])
+    ], strict=True)
     unique_subjects = set(subjects)
     if len(unique_subjects) != 1:
         raise ValueError(
@@ -224,7 +229,7 @@ def reconall_longitudinal(
     subject = subjects[0]
 
     workspace_subjects = []
-    for sub, ses, run in zip(subjects, sessions, runs):
+    for sub, ses, run in zip(subjects, sessions, runs, strict=True):
         source_dir = (
             output_dir.parent.parent.parent /
             "subjects" /
@@ -302,8 +307,8 @@ def freesurfer_command_status(
     command : str
         The name of the command-line that produces the log file - used as
         a selector to define the success phrase.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Raises
     ------
@@ -384,10 +389,10 @@ def localgi(
     -------
     command : list[str]
         LocalGI command-line.
-    left_lgi_file : File
-        The generated left hemisphere localGI file.
-    right_lgi_file : File
-        The generated right hemisphere localGI file.
+    outputs : tuple[File]
+        The following output files:
+        - left_lgi_file : File - The generated left hemisphere localGI file.
+        - right_lgi_file : File - The generated right hemisphere localGI file.
 
     References
     ----------
@@ -436,11 +441,12 @@ def surfreg(
     -------
     command : list[str]
         Registration command-line.
-    left_reg_file : File
-        Left hemisphere registered to `fsaverage_sym` symmetric template
-    right_reg_file : File
-        Right hemisphere registered to `fsaverage_sym` symmetric template
-        via xhemi.
+    outputs : tuple[File]
+        The following output files:
+        - left_reg_file : File - Left hemisphere registered to `fsaverage_sym`
+          symmetric template.
+        - right_reg_file : File - Right hemisphere registered to
+          `fsaverage_sym` symmetric template via xhemi.
     """
     subject = f"run-{entities['run']}"
     left_reg_file = (
@@ -494,10 +500,12 @@ def xhemireg(
     -------
     command : list[str]
         Mapping command-line.
-    left_log_file : File
-        The log of the left to right registration process.
-    right_log_file : File
-        The log of the right to left registration process.
+    outputs : tuple[File]
+        The following output files:
+        - left_log_file : File - The log of the left to right registration
+          process.
+        - right_log_file : File - The log of the right to left registration
+          process.
     """
     subject = f"run-{entities['run']}"
     left_log_file = output_dir / subject / "xhemi" / "xhemireg.lh.log"
@@ -518,7 +526,7 @@ def xhemireg(
 def fsaveragesym_surfreg(
         template_dir: Directory,
         output_dir: Directory,
-        entities: dict) -> tuple[File]:
+        entities: dict) -> tuple[File, File]:
     """
     Interhemispheric surface-based registration using the `fsaverage_sym`
     template, and FreeSurfer's `xhemireg` and `surfreg`.
@@ -624,8 +632,9 @@ def mris_apply_reg(
     -------
     command : list[str]
         Apply registration command-line.
-    trg_file : File
-        Target cortical features.
+    outputs : tuple[File]
+        The following output files:
+        - trg_file : File - Target cortical features.
     """
     command = [
         "mris_apply_reg",
@@ -674,12 +683,12 @@ def fsaveragesym_projection(
         FreeSurfer working directory containing all the subjects.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
-    features: tuple
+    features: tuple[File]
         A tuple containing features in the `fsaverage_sym` symmetric template.
         Each feature file is a MGH file with the suffix "fsaverage_sym". The
         features are returned in the following order:
@@ -760,8 +769,9 @@ def mri_convert(
     -------
     command : list[str]
         Conversion command-line.
-    trg_file : File
-        Target image.
+    outputs : tuple[File]
+        The following output files:
+        - trg_file : File - Target image.
     """
     command = [
         "mri_convert",
@@ -804,7 +814,7 @@ def mgz_to_nii(
 
     Returns
     -------
-    images: tuple
+    images: tuple[File]
         A tuple containing converted images. The images are returned in the
         following order:
         - aparc_aseg_file
@@ -865,10 +875,12 @@ def aparcstats2table(
     -------
     command : list[str]
         Summary command-line.
-    desikan_stat_file : File
-        Desikan template cortical features summary.
-    destrieux_stat_file : File
-        Destrieux template cortical features summary.
+    outputs : tuple[File]
+        The following output files:
+        - desikan_stat_file : File - Desikan template cortical features
+          summary.
+        - destrieux_stat_file : File - Destrieux template cortical features
+          summary.
     """
     desikan_stat_file = (
         output_dir /
@@ -912,7 +924,7 @@ def aparcstats2table(
 def asegstats2table(
         subjects: list[str],
         session: str,
-        output_dir: File) -> tuple[list[str], tuple[File]]:
+        output_dir: Directory) -> tuple[list[str], tuple[File]]:
     """
     Summarizes the volumetric data for subcortical brain structures
     'aseg.stats' using FreeSurfer's `asegstats2table`.
@@ -930,8 +942,10 @@ def asegstats2table(
     -------
     command : list[str]
         Summary command-line.
-    volume_stat_file : File
-        Volumetric subcortical brain structure features summary.
+    outputs : tuple[File]
+        The following output files:
+        - volume_stat_file : File - Volumetric subcortical brain structure
+          features summary.
     """
     volume_stat_file = output_dir / f"aseg_ses-{session}_stats.csv"
 
@@ -980,7 +994,7 @@ def freesurfer_features_summary(
 
     Returns
     -------
-    statfiles: tuple
+    statfiles: tuple[File]
         A tuple containing FreeSurfer summary stats. The data are returned in
         the following order (the results for each timepoint are stacked):
         - desikan_stat_lh_<meas>_file
@@ -1000,10 +1014,11 @@ def freesurfer_features_summary(
     subjects, sessions, runs = zip(*[
         item.lstrip(os.sep).split(os.sep)[-4:-1]
         for item in stats_dirs
-    ])
+    ], strict=True)
     unique_sessions = set(sessions)
 
-    for sub, ses, run, source_dir in zip(subjects, sessions, runs, stats_dirs):
+    for sub, ses, run, source_dir in zip(
+            subjects, sessions, runs, stats_dirs, strict=True):
         target_dir = workspace_dir / ses / f"{sub}_{run}"
         target_dir.parent.mkdir(parents=True, exist_ok=True)
         if not target_dir.is_symlink():
@@ -1061,10 +1076,10 @@ def freesurfer_euler_numbers(
     ----------
     output_dir : Directory
         FreeSurfer working directory containing all the subjects.
-    euler_threshold : int, default -217
-        Quality control threshold on the Euler number.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    euler_threshold : int
+        Quality control threshold on the Euler number. Default 217.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
@@ -1133,7 +1148,7 @@ def freesurfer_tissues(
         output_dir: Directory,
         entities: dict,
         include_cerebellum: bool = False,
-        dryrun: bool = False) -> tuple[File]:
+        dryrun: bool = False) -> tuple[File, File, File, File]:
     """
     Binary masks for white matter (WM), gray matter (GM), cerebrospinal
     fluid (CSF), and whole brain based on FreeSurfer ribbon and wmparc
@@ -1166,10 +1181,10 @@ def freesurfer_tissues(
         FreeSurfer working directory containing all the subjects.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    include_cerebellum : bool, default False
-        If False, omit cerebellum and brain stem.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    include_cerebellum : bool
+        If False, omit cerebellum and brain stem. Default False.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------

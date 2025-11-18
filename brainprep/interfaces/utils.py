@@ -59,10 +59,10 @@ def mask_diff(
         Directory where the defacing mask will be saved.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    threshold : float, default 0.6
-        Threshold for intensity difference to define the mask.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    threshold : float
+        Threshold for intensity difference to define the mask. Default 0.6.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
@@ -107,12 +107,13 @@ def copyfiles(
         Path to the locations where images will be copied.
     output_dir : Directory
         Directory where the images are copied.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
     """
     if not dryrun:
         for src_path, dest_path in zip(source_image_files,
-                                       destination_image_files):
+                                       destination_image_files,
+                                       strict=True):
             shutil.copy(src_path, dest_path)
 
 
@@ -135,10 +136,10 @@ def movedir(
         Path to the directory to be moved.
     output_dir : Directory
         Directory where the folder is moved.
-    content : bool, default False
-        If True, copy only the content of the source directory.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    content : bool
+        If True, copy only the content of the source directory. Default False.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
@@ -192,8 +193,8 @@ def ungzfile(
         Path to the ungzip file.
     output_dir : Directory
         Directory where the unzip file is created.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
@@ -241,10 +242,10 @@ def mean_correlation(
     output_dir : Directory
         Directory where a TSV file containing the mean correlation values is
         created.
-    correlation_threshold : float, default 0.5
-        Quality control threshold on the correlation score.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    correlation_threshold : float
+        Quality control threshold on the correlation score. Default 0.5.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------

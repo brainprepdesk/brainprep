@@ -38,10 +38,15 @@ class MultiModalDataset:
     21 healthy volunteers: scan-rescan imaging sessions including MPRAGE,
     FLAIR, DTI, resting state fMRI, B0 and B1 field maps, ...
 
+    Parameters
+    ----------
+    datadir : Directory
+        Directory where data will be stored.
+
     Attributes
     ----------
-    datadir: Directory
-        Directory where data will be stored.
+    _url : str
+        Internal URL used to fetch data.
 
     Examples
     --------
@@ -67,24 +72,17 @@ class MultiModalDataset:
       func: PosixPath('...')
     )
 
-    Raises
-    ------
-    ValueError
-        if an invalid session, modality or subject is passed to the
-        :meth:`~brainprep.datasets.MultiModalDataset.fetch` method.
-
     References
     ----------
 
     .. footbibliography::
     """
-    _url = "https://www.nitrc.org/frs/downloadlink.php/22{visit}"
+
+    _url: str = "https://www.nitrc.org/frs/downloadlink.php/22{visit}"
 
     def __init__(
             self,
             datadir: Directory) -> None:
-        """ Init class.
-        """
         self.datadir = datadir
         self.allowed_subjects = [
             f"{str(subject).zfill(2)}" for subject in range(1, 22)
@@ -120,17 +118,22 @@ class MultiModalDataset:
 
         Parameters
         ----------
-        subject: str
+        subject : str
             Subject identifier: ['01' - '21'].
-        modality: str
+        modality : str
             Modality to be fetched: 'func' or 'dwi'.
-        session: str
+        session : str
             Session: '01' or '02'.
 
         Returns
         -------
         dataset: Bunch
             Fetched data path. A 'description' entry is also available.
+
+        Raises
+        ------
+        ValueError
+            If data could not be extracted from the fetched archive.
         """
         dataset = Bunch()
         self.sanity_check(subject, modality, session)
@@ -242,24 +245,24 @@ class MultiModalDataset:
             self,
             subject: str,
             modality: str,
-            session: str) -> bool:
+            session: str) -> None:
         """ Check that the fetch parameters are correct.
 
         Parameters
         ----------
-        subject: str
+        subject : str
             the subject identifier. This identifier must lie in ['01' - '30'],
             ['01' - '20'], for cross sectional or longitudinal data
             respectively.
-        modality: str
+        modality : str
             the modality to be fetched: 'dwi', or 'func'.
-        session: str
+        session : str
             Session: '01' or '02'.
 
-        Returns
-        -------
-        valid: bool
-            the data integrity status.
+        Raises
+        ------
+        ValueError
+            If the fetch input parameters are not correct.
         """
         if session not in self.allowed_sessions:
             raise ValueError(f"Unexpected session: {session}.")

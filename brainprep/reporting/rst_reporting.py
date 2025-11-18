@@ -14,8 +14,12 @@ import datetime
 import inspect
 import platform
 import textwrap
+from collections.abc import Callable
 from pathlib import Path
-from typing import Union
+from typing import (
+    Any,
+    Self,
+)
 
 from decorator import decorator
 
@@ -23,6 +27,9 @@ from .._version import __version__
 from ..config import (
     DEFAULT_OPTIONS,
     brainprep_options,
+)
+from ..typing import (
+    File,
 )
 from ..utils import (
     Bunch,
@@ -40,21 +47,25 @@ class SingletonReport(type):
     reload counter is incremented and the instance is marked as reloadable.
     Otherwise, the instance is reset and its registry is cleared.
 
-    Attributes
-    ----------
-    _instance : object or None
-        The singleton instance of the class.
-
     Parameters
     ----------
-    reloadable : bool, optional
-        If True, marks the instance as reloadable and increments the reload
-        counter.
-        If False or omitted, resets the reload counter and clears the registry.
+    cls : type[SingletonReport]
+        The class being instantiated with this metaclass.
+    *args : Any
+        Positional arguments forwarded to the class constructor.
+    **kwargs : Any
+        Keyword arguments forwarded to the class constructor. May include
+        `reloadable` to control singleton reload behavior and `increment`
+        to control if we need to increment the inner counter.
+
+    Attributes
+    ----------
+    _instance : Self | None
+        The singleton instance of the class.
 
     Returns
     -------
-    object
+    Self
         The singleton instance of the class.
 
     Examples
@@ -68,9 +79,28 @@ class SingletonReport(type):
     >>> r1 is r2
     True
     """
-    _instance = None
 
-    def __call__(cls, *args, **kwargs):
+    _instance: Self | None = None
+
+    def __call__(
+            cls: type[Self],
+            *args: Any,
+            **kwargs: Any) -> Self:
+        """
+        Return the singleton instance of `SingletonReport`.
+
+        Parameters
+        ----------
+        *args : Any
+            Positional arguments passed to the singleton initializer.
+        **kwargs : Any
+            Keyword arguments passed to the singleton initializer.
+
+        Returns
+        -------
+        Self
+            The unique singleton instance.
+        """
         is_reloadable = kwargs.get("reloadable", False)
         is_increment = kwargs.get("increment", False)
         if cls._instance is None:
@@ -111,20 +141,19 @@ class RSTReport(metaclass=SingletonReport):
 
     Parameters
     ----------
-    reloadable : bool, default False
+    reloadable : bool
         If False, the report content is automatically reset upon instantiation.
-    increment : bool, default False
+        Default False.
+    increment : bool
         If False, the inner step counter is not incremented upon instantiation.
+        Default False.
 
     Attributes
     ----------
     _registry : Bunch
         Internal storage for all registered report data.
-    _reloadable : bool
-        Indicates whether the report instance is reloadable.
-    _count : int
-        Counter tracking how many times a reloadable instance has been
-        requested.
+    _str_fields : tuple[str]
+        Allowed string fields.
 
     Notes
     -----
@@ -152,8 +181,9 @@ class RSTReport(metaclass=SingletonReport):
     )
     >>> report.save_as_rst("report.rst")
     """
-    _registry = Bunch()
-    _str_fields = ("module", "trace", "description")
+
+    _registry: Bunch = Bunch()
+    _str_fields: tuple[str] = ("module", "trace", "description")
 
     def __init__(
             self,
@@ -167,7 +197,7 @@ class RSTReport(metaclass=SingletonReport):
             self,
             identifier: str,
             name: str,
-            data: Union[str, Bunch]) -> None:
+            data: str | Bunch) -> None:
         """
         Add a new data entry to the report under a given identifier and name.
 
@@ -181,7 +211,7 @@ class RSTReport(metaclass=SingletonReport):
             A unique data identifier.
         name: str
             A unique data element name.
-        data: str or Bunch
+        data: str | Bunch
             The data.
 
         Raises
@@ -208,13 +238,13 @@ class RSTReport(metaclass=SingletonReport):
 
     def save_as_rst(
             self,
-            file_name: str) -> None:
+            file_name: File) -> None:
         """
         Save the report content to a reStructuredText (.rst) file.
 
         Parameters
         ----------
-        file_name: str
+        file_name: File
             Path to the RST file used for saving.
         """
         report = ""
@@ -240,7 +270,12 @@ class RSTReport(metaclass=SingletonReport):
 
 
 @decorator
-def log_runtime(func, title=None, bunched=True, *args, **kw):
+def log_runtime(
+        func: Callable,
+        title: str | None = None,
+        bunched: bool = True,
+        *args: Any,
+        **kw: Any) -> Any:
     """
     Decorator that logs runtime metadata and input/output details of a
     function call.
@@ -252,21 +287,21 @@ def log_runtime(func, title=None, bunched=True, *args, **kw):
 
     Parameters
     ----------
-    func : callable
+    func : Callable
         The function to be decorated.
-    title : str, default None
-        A title to display.
-    bunched : bool, default True
-        Return a bunch object with a default 'outputs' key.
-    *args : tuple
+    title : str | None
+        A title to display. Default None.
+    bunched : bool
+        Return a bunch object with a default 'outputs' key. Default True.
+    *args : Any
         Positional arguments passed to `func`.
-    **kw : dict
+    **kw : Any
         Keyword arguments passed to `func`. If a `report_file` keyword argument
         is passed, the logged runtime metada are saved in this file.
 
     Returns
     -------
-    outputs : outputs
+    outputs : Any
         The output returned by the decorated function.
 
     Notes
@@ -357,27 +392,31 @@ def log_runtime(func, title=None, bunched=True, *args, **kw):
 
 
 @decorator
-def save_runtime(func, parent=False, *args, **kw):
+def save_runtime(
+        func: Callable,
+        parent: bool = False,
+        *args: Any,
+        **kw: Any) -> Any:
     """
     Decorator that save logged runtime metadata in a 'output_dir/logs' folder.
 
     Parameters
     ----------
-    func : callable
+    func : Callable
         The function to be decorated.
-    parent : bool, default False
+    parent : bool
         If True, logs will be saved in the parent output directory instead of
         the output directory. This is useful when centralizing log files.
-    Default is False.
-    *args : tuple
+        Default False.
+    *args : Any
         Positional arguments passed to `func`.
-    **kw : dict
+    **kw : Any
         Keyword arguments passed to `func`. An `output_dir` keyword argument
         is expected.
 
     Returns
     -------
-    outputs : outputs
+    outputs : Any
         The output returned by the decorated function.
 
     Examples
@@ -419,7 +458,8 @@ def save_runtime(func, parent=False, *args, **kw):
     return outputs
 
 
-def trace_module_calls(root_module_names=("workflow", "interfaces")):
+def trace_module_calls(
+        root_module_names: tuple[str] = ("workflow", "interfaces")) -> str:
     """
     Return the trace of function calls from the specified module and
     its submodules.
@@ -429,9 +469,10 @@ def trace_module_calls(root_module_names=("workflow", "interfaces")):
 
     Parameters
     ----------
-    root_module_names : tuple of str, default ('workflow', 'interfaces')
+    root_module_names : tuple[str]
         The root module name to filter by (e.g., 'interfaces').
         All submodules like 'brainprep.interfaces.submodule' will be included.
+        Default ('workflow', 'interfaces').
 
     Returns
     -------

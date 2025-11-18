@@ -69,9 +69,9 @@ def brainprep_quasiraw(
     output_dir: Directory
         Directory where the outputs will be saved (i.e., the root of your
         dataset).
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
@@ -245,11 +245,11 @@ def brainprep_group_quasiraw(
     ----------
     output_dir : Directory
         Working directory containing all the subjects.
-    correlation_threshold : float, default 0.5
-        Quality control threshold on the correlation score.
-    keep_intermediate : bool, default False
+    correlation_threshold : float
+        Quality control threshold on the correlation score. Default 0.5.
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------

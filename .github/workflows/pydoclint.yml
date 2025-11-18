@@ -7,7 +7,7 @@
 #
 #   $ codespell --toml pyproject.toml brainprep examples
 ###
-name: "SpellLinter[codespell]"
+name: "PythonDocLinter[pydoclint]"
 
 on:
   push:
@@ -39,10 +39,10 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Codespell
-      uses: codespell-project/actions-codespell@v2
-      with:
-        path: examples,brainprep
-        builtin: clear,rare,en-GB_to_en-US
-        ignore_words_file: ./.github/codespellignore.txt
-        skip: ./.git,*.bib,./brainprep/resources/*,./AUTHORS.rst
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pydoclint
+    - name: Check Python docstring syntax
+      run: |
+        pydoclint brainprep

@@ -40,8 +40,19 @@ fg_colors = {
 }
 
 
-def hex(color):
+def hex(color: str) -> dict:
+    """ Convert color name in hex.
 
+    Parameters
+    ----------
+    color: str
+        the color to convert.
+
+    Returns
+    -------
+    hex: dict
+        the converted color.
+    """
     xterm_colors = {
         "0": "#000000",
         "1": "#800000",
@@ -302,11 +313,16 @@ def hex(color):
     }
 
     # swap keys for values
-    new_xterm_colors = dict(zip(xterm_colors.values(), xterm_colors.keys()))
+    new_xterm_colors = dict(
+        zip(xterm_colors.values(), xterm_colors.keys(), strict=True)
+    )
     return new_xterm_colors[color]
 
 
 class Colored:
+    """
+    Print in color.
+    """
 
     def __init__(self, color):
 
@@ -579,8 +595,7 @@ class Colored:
         }
 
     def attribute(self):
-        """Set or reset attributes"""
-
+        """Set or reset attributes."""
         paint = {
             "bold": self.ESC + "1" + self.END,
             1: self.ESC + "1" + self.END,
@@ -612,7 +627,7 @@ class Colored:
         return paint[self.color]
 
     def foreground(self):
-        """Print 256 foreground colors"""
+        """Print 256 foreground colors."""
         code = self.ESC + "38;5;"
         if str(self.color).isdigit():
             self.reverse_dict()
@@ -624,7 +639,7 @@ class Colored:
             return code + self.paint[self.color] + self.END
 
     def background(self):
-        """Print 256 background colors"""
+        """Print 256 background colors."""
         code = self.ESC + "48;5;"
         if str(self.color).isdigit():
             self.reverse_dict()
@@ -636,8 +651,10 @@ class Colored:
             return code + self.paint[self.color] + self.END
 
     def reverse_dict(self):
-        """reverse dictionary"""
-        self.reserve_paint = dict(zip(self.paint.values(), self.paint.keys()))
+        """Reverse dictionary."""
+        self.reserve_paint = dict(
+            zip(self.paint.values(), self.paint.keys(), strict=True)
+        )
 
 
 def stylize(text, styles, reset=True):
@@ -659,8 +676,21 @@ def attr(color):
     return Colored(color).attribute()
 
 
-def print_color(category, text):
+def print_color(category: str, text: str) -> None:
+    """ Print text.
 
+    Parameters
+    ----------
+    category: str
+        a category to select the preconfigured color.
+    text: str
+        text to print.
+
+    Raises
+    ------
+    ValueError
+        If an invalid category is used.
+    """
     opts = brainprep_options.get()
     verbose = opts.get("verbose", DEFAULT_OPTIONS["verbose"])
     if category != "deprecated" and not verbose:
@@ -679,33 +709,89 @@ def print_color(category, text):
     print(text)
 
 
-def print_title(title):
+def print_title(title: str) -> None:
+    """ Print title.
+
+    Parameters
+    ----------
+    title: str
+        text to print.
+    """
     print_color("title", title)
 
 
-def print_subtitle(subtitle):
+def print_subtitle(subtitle: str) -> None:
+    """ Print subtitle.
+
+    Parameters
+    ----------
+    subtitle: str
+        text to print.
+    """
     print_color("subtitle", subtitle)
 
 
-def print_command(command):
+def print_command(command: str) -> None:
+    """ Print command.
+
+    Parameters
+    ----------
+    command: str
+        text to print.
+    """
     print_color("command", command)
 
 
-def print_info(info):
+def print_info(info: str) -> None:
+    """ Print info.
+
+    Parameters
+    ----------
+    info: str
+        text to print.
+    """
     print_color("info", info)
 
 
-def print_warn(warn):
+def print_warn(warn: str) -> None:
+    """ Print warn.
+
+    Parameters
+    ----------
+    warn: str
+        text to print.
+    """
     print_color("warn", warn)
 
 
-def print_result(result):
+def print_result(result: str) -> None:
+    """ Print result.
+
+    Parameters
+    ----------
+    result: str
+        text to print.
+    """
     print_color("result", result)
 
 
-def print_error(error):
+def print_error(error: str) -> None:
+    """ Print error.
+
+    Parameters
+    ----------
+    error: str
+        text to print.
+    """
     print_color("error", error)
 
 
-def print_deprecated(deprecated):
+def print_deprecated(deprecated: str) -> None:
+    """ Print deprecated.
+
+    Parameters
+    ----------
+    deprecated: str
+        text to print.
+    """
     print_color("deprecated", deprecated)

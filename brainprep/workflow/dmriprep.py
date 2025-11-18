@@ -75,9 +75,9 @@ def brainprep_dmriprep(
         Path to the bval file.
     output_dir : Directory
         Path to the output directory.
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
@@ -88,6 +88,11 @@ def brainprep_dmriprep(
         - bvec_file: File - path to the TXT pre-processed bvec file.
         - bval_file: File - path to the TXT pre-processed bval file.
         - qc_file: File - path to the PDF visual report.
+
+    Raises
+    ------
+    ValueError
+        If the T1w file do not follow BIDS convension.
 
     Notes
     -----
@@ -139,8 +144,8 @@ def brainprep_dmriprep(
 @save_runtime
 def brainprep_group_dmriprep(
         output_dir: Directory,
-        lower_fa_threshold: int = 0.3,
-        upper_fa_threshold: int = 0.75,
+        lower_fa_threshold: float = 0.3,
+        upper_fa_threshold: float = 0.75,
         keep_intermediate: bool = False) -> Bunch:
     """
     Group level diffusion MRI pre-processing.
@@ -149,13 +154,15 @@ def brainprep_group_dmriprep(
     ----------
     output_dir : Directory
         Working directory containing all the subjects.
-    lower_fa_threshold : float, default 0.3
+    lower_fa_threshold : float
         Quality control lower threshold on the fractional anisotropy (FA).
-    upper_fa_threshold : float, default 0.75
+        Default 0.3
+    upper_fa_threshold : float
         Quality control upper threshold on the fractional anisotropy (FA).
-    keep_intermediate : bool, default False
+        Default 0.75
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False
 
     Returns
     -------

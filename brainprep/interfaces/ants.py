@@ -52,10 +52,10 @@ def biasfield(
     -------
     command : list[str]
         Bias field correction command-line.
-    bc_image_file : File
-        The bias corrected input image file.
-    bc_field_file : File
-        The estimated bias field.
+    outputs : tuple[File]
+        The following output files:
+        - bc_image_file : File - The bias corrected input image file.
+        - bc_field_file : File - The estimated bias field.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}".format(
         **entities)

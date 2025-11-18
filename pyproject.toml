@@ -43,6 +43,7 @@ dev = [
 ci = [
     "codespell",
     "pycodestyle",
+    "pydoclint",
     "ruff",
     "pynose",
     "coverage",
@@ -83,6 +84,7 @@ brainprep = [
 
 [tool.ruff.lint]
 extend-select = [
+    "E",
     "B",    # flake8-bugbear
     "C4",   # flake8-comprehensions
     "ISC",  # flake8-implicit-str-concat
@@ -102,10 +104,10 @@ ignore = [
     "D401",     # First line of docstring should be in imperative mood
     "D205",     # 1 blank line required between summary line and description
     "D200",     # One-line docstring should fit on one line
-    "D103",     # Missing docstring in public function
-
+    "D210",     # whitespaces allowed surrounding docstring text
+    "D105",     # Missing docstring in magic method
 ]
-select = ["D"]   # enable docstring rules
+select = ["D"]   # enable pycodestyle and docstring rules
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -128,3 +130,15 @@ builtin = "clear,rare,en-GB_to_en-US"
 ignore-words = "./.github/codespellignore.txt"
 skip = "./.git,*.bib,./brainprep/resources/*,./AUTHORS.rst"
 quiet-level = 2
+
+[tool.pydoclint]
+style = "numpy"
+require-return-section-when-returning-nothing = false
+check-arg-order = true
+check-return-types = true
+check-class-attributes = true
+check-style-mismatch = true
+check-arg-defaults = false
+skip-checking-raises = false
+treat-property-methods-as-class-attributes = true
+should-document-private-class-attributes = true

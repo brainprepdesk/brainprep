@@ -55,9 +55,9 @@ def brainprep_quality_assurance(
     output_dir : Directory
         Directory where the quality assurance related outputs will be saved
         (i.e., the root of your dataset).
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
@@ -139,8 +139,9 @@ def brainprep_group_quality_assurance(
     output_dir : Directory
         Directory where the quality assurance related outputs will be saved
         (i.e., the root of your dataset).
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (no effect on this workflow).
+         Default False.
 
     Returns
     -------

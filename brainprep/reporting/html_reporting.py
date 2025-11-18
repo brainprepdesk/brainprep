@@ -13,7 +13,7 @@ Module that implements a HTML reporting tool.
 import uuid
 from html import escape
 from pathlib import Path
-from typing import Optional, Self
+from typing import Self
 
 from .utils import (
     dataframe_to_html,
@@ -22,7 +22,166 @@ from .utils import (
 )
 
 
-def generate_qc_report(title, docstring, version, date, data):
+class HTMLReport:
+    """
+    Render and manage HTML content for display in web pages or Jupyter
+    notebooks.
+
+    This class encapsulates HTML content and provides utilities for rendering
+    it inline (e.g., in Jupyter), resizing the display area, and exporting to
+    an HTML file.
+    It supports iframe embedding and integrates with notebook display
+    protocols.
+
+    The different rendering are available as follows:
+
+    - print the object to get the content of the web page.
+    - from a Jupyter notebook, the plot will be displayed inline if this object
+      is the output of a cell.
+    - use :meth:`~brainprep.reporting.html_reporting.HTMLReport.save_as_html`
+      to save it as an html file.
+    - use :meth:`~brainprep.reporting.html_reporting.HTMLReport.get_iframe`
+      to have it wrapped in an iframe.
+
+    Parameters
+    ----------
+    html : str
+        The HTML content to be rendered.
+    width : int
+        Width of the display area in pixels. Default 800.
+    height : int
+        Height of the display area in pixels. Default 800.
+
+    Examples
+    --------
+    >>> html = "<h1>Hello, world!</h1>"
+    >>> report = HTMLReport(html)
+    >>> print(report)
+    <h1>Hello, world!</h1>
+    >>> report.save_as_html("output.html")
+    """
+
+    def __init__(
+            self,
+            html: str,
+            width: int = 800,
+            height: int = 800) -> None:
+        self.html = html
+        self.width = width
+        self.height = height
+        self._temp_file = None
+        self._temp_file_removing_proc = None
+
+    def resize(
+            self,
+            width: int,
+            height: int) -> Self:
+        """
+        Resize the document displayed.
+
+        Parameters
+        ----------
+        width: int
+            New width of the document.
+        height: int
+            New height of the document.
+
+        Returns
+        -------
+        Self
+        """
+        self.width = width
+        self.height = height
+        return self
+
+    def get_iframe(
+            self,
+            width: int | None,
+            height: int | None) -> str:
+        """
+        Get the document wrapped in an inline frame.
+
+        Notes
+        -----
+        Useful for inserting the document content in another HTML page,
+        i.e. in a Jupyter notebook.
+
+        Parameters
+        ----------
+        width: int | None
+            Width of the inline frame. Default None.
+        height: int | None
+            Height of the inline frame. Default None.
+
+        Returns
+        -------
+        wrapped: str
+            Raw HTML code for the inline frame.
+        """
+        if width is None:
+            width = self.width
+        if height is None:
+            height = self.height
+        escaped = escape(self.html, quote=True)
+        wrapped = (
+            f"<iframe srcdoc='{escaped}' "
+            f"width='{width}' height='{height}' "
+            "frameBorder='0'></iframe>"
+        )
+        return wrapped
+
+    def _repr_html_(self) -> str:
+        """
+         Return iframe-wrapped HTML for Jupyter notebook rendering.
+
+        Notes
+        -----
+        Used by the Jupyter notebook.
+        See the jupyter documentation:
+        https://ipython.readthedocs.io/en/stable/config/integrating.html
+        """
+        return self.get_iframe()
+
+    def _repr_mimebundle_(
+            self,
+            include=None,
+            exclude=None) -> dict:
+        """
+        Return html representation of the plot.
+
+        Notes
+        -----
+        Used by the Jupyter notebook.
+        See the jupyter documentation:
+        https://ipython.readthedocs.io/en/stable/config/integrating.html
+        """
+        del include, exclude
+        return {"text/html": self.get_iframe()}
+
+    def __str__(self):
+        return self.html
+
+    def save_as_html(
+            self,
+            file_name: str) -> None:
+        """
+        Save the plot in an HTML file, that can later be opened in a browser.
+
+        Parameters
+        ----------
+        file_name: str
+            Path to the HTML file used for saving.
+        """
+        with Path(file_name).open("wb") as of:
+            of.write(self.html.encode("utf-8"))
+
+
+def generate_qc_report(
+        title: str,
+        docstring: str,
+        version: str,
+        date: str,
+        data: list[dict]) -> HTMLReport:
     """
     Generate a quality control (QC) report as an interactive HTML document.
 
@@ -40,7 +199,7 @@ def generate_qc_report(title, docstring, version, date, data):
         Version identifier for the report or associated software.
     date : str
         Timestamp indicating when the report was generated.
-    data : list of dict
+    data : list[dict]
         A list of dictionaries, each representing a workflow step. Each
         dictionary must contain the following keys:
         - name (str): Title of the step.
@@ -129,162 +288,3 @@ def generate_qc_report(title, docstring, version, date, data):
     html = html.replace(".pure-g &gt; div", ".pure-g > div")
 
     return HTMLReport(html=html)
-
-
-class HTMLReport:
-    """
-    Render and manage HTML content for display in web pages or Jupyter
-    notebooks.
-
-    This class encapsulates HTML content and provides utilities for rendering
-    it inline (e.g., in Jupyter), resizing the display area, and exporting to
-    an HTML file.
-    It supports iframe embedding and integrates with notebook display
-    protocols.
-
-    The different rendering are available as follows:
-
-    - print the object to get the content of the web page.
-    - from a Jupyter notebook, the plot will be displayed inline if this object
-      is the output of a cell.
-    - use :meth:`~brainprep.reporting.html_reporting.HTMLReport.save_as_html`
-      to save it as an html file.
-    - use :meth:`~brainprep.reporting.html_reporting.HTMLReport.get_iframe`
-      to have it wrapped in an iframe.
-
-    Parameters
-    ----------
-    html : str
-        The HTML content to be rendered.
-    width : int, default 800
-        Width of the display area in pixels.
-    height : int, default 800
-        Height of the display area in pixels.
-
-    Attributes
-    ----------
-    html : str
-        The raw HTML content.
-    width : int
-        Current width of the display area.
-    height : int
-        Current height of the display area.
-
-    Examples
-    --------
-    >>> html = "<h1>Hello, world!</h1>"
-    >>> report = HTMLReport(html)
-    >>> print(report)
-    <h1>Hello, world!</h1>
-    >>> report.save_as_html("output.html")
-    """
-    def __init__(
-            self,
-            html,
-            width: int = 800,
-            height: int = 800) -> None:
-        self.html = html
-        self.width = width
-        self.height = height
-        self._temp_file = None
-        self._temp_file_removing_proc = None
-
-    def resize(
-            self,
-            width: int,
-            height: int) -> Self:
-        """
-        Resize the document displayed.
-
-        Parameters
-        ----------
-        width: int
-            New width of the document.
-        height: int
-            New height of the document.
-
-        Returns
-        -------
-        self
-        """
-        self.width = width
-        self.height = height
-        return self
-
-    def get_iframe(
-            self,
-            width: Optional[int] = None,
-            height: Optional[int] = None) -> str:
-        """
-        Get the document wrapped in an inline frame.
-
-        Notes
-        -----
-        Useful for inserting the document content in another HTML page,
-        i.e. in a Jupyter notebook.
-
-        Parameters
-        ----------
-        width: int, default None
-            Width of the inline frame.
-        height: int, default None
-            Height of the inline frame.
-
-        Returns
-        -------
-        wrapped: str
-            Raw HTML code for the inline frame.
-        """
-        if width is None:
-            width = self.width
-        if height is None:
-            height = self.height
-        escaped = escape(self.html, quote=True)
-        wrapped = (
-            f"<iframe srcdoc='{escaped}' "
-            f"width='{width}' height='{height}' "
-            "frameBorder='0'></iframe>"
-        )
-        return wrapped
-
-    def _repr_html_(self):
-        """
-         Return iframe-wrapped HTML for Jupyter notebook rendering.
-
-        Notes
-        -----
-        Used by the Jupyter notebook.
-        See the jupyter documentation:
-        https://ipython.readthedocs.io/en/stable/config/integrating.html
-        """
-        return self.get_iframe()
-
-    def _repr_mimebundle_(self, include=None, exclude=None):
-        """
-        Return html representation of the plot.
-
-        Notes
-        -----
-        Used by the Jupyter notebook.
-        See the jupyter documentation:
-        https://ipython.readthedocs.io/en/stable/config/integrating.html
-        """
-        del include, exclude
-        return {"text/html": self.get_iframe()}
-
-    def __str__(self):
-        return self.html
-
-    def save_as_html(
-            self,
-            file_name: str) -> None:
-        """
-        Save the plot in an HTML file, that can later be opened in a browser.
-
-        Parameters
-        ----------
-        file_name: str
-            Path to the HTML file used for saving.
-        """
-        with Path(file_name).open("wb") as of:
-            of.write(self.html.encode("utf-8"))

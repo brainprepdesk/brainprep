@@ -49,7 +49,7 @@ def cat12vbm_wf(
         t1_files: list[File],
         batch_file: File,
         output_dir: Directory,
-        entities: list[dict]) -> tuple[list[str], tuple[list[File]]]:
+        entities: list[dict]) -> tuple[list[str], tuple[File | list[File]]]:
     """
     Compute VBM prep-processing using CAT12.
 
@@ -69,11 +69,11 @@ def cat12vbm_wf(
     -------
     command : list[str]
        Pre-processing command-line.
-    gm_files : list[File]
-       Path to the modulated, normalized gray matter segmentations of the
-        input T1-weighted MRI images.
-    qc_files : list[File]
-        Visual reports.
+    outputs : tuple[File | list[File]]
+        The following output files:
+        - gm_files : list[File] - Path to the modulated, normalized gray
+          matter segmentations of the input T1-weighted MRI images.
+        - qc_files : list[File] - Visual reports.
     """
     opts = brainprep_options.get()
     cat12_file = opts.get("cat12_file", DEFAULT_OPTIONS["cat12_file"])
@@ -86,11 +86,11 @@ def cat12vbm_wf(
     ]
     gm_files = [
         trg_dir / "mri" / f"mwp1{im_file.name.replace('.gz', '')}"
-        for im_file, trg_dir in zip(t1_files, output_dirs)
+        for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
     ]
     qc_files = [
         trg_dir / "report" / f"catreport_{im_file.name.replace('.gz', '')}"
-        for im_file, trg_dir in zip(t1_files, output_dirs)
+        for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
     ]
 
     command = [
@@ -126,11 +126,11 @@ def write_catbatch(
     entities : list[dict]
         Dictionaries of parsed BIDS entities including modality for each input
         image file.
-    model_long : int, default 1
+    model_long : int
         Longitudinal model choice:1  short time (weeks), 2 long time (years)
-        between images sessions.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+        between images sessions. Default 1.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
@@ -171,10 +171,10 @@ def write_catbatch(
     ]
     unzip_t1_files = [
         trg_dir / im_file.name.replace(".gz", "")
-        for im_file, trg_dir in zip(t1_files, output_dirs)
+        for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
     ]
 
-    for src_file, trg_file in zip(t1_files, unzip_t1_files):
+    for src_file, trg_file in zip(t1_files, unzip_t1_files, strict=True):
         ungzfile(
             src_file,
             trg_file,
@@ -204,7 +204,7 @@ def write_catbatch(
 @pywrapper
 def cat12vbm_morphometry(
         output_dir: Directory,
-        dryrun: bool = False) -> tuple[File]:
+        dryrun: bool = False) -> list[File]:
     """
     Parse the CAT12 VBM XML ROI stats for all subjects.
 
@@ -212,13 +212,13 @@ def cat12vbm_morphometry(
     ----------
     output_dir : Directory
         Working directory containing the outputs.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
     morphometry_files : list[File]
-        A TSV file containing ROI-based GM, WM and CSF features for different
+        TSV files containing ROI-based GM, WM and CSF features for different
         atlases.
     """
     iterparse = {
@@ -243,9 +243,10 @@ def cat12vbm_morphometry(
             for path in xml_files
         ]
 
-        for name, output_file in zip(iterparse, morphometry_files):
+        for name, output_file in zip(
+                iterparse, morphometry_files, strict=True):
             data = []
-            for info, path in zip(entities, xml_files):
+            for info, path in zip(entities, xml_files, strict=True):
                 tree = ET.parse(path)
                 root = tree.find(name)
                 ids = root.findtext("ids").strip("[]").split(";")
@@ -289,8 +290,8 @@ def cat12vbm_morphometry(
 @pywrapper
 def cat12vbm_stats(
         output_dir: Directory,
-        ncr_threshold: int = 4.5,
-        iqr_threshold: int = 4.5,
+        ncr_threshold: float = 4.5,
+        iqr_threshold: float = 4.5,
         dryrun: bool = False) -> tuple[File]:
     """
     Parse the CAT12 VBM report stats for all subjects and applies a
@@ -311,12 +312,12 @@ def cat12vbm_stats(
     ----------
     output_dir : Directory
         Working directory containing the outputs.
-    ncr_threshold : float, default 4.5
-         Quality control threshold on the NCR scores.
-    iqr_threshold : float, default 4.5
-         Quality control threshold on the IQR scores.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    ncr_threshold : float
+         Quality control threshold on the NCR scores. Default 4.5.
+    iqr_threshold : float
+         Quality control threshold on the IQR scores. Default 4.5.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
@@ -337,7 +338,7 @@ def cat12vbm_stats(
         ]
 
         stats = []
-        for info, path in zip(entities, report_files):
+        for info, path in zip(entities, report_files, strict=True):
             df = pd.read_xml(
                 path,
                 iterparse={"qualityratings": ["ICR", "NCR", "IQR"]},

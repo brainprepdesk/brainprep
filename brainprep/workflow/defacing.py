@@ -62,9 +62,9 @@ def brainprep_defacing(
     output_dir : Directory
         Directory where the defaced image and related outputs will be saved
         (i.e., the root of your dataset).
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (e.g., reoriented image); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
@@ -73,6 +73,11 @@ def brainprep_defacing(
         - deface_t1_file : File — path to the defaced image.
         - mask_file : File — path to the defacing mask.
         - snap_files : list[File] — paths to defacing snapshots.
+
+    Raises
+    ------
+    ValueError
+        If the T1w file do not follow BIDS convension.
 
     Notes
     -----

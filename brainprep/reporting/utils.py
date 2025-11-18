@@ -12,21 +12,26 @@ Reporting tools.
 
 import base64
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
+from ..typing import (
+    File,
+)
+
 
 def inject_with_jinja(
-        template_file: Path,
-        **kwargs) -> None:
+        template_file: File,
+        **kwargs: Any) -> str:
     """ Render Jinja template given context and write it to an output file.
 
     Parameters
     ----------
-    template_file: str
+    template_file: File
         Path to the Jinja template file.
-    kwargs:
+    **kwargs: Any
         The context to render the template.
 
     Returns
@@ -45,18 +50,18 @@ def inject_with_jinja(
 def dataframe_to_html(
         df: pd.DataFrame,
         precision: int,
-        **kwargs) -> str:
+        **kwargs: Any) -> str:
     """ Make HTML table from provided dataframe.
 
     Removes HTML5 non-compliant attributes (ex: `border`).
 
     Parameters
     ----------
-    df: pandas.Dataframe
+    df: pd.DataFrame
         Dataframe to be converted into HTML table.
     precision: int
         The display precision for float values in the table.
-    **kwargs : keyworded arguments
+    **kwargs : Any
         Supplies keyworded arguments for func: pandas.Dataframe.to_html()
 
     Returns
@@ -71,12 +76,12 @@ def dataframe_to_html(
 
 
 def png_image_to_base64(
-        image_path: Path) -> str:
-    """Embed an image.
+        image_path: File) -> str:
+    """ Embed an image.
 
     Parameters
     ----------
-    image_path: Path
+    image_path: File
         An image to display.
 
     Returns

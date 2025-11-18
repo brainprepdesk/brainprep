@@ -11,7 +11,6 @@ Plotting functions.
 """
 
 import itertools
-from typing import Optional
 
 import matplotlib.pyplot as plt
 import nibabel
@@ -57,8 +56,8 @@ def plot_defacing_mosaic(
         Directory where the mosaic image will be saved.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
@@ -101,7 +100,7 @@ def plot_histogram(
         table_file: File,
         col_name: str,
         output_dir: Directory,
-        bar_coords: Optional[list[float]] = None,
+        bar_coords: list[float] | None = None,
         dryrun: bool = False) -> tuple[File]:
     """
     Generates a histogram image with optional vertical bars.
@@ -112,12 +111,12 @@ def plot_histogram(
         TSV table containing the data to be displayed.
     col_name : str
         Name of the column containing the histogram data.
-    bar_coords: list[float], default None
-        Coordianates of vertical lines to be displayed in red.
     output_dir : Directory
         Directory where the image with the histogram will be saved.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    bar_coords: list[float] | None
+        Coordianates of vertical lines to be displayed in red. Default None.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
@@ -186,8 +185,8 @@ def plot_brainparc(
         FreeSurfer working directory containing all the subjects.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------

@@ -54,7 +54,7 @@ def fmriprep_wf(
         freesurfer_dir: Directory,
         workspace_dir: Directory,
         output_dir: Directory,
-        entities: dict) -> tuple[list[str], tuple[list[File]]]:
+        entities: dict) -> tuple[list[str], tuple[File | list[File]]]:
     """
     Compute fMRI prep-processing using fMRIPrep.
 
@@ -81,17 +81,14 @@ def fmriprep_wf(
     -------
     command : list[str]
        Pre-processing command-line.
-    mask_files : File
-       Brain masks in template spaces.
-    fmri_rest_image_files : list[File]
-       Pre-processed rfMRI volumes: 2mm MNI152NLin6Asym and
-        MNI152NLin2009cAsym.
-    fmri_rest_surf_file: File
-       Pre-processed rfMRI surfaces: fsLR23k.
-    confounds_file : File
-       File with calculated confounds.
-    qc_file : File
-        Visual report.
+    outputs : tuple[File | list[File]]
+        The following output files:
+        - mask_files : File - Brain masks in template spaces.
+        - fmri_rest_image_files : list[File] - Pre-processed rfMRI volumes:
+          2mm MNI152NLin6Asym and MNI152NLin2009cAsym.
+        - fmri_rest_surf_file: File - Pre-processed rfMRI surfaces: fsLR23k.
+        - confounds_file : File - File with calculated confounds.
+        - qc_file : File - Visual report.
 
     Notes
     -----
@@ -109,7 +106,8 @@ def fmriprep_wf(
 
     for source_file, target_dir in zip(
             [t1_file, *func_files],
-            [anat_dir] + [func_dir] * len(func_files)):
+            [anat_dir] + [func_dir] * len(func_files),
+            strict=True):
         sidecar_source_file = sidecar_from_file(source_file)
         if not (target_dir / source_file.name).is_file():
             shutil.copy(
@@ -218,8 +216,8 @@ def func_vol_connectivity(
         detrend: bool = True,
         standardize: bool = True,
         remove_volumes: bool = True,
-        fwhm: float = 0.,
-        dryrun: bool = False):
+        fwhm: float | list[float] = 0.,
+        dryrun: bool = False) -> tuple[File]:
     """
     ROI-based functional connectivity from volumetric fMRI data.
 
@@ -268,40 +266,42 @@ def func_vol_connectivity(
         Output directory for generated files.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    low_pass : float, default 0.1
+    low_pass : float
         Low-pass filter cutoff frequency in Hz. Set to None to disable.
-    high_pass : float, default 0.01
+        Default 0.1.
+    high_pass : float
         High-pass filter cutoff frequency in Hz. Set to None to disable.
-    scrub : int, default 5
+        Default 0.01
+    scrub : int
         After accounting for time frames with excessive motion, further remove
         segments shorter than the given number. The default value is 5. When
         the value is 0, remove time frames based on excessive framewise
         displacement and DVARS only. One-hot encoding vectors are added as
-        regressors for each scrubbed frame.
-    fd_threshold : float, default 0.2
+        regressors for each scrubbed frame. Default 5
+    fd_threshold : float
         Framewise displacement threshold for scrub. This value is typically
-        between 0 and 1 mm.
-    std_dvars_threshold : float, default 3
+        between 0 and 1 mm. Default 0.2
+    std_dvars_threshold : int
         Standardized DVARS threshold for scrub. DVARs is defined as root mean
         squared intensity difference of volume N to volume N + 1. D refers
         to temporal derivative of timecourses, VARS referring to root mean
-        squared variance over voxels.
-    detrend : bool, default True
-        Detrend data prior to confound removal.
-    standardize : default True
+        squared variance over voxels. Default 3.
+    detrend : bool
+        Detrend data prior to confound removal. Default True
+    standardize : bool
         Set this flag if you want to standardize the output signal between
-        [0 1].
-    remove_volumes : bool, default True
+        [0 1]. Default True.
+    remove_volumes : bool
         This flag determines whether contaminated volumes should be removed
-        from the output data.
-    fwhm : float or list, default 0.
+        from the output data. Default True.
+    fwhm : float | list[float]
         Smoothing strength, expressed as as Full-Width at Half Maximum
         (fwhm), in millimeters. Can be a single number ``fwhm=8``, the width
         is identical along x, y and z or ``fwhm=0``, no smoothing is performed.
         Can be three consecutive numbers, ``fwhm=[1,1.5,2.5]``, giving the fwhm
-        along each axis.
-    dryrun : bool, default False
-        If True, skip actual computation and file writing.
+        along each axis. Default 0.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
 
     Returns
     -------

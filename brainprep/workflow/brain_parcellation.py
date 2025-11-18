@@ -71,16 +71,16 @@ def brainprep_brainparc(
         Path to the 'fsaverage_sym' template.
     output_dir : Directory
         FreeSurfer working directory containing all the subjects.
-    do_lgi : bool, default False
+    do_lgi : bool
         Perform the Local Gyrification Index (LGI) computation - requires
-        Matlab.
-    wm_file : Optional[File], default None
+        Matlab. Default False.
+    wm_file : File | None
         Path to the custom white matter mask - we assume `recon-all` has been
         run at least upto the 'wm.mgz' file creation. It has to be
         in the subject's FreeSurfer space (1mm iso + aligned with brain.mgz)
         with values in [0, 1] (i.e. probability of being white matter).
         For example, it can be the 'brain_pve_2.nii.gz' white matter
-        probability map created by FSL `fast`.
+        probability map created by FSL `fast`. Default None.
 
         .. deprecated:: 1.0.0
 
@@ -89,9 +89,9 @@ def brainprep_brainparc(
 
            This option was removed as it is never used in Population Imaging
            studies. This parameter has no effect!
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
@@ -294,9 +294,9 @@ def brainprep_longitudinal_brainparc(
         Path to the t1 images.
     output_dir : Directory
         FreeSurfer working directory containing all the subjects.
-    keep_intermediate : bool, default False
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
@@ -421,13 +421,13 @@ def brainprep_group_brainparc(
     ----------
     output_dir : Directory
         FreeSurfer working directory containing all the subjects.
-    euler_threshold : int, default -217
-        Quality control threshold on the Euler number.
-    longitudinal : bool, default False
-        If True, consider the longitudinal data as inputs.
-    keep_intermediate : bool, default False
+    euler_threshold : int
+        Quality control threshold on the Euler number. Default -217.
+    longitudinal : bool
+        If True, consider the longitudinal data as inputs. Default False.
+    keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
-        for debugging.
+        for debugging. Default False.
 
     Returns
     -------
