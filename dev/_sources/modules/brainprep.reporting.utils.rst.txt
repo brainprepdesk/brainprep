@@ -1,5 +1,5 @@
-:mod:`brainprep.reporting.utils`: Module that implements reporting tools.
-=========================================================================
+:mod:`brainprep.reporting.utils`: Reporting tools.
+==================================================
 
 .. automodule:: brainprep.reporting.utils
    :no-members:

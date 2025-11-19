@@ -28,6 +28,20 @@ GitHub Actions Specification
 
 
 
+codespell.yml
+^^^^^^^^^^^^^
+
+Workflow file: `codespell.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/codespell.yml>`_
+
+Workflow to check common misspellings in text files.
+
+To run this check locally from the repository folder:
+
+.. code-block:: bash
+
+  $ codespell --toml pyproject.toml brainprep examples
+
+
 documentation.yml
 ^^^^^^^^^^^^^^^^^
 
@@ -45,24 +59,10 @@ To run this check locally from the `doc` folder:
   $ make html-strict
 
 
-linters.yml
-^^^^^^^^^^^
+pycodestyle.yml
+^^^^^^^^^^^^^^^
 
-Workflow file: `linters.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/linters.yml>`_
-
-Workflow to check code format.
-
-To run this check locally from the repository folder:
-
-.. code-block:: bash
-
-  $ ruff check brainprep
-
-
-pep8.yml
-^^^^^^^^
-
-Workflow file: `pep8.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/pep8.yml>`_
+Workflow file: `pycodestyle.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/pycodestyle.yml>`_
 
 Workflow to check code format.
 
@@ -71,6 +71,20 @@ To run this check locally from the repository folder:
 .. code-block:: bash
 
   $ pycodestyle brainprep --ignore="E121,E123,E126,E226,E24,E704,E402,E731,E722,E741,W503,W504,W605,E305"
+
+
+pydoclint.yml
+^^^^^^^^^^^^^
+
+Workflow file: `pydoclint.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/pydoclint.yml>`_
+
+Workflow to check common misspellings in text files.
+
+To run this check locally from the repository folder:
+
+.. code-block:: bash
+
+  $ codespell --toml pyproject.toml brainprep examples
 
 
 release-documentation.yml
@@ -89,6 +103,20 @@ To run this check locally from the `doc` folder:
   $ make html-strict
 
 
+ruff.yml
+^^^^^^^^
+
+Workflow file: `ruff.yml <https://github.com/nilearn/nilearn/blob/main/.github/workflows/ruff.yml>`_
+
+Workflow to check code format.
+
+To run this check locally from the repository folder:
+
+.. code-block:: bash
+
+  $ ruff check brainprep
+
+
 testing.yml
 ^^^^^^^^^^^
 
@@ -101,3 +129,4 @@ To run this check locally from the `doc` folder:
 .. code-block:: bash
 
   $ nosetests --with-coverage --cover-package=brainprep --verbosity=2
+    --with-doctest --doctest-options='+ELLIPSIS,+NORMALIZE_WHITESPACE'

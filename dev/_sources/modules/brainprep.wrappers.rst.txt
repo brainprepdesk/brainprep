@@ -1,0 +1,28 @@
+:mod:`brainprep.wrappers`: Functions for running shell commands.
+================================================================
+
+.. automodule:: brainprep.wrappers
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.wrappers
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    _check_outputs
+    _is_list_list_str
+    _is_list_str
+    is_command_installed
+
+
+
+

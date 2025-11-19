@@ -26,13 +26,13 @@ working_dir.mkdir(parents=True, exist_ok=True)
 
 
 git_download(
-    url=("https://raw.github.com/neurospin-deepinsight/brainprep/dev/doc/"
-         "logos/brainprep.png"),
+    url=("https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/"
+         "dev/doc/logos/brainprep.png"),
     destination=working_dir / "im1.png",
 )
 git_download(
-    url=("https://raw.github.com/neurospin-deepinsight/brainprep/dev/doc/"
-         "logos/brainprep.png"),
+    url=("https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/"
+         "dev/doc/logos/brainprep.png"),
     destination=working_dir / "im2.png",
 )
 
@@ -59,7 +59,7 @@ data = [
 # Reporting
 # ---------
 # 
-# Now let's geerate the HTML report.
+# Now let's generate the HTML report.
 
 from brainprep.reporting import generate_qc_report
 

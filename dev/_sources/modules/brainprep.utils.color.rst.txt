@@ -16,7 +16,7 @@ Classes
    :toctree: generated/
    :template: class.rst
 
-    colored
+    Colored
 
 .. .. autoclasstree:: brainprep.utils.color
        :strict:
@@ -32,14 +32,18 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    HEX
     attr
     fg
+    hex
+    print_color
     print_command
+    print_deprecated
     print_error
+    print_info
     print_result
     print_subtitle
     print_title
+    print_warn
     stylize
 
 

@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.workflow.brain_parcellation.brainprep_longitudinal_brainparc
+======================================================================
+
+.. currentmodule:: brainprep.workflow.brain_parcellation
+
+.. autofunction:: brainprep_longitudinal_brainparc
+
+.. include:: brainprep.workflow.brain_parcellation.brainprep_longitudinal_brainparc.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

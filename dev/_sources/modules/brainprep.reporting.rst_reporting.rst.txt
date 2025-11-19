@@ -24,6 +24,16 @@ Classes
        :align: center
 
 
+Functions
+---------
+
+.. currentmodule:: brainprep.reporting.rst_reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    trace_module_calls
 
 
 

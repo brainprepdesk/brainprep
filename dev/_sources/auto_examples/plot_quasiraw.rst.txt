@@ -18,12 +18,12 @@
 .. _sphx_glr_auto_examples_plot_quasiraw.py:
 
 
-Quasi RAW Pre-Processing
+Quasi-RAW pre-processing
 ========================
 
 Simple example.
 
-Example on how to run the brain parcellation pre-processing using brainprep.
+Example on how to run the brain parcellation pre-processing using BrainPrep.
 See :ref:`user guide <quasiraw>` for details.
 
 Data
@@ -31,21 +31,29 @@ Data
 
 Let's first get some anatomical data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-30
+.. GENERATED FROM PYTHON SOURCE LINES 15-38
 
 .. code-block:: Python
 
 
     from pathlib import Path
+    from brainprep.utils import Bunch
     from brainprep.datasets import AnatomicalDataset
 
     datadir = Path("/tmp/brainprep-data")
     datadir.mkdir(parents=True, exist_ok=True)
     dataset = AnatomicalDataset(datadir)
-    data = dataset.fetch(
-        subject="01",
-        modality="T1w",
-        dtype="cross_sectional",
+    data = Bunch(
+        sub01=dataset.fetch(
+            subject="01",
+            modality="T1w",
+            dtype="cross_sectional",
+        ),
+        sub02=dataset.fetch(
+            subject="02",
+            modality="T1w",
+            dtype="cross_sectional",
+        ),
     )
     print(data)
 
@@ -59,42 +67,914 @@ Let's first get some anatomical data.
  .. code-block:: none
 
     Bunch(
-      sub-01: PosixPath('/tmp/brainprep-data/sub-01_T1w.nii.gz')
+      sub01: Bunch(
+        description: PosixPath('/tmp/brainprep-data/rawdata/dataset_description.json')
+        anat: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
+      )
+      sub02: Bunch(
+        description: PosixPath('/tmp/brainprep-data/rawdata/dataset_description.json')
+        anat: PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz')
+      )
     )
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-35
+.. GENERATED FROM PYTHON SOURCE LINES 39-46
 
-Container
----------
+Analysis
+--------
 
-Now let's perform the pre-processing on a brainprep container.
+Let's now perform the preprocessing using BrainPrep.
+As with many tutorials, we won't execute the code directly here.
+However, feel free to set the 'dryrun' configuration to False
+to actually run each step and generate results on disk.
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-56
+.. GENERATED FROM PYTHON SOURCE LINES 46-71
 
 .. code-block:: Python
 
 
-    datadir = str(datadir)
-    outdir = "/tmp/brainprep-out"
-    homedir = "/tmp/brainprep-home"
-    t1w_file = str(data["sub-01"])
-    mask_file = t1w_file
+
+    from brainprep.workflow import (
+        brainprep_quasiraw,
+        brainprep_group_quasiraw,
+    )
+    from brainprep.config import Config
+    from brainprep.reporting import RSTReport
+
+    outdir = Path("/tmp/brainprep-quasiraw")
+    outdir.mkdir(parents=True, exist_ok=True)
+    with Config(dryrun=True, verbose=True):
+        for subject_data in data.values():
+            report = RSTReport()
+            brainprep_quasiraw(
+                anatomical_file=subject_data.anat,
+                output_dir=outdir,
+                keep_intermediate=True,
+            )
+            print(report)
+        outputs = brainprep_group_quasiraw(
+            output_dir=outdir,
+        )
+
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    [title] - Subject Level Quasi-RAW...
+    [info] - setting template file: /home/runner/work/brainprep/brainprep/doc/../brainprep/resources/MNI152_T1_1mm_brain.nii.gz
+    [info] - setting workspace directory: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace
+    [command] - fslreorient2std /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz
+    [command] - mri_synthstrip -i /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz -m /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz --no-csf
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz
+    [command] - fslmaths /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz -mas /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz -ref /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz -applyisoxfm 1 -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz -omat /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-01_mod-T1w_scale.txt -verbose 1
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-01_mod-T1w_scale.txt
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz -ref /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz -applyisoxfm 1 -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz -omat /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-01_mod-T1w_scale.txt -verbose 1
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-01_mod-T1w_scale.txt
+    [command] - N4BiasFieldCorrection -d 3 -i /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz -s 1 -b [1x1x1,3] -c [50x50x50x50,0.001] -t [0.15,0.01,200] -x /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz -o [/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biascorrected.nii.gz,/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biasfield.nii.gz] -v
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biascorrected.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biasfield.nii.gz
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biascorrected.nii.gz -ref /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz -cost normmi -searchcost normmi -anglerep euler -bins 256 -interp trilinear -dof 9 -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.nii.gz -omat /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.txt -verbose 1
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.txt
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biascorrected.nii.gz -ref /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz -init /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.txt -interp spline -applyxfm -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz -ref /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz -init /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.txt -interp nearestneighbour -applyxfm -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz
+    [command] - fslmaths /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz -mas /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz
+    [title] - Subject Level Quasi-RAW done.
+    Bunch(
+      step1: Bunch(
+        module: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        description: '\n    Quasi-RAW pre-processing.\n\n    Applies the Quasi-RAW pre-processing described in\n    :footcite:p:`dufumier2022openbhb`. This includes:\n\n    1) Reorient the anatomical image to standard MNI152 template space.\n    2) Compute a brain mask using a skull-stripping tool.\n    3) Apply the brain mask to the anatomical image.\n    4) Resample the anatomical image to 1mm isotropic voxel size.\n    5) Resample the brain mask image to 1mm isotropic voxel size.\n    6) Perform N4 bias field correction.\n    7) Linearly (9 dof) register the image to the MNI152 1mm template space.\n    8) Apply the registration to the antomical image.\n    9) Apply the registration to the brain mask image.\n    10) Apply the brain mask to the registered anatomical image.\n\n    Parameters\n    ----------\n    anatomical_file: File\n        Path to the input image file.\n    output_dir: Directory\n        Directory where the outputs will be saved (i.e., the root of your\n        dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - aligned_anatomical_file : File - path to the aligned anatomical\n          image - a Nifti file with the suffix "_T1w".\n        - aligned_mask_file : File - path to the aligned mask image - a\n          Nifti file with the suffix "_mod-T1w_brainmask".\n        - transform_file : File - path to the 9 dof affine transformation - a\n          text file with the suffix "_mod-T1w_affine".\n\n    Notes\n    -----\n    This workflow assumes the anatomical image is organized in BIDS.\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_quasiraw\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quasiraw(\n    ...         anatomical_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n      aligned_anatomical_file: PosixPath(\'...\')\n      aligned_mask_file: PosixPath(\'...\')\n      transform_file: PosixPath(\'...\')\n    )\n\n    Raises\n    ------\n    ValueError\n        If the input anatomical file is not BIDS-compliant.\n\n    References\n    ----------\n\n    .. footbibliography::\n    '
+        inputs: Bunch(
+          anatomical_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01')
+          keep_intermediate: True
+        )
+        outputs: Bunch(
+          aligned_anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-01_T1w.nii.gz')
+          aligned_mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_affine.txt')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.664017'
+          end: '2025-11-19 07:53:52.664017'
+          execution_time: 1.119638888888889e-05
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step2: Bunch(
+        module: 'brainprep.interfaces.fsl.reorient'
+        description: "\n    Reorients a BIDS-compliant anatomical image using FSL's `fslreorient2std`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Reorientation command-line.\n    outputs : tuple[File]\n        - reorient_image_file : File - Reoriented input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.668760'
+          end: '2025-11-19 07:53:52.668760'
+          execution_time: 7.805555555555555e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step3: Bunch(
+        module: 'brainprep.interfaces.freesurfer.brainmask'
+        description: "\n    Skull-strip a BIDS-compliant anatomical image using FreeSurfer's\n    `mri_synthstrip`.\n\n    `mri_synthstrip` is a FreeSurfer command-line tool that applies\n    SynthStrip, a deep learning-ased skull-stripping method developed to\n    work across diverse imaging modalities, resolutions, and subject\n    population :footcite:p:`hoopes2022brainmask`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file (T1w, T2w, FLAIR, etc.).\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Skull-stripping command-line.\n    outputs : tuple[File]\n        - mask_file : File - Skull-stripped brain image file.\n\n    References\n    ----------\n\n    .. footbibliography::\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.672641'
+          end: '2025-11-19 07:53:52.672641'
+          execution_time: 7.722222222222222e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step4: Bunch(
+        module: 'brainprep.interfaces.fsl.applymask'
+        description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `fslmaths`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file : File\n        Path to a binary mask file.\n    output_dir : Directory\n        Directory where the masked image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Masking command-line.\n    outputs : tuple[File]\n        - masked_image_file : File - masked input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.676127'
+          end: '2025-11-19 07:53:52.676127'
+          execution_time: 7.25e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step5: Bunch(
+        module: 'brainprep.interfaces.fsl.scale'
+        description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    scale : int\n        Scale factor applied in all directions.\n    output_dir : Directory\n        Directory where the scaled image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Scaling command-line.\n    outputs : tuple[File]\n        - scaled_anatomical_file : File - Scaled input image file.\n        - transform_file : File - The associated transformation file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz')
+          scale: 1
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-01_mod-T1w_scale.txt'))
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.679496'
+          end: '2025-11-19 07:53:52.679496'
+          execution_time: 1.0555555555555557e-07
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step6: Bunch(
+        module: 'brainprep.interfaces.fsl.scale'
+        description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    scale : int\n        Scale factor applied in all directions.\n    output_dir : Directory\n        Directory where the scaled image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Scaling command-line.\n    outputs : tuple[File]\n        - scaled_anatomical_file : File - Scaled input image file.\n        - transform_file : File - The associated transformation file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+          scale: 1
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-01_mod-T1w_scale.txt'))
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.682878'
+          end: '2025-11-19 07:53:52.682878'
+          execution_time: 9.444444444444445e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step7: Bunch(
+        module: 'brainprep.interfaces.ants.biasfield'
+        description: "\n    Bias field correction of a BIDS-compliant anatomical image using ANTs's\n    `N4BiasFieldCorrection`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file: File\n        Path to a binary brain mask file.\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Bias field correction command-line.\n    outputs : tuple[File]\n        - bc_image_file : File - The bias corrected input image file.\n        - bc_field_file : File - The estimated bias field.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-01_mod-T1w_scale.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biasfield.nii.gz'))
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.686368'
+          end: '2025-11-19 07:53:52.686368'
+          execution_time: 1.0444444444444444e-07
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step8: Bunch(
+        module: 'brainprep.interfaces.fsl.affine'
+        description: "\n    Affinely register a BIDS-compliant anatomical image to a template file\n    using FSL's `flirt`.\n\n    Parameters\n    ----------\n    anatomical_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    output_dir : Directory\n        Directory where the affine transformation will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Registration command-line.\n    outputs : tuple[File]\n        - aligned_anatomical_file : File - Aligned input image file.\n        - transform_file : File - The affine transformation file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biascorrected.nii.gz')
+          template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.txt'))
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.689709'
+          end: '2025-11-19 07:53:52.689709'
+          execution_time: 1.0472222222222222e-07
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step9: Bunch(
+        module: 'brainprep.interfaces.fsl.applyaffine'
+        description: "\n    Apply an affine transformation to a BIDS-compliant image file using FSL's\n    `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    transform_file : File\n        Path to the affine transformation file.\n    output_dir : Directory\n        Directory where the aligned image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    interpolation: str\n        The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or\n        'spline'. Default 'spline'.\n\n    Returns\n    -------\n    command : list[str]\n        Alignment command-line.\n    outputs : tuple[File]\n        - aligned_image_file : File - Aligned input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-01_mod-T1w_biascorrected.nii.gz')
+          template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.txt')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+          interpolation: 'spline'
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.693201'
+          end: '2025-11-19 07:53:52.693201'
+          execution_time: 6.86111111111111e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step10: Bunch(
+        module: 'brainprep.interfaces.fsl.applyaffine'
+        description: "\n    Apply an affine transformation to a BIDS-compliant image file using FSL's\n    `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    transform_file : File\n        Path to the affine transformation file.\n    output_dir : Directory\n        Directory where the aligned image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    interpolation: str\n        The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or\n        'spline'. Default 'spline'.\n\n    Returns\n    -------\n    command : list[str]\n        Alignment command-line.\n    outputs : tuple[File]\n        - aligned_image_file : File - Aligned input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+          template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.txt')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+          interpolation: 'nearestneighbour'
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.696494'
+          end: '2025-11-19 07:53:52.696494'
+          execution_time: 6.416666666666667e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step11: Bunch(
+        module: 'brainprep.interfaces.fsl.applymask'
+        description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `fslmaths`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file : File\n        Path to a binary mask file.\n    output_dir : Directory\n        Directory where the masked image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Masking command-line.\n    outputs : tuple[File]\n        - masked_image_file : File - masked input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask')
+          entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.699669'
+          end: '2025-11-19 07:53:52.699669'
+          execution_time: 6.583333333333333e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step12: Bunch(
+        module: 'brainprep.interfaces.utils.copyfiles'
+        description: '\n    Copy input image files.\n\n    Parameters\n    ----------\n    source_image_files : list[File]\n        Path to the image to be copied.\n    destination_image_files : list[File]\n        Path to the locations where images will be copied.\n    output_dir : Directory\n        Directory where the images are copied.\n    dryrun : bool\n        If True, skip actual computation and file writing. Default False.\n    '
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          source_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-01_mod-T1w_applymask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-01_mod-T1w_applyaffine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-01_mod-T1w_affine.txt')]
+          destination_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-01_T1w.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_affine.txt')]
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01')
+          dryrun: False
+        )
+        outputs: Bunch(
+          outputs: None
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.703310'
+          end: '2025-11-19 07:53:52.703310'
+          execution_time: 1.9722222222222225e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+    )
+    [title] - Subject Level Quasi-RAW...
+    [info] - setting template file: /home/runner/work/brainprep/brainprep/doc/../brainprep/resources/MNI152_T1_1mm_brain.nii.gz
+    [info] - setting workspace directory: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace
+    [command] - fslreorient2std /tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-01_mod-T1w_reorient.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-01_mod-T1w_reorient.nii.gz
+    [command] - mri_synthstrip -i /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-01_mod-T1w_reorient.nii.gz -m /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz --no-csf
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz
+    [command] - fslmaths /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-01_mod-T1w_reorient.nii.gz -mas /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz -ref /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz -applyisoxfm 1 -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz -omat /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-01_mod-T1w_scale.txt -verbose 1
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-01_mod-T1w_scale.txt
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz -ref /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz -applyisoxfm 1 -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz -omat /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-01_mod-T1w_scale.txt -verbose 1
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-01_mod-T1w_scale.txt
+    [command] - N4BiasFieldCorrection -d 3 -i /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz -s 1 -b [1x1x1,3] -c [50x50x50x50,0.001] -t [0.15,0.01,200] -x /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz -o [/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biascorrected.nii.gz,/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biasfield.nii.gz] -v
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biascorrected.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biasfield.nii.gz
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biascorrected.nii.gz -ref /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz -cost normmi -searchcost normmi -anglerep euler -bins 256 -interp trilinear -dof 9 -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.nii.gz -omat /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.txt -verbose 1
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.txt
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biascorrected.nii.gz -ref /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz -init /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.txt -interp spline -applyxfm -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz
+    [command] - flirt -in /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz -ref /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz -init /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.txt -interp nearestneighbour -applyxfm -out /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz
+    [command] - fslmaths /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz -mas /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz
+    [title] - Subject Level Quasi-RAW done.
+    Bunch(
+      step1: Bunch(
+        module: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        description: '\n    Quasi-RAW pre-processing.\n\n    Applies the Quasi-RAW pre-processing described in\n    :footcite:p:`dufumier2022openbhb`. This includes:\n\n    1) Reorient the anatomical image to standard MNI152 template space.\n    2) Compute a brain mask using a skull-stripping tool.\n    3) Apply the brain mask to the anatomical image.\n    4) Resample the anatomical image to 1mm isotropic voxel size.\n    5) Resample the brain mask image to 1mm isotropic voxel size.\n    6) Perform N4 bias field correction.\n    7) Linearly (9 dof) register the image to the MNI152 1mm template space.\n    8) Apply the registration to the antomical image.\n    9) Apply the registration to the brain mask image.\n    10) Apply the brain mask to the registered anatomical image.\n\n    Parameters\n    ----------\n    anatomical_file: File\n        Path to the input image file.\n    output_dir: Directory\n        Directory where the outputs will be saved (i.e., the root of your\n        dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - aligned_anatomical_file : File - path to the aligned anatomical\n          image - a Nifti file with the suffix "_T1w".\n        - aligned_mask_file : File - path to the aligned mask image - a\n          Nifti file with the suffix "_mod-T1w_brainmask".\n        - transform_file : File - path to the 9 dof affine transformation - a\n          text file with the suffix "_mod-T1w_affine".\n\n    Notes\n    -----\n    This workflow assumes the anatomical image is organized in BIDS.\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_quasiraw\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quasiraw(\n    ...         anatomical_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n      aligned_anatomical_file: PosixPath(\'...\')\n      aligned_mask_file: PosixPath(\'...\')\n      transform_file: PosixPath(\'...\')\n    )\n\n    Raises\n    ------\n    ValueError\n        If the input anatomical file is not BIDS-compliant.\n\n    References\n    ----------\n\n    .. footbibliography::\n    '
+        inputs: Bunch(
+          anatomical_file: PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01')
+          keep_intermediate: True
+        )
+        outputs: Bunch(
+          aligned_anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-01_T1w.nii.gz')
+          aligned_mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-01_mod-T1w_affine.txt')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.727574'
+          end: '2025-11-19 07:53:52.727574'
+          execution_time: 1.0146944444444443e-05
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step2: Bunch(
+        module: 'brainprep.interfaces.fsl.reorient'
+        description: "\n    Reorients a BIDS-compliant anatomical image using FSL's `fslreorient2std`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Reorientation command-line.\n    outputs : tuple[File]\n        - reorient_image_file : File - Reoriented input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-01_mod-T1w_reorient.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.730905'
+          end: '2025-11-19 07:53:52.730905'
+          execution_time: 6.222222222222221e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step3: Bunch(
+        module: 'brainprep.interfaces.freesurfer.brainmask'
+        description: "\n    Skull-strip a BIDS-compliant anatomical image using FreeSurfer's\n    `mri_synthstrip`.\n\n    `mri_synthstrip` is a FreeSurfer command-line tool that applies\n    SynthStrip, a deep learning-ased skull-stripping method developed to\n    work across diverse imaging modalities, resolutions, and subject\n    population :footcite:p:`hoopes2022brainmask`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file (T1w, T2w, FLAIR, etc.).\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Skull-stripping command-line.\n    outputs : tuple[File]\n        - mask_file : File - Skull-stripped brain image file.\n\n    References\n    ----------\n\n    .. footbibliography::\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-01_mod-T1w_reorient.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.733948'
+          end: '2025-11-19 07:53:52.733948'
+          execution_time: 5.944444444444444e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step4: Bunch(
+        module: 'brainprep.interfaces.fsl.applymask'
+        description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `fslmaths`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file : File\n        Path to a binary mask file.\n    output_dir : Directory\n        Directory where the masked image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Masking command-line.\n    outputs : tuple[File]\n        - masked_image_file : File - masked input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-01_mod-T1w_reorient.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.737028'
+          end: '2025-11-19 07:53:52.737028'
+          execution_time: 6e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step5: Bunch(
+        module: 'brainprep.interfaces.fsl.scale'
+        description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    scale : int\n        Scale factor applied in all directions.\n    output_dir : Directory\n        Directory where the scaled image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Scaling command-line.\n    outputs : tuple[File]\n        - scaled_anatomical_file : File - Scaled input image file.\n        - transform_file : File - The associated transformation file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz')
+          scale: 1
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-01_mod-T1w_scale.txt'))
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.740273'
+          end: '2025-11-19 07:53:52.740273'
+          execution_time: 8.722222222222221e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step6: Bunch(
+        module: 'brainprep.interfaces.fsl.scale'
+        description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    scale : int\n        Scale factor applied in all directions.\n    output_dir : Directory\n        Directory where the scaled image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Scaling command-line.\n    outputs : tuple[File]\n        - scaled_anatomical_file : File - Scaled input image file.\n        - transform_file : File - The associated transformation file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+          scale: 1
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-01_mod-T1w_scale.txt'))
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.743467'
+          end: '2025-11-19 07:53:52.743467'
+          execution_time: 8.555555555555556e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step7: Bunch(
+        module: 'brainprep.interfaces.ants.biasfield'
+        description: "\n    Bias field correction of a BIDS-compliant anatomical image using ANTs's\n    `N4BiasFieldCorrection`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file: File\n        Path to a binary brain mask file.\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Bias field correction command-line.\n    outputs : tuple[File]\n        - bc_image_file : File - The bias corrected input image file.\n        - bc_field_file : File - The estimated bias field.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-01_mod-T1w_scale.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biasfield.nii.gz'))
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.746726'
+          end: '2025-11-19 07:53:52.746726'
+          execution_time: 9.277777777777777e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step8: Bunch(
+        module: 'brainprep.interfaces.fsl.affine'
+        description: "\n    Affinely register a BIDS-compliant anatomical image to a template file\n    using FSL's `flirt`.\n\n    Parameters\n    ----------\n    anatomical_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    output_dir : Directory\n        Directory where the affine transformation will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Registration command-line.\n    outputs : tuple[File]\n        - aligned_anatomical_file : File - Aligned input image file.\n        - transform_file : File - The affine transformation file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biascorrected.nii.gz')
+          template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.txt'))
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.750064'
+          end: '2025-11-19 07:53:52.750064'
+          execution_time: 9.388888888888889e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step9: Bunch(
+        module: 'brainprep.interfaces.fsl.applyaffine'
+        description: "\n    Apply an affine transformation to a BIDS-compliant image file using FSL's\n    `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    transform_file : File\n        Path to the affine transformation file.\n    output_dir : Directory\n        Directory where the aligned image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    interpolation: str\n        The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or\n        'spline'. Default 'spline'.\n\n    Returns\n    -------\n    command : list[str]\n        Alignment command-line.\n    outputs : tuple[File]\n        - aligned_image_file : File - Aligned input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-01_mod-T1w_biascorrected.nii.gz')
+          template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.txt')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+          interpolation: 'spline'
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.753428'
+          end: '2025-11-19 07:53:52.753428'
+          execution_time: 6.5e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step10: Bunch(
+        module: 'brainprep.interfaces.fsl.applyaffine'
+        description: "\n    Apply an affine transformation to a BIDS-compliant image file using FSL's\n    `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    transform_file : File\n        Path to the affine transformation file.\n    output_dir : Directory\n        Directory where the aligned image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    interpolation: str\n        The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or\n        'spline'. Default 'spline'.\n\n    Returns\n    -------\n    command : list[str]\n        Alignment command-line.\n    outputs : tuple[File]\n        - aligned_image_file : File - Aligned input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz')
+          template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.txt')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+          interpolation: 'nearestneighbour'
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.756894'
+          end: '2025-11-19 07:53:52.756894'
+          execution_time: 5.944444444444444e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step11: Bunch(
+        module: 'brainprep.interfaces.fsl.applymask'
+        description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `fslmaths`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file : File\n        Path to a binary mask file.\n    output_dir : Directory\n        Directory where the masked image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Masking command-line.\n    outputs : tuple[File]\n        - masked_image_file : File - masked input image file.\n    "
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask')
+          entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '01'}
+        )
+        outputs: Bunch(
+          outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz')
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.759987'
+          end: '2025-11-19 07:53:52.759987'
+          execution_time: 5.638888888888889e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+      step12: Bunch(
+        module: 'brainprep.interfaces.utils.copyfiles'
+        description: '\n    Copy input image files.\n\n    Parameters\n    ----------\n    source_image_files : list[File]\n        Path to the image to be copied.\n    destination_image_files : list[File]\n        Path to the locations where images will be copied.\n    output_dir : Directory\n        Directory where the images are copied.\n    dryrun : bool\n        If True, skip actual computation and file writing. Default False.\n    '
+        trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
+        inputs: Bunch(
+          source_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-01_mod-T1w_applymask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-01_mod-T1w_applyaffine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-01_mod-T1w_affine.txt')]
+          destination_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-01_T1w.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-01_mod-T1w_brainmask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-01_mod-T1w_affine.txt')]
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01')
+          dryrun: False
+        )
+        outputs: Bunch(
+          outputs: None
+        )
+        runtime: Bunch(
+          start: '2025-11-19 07:53:52.763310'
+          end: '2025-11-19 07:53:52.763310'
+          execution_time: 1.6388888888888888e-08
+          brainprep_version: '1.0.0.dev'
+          platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmg1sw1'
+        )
+        config: Bunch(
+          verbose: True
+          dryrun: True
+          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/spm')
+          matlab_dir: PosixPath('/opt/mcr/v93')
+          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+        )
+      )
+    )
+    [title] - Group Level Quasi-RAW...
+    [info] - setting template file: /home/runner/work/brainprep/brainprep/doc/../brainprep/resources/MNI152_T1_1mm_brain.nii.gz
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/qc/mean_correlations.tsv
+    [info] - checking output: /tmp/brainprep-quasiraw/derivatives/quasiraw/qc/histogram_mean_correlation.png
+    [title] - Group Level Quasi-RAW done.
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 72-76
+
+Container
+---------
+
+Let's now perform this preprocessing using the BrainPrep container.
+
+.. GENERATED FROM PYTHON SOURCE LINES 76-98
+
+.. code-block:: Python
+
+
+    homedir = Path("/tmp/brainprep-home")
+    homedir.mkdir(parents=True, exist_ok=True)
+    devcodedir = "/tmp/brainprep-code"
     cmd = [
-        f"SINGULARITYENV_FS_LICENSE={license}",
-        "apptainer", "run",
+        "singularity",
+        "run",
+        "shell",
+        "--bind", f"{devcodedir}:/opt/brainprep",
         "--bind", f"{datadir}:/data",
         "--bind", f"{outdir}:/out",
-        "--home", homedir,
-        "--cleanenv",
-        "docker://neurospin/brainprep-anat:latest",
+        "--home", f"{homedir}",
+        "--env", "PYTHONPATH=/opt/brainprep",
+        "--env", "PREPEND_PATH=/opt/brainprep/brainprep/scripts",
+        "--containall",
+        "docker://neurospin/brainprep-quasiraw:latest",
         "brainprep", "quasiraw",
-        t1w_file.replace(datadir, "/data"),
-        mask_file.replace(datadir, "/data"),
-        "/out",
-        "--no-bids",
+        "/data",
+        "--image-files", f"[{data.sub01.anat}]",
+        "--output-dir", "/out",
     ]
     print(" ".join(cmd))
 
@@ -105,7 +985,7 @@ Now let's perform the pre-processing on a brainprep container.
 
  .. code-block:: none
 
-    SINGULARITYENV_FS_LICENSE=Type license() to see the full license text apptainer run --bind /tmp/brainprep-data:/data --bind /tmp/brainprep-out:/out --home /tmp/brainprep-home --cleanenv docker://neurospin/brainprep-anat:latest brainprep quasiraw /data/sub-01_T1w.nii.gz /data/sub-01_T1w.nii.gz /out --no-bids
+    singularity run shell --bind /tmp/brainprep-code:/opt/brainprep --bind /tmp/brainprep-data:/data --bind /tmp/brainprep-quasiraw:/out --home /tmp/brainprep-home --env PYTHONPATH=/opt/brainprep --env PREPEND_PATH=/opt/brainprep/brainprep/scripts --containall docker://neurospin/brainprep-quasiraw:latest brainprep quasiraw /data --image-files [/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz] --output-dir /out
 
 
 
@@ -113,9 +993,9 @@ Now let's perform the pre-processing on a brainprep container.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.242 seconds)
+   **Total running time of the script:** (0 minutes 0.460 seconds)
 
-**Estimated memory usage:**  233 MB
+**Estimated memory usage:**  107 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_quasiraw.py:

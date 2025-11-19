@@ -1,0 +1,27 @@
+:mod:`brainprep.workflow.vbm`: Diffusion MRI pre-processing.
+============================================================
+
+.. automodule:: brainprep.workflow.vbm
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.vbm
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_group_vbm
+    brainprep_longitudinal_vbm
+    brainprep_vbm
+
+
+
+

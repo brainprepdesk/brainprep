@@ -1,0 +1,29 @@
+:mod:`brainprep.config`: Configuration used by BrainPrep.
+=========================================================
+
+.. automodule:: brainprep.config
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.config
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    Config
+
+.. .. autoclasstree:: brainprep.config
+       :strict:
+       :align: center
+
+
+
+
+
+

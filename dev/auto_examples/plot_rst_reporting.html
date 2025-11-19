@@ -11,7 +11,7 @@
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
 <meta name="description" content="Simple example. Example on how to accumulate runtime information in an RST report. See user guide for details. Functions: Let’s create some functions to monitor. Reporting: Now let’s generate the R..." />
-<link rel="search" title="Search" href="../search.html" /><link rel="next" title="VBM pre-processing" href="plot_vbm.html" /><link rel="prev" title="Quasi RAW Pre-Processing" href="plot_quasiraw.html" />
+<link rel="search" title="Search" href="../search.html" /><link rel="next" title="VBM pre-processing" href="plot_vbm.html" /><link rel="prev" title="Quasi-RAW pre-processing" href="plot_quasiraw.html" />
         <link rel="prefetch" href="../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
@@ -241,9 +241,10 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_defacing.html">Defacing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_html_reporting.html">HTML reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_quality_assurance.html">Quality Assurance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_quasiraw.html">Quasi RAW Pre-Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_quasiraw.html">Quasi-RAW pre-processing</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">RST reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_vbm.html">VBM pre-processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_dmriprep.html">fMRI Pre-Processings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_fmriprep.html">fMRI Pre-Processings</a></li>
 </ul>
 </li>
@@ -261,23 +262,16 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../modules/index.html">API References</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.connectivity.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.connectivity</span></code>: Import pre-processed images and confounds from fMRIPrep and generate</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of brainprep.connectivity: Import pre-processed images and confounds from fMRIPrep and generate</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.connectivity.func_connectivity.html">brainprep.connectivity.func_connectivity</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.config.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.config</span></code>: Configuration used by BrainPrep.</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of brainprep.config: Configuration used by BrainPrep.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.config.Config.html">brainprep.config.Config</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.cortical.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.cortical</span></code>: Common cortical functions.</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of brainprep.cortical: Common cortical functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.cortical.interhemi_projection.html">brainprep.cortical.interhemi_projection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.cortical.interhemi_surfreg.html">brainprep.cortical.interhemi_surfreg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.cortical.localgi.html">brainprep.cortical.localgi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.cortical.mri_conversion.html">brainprep.cortical.mri_conversion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.cortical.recon_all.html">brainprep.cortical.recon_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.cortical.recon_all_custom_wm_mask.html">brainprep.cortical.recon_all_custom_wm_mask</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.cortical.recon_all_longitudinal.html">brainprep.cortical.recon_all_longitudinal</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.cortical.stats2table.html">brainprep.cortical.stats2table</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.anatomical.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.anatomical</span></code>: Fetch some data.</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of brainprep.datasets.anatomical: Fetch some data.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.anatomical.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.anatomical</span></code>: Fetcher to download anatomical data.</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of brainprep.datasets.anatomical: Fetcher to download anatomical data.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.anatomical.AnatomicalDataset.html">brainprep.datasets.anatomical.AnatomicalDataset</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.multi_modal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.multi_modal</span></code>: Fetcher to download anatomical data.</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of brainprep.datasets.multi_modal: Fetcher to download anatomical data.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.multi_modal.MultiModalDataset.html">brainprep.datasets.multi_modal.MultiModalDataset</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets</span></code>: Module that implements datasets.</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of brainprep.datasets: Module that implements datasets.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -285,147 +279,174 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.git_download.html">brainprep.datasets.git_download</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.utils</span></code>: Dataset tools.</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of brainprep.datasets.utils: Dataset tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.utils</span></code>: Dataset creation tools.</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of brainprep.datasets.utils: Dataset creation tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.utils.git_download.html">brainprep.datasets.utils.git_download</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.deface.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.deface</span></code>: Common defacing functions.</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of brainprep.deface: Common defacing functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.deface.deface.html">brainprep.deface.deface</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.ants.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.ants</span></code>: ANTs functions.</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.ants: ANTs functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.ants.biasfield.html">brainprep.interfaces.ants.biasfield</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.plotting</span></code>: Usefull plotting functions.</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of brainprep.plotting: Usefull plotting functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.plotting.get_fsreconall_masks.html">brainprep.plotting.get_fsreconall_masks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.plotting.plot_fsreconall.html">brainprep.plotting.plot_fsreconall</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.plotting.plot_hists.html">brainprep.plotting.plot_hists</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.plotting.plot_images.html">brainprep.plotting.plot_images</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.cat12.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.cat12</span></code>: CAT12 functions.</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.cat12: CAT12 functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.cat12.cat12vbm_morphometry.html">brainprep.interfaces.cat12.cat12vbm_morphometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.cat12.cat12vbm_stats.html">brainprep.interfaces.cat12.cat12vbm_stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.cat12.cat12vbm_wf.html">brainprep.interfaces.cat12.cat12vbm_wf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.cat12.write_catbatch.html">brainprep.interfaces.cat12.write_catbatch</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.qc.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.qc</span></code>: Usefull automatic quality control (QC) functions.</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of brainprep.qc: Usefull automatic quality control (QC) functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.qc.check_files.html">brainprep.qc.check_files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.qc.compute_mean_correlation.html">brainprep.qc.compute_mean_correlation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.qc.parse_cat12vbm_qc.html">brainprep.qc.parse_cat12vbm_qc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.qc.parse_cat12vbm_report.html">brainprep.qc.parse_cat12vbm_report</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.qc.parse_cat12vbm_roi.html">brainprep.qc.parse_cat12vbm_roi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.qc.parse_fsreconall_stats.html">brainprep.qc.parse_fsreconall_stats</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.qc.plot_pca.html">brainprep.qc.plot_pca</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.fmriprep</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.fmriprep: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fmriprep.fmriprep_wf.html">brainprep.interfaces.fmriprep.fmriprep_wf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fmriprep.func_vol_connectivity.html">brainprep.interfaces.fmriprep.func_vol_connectivity</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.freesurfer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.freesurfer</span></code>: FreeSurfer functions.</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.freesurfer: FreeSurfer functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.aparcstats2table.html">brainprep.interfaces.freesurfer.aparcstats2table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.asegstats2table.html">brainprep.interfaces.freesurfer.asegstats2table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.brainmask.html">brainprep.interfaces.freesurfer.brainmask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.freesurfer_command_status.html">brainprep.interfaces.freesurfer.freesurfer_command_status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.freesurfer_euler_numbers.html">brainprep.interfaces.freesurfer.freesurfer_euler_numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.freesurfer_features_summary.html">brainprep.interfaces.freesurfer.freesurfer_features_summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.freesurfer_tissues.html">brainprep.interfaces.freesurfer.freesurfer_tissues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.fsaveragesym_projection.html">brainprep.interfaces.freesurfer.fsaveragesym_projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.fsaveragesym_surfreg.html">brainprep.interfaces.freesurfer.fsaveragesym_surfreg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.localgi.html">brainprep.interfaces.freesurfer.localgi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.mgz_to_nii.html">brainprep.interfaces.freesurfer.mgz_to_nii</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.mri_convert.html">brainprep.interfaces.freesurfer.mri_convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.mris_apply_reg.html">brainprep.interfaces.freesurfer.mris_apply_reg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.reconall.html">brainprep.interfaces.freesurfer.reconall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.reconall_longitudinal.html">brainprep.interfaces.freesurfer.reconall_longitudinal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.surfreg.html">brainprep.interfaces.freesurfer.surfreg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.xhemireg.html">brainprep.interfaces.freesurfer.xhemireg</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.fsl.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.fsl</span></code>: FSL functions.</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.fsl: FSL functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fsl.affine.html">brainprep.interfaces.fsl.affine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fsl.applyaffine.html">brainprep.interfaces.fsl.applyaffine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fsl.applymask.html">brainprep.interfaces.fsl.applymask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fsl.deface.html">brainprep.interfaces.fsl.deface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fsl.reorient.html">brainprep.interfaces.fsl.reorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fsl.scale.html">brainprep.interfaces.fsl.scale</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.mriqc.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.mriqc</span></code>: MRIQC functions.</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.mriqc: MRIQC functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.mriqc.group_level_qa.html">brainprep.interfaces.mriqc.group_level_qa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.mriqc.subject_level_qa.html">brainprep.interfaces.mriqc.subject_level_qa</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.plotting</span></code>: Plotting functions.</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.plotting: Plotting functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_brainparc.html">brainprep.interfaces.plotting.plot_brainparc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_defacing_mosaic.html">brainprep.interfaces.plotting.plot_defacing_mosaic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_histogram.html">brainprep.interfaces.plotting.plot_histogram</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.prequal.prequal_stats.html">brainprep.interfaces.prequal.prequal_stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.prequal.prequal_wf.html">brainprep.interfaces.prequal.prequal_wf</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces</span></code>: Module that implements interfaces.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces: Module that implements interfaces.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.deface.html">brainprep.interfaces.deface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.reorient.html">brainprep.interfaces.reorient</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mean_correlation.html">brainprep.interfaces.utils.mean_correlation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.ungzfile.html">brainprep.interfaces.utils.ungzfile</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.html_reporting.HTMLReport.html">brainprep.reporting.html_reporting.HTMLReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.html_reporting.generate_qc_report.html">brainprep.reporting.html_reporting.generate_qc_report</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting</span></code>: Module that implements reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of brainprep.reporting: Module that implements reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting</span></code>: Module that implements reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of brainprep.reporting: Module that implements reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.RSTReport.html">brainprep.reporting.RSTReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.generate_qc_report.html">brainprep.reporting.generate_qc_report</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.rst_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.rst_reporting</span></code>: Provides signature-preserving function decorators in decorator factories.</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of brainprep.reporting.rst_reporting: Provides signature-preserving function decorators in decorator factories.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.rst_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.rst_reporting</span></code>: Provides signature-preserving function decorators in decorator factories.</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of brainprep.reporting.rst_reporting: Provides signature-preserving function decorators in decorator factories.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.rst_reporting.RSTReport.html">brainprep.reporting.rst_reporting.RSTReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.rst_reporting.SingletonReport.html">brainprep.reporting.rst_reporting.SingletonReport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.rst_reporting.trace_module_calls.html">brainprep.reporting.rst_reporting.trace_module_calls</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.utils</span></code>: Module that implements reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of brainprep.reporting.utils: Module that implements reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.utils</span></code>: Reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.reporting.utils: Reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.utils.dataframe_to_html.html">brainprep.reporting.utils.dataframe_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.utils.inject_with_jinja.html">brainprep.reporting.utils.inject_with_jinja</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.utils.png_image_to_base64.html">brainprep.reporting.utils.png_image_to_base64</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.spatial.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.spatial</span></code>: Common functions to spatialy normalize the data.</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of brainprep.spatial: Common functions to spatialy normalize the data.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.spatial.apply_affine.html">brainprep.spatial.apply_affine</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.spatial.apply_mask.html">brainprep.spatial.apply_mask</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.spatial.bet2.html">brainprep.spatial.bet2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.spatial.biasfield.html">brainprep.spatial.biasfield</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.spatial.register_affine.html">brainprep.spatial.register_affine</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.spatial.reorient2std.html">brainprep.spatial.reorient2std</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.spatial.scale.html">brainprep.spatial.scale</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.tbss.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.tbss</span></code>: FSL TBSS tools.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.tbss: FSL TBSS tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.tbss.dtifit.html">brainprep.tbss.dtifit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.tbss.tbss_1_preproc.html">brainprep.tbss.tbss_1_preproc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.tbss.tbss_2_reg.html">brainprep.tbss.tbss_2_reg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.tbss.tbss_3_postreg.html">brainprep.tbss.tbss_3_postreg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.tbss.tbss_4_prestats.html">brainprep.tbss.tbss_4_prestats</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.bunch.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.bunch</span></code>:</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of brainprep.utils.bunch:</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.bunch.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.bunch</span></code>: An extension of dictionaries by enabling values to be accessed by a key or by</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of brainprep.utils.bunch: An extension of dictionaries by enabling values to be accessed by a key or by</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.bunch.Bunch.html">brainprep.utils.bunch.Bunch</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.color.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.color</span></code>: Utility methods to print the results in a terminal using term colors.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.utils.color: Utility methods to print the results in a terminal using term colors.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.colored.html">brainprep.utils.color.colored</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.HEX.html">brainprep.utils.color.HEX</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.color.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.color</span></code>: Utility methods to print the results in a terminal using term colors.</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of brainprep.utils.color: Utility methods to print the results in a terminal using term colors.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.Colored.html">brainprep.utils.color.Colored</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.attr.html">brainprep.utils.color.attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.fg.html">brainprep.utils.color.fg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.hex.html">brainprep.utils.color.hex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_color.html">brainprep.utils.color.print_color</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_command.html">brainprep.utils.color.print_command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_deprecated.html">brainprep.utils.color.print_deprecated</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_error.html">brainprep.utils.color.print_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_info.html">brainprep.utils.color.print_info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_result.html">brainprep.utils.color.print_result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_subtitle.html">brainprep.utils.color.print_subtitle</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_title.html">brainprep.utils.color.print_title</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.print_warn.html">brainprep.utils.color.print_warn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.stylize.html">brainprep.utils.color.stylize</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.check_command.html">brainprep.utils.utils.check_command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.check_version.html">brainprep.utils.utils.check_version</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.create_clickable.html">brainprep.utils.utils.create_clickable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.execute_command.html">brainprep.utils.utils.execute_command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.get_bids_keys.html">brainprep.utils.utils.get_bids_keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.listify.html">brainprep.utils.utils.listify</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.load_images.html">brainprep.utils.utils.load_images</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.ungzip_file.html">brainprep.utils.utils.ungzip_file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.write_matlabbatch.html">brainprep.utils.utils.write_matlabbatch</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.parse_bids_keys.html">brainprep.utils.utils.parse_bids_keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.sidecar_from_file.html">brainprep.utils.utils.sidecar_from_file</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.cat12vbm.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.cat12vbm</span></code>: Interface for CAT12 VBM.</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of brainprep.workflow.cat12vbm: Interface for CAT12 VBM.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.cat12vbm.brainprep_cat12vbm.html">brainprep.workflow.cat12vbm.brainprep_cat12vbm</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.cat12vbm.brainprep_cat12vbm_qc.html">brainprep.workflow.cat12vbm.brainprep_cat12vbm_qc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.cat12vbm.brainprep_cat12vbm_roi.html">brainprep.workflow.cat12vbm.brainprep_cat12vbm_roi</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.brain_parcellation.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.brain_parcellation</span></code>: Brain parcellation pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of brainprep.workflow.brain_parcellation: Brain parcellation pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.brain_parcellation.brainprep_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_brainparc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.brain_parcellation.brainprep_group_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_group_brainparc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.brain_parcellation.brainprep_longitudinal_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_longitudinal_brainparc</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.deface.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.deface</span></code>: Interface for brain imaging defacing.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.workflow.deface: Interface for brain imaging defacing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.deface.brainprep_deface.html">brainprep.workflow.deface.brainprep_deface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.deface.brainprep_deface_qc.html">brainprep.workflow.deface.brainprep_deface_qc</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.defacing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.defacing</span></code>: Brain imaging defacing.</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of brainprep.workflow.defacing: Brain imaging defacing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.defacing.brainprep_defacing.html">brainprep.workflow.defacing.brainprep_defacing</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.fmriprep</span></code>: Interface for fmriprep.</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of brainprep.workflow.fmriprep: Interface for fmriprep.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.dmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.dmriprep</span></code>: Diffusion MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of brainprep.workflow.dmriprep: Diffusion MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.dmriprep.brainprep_dmriprep.html">brainprep.workflow.dmriprep.brainprep_dmriprep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.dmriprep.brainprep_group_dmriprep.html">brainprep.workflow.dmriprep.brainprep_group_dmriprep</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.fmriprep</span></code>: Functional MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.workflow.fmriprep: Functional MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.fmriprep.brainprep_fmriprep.html">brainprep.workflow.fmriprep.brainprep_fmriprep</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.fmriprep.brainprep_fmriprep_conn.html">brainprep.workflow.fmriprep.brainprep_fmriprep_conn</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.fsreconall.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.fsreconall</span></code>: Interface for FreeSurfer recon-all.</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of brainprep.workflow.fsreconall: Interface for FreeSurfer recon-all.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.fsreconall.brainprep_fsreconall.html">brainprep.workflow.fsreconall.brainprep_fsreconall</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.fsreconall.brainprep_fsreconall_longitudinal.html">brainprep.workflow.fsreconall.brainprep_fsreconall_longitudinal</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.fsreconall.brainprep_fsreconall_qc.html">brainprep.workflow.fsreconall.brainprep_fsreconall_qc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.fsreconall.brainprep_fsreconall_summary.html">brainprep.workflow.fsreconall.brainprep_fsreconall_summary</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.quality_assurance.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quality_assurance</span></code>: Quality assurance.</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quality_assurance: Quality assurance.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quality_assurance.brainprep_group_quality_assurance.html">brainprep.workflow.quality_assurance.brainprep_group_quality_assurance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quality_assurance.brainprep_quality_assurance.html">brainprep.workflow.quality_assurance.brainprep_quality_assurance</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.mriqc.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.mriqc</span></code>: Interface for mriqc.</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of brainprep.workflow.mriqc: Interface for mriqc.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.brainprep_mriqc.html">brainprep.workflow.mriqc.brainprep_mriqc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.brainprep_mriqc_summary.html">brainprep.workflow.mriqc.brainprep_mriqc_summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.compute_score.html">brainprep.workflow.mriqc.compute_score</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.detect_outliers.html">brainprep.workflow.mriqc.detect_outliers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.filter_iqms.html">brainprep.workflow.mriqc.filter_iqms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.load_iqms.html">brainprep.workflow.mriqc.load_iqms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.merge_dfs.html">brainprep.workflow.mriqc.merge_dfs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.plot_iqms.html">brainprep.workflow.mriqc.plot_iqms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.mriqc.query_api.html">brainprep.workflow.mriqc.query_api</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.prequal</span></code>: Interface for prequal.</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of brainprep.workflow.prequal: Interface for prequal.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.prequal.brainprep_prequal.html">brainprep.workflow.prequal.brainprep_prequal</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.prequal.brainprep_prequal_qc.html">brainprep.workflow.prequal.brainprep_prequal_qc</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.quasiraw.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quasiraw</span></code>: Interface for quasi-raw.</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quasiraw: Interface for quasi-raw.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.quasiraw.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quasiraw</span></code>: Quasi-RAW pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quasiraw: Quasi-RAW pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quasiraw.brainprep_group_quasiraw.html">brainprep.workflow.quasiraw.brainprep_group_quasiraw</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quasiraw.brainprep_quasiraw.html">brainprep.workflow.quasiraw.brainprep_quasiraw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quasiraw.brainprep_quasiraw_qc.html">brainprep.workflow.quasiraw.brainprep_quasiraw_qc</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.tbss.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.tbss</span></code>: Interface for FSL TBSS.</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of brainprep.workflow.tbss: Interface for FSL TBSS.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.tbss.brainprep_tbss.html">brainprep.workflow.tbss.brainprep_tbss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.tbss.brainprep_tbss_preproc.html">brainprep.workflow.tbss.brainprep_tbss_preproc</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.vbm.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.vbm</span></code>: Diffusion MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of brainprep.workflow.vbm: Diffusion MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.vbm.brainprep_group_vbm.html">brainprep.workflow.vbm.brainprep_group_vbm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.vbm.brainprep_longitudinal_vbm.html">brainprep.workflow.vbm.brainprep_longitudinal_vbm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.vbm.brainprep_vbm.html">brainprep.workflow.vbm.brainprep_vbm</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.wrappers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.wrappers</span></code>: Functions for running shell commands.</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of brainprep.wrappers: Functions for running shell commands.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.wrappers._check_outputs.html">brainprep.wrappers._check_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.wrappers._is_list_list_str.html">brainprep.wrappers._is_list_list_str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.wrappers._is_list_str.html">brainprep.wrappers._is_list_str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.wrappers.is_command_installed.html">brainprep.wrappers.is_command_installed</a></li>
 </ul>
 </li>
 </ul>
@@ -577,12 +598,21 @@ Bunch(
       val: 1
     )
     runtime: Bunch(
-      start: &#39;2025-10-03 14:41:41.280725&#39;
-      end: &#39;2025-10-03 14:41:41.280725&#39;
-      execution_time: 2.777777777777778e-09
+      start: &#39;2025-11-19 07:53:53.239515&#39;
+      end: &#39;2025-11-19 07:53:53.239515&#39;
+      execution_time: 1.6666666666666667e-09
       brainprep_version: &#39;1.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm3ublj&#39;
+      hostname: &#39;runnervmg1sw1&#39;
+    )
+    config: Bunch(
+      verbose: True
+      dryrun: False
+      cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
+      spm12_dir: PosixPath(&#39;/opt/spm&#39;)
+      matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
+      tpm_file: PosixPath(&#39;/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii&#39;)
+      darteltpm_file: PosixPath(&#39;/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii&#39;)
     )
   )
 )
@@ -601,12 +631,21 @@ Bunch(
       val: 4
     )
     runtime: Bunch(
-      start: &#39;2025-10-03 14:41:41.282260&#39;
-      end: &#39;2025-10-03 14:41:41.282260&#39;
-      execution_time: 2.9444444444444446e-08
+      start: &#39;2025-11-19 07:53:53.245072&#39;
+      end: &#39;2025-11-19 07:53:53.245072&#39;
+      execution_time: 1.0111111111111111e-06
       brainprep_version: &#39;1.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm3ublj&#39;
+      hostname: &#39;runnervmg1sw1&#39;
+    )
+    config: Bunch(
+      verbose: True
+      dryrun: False
+      cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
+      spm12_dir: PosixPath(&#39;/opt/spm&#39;)
+      matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
+      tpm_file: PosixPath(&#39;/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii&#39;)
+      darteltpm_file: PosixPath(&#39;/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii&#39;)
     )
   )
   step2: Bunch(
@@ -619,19 +658,28 @@ Bunch(
       val2: 4
     )
     runtime: Bunch(
-      start: &#39;2025-10-03 14:41:41.282332&#39;
-      end: &#39;2025-10-03 14:41:41.282332&#39;
-      execution_time: 8.333333333333334e-10
+      start: &#39;2025-11-19 07:53:53.248677&#39;
+      end: &#39;2025-11-19 07:53:53.248677&#39;
+      execution_time: 1.9444444444444442e-09
       brainprep_version: &#39;1.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm3ublj&#39;
+      hostname: &#39;runnervmg1sw1&#39;
+    )
+    config: Bunch(
+      verbose: True
+      dryrun: False
+      cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
+      spm12_dir: PosixPath(&#39;/opt/spm&#39;)
+      matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
+      tpm_file: PosixPath(&#39;/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii&#39;)
+      darteltpm_file: PosixPath(&#39;/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii&#39;)
     )
   )
 )
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.184 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  233 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.209 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  107 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-rst-reporting-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/3f4280b8eaebea258ab605b0a5f3e880/plot_rst_reporting.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_rst_reporting.ipynb</span></code></a></p>
@@ -668,7 +716,7 @@ Bunch(
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Quasi RAW Pre-Processing</div>
+                <div class="title">Quasi-RAW pre-processing</div>
                 
               </div>
             </a>

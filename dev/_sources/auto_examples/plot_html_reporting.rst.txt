@@ -49,13 +49,13 @@ carousel of two images.
 
 
     git_download(
-        url=("https://raw.github.com/neurospin-deepinsight/brainprep/dev/doc/"
-             "logos/brainprep.png"),
+        url=("https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/"
+             "dev/doc/logos/brainprep.png"),
         destination=working_dir / "im1.png",
     )
     git_download(
-        url=("https://raw.github.com/neurospin-deepinsight/brainprep/dev/doc/"
-             "logos/brainprep.png"),
+        url=("https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/"
+             "dev/doc/logos/brainprep.png"),
         destination=working_dir / "im2.png",
     )
 
@@ -90,7 +90,7 @@ carousel of two images.
 Reporting
 ---------
 
-Now let's geerate the HTML report.
+Now let's generate the HTML report.
 
 .. GENERATED FROM PYTHON SOURCE LINES 63-80
 
@@ -123,9 +123,9 @@ Now let's geerate the HTML report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.716 seconds)
+   **Total running time of the script:** (0 minutes 0.362 seconds)
 
-**Estimated memory usage:**  234 MB
+**Estimated memory usage:**  108 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_html_reporting.py:

@@ -23,7 +23,7 @@ VBM pre-processing
 
 Simple example.
 
-Example on how to run the VBM pre-processing using brainprep.
+Example on how to run the VBM pre-processing using BrainPrep.
 See :ref:`user guide <vbm>` for details.
 
 Data
@@ -31,21 +31,29 @@ Data
 
 Let's first get some anatomical data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-30
+.. GENERATED FROM PYTHON SOURCE LINES 15-38
 
 .. code-block:: Python
 
 
     from pathlib import Path
     from brainprep.datasets import AnatomicalDataset
+    from brainprep.utils import Bunch
 
     datadir = Path("/tmp/brainprep-data")
     datadir.mkdir(parents=True, exist_ok=True)
     dataset = AnatomicalDataset(datadir)
-    data = dataset.fetch(
-        subject="01",
-        modality="T1w",
-        dtype="cross_sectional",
+    data = Bunch(
+        sub01=dataset.fetch(
+            subject="01",
+            modality="T1w",
+            dtype="longitudinal",
+        ),
+        sub02=dataset.fetch(
+            subject="02",
+            modality="T1w",
+            dtype="longitudinal",
+        ),
     )
     print(data)
 
@@ -59,41 +67,69 @@ Let's first get some anatomical data.
  .. code-block:: none
 
     Bunch(
-      sub-01: PosixPath('/tmp/brainprep-data/sub-01_T1w.nii.gz')
+      sub01: Bunch(
+        description: PosixPath('/tmp/brainprep-data/rawdata/dataset_description.json')
+        anat1: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz')
+        anat2: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz')
+      )
+      sub02: Bunch(
+        description: PosixPath('/tmp/brainprep-data/rawdata/dataset_description.json')
+        anat1: PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz')
+        anat2: PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_T1w.nii.gz')
+      )
     )
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-35
+.. GENERATED FROM PYTHON SOURCE LINES 39-46
 
-Container
----------
+Analysis
+--------
 
-Now let's perform the pre-processing on a brainprep container.
+Let's now perform the preprocessing using BrainPrep.
+As with many tutorials, we won't execute the code directly here.
+However, feel free to set the 'dryrun' configuration to False
+to actually run each step and generate results on disk.
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-53
+.. GENERATED FROM PYTHON SOURCE LINES 46-80
 
 .. code-block:: Python
 
 
-    datadir = str(datadir)
-    outdir = "/tmp/brainprep-out"
-    homedir = "/tmp/brainprep-home"
-    t1w_file = str(data["sub-01"])
-    cmd = [
-        f"SINGULARITYENV_FS_LICENSE={license}",
-        "apptainer", "run",
-        "--bind", f"{datadir}:/data",
-        "--bind", f"{outdir}:/out",
-        "--home", homedir,
-        "--cleanenv",
-        "docker://neurospin/brainprep-anat:latest",
-        "brainprep", "vbm",
-        t1w_file.replace(datadir, "/data"),
-        "/out",
-    ]
-    print(" ".join(cmd))
+
+    from brainprep.workflow import (
+        brainprep_group_vbm,
+        brainprep_longitudinal_vbm,
+        brainprep_vbm,
+    )
+    from brainprep.config import Config
+    from brainprep.reporting import RSTReport
+
+    outdir = Path("/tmp/brainprep-vbm")
+    outdir.mkdir(parents=True, exist_ok=True)
+    with Config(dryrun=True, verbose=True):
+        for subject_data in data.values():
+            report = RSTReport()
+            outputs = brainprep_vbm(
+                t1_file=subject_data.anat1,
+                output_dir=outdir,
+            )
+            # print(report)
+        outputs = brainprep_longitudinal_vbm(
+            t1_files=[data.sub01.anat1, data.sub01.anat2],
+            model=1,
+            output_dir=outdir,
+        )
+        outputs = brainprep_group_vbm(
+            output_dir=outdir,
+        )
+        outputs = brainprep_group_vbm(
+            output_dir=outdir,
+            longitudinal=True,
+        )
+
+
 
 
 
@@ -102,17 +138,69 @@ Now let's perform the pre-processing on a brainprep container.
 
  .. code-block:: none
 
-    SINGULARITYENV_FS_LICENSE=Type license() to see the full license text apptainer run --bind /tmp/brainprep-data:/data --bind /tmp/brainprep-out:/out --home /tmp/brainprep-home --cleanenv docker://neurospin/brainprep-anat:latest brainprep vbm /data/sub-01_T1w.nii.gz /out
+    [title] - Subject Level VBM Pre-Processing...
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/sub-01_ses-study1_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch.m
+    [command] - /opt/spm/standalone/cat_standalone.sh -s /opt/spm -m /opt/mcr/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch.m
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/mri/mwp1sub-01_ses-study1_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/report/catreport_sub-01_ses-study1_T1w.nii
+    [title] - Subject Level VBM Pre-Processing done.
+    [title] - Subject Level VBM Pre-Processing...
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/sub-02_ses-study1_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch.m
+    [command] - /opt/spm/standalone/cat_standalone.sh -s /opt/spm -m /opt/mcr/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch.m
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/mri/mwp1sub-02_ses-study1_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/report/catreport_sub-02_ses-study1_T1w.nii
+    [title] - Subject Level VBM Pre-Processing done.
+    [title] - Longitudinal VBM Pre-Processing...
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study1/sub-01_ses-study1_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2/sub-01_ses-study2_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabbatch.m
+    [command] - /opt/spm/standalone/cat_standalone.sh -s /opt/spm -m /opt/mcr/v93 -b /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabbatch.m
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study1/mri/mwp1sub-01_ses-study1_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2/mri/mwp1sub-01_ses-study2_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study1/report/catreport_sub-01_ses-study1_T1w.nii
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2/report/catreport_sub-01_ses-study2_T1w.nii
+    [title] - Longitudinal VBM Pre-Processing done.
+    [title] - Group Level VBM Pre-Processing...
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/morphometry/neuromorphometrics_cat12_vbm_roi.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/morphometry/suit_cat12_vbm_roi.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/morphometry/thalamic_nuclei_cat12_vbm_roi.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/morphometry/thalamus_cat12_vbm_roi.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/qc/mean_correlations.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/qc/group_stats.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/qc/histogram_mean_correlation.png
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/qc/histogram_NCR.png
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/qc/histogram_IQR.png
+    [title] - Group Level VBM Pre-Processing done.
+    [title] - Group Level VBM Pre-Processing...
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/morphometry/neuromorphometrics_cat12_vbm_roi.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/morphometry/suit_cat12_vbm_roi.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/morphometry/thalamic_nuclei_cat12_vbm_roi.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/morphometry/thalamus_cat12_vbm_roi.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/qc/mean_correlations.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/qc/group_stats.tsv
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/qc/histogram_mean_correlation.png
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/qc/histogram_NCR.png
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/qc/histogram_IQR.png
+    [title] - Group Level VBM Pre-Processing done.
 
 
 
+
+.. GENERATED FROM PYTHON SOURCE LINES 81-85
+
+Container
+---------
+
+Let's now perform this preprocessing using the BrainPrep container.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.236 seconds)
+   **Total running time of the script:** (0 minutes 0.290 seconds)
 
-**Estimated memory usage:**  233 MB
+**Estimated memory usage:**  107 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_vbm.py:

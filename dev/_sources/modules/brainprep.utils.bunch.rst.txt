@@ -1,5 +1,5 @@
-:mod:`brainprep.utils.bunch`: 
-==============================
+:mod:`brainprep.utils.bunch`: An extension of dictionaries by enabling values to be accessed by a key or by
+===========================================================================================================
 
 .. automodule:: brainprep.utils.bunch
    :no-members:

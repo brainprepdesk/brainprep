@@ -10,28 +10,33 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
 .. toctree::
    :maxdepth: 1
 
-   brainprep.connectivity.rst
-   brainprep.cortical.rst
+   brainprep.config.rst
    brainprep.datasets.anatomical.rst
+   brainprep.datasets.multi_modal.rst
    brainprep.datasets.rst
    brainprep.datasets.utils.rst
-   brainprep.deface.rst
-   brainprep.plotting.rst
-   brainprep.qc.rst
+   brainprep.interfaces.ants.rst
+   brainprep.interfaces.cat12.rst
+   brainprep.interfaces.fmriprep.rst
+   brainprep.interfaces.freesurfer.rst
+   brainprep.interfaces.fsl.rst
+   brainprep.interfaces.mriqc.rst
+   brainprep.interfaces.plotting.rst
+   brainprep.interfaces.prequal.rst
+   brainprep.interfaces.rst
+   brainprep.interfaces.utils.rst
    brainprep.reporting.html_reporting.rst
    brainprep.reporting.rst
    brainprep.reporting.rst_reporting.rst
    brainprep.reporting.utils.rst
-   brainprep.spatial.rst
-   brainprep.tbss.rst
    brainprep.utils.bunch.rst
    brainprep.utils.color.rst
    brainprep.utils.utils.rst
-   brainprep.workflow.cat12vbm.rst
-   brainprep.workflow.deface.rst
+   brainprep.workflow.brain_parcellation.rst
+   brainprep.workflow.defacing.rst
+   brainprep.workflow.dmriprep.rst
    brainprep.workflow.fmriprep.rst
-   brainprep.workflow.fsreconall.rst
-   brainprep.workflow.mriqc.rst
-   brainprep.workflow.prequal.rst
+   brainprep.workflow.quality_assurance.rst
    brainprep.workflow.quasiraw.rst
-   brainprep.workflow.tbss.rst
+   brainprep.workflow.vbm.rst
+   brainprep.wrappers.rst

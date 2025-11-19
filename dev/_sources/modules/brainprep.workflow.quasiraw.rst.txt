@@ -1,5 +1,5 @@
-:mod:`brainprep.workflow.quasiraw`: Interface for quasi-raw.
-============================================================
+:mod:`brainprep.workflow.quasiraw`: Quasi-RAW pre-processing.
+=============================================================
 
 .. automodule:: brainprep.workflow.quasiraw
    :no-members:
@@ -18,8 +18,8 @@ Functions
    :toctree: generated/
    :template: function.rst
 
+    brainprep_group_quasiraw
     brainprep_quasiraw
-    brainprep_quasiraw_qc
 
 
 

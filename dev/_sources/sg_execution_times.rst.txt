@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:02.765** total execution time for 8 files **from all galleries**:
+**05:17.664** total execution time for 9 files **from all galleries**:
 
 .. container::
 
@@ -32,27 +32,30 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_plot_html_reporting.py` (``../examples/plot_html_reporting.py``)
-     - 00:00.716
-     - 233.8
-   * - :ref:`sphx_glr_auto_examples_plot_brain_parcellation.py` (``../examples/plot_brain_parcellation.py``)
-     - 00:00.680
-     - 234.5
-   * - :ref:`sphx_glr_auto_examples_plot_quasiraw.py` (``../examples/plot_quasiraw.py``)
-     - 00:00.242
-     - 233.4
-   * - :ref:`sphx_glr_auto_examples_plot_quality_assurance.py` (``../examples/plot_quality_assurance.py``)
-     - 00:00.238
-     - 233.4
-   * - :ref:`sphx_glr_auto_examples_plot_vbm.py` (``../examples/plot_vbm.py``)
-     - 00:00.236
-     - 233.4
-   * - :ref:`sphx_glr_auto_examples_plot_defacing.py` (``../examples/plot_defacing.py``)
-     - 00:00.235
-     - 233.4
+   * - :ref:`sphx_glr_auto_examples_plot_dmriprep.py` (``../examples/plot_dmriprep.py``)
+     - 03:30.837
+     - 912.9
    * - :ref:`sphx_glr_auto_examples_plot_fmriprep.py` (``../examples/plot_fmriprep.py``)
-     - 00:00.234
-     - 233.4
+     - 01:41.799
+     - 297.1
+   * - :ref:`sphx_glr_auto_examples_plot_brain_parcellation.py` (``../examples/plot_brain_parcellation.py``)
+     - 00:02.242
+     - 127.4
+   * - :ref:`sphx_glr_auto_examples_plot_quality_assurance.py` (``../examples/plot_quality_assurance.py``)
+     - 00:00.811
+     - 107.4
+   * - :ref:`sphx_glr_auto_examples_plot_defacing.py` (``../examples/plot_defacing.py``)
+     - 00:00.654
+     - 136.8
+   * - :ref:`sphx_glr_auto_examples_plot_quasiraw.py` (``../examples/plot_quasiraw.py``)
+     - 00:00.460
+     - 107.4
+   * - :ref:`sphx_glr_auto_examples_plot_html_reporting.py` (``../examples/plot_html_reporting.py``)
+     - 00:00.362
+     - 107.9
+   * - :ref:`sphx_glr_auto_examples_plot_vbm.py` (``../examples/plot_vbm.py``)
+     - 00:00.290
+     - 107.4
    * - :ref:`sphx_glr_auto_examples_plot_rst_reporting.py` (``../examples/plot_rst_reporting.py``)
-     - 00:00.184
-     - 233.4
+     - 00:00.209
+     - 107.4

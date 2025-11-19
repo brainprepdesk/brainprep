@@ -1,5 +1,5 @@
-:mod:`brainprep.datasets.utils`: Dataset tools.
-===============================================
+:mod:`brainprep.datasets.utils`: Dataset creation tools.
+========================================================
 
 .. automodule:: brainprep.datasets.utils
    :no-members:

@@ -1,0 +1,28 @@
+:mod:`brainprep.interfaces.cat12`: CAT12 functions.
+===================================================
+
+.. automodule:: brainprep.interfaces.cat12
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.cat12
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    cat12vbm_morphometry
+    cat12vbm_stats
+    cat12vbm_wf
+    write_catbatch
+
+
+
+

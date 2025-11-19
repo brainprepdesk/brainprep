@@ -18,15 +18,10 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    check_command
-    check_version
-    create_clickable
-    execute_command
-    get_bids_keys
-    listify
-    load_images
-    ungzip_file
-    write_matlabbatch
+    coerce_to_path
+    find_stack_level
+    parse_bids_keys
+    sidecar_from_file
 
 
 

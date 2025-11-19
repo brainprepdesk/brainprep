@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.wrappers._is_list_list_str
+====================================
+
+.. currentmodule:: brainprep.wrappers
+
+.. autofunction:: _is_list_list_str
+
+.. include:: brainprep.wrappers._is_list_list_str.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

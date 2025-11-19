@@ -1,0 +1,26 @@
+:mod:`brainprep.interfaces.prequal`: fMRIprep functions.
+========================================================
+
+.. automodule:: brainprep.interfaces.prequal
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.prequal
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    prequal_stats
+    prequal_wf
+
+
+
+

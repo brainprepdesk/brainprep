@@ -1,0 +1,27 @@
+:mod:`brainprep.interfaces.plotting`: Plotting functions.
+=========================================================
+
+.. automodule:: brainprep.interfaces.plotting
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.plotting
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    plot_brainparc
+    plot_defacing_mosaic
+    plot_histogram
+
+
+
+

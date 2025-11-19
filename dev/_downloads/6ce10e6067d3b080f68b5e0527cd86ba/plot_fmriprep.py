@@ -4,54 +4,62 @@ fMRI Pre-Processings
 
 Simple example.
 
-Example on how to run the fMRI pre-processing using brainprep.
+Example on how to run the fMRI pre-processing using BrainPrep.
 See :ref:`user guide <fmriprep>` for details.
 
 Data
 ----
 
-Let's first get some anatomical data.
+Let's first get some anatomical/functional data.
 """
 
 from pathlib import Path
-from brainprep.datasets import AnatomicalDataset
+from brainprep.datasets import MultiModalDataset
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
-dataset = AnatomicalDataset(datadir)
+dataset = MultiModalDataset(datadir)
 data = dataset.fetch(
     subject="01",
-    modality="T1w",
-    dtype="cross_sectional",
+    modality="func",
+    session="01",
 )
 print(data)
+
+
+# %%
+# Analysis
+# --------
+# 
+# Let's now perform the preprocessing using BrainPrep.
+# As with many tutorials, we won't execute the code directly here.
+# However, feel free to set the 'dryrun' configuration to False
+# to actually run each step and generate results on disk.
+
+
+from brainprep.workflow import (
+    brainprep_fmriprep,
+)
+from brainprep.config import Config
+from brainprep.reporting import RSTReport
+
+outdir = Path("/tmp/brainprep-fmriprep")
+outdir.mkdir(parents=True, exist_ok=True)
+with Config(dryrun=True, verbose=True):
+    report = RSTReport()
+    brainprep_fmriprep(
+        t1_file=data.anat,
+        func_files=[data.func],
+        dataset_description_file=data.description,
+        freesurfer_dir="/my/freesurfer/directory",
+        output_dir=outdir,
+        keep_intermediate=True,
+    )
+    print(report)
 
 
 # %%
 # Container
 # ---------
 # 
-# Now let's perform the pre-processing on a brainprep container.
-
-datadir = str(datadir)
-outdir = "/tmp/brainprep-out"
-homedir = "/tmp/brainprep-home"
-t1w_file = str(data["sub-01"])
-func_file = t1w_file
-desc_file = t1w_file
-cmd = [
-    "apptainer", "run",
-    "--bind", f"{datadir}:/data",
-    "--bind", f"{outdir}:/out",
-    "--home", homedir,
-    "--cleanenv",
-    "docker://neurospin/brainprep-fmriprep:latest",
-    "brainprep", "fmriprep",
-    t1w_file.replace(datadir, "/data"),
-    func_file.replace(datadir, "/data"),
-    desc_file.replace(datadir, "/data"),
-    "sub-error",
-    "--outdir", "/out",
-    "--workdir", "/out/work"
-]
-print(" ".join(cmd))
+# Let's now perform this preprocessing using the BrainPrep container.

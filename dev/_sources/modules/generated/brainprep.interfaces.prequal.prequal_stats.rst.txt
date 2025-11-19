@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.interfaces.prequal.prequal_stats
+==========================================
+
+.. currentmodule:: brainprep.interfaces.prequal
+
+.. autofunction:: prequal_stats
+
+.. include:: brainprep.interfaces.prequal.prequal_stats.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

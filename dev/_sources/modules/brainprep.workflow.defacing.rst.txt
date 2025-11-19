@@ -1,0 +1,25 @@
+:mod:`brainprep.workflow.defacing`: Brain imaging defacing.
+===========================================================
+
+.. automodule:: brainprep.workflow.defacing
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.defacing
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_defacing
+
+
+
+

@@ -1,0 +1,27 @@
+:mod:`brainprep.workflow.brain_parcellation`: Brain parcellation pre-processing.
+================================================================================
+
+.. automodule:: brainprep.workflow.brain_parcellation
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.brain_parcellation
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_brainparc
+    brainprep_group_brainparc
+    brainprep_longitudinal_brainparc
+
+
+
+

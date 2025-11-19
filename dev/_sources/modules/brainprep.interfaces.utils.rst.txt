@@ -1,0 +1,29 @@
+:mod:`brainprep.interfaces.utils`: Tools.
+=========================================
+
+.. automodule:: brainprep.interfaces.utils
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.utils
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    copyfiles
+    mask_diff
+    mean_correlation
+    movedir
+    ungzfile
+
+
+
+

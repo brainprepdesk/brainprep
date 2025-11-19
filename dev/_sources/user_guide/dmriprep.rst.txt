@@ -1,4 +1,4 @@
-.. dmriprep:
+.. _dmriprep:
 
 dMRI Pre-Processings
 ====================

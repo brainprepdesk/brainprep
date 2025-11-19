@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.workflow.dmriprep.brainprep_group_dmriprep
+====================================================
+
+.. currentmodule:: brainprep.workflow.dmriprep
+
+.. autofunction:: brainprep_group_dmriprep
+
+.. include:: brainprep.workflow.dmriprep.brainprep_group_dmriprep.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

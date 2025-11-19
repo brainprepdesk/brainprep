@@ -1,5 +1,5 @@
-:mod:`brainprep.workflow.fmriprep`: Interface for fmriprep.
-===========================================================
+:mod:`brainprep.workflow.fmriprep`: Functional MRI pre-processing.
+==================================================================
 
 .. automodule:: brainprep.workflow.fmriprep
    :no-members:
@@ -19,7 +19,6 @@ Functions
    :template: function.rst
 
     brainprep_fmriprep
-    brainprep_fmriprep_conn
 
 
 
