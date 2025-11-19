@@ -76,7 +76,7 @@ with Config(dryrun=True, verbose=True):
 
 homedir = Path("/tmp/brainprep-home")
 homedir.mkdir(parents=True, exist_ok=True)
-devcodedir = Path(__file__).parent.parent
+devcodedir = "/tmp/brainprep-code"
 cmd = [
     "singularity",
     "run",
