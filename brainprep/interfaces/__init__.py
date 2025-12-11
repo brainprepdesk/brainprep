@@ -62,6 +62,7 @@ from .utils import (
     mask_diff,
     mean_correlation,
     movedir,
+    pca_incrementale,
     ungzfile,
 )
 

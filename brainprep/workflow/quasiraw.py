@@ -228,6 +228,7 @@ def brainprep_quasiraw(
 @save_runtime
 def brainprep_group_quasiraw(
         output_dir: Directory,
+        batch_size: int,
         correlation_threshold: float = 0.5,
         keep_intermediate: bool = False) -> Bunch:
     """
@@ -265,6 +266,12 @@ def brainprep_group_quasiraw(
     resource_dir = Path(interfaces.__file__).parent.parent / "resources"
     template_file = resource_dir / "MNI152_T1_1mm_brain.nii.gz"
     print_info(f"setting template file: {template_file}")
+
+    pca_file = interfaces.pca_incrementale(
+        output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
+        output_dir / "qc" / "pca",
+        batch_size=batch_size,
+    )
 
     # FIXME: Compute PCA analysis
     correlations_file = interfaces.mean_correlation(

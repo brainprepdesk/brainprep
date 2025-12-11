@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import nibabel
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from scipy.stats import pearsonr
 from sklearn.decomposition import IncrementalPCA
 
@@ -206,7 +207,7 @@ def ungzfile(
     Raises
     ------
     ValueError
-        If the input file is not compressed.
+        If the input file is not compressed.if __name__ == "__main__":
     """
     if input_file.suffix != ".gz":
         raise ValueError(
@@ -265,7 +266,7 @@ def mean_correlation(
 
     if not dryrun:
 
-        image_files = glob.glob(image_files_regex)
+        image_files = glob.glob(str(image_files_regex))
         atlas_im = nibabel.load(atlas_file)
         atlas_arr = atlas_im.get_fdata()
 
@@ -278,7 +279,7 @@ def mean_correlation(
             )
         )
         for path in image_files:
-            entities = parse_bids_keys(path)
+            entities = parse_bids_keys(Path(path))
             im = nibabel.load(path)
             arr = atlas_im.get_fdata()
             if atlas_arr.shape != arr.shape:
@@ -316,7 +317,7 @@ def mean_correlation(
     bunched=False)
 @pywrapper
 def pca_incrementale(
-    image_files_regex: str,
+    image_files_regex: Path,
     output_dir: Directory,
     batch_size: int,
     dryrun: bool = False) -> tuple[File, Directory]:
@@ -350,9 +351,19 @@ def pca_incrementale(
     pca_dir.mkdir(parents=True, exist_ok=True)
 
     if not dryrun:
-        image_files = glob.glob(image_files_regex)
+        image_files = glob.glob(str(image_files_regex))
+        if len(image_files) == 0:
+            raise ValueError(
+                f"The output directory is empty: {image_files_regex}"
+            )
         batches = [ image_files[i:i + batch_size] 
                     for i in range(0, len(image_files), batch_size)]
+
+        if not all(len(b)>2 for b in batches):
+            raise ValueError(
+                f"All batches must have at least 2 images for PCA computation."
+            )
+
         ipca = IncrementalPCA(n_components=2)
 
         for batch_files in batches:
@@ -367,12 +378,13 @@ def pca_incrementale(
             img = [nibabel.load(batch_file).get_fdata() for batch_file in batch_files]
             img = [u.flatten() for u in img]
             components = ipca.transform(img)
-
-            info = [parse_bids_keys(Path(batch_file)) for batch_file in batch_files]    
-            subject_ids = [f"sub-{u['sub']}_ses-{u['ses']}" for u in info] 
+            info = [parse_bids_keys(Path(batch_file)) for batch_file in batch_files]
+            subject_ids = [f"sub-{u['sub']}_ses-{u['ses']}_run-{u['run']}" 
+                for u in info]
             all_proj.append(components)
             df_batch = pd.DataFrame({
-                "participant_id": [f"sub-{u['sub']}_ses-{u['ses']}" for u in info],
+                "participant_id": [f"sub-{u['sub']}_ses-{u['ses']}_run-{u['run']}" 
+                    for u in info],
                 "session": [u['ses'] for u in info],
                 "run": [u['run'] for u in info],
                 "PC1": components[:, 0],
@@ -400,7 +412,7 @@ def pca_incrementale(
             plt.close(fig)
         
         df_all = pd.concat(dfs, ignore_index=True)
-        df_all.to_csv(output_dir / "df_all.csv", index=False)
+        df_all.to_csv(output_dir / "df_scores.csv", index=False)
 
         # Génération du graphique global
         X_pca = np.vstack(all_proj)
@@ -423,4 +435,4 @@ def pca_incrementale(
         plt.savefig(pca_dir / "incremental_pca.png")
         plt.close()
 
-    return ((output_dir / "df_all.csv"), pca_dir)
+    return ((output_dir / "df_scores.csv"), pca_dir)
