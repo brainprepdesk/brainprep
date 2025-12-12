@@ -273,7 +273,6 @@ def brainprep_group_quasiraw(
         batch_size=batch_size,
     )
 
-    # FIXME: Compute PCA analysis
     correlations_file = interfaces.mean_correlation(
         output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
         template_file,
@@ -290,4 +289,5 @@ def brainprep_group_quasiraw(
     return Bunch(
         correlations_file=correlations_file,
         correlation_histogram_file=correlation_histogram_file,
+        pca_file=pca_file,
     )
