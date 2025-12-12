@@ -128,7 +128,7 @@ def plot_histogram(
     if not dryrun:
 
         data = pd.read_csv(
-            histogram_file,
+            table_file,
             sep="\t",
         )
         arr = data[col_name].astype(float)
