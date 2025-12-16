@@ -12,10 +12,10 @@ CAT12 functions.
 """
 
 import glob
-import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import pandas as pd
+from scipy.io import loadmat
 
 from ..config import (
     DEFAULT_OPTIONS,
@@ -233,31 +233,25 @@ def cat12vbm_morphometry(
 
     if not dryrun:
 
-        xml_files = glob.glob(
+        mat_files = glob.glob(
             output_dir.prent / "subjects" / "sub-*" / "ses-*" / "label" /
-            "catROI_*T1w.xml"
+            "catROI_*T1w.mat"
         )
         entities = [
             parse_bids_keys(path)
-            for path in xml_files
+            for path in mat_files
         ]
 
         for name, output_file in zip(
                 iterparse, morphometry_files, strict=True):
             data = []
-            for info, path in zip(entities, xml_files, strict=True):
-                tree = ET.parse(path)
-                root = tree.find(name)
-                ids = root.findtext("ids").strip("[]").split(";")
-                names = [
-                    item.text
-                    for item in root.find("names").findall("item")
-                ]
+            for info, path in zip(entities, mat_files, strict=True):
+                _data = loadmat(path, simplify_cells=True)
+                ids = _data["S"][name]["ids"]
+                names = _data["S"][name]["names"]
                 features = []
                 for dtype in iterparse[name]:
-                    values = (
-                        root.findtext(f"data/{dtype}").strip("[]").split(";")
-                    )
+                    values = _data["S"][name]["data"][dtype]
                     df = pd.DataFrame({
                         "ID": [int(val) for val in ids],
                         "Name": names,
