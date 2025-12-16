@@ -1,11 +1,13 @@
 ---
-# Workflow to check common misspellings in text files.
+# Workflow to check whether a docstring's sections (arguments,
+# returns, raises, ...) match the function signature or function
+# implementation.
 #
 # To run this check locally from the repository folder:
 #
 # .. code-block:: bash
 #
-#   $ codespell --toml pyproject.toml brainprep examples
+#   $ pydoclint brainprep
 ###
 name: "PythonDocLinter[pydoclint]"
 
