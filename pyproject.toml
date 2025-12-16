@@ -35,6 +35,8 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.scripts]
+brainprep = "brainprep.cli:main"
 
 [project.optional-dependencies]
 dev = [
@@ -62,9 +64,6 @@ Homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
 [tool.setuptools]
 platforms = ["Linux", "OSX"]
 include-package-data = true
-script-files = [
-    "brainprep/scripts/brainprep",
-]
 
 [tool.setuptools.dynamic]
 version = {attr = "brainprep._version.__version__"}
