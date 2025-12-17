@@ -157,10 +157,10 @@ to actually run each step and generate results on disk.
           qc_file: PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PDF/dtiQA.pdf')
         )
         runtime: Bunch(
-          start: '2025-12-17 13:51:36.631141'
-          end: '2025-12-17 13:51:36.631141'
-          execution_time: 2.2439444444444446e-05
-          brainprep_version: '1.0.0.dev'
+          start: '2025-12-17 13:54:55.338076'
+          end: '2025-12-17 13:54:55.338076'
+          execution_time: 2.25375e-05
+          brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm6qbrg'
         )
@@ -191,10 +191,10 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.nii.gz'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.bvec'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.bval'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PDF/dtiQA.pdf'))
         )
         runtime: Bunch(
-          start: '2025-12-17 13:51:36.635465'
-          end: '2025-12-17 13:51:36.635465'
-          execution_time: 2.1035555555555557e-05
-          brainprep_version: '1.0.0.dev'
+          start: '2025-12-17 13:54:55.342664'
+          end: '2025-12-17 13:54:55.342664'
+          execution_time: 2.106138888888889e-05
+          brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm6qbrg'
         )
@@ -232,7 +232,7 @@ Let's now perform this preprocessing using the BrainPrep container.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (3 minutes 30.321 seconds)
+   **Total running time of the script:** (3 minutes 29.481 seconds)
 
 **Estimated memory usage:**  871 MB
 
