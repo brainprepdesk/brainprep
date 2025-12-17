@@ -9,8 +9,25 @@
 """ Provide a command line interface.
 """
 
+
 def main():
+    """
+    BrainPrep command-line interface.
+
+    This function exposes all BrainPrep workflows through a unified
+    command-line interface powered by ``fire``. Each workflow
+    corresponds to a processing pipeline implemented in
+    ``brainprep.workflow`` and can be invoked directly from the terminal.
+
+    Notes
+    -----
+    This function relies on ``fire.Fire`` to automatically generate a
+    command-line interface from a dictionary mapping workflow names to
+    their corresponding functions. Any additional keyword arguments
+    provided on the command line are forwarded to the selected workflow.
+    """
     import fire
+
     import brainprep.workflow as wf
 
     fire.Fire({
@@ -26,8 +43,8 @@ def main():
         "group-level-vbm": wf.brainprep_group_vbm,
         "longitudinal-vbm": wf.brainprep_longitudinal_vbm,
         "subject-level-fmriprep": wf.brainprep_fmriprep,
-    #    "tbss-preproc": wf.brainprep_tbss_preproc,
-    #    "tbss": wf.brainprep_tbss,
+        # "tbss-preproc": wf.brainprep_tbss_preproc,
+        # "tbss": wf.brainprep_tbss,
         "subject-level-dmriprep": wf.brainprep_dmriprep,
         "group-level-dmriprep": wf.brainprep_group_dmriprep
     })

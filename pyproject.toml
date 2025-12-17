@@ -98,6 +98,8 @@ extend-select = [
     "UP",   # pyupgrade
     "FURB", # refurb
     "RUF",
+    "W293", # blank-line-with-whitespace
+    "W291", # trailing whitespace
 ]
 ignore = [
     "D401",     # First line of docstring should be in imperative mood
