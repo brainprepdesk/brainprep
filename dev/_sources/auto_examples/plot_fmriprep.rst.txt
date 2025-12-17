@@ -148,12 +148,12 @@ to actually run each step and generate results on disk.
           connectivity_files: [PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_atlas-schaefer200_desc-correlation_connectivity.tsv'), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv')]
         )
         runtime: Bunch(
-          start: '2025-12-03 13:33:44.654873'
-          end: '2025-12-03 13:33:44.654873'
-          execution_time: 1.6125833333333334e-05
+          start: '2025-12-17 13:53:18.461756'
+          end: '2025-12-17 13:53:18.461756'
+          execution_time: 1.550361111111111e-05
           brainprep_version: '1.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmg1sw1'
+          hostname: 'runnervm6qbrg'
         )
         config: Bunch(
           verbose: True
@@ -182,12 +182,12 @@ to actually run each step and generate results on disk.
           outputs: ([[[PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-brain_mask.nii.gz'), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz')], [(PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-preproc_bold.nii.gz'),), (PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz'),)], (PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-fsLR_den-91k_bold.dtseries.nii'),), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_desc-confounds_timeseries.tsv')]], PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01.html'))
         )
         runtime: Bunch(
-          start: '2025-12-03 13:33:44.660274'
-          end: '2025-12-03 13:33:44.660274'
-          execution_time: 1.15925e-05
+          start: '2025-12-17 13:53:18.465843'
+          end: '2025-12-17 13:53:18.465843'
+          execution_time: 1.1688888888888889e-05
           brainprep_version: '1.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmg1sw1'
+          hostname: 'runnervm6qbrg'
         )
         config: Bunch(
           verbose: True
@@ -224,12 +224,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_atlas-schaefer200_desc-correlation_connectivity.tsv')
         )
         runtime: Bunch(
-          start: '2025-12-03 13:33:44.706806'
-          end: '2025-12-03 13:33:44.706806'
-          execution_time: 7.111111111111111e-08
+          start: '2025-12-17 13:53:18.512465'
+          end: '2025-12-17 13:53:18.512465'
+          execution_time: 7.416666666666666e-08
           brainprep_version: '1.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmg1sw1'
+          hostname: 'runnervm6qbrg'
         )
         config: Bunch(
           verbose: True
@@ -266,12 +266,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv')
         )
         runtime: Bunch(
-          start: '2025-12-03 13:33:44.711445'
-          end: '2025-12-03 13:33:44.711445'
-          execution_time: 6.611111111111112e-08
+          start: '2025-12-17 13:53:18.516179'
+          end: '2025-12-17 13:53:18.516179'
+          execution_time: 6.027777777777778e-08
           brainprep_version: '1.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmg1sw1'
+          hostname: 'runnervm6qbrg'
         )
         config: Bunch(
           verbose: True
@@ -298,9 +298,9 @@ Let's now perform this preprocessing using the BrainPrep container.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 43.594 seconds)
+   **Total running time of the script:** (1 minutes 41.576 seconds)
 
-**Estimated memory usage:**  298 MB
+**Estimated memory usage:**  297 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_fmriprep.py:

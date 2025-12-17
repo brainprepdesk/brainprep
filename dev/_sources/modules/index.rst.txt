@@ -10,6 +10,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
 .. toctree::
    :maxdepth: 1
 
+   brainprep.cli.rst
    brainprep.config.rst
    brainprep.datasets.anatomical.rst
    brainprep.datasets.multi_modal.rst

@@ -1,0 +1,25 @@
+:mod:`brainprep.cli`:  Provide a command line interface.
+========================================================
+
+.. automodule:: brainprep.cli
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.cli
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    main
+
+
+
+

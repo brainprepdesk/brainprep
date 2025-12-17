@@ -16,6 +16,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <input type='text' id='my-search' onkeyup='mySearch()' placeholder='Search for functions & classes...' title='Search'>
     </div>
     <ul id='my-search-entries'>
+      <li><a href='generated/brainprep.cli.main.html'>brainprep.cli.main</a></li>
       <li><a href='generated/brainprep.config.Config.html'>brainprep.config.Config</a></li>
       <li><a href='generated/brainprep.datasets.AnatomicalDataset.html'>brainprep.datasets.AnatomicalDataset</a></li>
       <li><a href='generated/brainprep.datasets.anatomical.AnatomicalDataset.html'>brainprep.datasets.anatomical.AnatomicalDataset</a></li>

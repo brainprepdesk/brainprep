@@ -200,7 +200,7 @@ Let's now perform this preprocessing using the BrainPrep container.
 
    **Total running time of the script:** (0 minutes 0.329 seconds)
 
-**Estimated memory usage:**  108 MB
+**Estimated memory usage:**  107 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_vbm.py:
