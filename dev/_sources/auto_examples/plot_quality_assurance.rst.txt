@@ -149,12 +149,12 @@ to actually run each step and generate results on disk.
           iqm_files: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-01/anat/sub-01_T1w.json')]
         )
         runtime: Bunch(
-          start: '2025-12-17 13:51:24.062802'
-          end: '2025-12-17 13:51:24.062802'
-          execution_time: 1.4858333333333332e-06
+          start: '2025-12-18 14:35:03.385062'
+          end: '2025-12-18 14:35:03.385062'
+          execution_time: 1.5208333333333333e-06
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm6qbrg'
+          hostname: 'runnervmh13bl'
         )
         config: Bunch(
           verbose: True
@@ -179,12 +179,12 @@ to actually run each step and generate results on disk.
           outputs: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-01/anat/sub-01_T1w.json')]
         )
         runtime: Bunch(
-          start: '2025-12-17 13:51:24.067138'
-          end: '2025-12-17 13:51:24.067138'
-          execution_time: 8.055555555555555e-08
+          start: '2025-12-18 14:35:03.389483'
+          end: '2025-12-18 14:35:03.389483'
+          execution_time: 8.750000000000001e-08
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm6qbrg'
+          hostname: 'runnervmh13bl'
         )
         config: Bunch(
           verbose: True
@@ -215,12 +215,12 @@ to actually run each step and generate results on disk.
           iqm_files: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-01/anat/sub-02_T1w.json')]
         )
         runtime: Bunch(
-          start: '2025-12-17 13:51:24.075020'
-          end: '2025-12-17 13:51:24.075020'
-          execution_time: 1.193888888888889e-06
+          start: '2025-12-18 14:35:03.398027'
+          end: '2025-12-18 14:35:03.398027'
+          execution_time: 1.1544444444444445e-06
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm6qbrg'
+          hostname: 'runnervmh13bl'
         )
         config: Bunch(
           verbose: True
@@ -245,12 +245,12 @@ to actually run each step and generate results on disk.
           outputs: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-01/anat/sub-02_T1w.json')]
         )
         runtime: Bunch(
-          start: '2025-12-17 13:51:24.078754'
-          end: '2025-12-17 13:51:24.078754'
-          execution_time: 7.361111111111111e-08
+          start: '2025-12-18 14:35:03.401519'
+          end: '2025-12-18 14:35:03.401519'
+          execution_time: 6.444444444444445e-08
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm6qbrg'
+          hostname: 'runnervmh13bl'
         )
         config: Bunch(
           verbose: True
@@ -280,12 +280,12 @@ to actually run each step and generate results on disk.
           iqm_file: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv')]
         )
         runtime: Bunch(
-          start: '2025-12-17 13:51:24.085656'
-          end: '2025-12-17 13:51:24.085656'
-          execution_time: 9.741666666666667e-07
+          start: '2025-12-18 14:35:03.408904'
+          end: '2025-12-18 14:35:03.408904'
+          execution_time: 9.513888888888889e-07
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm6qbrg'
+          hostname: 'runnervmh13bl'
         )
         config: Bunch(
           verbose: True
@@ -309,12 +309,12 @@ to actually run each step and generate results on disk.
           outputs: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv')]
         )
         runtime: Bunch(
-          start: '2025-12-17 13:51:24.088605'
-          end: '2025-12-17 13:51:24.088605'
-          execution_time: 6.611111111111112e-08
+          start: '2025-12-18 14:35:03.411689'
+          end: '2025-12-18 14:35:03.411689'
+          execution_time: 5.888888888888889e-08
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm6qbrg'
+          hostname: 'runnervmh13bl'
         )
         config: Bunch(
           verbose: True
@@ -380,9 +380,9 @@ Let's now perform this preprocessing using the BrainPrep container.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.661 seconds)
+   **Total running time of the script:** (0 minutes 1.370 seconds)
 
-**Estimated memory usage:**  127 MB
+**Estimated memory usage:**  126 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_quality_assurance.py:

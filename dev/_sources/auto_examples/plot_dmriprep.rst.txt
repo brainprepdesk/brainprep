@@ -157,12 +157,12 @@ to actually run each step and generate results on disk.
           qc_file: PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PDF/dtiQA.pdf')
         )
         runtime: Bunch(
-          start: '2025-12-17 13:54:55.338076'
-          end: '2025-12-17 13:54:55.338076'
-          execution_time: 2.25375e-05
+          start: '2025-12-18 14:38:34.091633'
+          end: '2025-12-18 14:38:34.091633'
+          execution_time: 1.5393333333333334e-05
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm6qbrg'
+          hostname: 'runnervmh13bl'
         )
         config: Bunch(
           verbose: True
@@ -191,12 +191,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.nii.gz'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.bvec'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.bval'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PDF/dtiQA.pdf'))
         )
         runtime: Bunch(
-          start: '2025-12-17 13:54:55.342664'
-          end: '2025-12-17 13:54:55.342664'
-          execution_time: 2.106138888888889e-05
+          start: '2025-12-18 14:38:34.095852'
+          end: '2025-12-18 14:38:34.095852'
+          execution_time: 1.4024166666666665e-05
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm6qbrg'
+          hostname: 'runnervmh13bl'
         )
         config: Bunch(
           verbose: True
@@ -232,9 +232,9 @@ Let's now perform this preprocessing using the BrainPrep container.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (3 minutes 29.481 seconds)
+   **Total running time of the script:** (3 minutes 29.245 seconds)
 
-**Estimated memory usage:**  871 MB
+**Estimated memory usage:**  870 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_dmriprep.py:
