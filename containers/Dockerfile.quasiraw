@@ -180,7 +180,7 @@ RUN pixi install
 COPY entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh
 ENTRYPOINT ["/opt/entrypoint.sh"]
-ENV DEFAULT_ARGS="subject-level-defacing"
+ENV DEFAULT_ARGS="subject-level-quasiraw group-level-quasiraw"
 
 LABEL org.opencontainers.image.title="BrainPrep Quasi-Raw" \
       org.opencontainers.image.description="Container for BrainPrep Quasi-Raw using FSL and FREESURFER" \
