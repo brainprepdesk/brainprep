@@ -240,3 +240,51 @@ def plot_brainparc(
         plt.savefig(brainparc_image_file)
 
     return (brainparc_image_file, )
+
+@coerceparams
+@log_runtime(
+    bunched=False)
+@pywrapper
+def plot_pca(
+        components: np.ndarray,
+        subject_ids: list[str],
+        explained_variance_ratio: np.ndarray,
+        title: str,
+        output_dir: str,
+        figsize: tuple = (20, 10),
+        dryrun: bool = False) -> None:
+    """
+    Plot PCA components and save the figure.
+
+    Parameters
+    ----------
+    components : np.ndarray
+        The PCA components to plot.
+    subject_ids : list[str]
+        List of subject IDs for annotation.
+    explained_variance_ratio : np.ndarray
+        Explained variance ratio for each component.
+    title : str
+        Title of the plot.
+    output_path : Path
+        Path to save the plot.
+    figsize : Tuple[int, int], optional
+        Figure size. Default is (20, 10).
+    """
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.scatter(components[:, 0], components[:, 1])
+
+    for idx, desc in enumerate(subject_ids):
+        ax.annotate(desc, xy=(components[idx, 0], components[idx, 1]),
+                    xytext=(4, 4), textcoords="offset pixels")
+
+    plt.xlabel(f"PC1 (var={explained_variance_ratio[0]:.2f})")
+    plt.ylabel(f"PC2 (var={explained_variance_ratio[1]:.2f})")
+    plt.title(title)
+    plt.axis("equal")
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    plt.tight_layout()
+
+    plt.savefig(output_dir)
+    plt.close(fig)

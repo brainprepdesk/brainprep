@@ -15,7 +15,6 @@ import glob
 import gzip
 import shutil
 
-import matplotlib.pyplot as plt
 import nibabel
 import numpy as np
 import pandas as pd
@@ -34,7 +33,7 @@ from ..utils import (
     parse_bids_keys,
 )
 from ..wrappers import pywrapper
-
+from .plotting import plot_pca
 
 @coerceparams
 @outputdir
@@ -226,7 +225,7 @@ def ungzfile(
     bunched=False)
 @pywrapper
 def mean_correlation(
-        image_files_regex: str,
+        image_files_regex: Path,
         atlas_file: File,
         output_dir: Directory,
         correlation_threshold: float = 0.5,
@@ -312,17 +311,20 @@ def mean_correlation(
 
     return (correlations_file, )
 
+
 @outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
-def pca_incrementale(
+def incremental_pca(
     image_files_regex: Path,
     output_dir: Directory,
-    batch_size: int,
-    dryrun: bool = False) -> tuple[File, Directory]:
+    batch_size: int = 10,
+    batch_plot: bool = False,
+    dryrun: bool = False) -> tuple[File]:
     """
-    Compute Incremental PCA on a set of images matching a regex pattern.
+    Compute Incremental PCA with only 2 components on a set of images
+    matching a regex pattern.
 
     Parameters
     ----------
@@ -331,108 +333,98 @@ def pca_incrementale(
         all images must have the same size.
     output_dir : Directory
         Directory where a TSV file containing the values of the first two 
-        components created by the PCA will be saved, a Directory containing 
+        components created by the PCA ill be saved, a Directory containing
         all the graph of all batch.   
-    batch_size : int
-        Number of images to process in each batch.
-    dryrun : bool, optional
-        If True, runs in dryrun mode without executing the actual computations.
+    batch_size : int or None, optional
+        Number of images to process in each batch. Default is 10 following
+        sklearn's recommendation on IncrementalPCA.
+    batch_plot : bool, optional
+        If True, generates and saves PCA plots for each batch. It plots 
+        all images in a batch on a graph using the first two components. 
         Default is False.
-        
+    dryrun : bool, optional
+        If True, runs in dryrun mode without executing 
+        the actual computations. Default is False.       
+
     Returns
     -------
     components_file : File
-        Path to the TSV file containing the values of the first two components.
-    graphs_dir : Directory
-        Directory containing the graphs of all batches and the global graph.
+        Path to the TSV file containing the values of 
+        the first two components.
 
+    Raises
+    ------
+    ValueError
+        If no images are found matching the regex pattern.
+    ValueError
+        If any batch has less than 2 images for PCA computation.
     """
-    pca_dir = output_dir / "graphs"
+    pca_dir = output_dir
     pca_dir.mkdir(parents=True, exist_ok=True)
+    components_file = output_dir / "df_scores.csv"
 
     if not dryrun:
+
         image_files = glob.glob(str(image_files_regex))
-        if len(image_files) == 0:
+
+        if len(image_files) == 0 :
             raise ValueError(
-                f"The output directory is empty: {image_files_regex}"
+                f"No files found matching the input regex:{image_files_regex}"
             )
-        batches = [ image_files[i:i + batch_size] 
+        batches = [ image_files[i:i + batch_size]
                     for i in range(0, len(image_files), batch_size)]
 
-        if not all(len(b)>2 for b in batches):
+        if not all(len(batch_files)>2 for batch_files in batches):
             raise ValueError(
-                f"All batches must have at least 2 images for PCA computation."
+                f"All batches must have at least "
+                "2 images for PCA computation."
             )
 
         ipca = IncrementalPCA(n_components=2)
 
         for batch_files in batches:
-            img = [nibabel.load(batch_file).get_fdata() 
+            data = [nibabel.load(batch_file).get_fdata()
                 for batch_file in batch_files]
-            img = [u.flatten() for u in img]
-            ipca.partial_fit(img)
-        
+            data = [item.flatten() for item in data]
+            ipca.partial_fit(data)
         all_proj=[]
         dfs=[]
-        for i, batch_files in enumerate(batches):
-            img = [nibabel.load(batch_file).get_fdata() for batch_file in batch_files]
-            img = [u.flatten() for u in img]
-            components = ipca.transform(img)
-            info = [parse_bids_keys(Path(batch_file)) for batch_file in batch_files]
-            subject_ids = [f"sub-{u['sub']}_ses-{u['ses']}_run-{u['run']}" 
-                for u in info]
+        for idx, batch_files in enumerate(batches):
+            data = [nibabel.load(batch_file).get_fdata() for batch_file in batch_files]
+            data = [img.flatten() for img in data]
+            components = ipca.transform(data)
             all_proj.append(components)
+
+            info = [parse_bids_keys(Path(batch_file)) for batch_file in batch_files]
             df_batch = pd.DataFrame({
-                "participant_id": [f"sub-{u['sub']}_ses-{u['ses']}_run-{u['run']}" 
-                    for u in info],
-                "session": [u['ses'] for u in info],
-                "run": [u['run'] for u in info],
-                "PC1": components[:, 0],
-                "PC2": components[:, 1]
+                "participant_id": [item['sub'] for item in info],
+                "session": [item['ses'] for item in info],
+                "run": [item['run'] for item in info],
+                "pc1": components[:, 0],
+                "pc2": components[:, 1]
             })
             dfs.append(df_batch)
-            
-            # Visualisation
-            fig, ax = plt.subplots(figsize=(20, 10))
-            ax.scatter(components[:, 0], components[:, 1])
-            # Annotation des points
-            for idx, desc in enumerate(subject_ids):
-                ax.annotate(desc, xy=(components[idx, 0], components[idx, 1]),
-                            xytext=(4, 4), textcoords="offset pixels")
-            # Ajout des labels
-            plt.xlabel(f"PC1 (var={ipca.explained_variance_ratio_[0]:.2f})")
-            plt.ylabel(f"PC2 (var={ipca.explained_variance_ratio_[1]:.2f})")
-            plt.title(f"Batch {i + 1}")
-            plt.axis("equal")
-            ax.spines['right'].set_visible(False)
-            ax.spines['top'].set_visible(False)
-            plt.tight_layout()
-            # Sauvegarde
-            plt.savefig(pca_dir / f"batch_{i+1}.png")
-            plt.close(fig)
-        
+            if batch_plot:
+                sub_ses_name = [f"sub-{item['sub']}_ses-{item['ses']}"
+                    for item in info]
+                plot_pca(
+                    components=components,
+                    subject_ids=sub_ses_name,
+                    explained_variance_ratio=ipca.explained_variance_ratio_,
+                    title=f"Batch {idx + 1}",
+                    output_dir=pca_dir / f"batch_{idx+1}.png"
+                )
+
         df_all = pd.concat(dfs, ignore_index=True)
         df_all.to_csv(output_dir / "df_scores.csv", index=False)
+        stacked_batch_components = np.vstack(all_proj)
 
-        # Génération du graphique global
-        X_pca = np.vstack(all_proj)
-        fig, ax = plt.subplots(figsize=(20, 30))
-        ax.scatter(X_pca[:, 0], X_pca[:, 1])
-
-        # Annotation des points
-        for i, desc in enumerate(df_all["participant_id"]):
-            ax.annotate(desc, xy=(X_pca[i, 0], X_pca[i, 1]),
-                        xytext=(4, 4), textcoords="offset pixels")
-
-        # Ajout des labels
-        plt.xlabel(f"PC1 (var={ipca.explained_variance_ratio_[0]:.2f})")
-        plt.ylabel(f"PC2 (var={ipca.explained_variance_ratio_[1]:.2f})")
-        plt.title("Incremental PCA - Global View")
-        plt.axis("equal")
-        ax.spines['right'].set_visible(False)
-        ax.spines['top'].set_visible(False)
-        plt.tight_layout()
-        plt.savefig(pca_dir / "incremental_pca.png")
-        plt.close()
-
-    return ((output_dir / "df_scores.csv"), pca_dir)
+        plot_pca(
+            components=stacked_batch_components,
+            subject_ids=df_all["participant_id"].tolist(),
+            explained_variance_ratio=ipca.explained_variance_ratio_,
+            title="Incremental PCA",
+            output_dir=pca_dir / "incremental_pca.png",
+            figsize=(20, 30)
+        )
+    return (components_file, )
