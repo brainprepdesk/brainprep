@@ -251,8 +251,8 @@ def plot_pca(
         explained_variance_ratio: np.ndarray,
         title: str,
         output_dir: str,
-        figsize: tuple = (20, 10),
-        dryrun: bool = False) -> None:
+        figsize: tuple = (20, 10)
+        ) -> None:
     """
     Plot PCA components and save the figure.
 
