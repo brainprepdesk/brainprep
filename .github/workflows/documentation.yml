@@ -51,7 +51,7 @@ jobs:
         cp -r source/_static/* build/html/_static
         cd ../..
     - name: Upload documentation as an artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with: 
         name: html-documentation
         retention-days: 15
