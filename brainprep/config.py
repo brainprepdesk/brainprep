@@ -23,7 +23,7 @@ DEFAULT_OPTIONS = {
         "/opt/cat12"
     ),
     "matlab_dir": Path(
-        "/opt/mcr/v93"
+        "/opt/MCR-2017b/v93"
     ),
     "tpm_file": Path(
         "/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii"
