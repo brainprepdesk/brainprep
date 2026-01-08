@@ -234,10 +234,13 @@ def cat12vbm_morphometry(
 
     if not dryrun:
 
-        mat_files = coerce_to_path(glob.glob(
-            str(output_dir.parent / "subjects" / "sub-*" / "ses-*" / "label" /
-            "catROI_*T1w.mat")
-        ))
+        mat_files = coerce_to_path(
+            glob.glob(
+                str(output_dir.parent / "subjects" / "sub-*" / "ses-*" / "label" /
+                    "catROI_*T1w.mat")
+            ),
+            expected_type=list[File]
+        )
         entities = [
             parse_bids_keys(path)
             for path in mat_files
@@ -323,10 +326,13 @@ def cat12vbm_stats(
 
     if not dryrun:
 
-        report_files = coerce_to_path(glob.glob(
-            str(output_dir.parent / "subjects" / "sub-*" / "ses-*" / "report" /
-            "cat_*T1w.xml")
-        ))
+        report_files = coerce_to_path(
+            glob.glob(
+                str(output_dir.parent / "subjects" / "sub-*" / "ses-*" / "report" /
+                "cat_*T1w.xml")
+            ),
+            expected_type=list[File]
+        )
         entities = [
             parse_bids_keys(path)
             for path in report_files

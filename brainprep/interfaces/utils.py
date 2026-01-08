@@ -27,6 +27,7 @@ from ..typing import (
 )
 from ..utils import (
     coerceparams,
+    coerce_to_path,
     outputdir,
     parse_bids_keys,
 )
@@ -263,7 +264,10 @@ def mean_correlation(
 
     if not dryrun:
 
-        image_files = glob.glob(image_files_regex)
+        image_files = coerce_to_path(glob.glob(
+            str(image_files_regex)),
+            expected_type=list[File]
+        )
         atlas_im = nibabel.load(atlas_file)
         atlas_arr = atlas_im.get_fdata()
 
