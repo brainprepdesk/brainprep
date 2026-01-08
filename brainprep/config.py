@@ -30,7 +30,7 @@ DEFAULT_OPTIONS = {
     ),
     "darteltpm_file": Path(
         "/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/"
-        "cat12/templates_volumes/Template_1_IXI555_MNI152.nii"
+        "cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii"
     ),
 }
 
