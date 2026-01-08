@@ -7,7 +7,7 @@ In order to run ``brainprep`` in a Docker container, Docker must be
 Recipies
 --------
 
-Docker recipies are automatically generated using
+Docker recipies are generated using
 `neurodocker <https://github.com/ReproNim/neurodocker>`_. First, install
 ``neurodocker``:
 
@@ -107,5 +107,5 @@ Then, generate the new recipies (one per workflow type):
 Creation
 --------
 
-The **generate_images.py** configuration script generates a tree structure
-and aggregates the creation instructions in a **commands** file.
+The **build/build_cli.py build ** configuration script generates a tree
+structure and aggregates the creation/test instructions in a **commands** file.

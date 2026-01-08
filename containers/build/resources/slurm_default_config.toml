@@ -1,0 +1,21 @@
+[project]
+name = "{name}"
+operator = "{operator}"
+date = "{date}"
+
+[inputs]
+commands = {commands}
+parameters = "{parameters}"
+
+[environment]
+cluster = "slurm"
+folder = "{hopla_dir}"
+queue = "cati"
+walltime = 24
+n_cpus = 1
+image = "{image_file}"
+
+[config]
+dryrun = false
+delay_s = 30
+verbose = false

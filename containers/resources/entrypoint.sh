@@ -59,4 +59,5 @@ if ! $VALID; then
 fi
 
 # Execute the command
+cd /opt/brainprep
 exec pixi run "${USER_CMD[@]}"

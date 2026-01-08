@@ -107,6 +107,7 @@ ignore = [
     "D200",     # One-line docstring should fit on one line
     "D210",     # whitespaces allowed surrounding docstring text
     "D105",     # Missing docstring in magic method
+    "RUF001"    # String contains ambiguous `ℹ` (INFORMATION SOURCE)
 ]
 select = ["D"]   # enable pycodestyle and docstring rules
 

@@ -402,7 +402,7 @@ def localgi(
     command = [
         "recon-all", "-localGI",
         "-subjid", subject,
-        "-sd", output_dir,
+        "-sd", str(output_dir),
         "-no-isrunning"
     ]
 
