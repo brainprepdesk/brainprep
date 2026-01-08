@@ -191,7 +191,7 @@ def prequal_stats(
     if not dryrun:
 
         stats_files = glob.glob(
-            output_dir.parent / "subjects" / "*" / "*" / "STATS" / "stats.csv"
+            str(output_dir.parent / "subjects" / "*" / "*" / "STATS" / "stats.csv")
         )
 
         stats = []
