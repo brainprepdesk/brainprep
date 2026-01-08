@@ -234,7 +234,7 @@ def cat12vbm_morphometry(
     if not dryrun:
 
         mat_files = glob.glob(
-            output_dir.prent / "subjects" / "sub-*" / "ses-*" / "label" /
+            output_dir.parent / "subjects" / "sub-*" / "ses-*" / "label" /
             "catROI_*T1w.mat"
         )
         entities = [
