@@ -221,15 +221,15 @@ def cat12vbm_morphometry(
         TSV files containing ROI-based GM, WM and CSF features for different
         atlases.
     """
-    iterparse = {
+    atlases = {
         "neuromorphometrics": ["Vgm", "Vcsf", "Vwm"],
         "suit": ["Vgm", "Vwm"],
         "thalamic_nuclei": ["Vgm"],
         "thalamus": ["Vgm"],
     }
     morphometry_files = [
-        output_dir / f"{key}_cat12_vbm_roi.tsv"
-        for key in iterparse
+        output_dir / f"{atlas}_cat12_vbm_roi.tsv"
+        for atlas in atlases
     ]
 
     if not dryrun:
@@ -245,24 +245,24 @@ def cat12vbm_morphometry(
             parse_bids_keys(path)
             for path in mat_files
         ]
-
-        for name, output_file in zip(
-                iterparse, morphometry_files, strict=True):
+        for atlas, output_file in zip(
+                atlases, morphometry_files, strict=True):
             data = []
             for info, path in zip(entities, mat_files, strict=True):
                 _data = loadmat(path, simplify_cells=True)
-                ids = _data["S"][name]["ids"]
-                names = _data["S"][name]["names"]
+                ids = _data["S"][atlas]["ids"]
+                names = _data["S"][atlas]["names"]
                 features = []
-                for dtype in iterparse[name]:
-                    values = _data["S"][name]["data"][dtype]
+                for brain_tissue in atlases[atlas]:
+                    values = _data["S"][atlas]["data"][brain_tissue]
                     df = pd.DataFrame({
                         "ID": [int(val) for val in ids],
                         "Name": names,
-                        dtype: [float(val) for val in values]
+                        brain_tissue: [float(val) for val in values]
                     }).T
-                    df.columns = [f"{dtype}_{col}" for col in df.loc["Name"]]
+                    df.columns = [f"{brain_tissue}_{col}" for col in df.loc["Name"]]
                     df = df[2:]
+                    df = df.reset_index(drop=True)
                     features.append(df)
                 df = pd.concat(features, axis=1)
                 df.insert(0, "participant_id", info["sub"])
