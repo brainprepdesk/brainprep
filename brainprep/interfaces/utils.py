@@ -305,6 +305,7 @@ def mean_correlation(
         scores["qc"] = (
             scores["mean_correlation"] > correlation_threshold
         ).astype(int)
+        scores = scores.sort_values(by=["participant_id","session","run"])
         scores.to_csv(
             correlations_file,
             index=False,
