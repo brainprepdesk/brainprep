@@ -18,7 +18,9 @@ import shutil
 import nibabel
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from scipy.stats import pearsonr
+from sklearn.decomposition import IncrementalPCA
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -31,7 +33,7 @@ from ..utils import (
     parse_bids_keys,
 )
 from ..wrappers import pywrapper
-
+from .plotting import plot_pca
 
 @coerceparams
 @outputdir
@@ -204,7 +206,7 @@ def ungzfile(
     Raises
     ------
     ValueError
-        If the input file is not compressed.
+        If the input file is not compressed.if __name__ == "__main__":
     """
     if input_file.suffix != ".gz":
         raise ValueError(
@@ -223,7 +225,7 @@ def ungzfile(
     bunched=False)
 @pywrapper
 def mean_correlation(
-        image_files_regex: str,
+        image_files_regex: Path,
         atlas_file: File,
         output_dir: Directory,
         correlation_threshold: float = 0.5,
@@ -263,7 +265,7 @@ def mean_correlation(
 
     if not dryrun:
 
-        image_files = glob.glob(image_files_regex)
+        image_files = glob.glob(str(image_files_regex))
         atlas_im = nibabel.load(atlas_file)
         atlas_arr = atlas_im.get_fdata()
 
@@ -276,7 +278,7 @@ def mean_correlation(
             )
         )
         for path in image_files:
-            entities = parse_bids_keys(path)
+            entities = parse_bids_keys(Path(path))
             im = nibabel.load(path)
             arr = atlas_im.get_fdata()
             if atlas_arr.shape != arr.shape:
@@ -308,3 +310,121 @@ def mean_correlation(
         )
 
     return (correlations_file, )
+
+
+@outputdir
+@log_runtime(
+    bunched=False)
+@pywrapper
+def incremental_pca(
+    image_files_regex: Path,
+    output_dir: Directory,
+    batch_size: int = 10,
+    batch_plot: bool = False,
+    dryrun: bool = False) -> tuple[File]:
+    """
+    Compute Incremental PCA with only 2 components on a set of images
+    matching a regex pattern.
+
+    Parameters
+    ----------
+    image_files_regex : str
+        A REGEX to image files, each representing an image, 
+        all images must have the same size.
+    output_dir : Directory
+        Directory where a TSV file containing the values of the first two 
+        components created by the PCA ill be saved, a Directory containing
+        all the graph of all batch.   
+    batch_size : int or None, optional
+        Number of images to process in each batch. Default is 10 following
+        sklearn's recommendation on IncrementalPCA.
+    batch_plot : bool, optional
+        If True, generates and saves PCA plots for each batch. It plots 
+        all images in a batch on a graph using the first two components. 
+        Default is False.
+    dryrun : bool, optional
+        If True, runs in dryrun mode without executing 
+        the actual computations. Default is False.       
+
+    Returns
+    -------
+    components_file : File
+        Path to the TSV file containing the values of 
+        the first two components.
+
+    Raises
+    ------
+    ValueError
+        If no images are found matching the regex pattern.
+    ValueError
+        If any batch has less than 2 images for PCA computation.
+    """
+    pca_dir = output_dir
+    pca_dir.mkdir(parents=True, exist_ok=True)
+    components_file = output_dir / "df_scores.csv"
+
+    if not dryrun:
+
+        image_files = glob.glob(str(image_files_regex))
+
+        if len(image_files) == 0 :
+            raise ValueError(
+                f"No files found matching the input regex:{image_files_regex}"
+            )
+        batches = [ image_files[i:i + batch_size]
+                    for i in range(0, len(image_files), batch_size)]
+
+        if not all(len(batch_files)>2 for batch_files in batches):
+            raise ValueError(
+                f"All batches must have at least "
+                "2 images for PCA computation."
+            )
+
+        ipca = IncrementalPCA(n_components=2)
+
+        for batch_files in batches:
+            data = [nibabel.load(batch_file).get_fdata()
+                for batch_file in batch_files]
+            data = [item.flatten() for item in data]
+            ipca.partial_fit(data)
+        all_proj=[]
+        dfs=[]
+        for idx, batch_files in enumerate(batches):
+            data = [nibabel.load(batch_file).get_fdata() for batch_file in batch_files]
+            data = [img.flatten() for img in data]
+            components = ipca.transform(data)
+            all_proj.append(components)
+
+            info = [parse_bids_keys(Path(batch_file)) for batch_file in batch_files]
+            df_batch = pd.DataFrame({
+                "participant_id": [item['sub'] for item in info],
+                "session": [item['ses'] for item in info],
+                "run": [item['run'] for item in info],
+                "pc1": components[:, 0],
+                "pc2": components[:, 1]
+            })
+            dfs.append(df_batch)
+            if batch_plot:
+                sub_ses_name = [f"sub-{item['sub']}_ses-{item['ses']}"
+                    for item in info]
+                plot_pca(
+                    components=components,
+                    subject_ids=sub_ses_name,
+                    explained_variance_ratio=ipca.explained_variance_ratio_,
+                    title=f"Batch {idx + 1}",
+                    output_dir=pca_dir / f"batch_{idx+1}.png"
+                )
+
+        df_all = pd.concat(dfs, ignore_index=True)
+        df_all.to_csv(output_dir / "df_scores.csv", index=False)
+        stacked_batch_components = np.vstack(all_proj)
+
+        plot_pca(
+            components=stacked_batch_components,
+            subject_ids=df_all["participant_id"].tolist(),
+            explained_variance_ratio=ipca.explained_variance_ratio_,
+            title="Incremental PCA",
+            output_dir=pca_dir / "incremental_pca.png",
+            figsize=(20, 30)
+        )
+    return (components_file, )
