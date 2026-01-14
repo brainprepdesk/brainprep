@@ -131,9 +131,9 @@ to actually run each step and generate results on disk.
           mosaic_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemosaic.png')
         )
         runtime: Bunch(
-          start: '2026-01-14 12:06:33.627836'
-          end: '2026-01-14 12:06:33.627836'
-          execution_time: 3.2358333333333334e-06
+          start: '2026-01-14 13:05:22.639627'
+          end: '2026-01-14 13:05:22.639627'
+          execution_time: 3.8744444444444445e-06
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmi13qx'
@@ -142,11 +142,11 @@ to actually run each step and generate results on disk.
           verbose: True
           dryrun: True
           with_color: True
-          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
-          spm12_dir: PosixPath('/opt/spm')
-          matlab_dir: PosixPath('/opt/mcr/v93')
-          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
-          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+          cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/cat12')
+          matlab_dir: PosixPath('/opt/MCR-2017b/v93')
+          tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
         )
       )
       step2: Bunch(
@@ -162,9 +162,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-01-14 12:06:33.632175'
-          end: '2026-01-14 12:06:33.632175'
-          execution_time: 7.361111111111111e-08
+          start: '2026-01-14 13:05:22.644132'
+          end: '2026-01-14 13:05:22.644132'
+          execution_time: 8.333333333333333e-08
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmi13qx'
@@ -173,11 +173,11 @@ to actually run each step and generate results on disk.
           verbose: True
           dryrun: True
           with_color: True
-          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
-          spm12_dir: PosixPath('/opt/spm')
-          matlab_dir: PosixPath('/opt/mcr/v93')
-          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
-          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+          cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/cat12')
+          matlab_dir: PosixPath('/opt/MCR-2017b/v93')
+          tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
         )
       )
       step3: Bunch(
@@ -193,9 +193,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface.nii.gz'), PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz'))
         )
         runtime: Bunch(
-          start: '2026-01-14 12:06:33.635552'
-          end: '2026-01-14 12:06:33.635552'
-          execution_time: 9.055555555555556e-08
+          start: '2026-01-14 13:05:22.648186'
+          end: '2026-01-14 13:05:22.648186'
+          execution_time: 9e-08
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmi13qx'
@@ -204,11 +204,11 @@ to actually run each step and generate results on disk.
           verbose: True
           dryrun: True
           with_color: True
-          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
-          spm12_dir: PosixPath('/opt/spm')
-          matlab_dir: PosixPath('/opt/mcr/v93')
-          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
-          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+          cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/cat12')
+          matlab_dir: PosixPath('/opt/MCR-2017b/v93')
+          tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
         )
       )
       step4: Bunch(
@@ -226,9 +226,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemosaic.png')
         )
         runtime: Bunch(
-          start: '2026-01-14 12:06:33.638759'
-          end: '2026-01-14 12:06:33.638759'
-          execution_time: 5.944444444444444e-08
+          start: '2026-01-14 13:05:22.652185'
+          end: '2026-01-14 13:05:22.652185'
+          execution_time: 6.38888888888889e-08
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmi13qx'
@@ -237,11 +237,11 @@ to actually run each step and generate results on disk.
           verbose: True
           dryrun: True
           with_color: True
-          cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
-          spm12_dir: PosixPath('/opt/spm')
-          matlab_dir: PosixPath('/opt/mcr/v93')
-          tpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
-          darteltpm_file: PosixPath('/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+          cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
+          spm12_dir: PosixPath('/opt/cat12')
+          matlab_dir: PosixPath('/opt/MCR-2017b/v93')
+          tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
+          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
         )
       )
     )
@@ -316,7 +316,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.399 seconds)
+   **Total running time of the script:** (0 minutes 0.597 seconds)
 
 **Estimated memory usage:**  135 MB
 
