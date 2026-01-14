@@ -241,50 +241,55 @@ def plot_brainparc(
 
     return (brainparc_image_file, )
 
+
 @coerceparams
 @log_runtime(
     bunched=False)
 @pywrapper
 def plot_pca(
-        components: np.ndarray,
-        subject_ids: list[str],
-        explained_variance_ratio: np.ndarray,
-        title: str,
-        output_dir: str,
-        figsize: tuple = (20, 10)
-        ) -> None:
+        pca_file: File,
+        output_dir: Directory,
+        dryrun: bool = False) -> tuple[File]:
     """
-    Plot PCA components and save the figure.
+    Plot the two first PCA components.
 
     Parameters
     ----------
-    components : np.ndarray
-        The PCA components to plot.
-    subject_ids : list[str]
-        List of subject IDs for annotation.
-    explained_variance_ratio : np.ndarray
-        Explained variance ratio for each component.
-    title : str
-        Title of the plot.
-    output_path : Path
-        Path to save the plot.
-    figsize : Tuple[int, int], optional
-        Figure size. Default is (20, 10).
+    pca_file : File
+        TSV file containing PCA two first components as two columns named
+        ``pc1`` and ``pc2``, as well as BIDS ``sub``, ``ses``, and ``run``.
+    output_dir : Directory
+        Directory where the result image will be saved.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
+
+    Returns
+    -------
+    pca_image_file : File
+        Generated image with the two first PCA components.
     """
-    fig, ax = plt.subplots(figsize=figsize)
-    ax.scatter(components[:, 0], components[:, 1])
+    pca_image_file = output_dir / f"pca.png"
 
-    for idx, desc in enumerate(subject_ids):
-        ax.annotate(desc, xy=(components[idx, 0], components[idx, 1]),
-                    xytext=(4, 4), textcoords="offset pixels")
+    if not dryrun:
 
-    plt.xlabel(f"PC1 (var={explained_variance_ratio[0]:.2f})")
-    plt.ylabel(f"PC2 (var={explained_variance_ratio[1]:.2f})")
-    plt.title(title)
-    plt.axis("equal")
-    ax.spines['right'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-    plt.tight_layout()
+        df = pd.read_csv(pca_file, sep="\t")
 
-    plt.savefig(output_dir)
-    plt.close(fig)
+        fig, ax = plt.subplots(figsize=(20, 10))
+        ax.scatter(df.pc1, df.pc2)
+        for idx in range(len(df)):
+            ax.annotate(
+                f"{df.sub[idx]}-{df.ses[idx]}-{df.run[idx]}",
+                xy=(df.pc1[idx], df.pc2[idx]),
+                xytext=(4, 4),
+                textcoords="offset pixels"
+            )
+        plt.xlabel(f"PC1 (var={df.explained_variance_ratio_pc1[0]:.2f})")
+        plt.ylabel(f"PC2 (var={df.explained_variance_ratio_pc2[1]:.2f})")
+        plt.axis("equal")
+        ax.spines["right"].set_visible(False)
+        ax.spines["top"].set_visible(False)
+        plt.tight_layout()
+        plt.savefig(pca_image_file)
+        plt.close(fig)
+
+    return (pca_image_file, )

@@ -228,8 +228,6 @@ def brainprep_quasiraw(
 @save_runtime
 def brainprep_group_quasiraw(
         output_dir: Directory,
-        batch_size: int,
-        batch_plot: bool = False,
         correlation_threshold: float = 0.5,
         keep_intermediate: bool = False) -> Bunch:
     """
@@ -248,11 +246,6 @@ def brainprep_group_quasiraw(
     ----------
     output_dir : Directory
         Working directory containing all the subjects.
-    batch_size : int or None, optional
-        Number of images to process in each batch. Default is 10.
-    batch_plot : bool, optional
-        If True, generates and saves PCA plots for each batch.
-        Default is False.
     correlation_threshold : float
         Quality control threshold on the correlation score. Default 0.5.
     keep_intermediate : bool
@@ -275,9 +268,11 @@ def brainprep_group_quasiraw(
 
     pca_file = interfaces.incremental_pca(
         output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
-        output_dir / "qc" / "pca",
-        batch_size,
-        batch_plot,
+        output_dir / "qc",
+        batch_size=50,
+    )
+    pca_image_file = interfaces.plot_pca(
+        pca_file,
     )
 
     correlations_file = interfaces.mean_correlation(

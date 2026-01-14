@@ -52,7 +52,7 @@ from .plotting import (
     plot_brainparc,
     plot_defacing_mosaic,
     plot_histogram,
-    plot_pca
+    plot_pca,
 )
 from .prequal import (
     prequal_stats,
@@ -60,10 +60,10 @@ from .prequal import (
 )
 from .utils import (
     copyfiles,
+    incremental_pca,
     mask_diff,
     mean_correlation,
     movedir,
-    incremental_pca,
     ungzfile,
 )
 
