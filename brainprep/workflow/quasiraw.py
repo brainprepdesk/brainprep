@@ -228,7 +228,7 @@ def brainprep_quasiraw(
 @save_runtime
 def brainprep_group_quasiraw(
         output_dir: Directory,
-        batch_size: int,
+        batch_size: int = 10,
         batch_plot: bool = False,
         correlation_threshold: float = 0.5,
         keep_intermediate: bool = False) -> Bunch:
