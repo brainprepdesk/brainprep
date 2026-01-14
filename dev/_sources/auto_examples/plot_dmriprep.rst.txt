@@ -141,7 +141,7 @@ to actually run each step and generate results on disk.
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.dmriprep.brainprep_dmriprep'
-        description: "\n    Diffusion MRI pre-processing.\n\n    Applies the pre-processing described in :footcite:p:`cai2021prequal`.\n    This includes:\n\n    1) Gradient direction sanity check.\n    2) MP-PCA denoising.\n    3) Gibbs unringing.\n    4) N4 B1 bias field correction.\n    5) Head Motion Correction (shelled schemes).\n    6) Fieldmapless Distortion Correction: Synb0.\n    7) HTML Report.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the t1 image (used during Synb0 - synthesized b0 for diffusion\n        distortion correction).\n    dwi_file : File\n        Path to the diffusion weighted image.\n    bvec_file : File\n        Path to the bvec file.\n    bval_file : File\n        Path to the bval file.\n    output_dir : Directory\n        Path to the output directory.\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - dwi_file: File - path to the NIIGZ pre-processed diffusion weighted\n          image.\n        - bvec_file: File - path to the TXT pre-processed bvec file.\n        - bval_file: File - path to the TXT pre-processed bval file.\n        - qc_file: File - path to the PDF visual report.\n\n    Raises\n    ------\n    ValueError\n        If the T1w file do not follow BIDS convension.\n\n    Notes\n    -----\n    - For the Synb0 feature to work you must bind your FreeSurfer license in\n      the '/APPS/freesurfer/license.txt' location.\n\n    References\n    ----------\n\n    .. footbibliography::\n    "
+        description: "\n    Diffusion MRI pre-processing.\n\n    Applies the pre-processing described in :footcite:p:`cai2021prequal`.\n    This includes:\n\n    1) Gradient direction sanity check.\n    2) MP-PCA denoising.\n    3) Gibbs unringing.\n    4) N4 B1 bias field correction.\n    5) Head Motion Correction (shelled schemes).\n    6) Fieldmapless Distortion Correction: Synb0.\n    7) HTML Report.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the t1 image (used during Synb0 - synthesized b0 for diffusion\n        distortion correction).\n    dwi_file : File\n        Path to the diffusion weighted image.\n    bvec_file : File\n        Path to the bvec file.\n    bval_file : File\n        Path to the bval file.\n    output_dir : Directory\n        Path to the output directory.\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - dwi_file: File - path to the NIIGZ pre-processed diffusion weighted\n          image.\n        - bvec_file: File - path to the TXT pre-processed bvec file.\n        - bval_file: File - path to the TXT pre-processed bval file.\n        - qc_file: File - path to the PDF visual report.\n\n    Raises\n    ------\n    ValueError\n        If the T1w file do not follow BIDS convention.\n\n    Notes\n    -----\n    - For the Synb0 feature to work you must bind your FreeSurfer license in\n      the '/APPS/freesurfer/license.txt' location.\n\n    References\n    ----------\n\n    .. footbibliography::\n    "
         inputs: Bunch(
           t1_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz')
           dwi_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/dwi/sub-01_ses-01_dwi.nii.gz')
@@ -157,16 +157,17 @@ to actually run each step and generate results on disk.
           qc_file: PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PDF/dtiQA.pdf')
         )
         runtime: Bunch(
-          start: '2025-12-18 14:38:34.091633'
-          end: '2025-12-18 14:38:34.091633'
-          execution_time: 1.5393333333333334e-05
+          start: '2026-01-14 12:10:11.606065'
+          end: '2026-01-14 12:10:11.606065'
+          execution_time: 1.543777777777778e-05
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmh13bl'
+          hostname: 'runnervmi13qx'
         )
         config: Bunch(
           verbose: True
           dryrun: True
+          with_color: True
           cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/spm')
           matlab_dir: PosixPath('/opt/mcr/v93')
@@ -191,16 +192,17 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.nii.gz'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.bvec'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PREPROCESSED/dwmri.bval'), PosixPath('/tmp/brainprep-dmriprep/derivatives/dmriprep/subjects/sub-01/ses-01/PDF/dtiQA.pdf'))
         )
         runtime: Bunch(
-          start: '2025-12-18 14:38:34.095852'
-          end: '2025-12-18 14:38:34.095852'
-          execution_time: 1.4024166666666665e-05
+          start: '2026-01-14 12:10:11.610444'
+          end: '2026-01-14 12:10:11.610444'
+          execution_time: 1.4057777777777778e-05
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmh13bl'
+          hostname: 'runnervmi13qx'
         )
         config: Bunch(
           verbose: True
           dryrun: True
+          with_color: True
           cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/spm')
           matlab_dir: PosixPath('/opt/mcr/v93')
@@ -222,19 +224,97 @@ to actually run each step and generate results on disk.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-70
+.. GENERATED FROM PYTHON SOURCE LINES 66-72
+
+CLI
+---
+
+Let's now generate the same analysis using the CLI. The goal here is to
+translate the workflow calls into explicit shell commands.
+See :ref:`user guide <cli>` for details.
+
+.. GENERATED FROM PYTHON SOURCE LINES 72-100
+
+.. code-block:: Python
+
+
+    from pprint import pprint
+
+    commands = []
+    commands.append(
+        [
+            [
+                "brainprep", "subject-level-dmriprep",
+                "--t1-file", str(data.anat),
+                "--dwi-file", str(data.dwi),
+                "--bvec-file", str(data.bvec),
+                "--bval-file", str(data.bval),
+                "--output-dir", str(outdir),
+                "--keep-intermediate",
+            ]
+        ]
+    )
+    commands.append(
+        [
+            [
+                "brainprep", "group-level-dmriprep",
+                "--output-dir", str(outdir),
+            ]
+        ]
+    )
+    pprint(commands)
+
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    [[['brainprep',
+       'subject-level-dmriprep',
+       '--t1-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz',
+       '--dwi-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/dwi/sub-01_ses-01_dwi.nii.gz',
+       '--bvec-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/dwi/sub-01_ses-01_dwi.bvec',
+       '--bval-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/dwi/sub-01_ses-01_dwi.bval',
+       '--output-dir',
+       '/tmp/brainprep-dmriprep',
+       '--keep-intermediate']],
+     [['brainprep',
+       'group-level-dmriprep',
+       '--output-dir',
+       '/tmp/brainprep-dmriprep']]]
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 101-113
 
 Container
 ---------
 
-Let's now perform this preprocessing using the BrainPrep container.
+Note that the commands generated by the CLI are not limited to being
+displayed for reference; they can also be executed directly within the
+workflow‑dedicated container. By running the commands inside the container,
+you benefit from a controlled runtime context where all necessary
+dependencies, libraries, and configuration files are already available.
+In practice, this means that once the CLI has produced the appropriate
+instructions, you can simply copy and run them inside the container to
+achieve the intended results. You can find the BrainPrep images on Docker
+Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (3 minutes 29.245 seconds)
+   **Total running time of the script:** (3 minutes 34.187 seconds)
 
-**Estimated memory usage:**  870 MB
+**Estimated memory usage:**  914 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_dmriprep.py:

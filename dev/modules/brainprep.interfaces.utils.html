@@ -258,7 +258,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/tbss.html">7. Tract-Based Spatial Statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/fmriprep.html">8. fMRI Pre-Processings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/reporting.html">9. Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">10. Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/cli.html">10. CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">11. Glossary</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API References</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -341,6 +342,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.plotting.plot_brainparc.html">brainprep.interfaces.plotting.plot_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.plotting.plot_defacing_mosaic.html">brainprep.interfaces.plotting.plot_defacing_mosaic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.plotting.plot_histogram.html">brainprep.interfaces.plotting.plot_histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.plotting.plot_pca.html">brainprep.interfaces.plotting.plot_pca</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -355,6 +357,7 @@
 </li>
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.incremental_pca.html">brainprep.interfaces.utils.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.mean_correlation.html">brainprep.interfaces.utils.mean_correlation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
@@ -521,16 +524,19 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.copyfiles.html#brainprep.interfaces.utils.copyfiles" title="brainprep.interfaces.utils.copyfiles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copyfiles</span></code></a>(source_image_files, ...[, dryrun])</p></td>
 <td><p>Copy input image files.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.mask_diff.html#brainprep.interfaces.utils.mask_diff" title="brainprep.interfaces.utils.mask_diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask_diff</span></code></a>(im1_file, im2_file, output_dir, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.incremental_pca.html#brainprep.interfaces.utils.incremental_pca" title="brainprep.interfaces.utils.incremental_pca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">incremental_pca</span></code></a>(image_files_regex, output_dir)</p></td>
+<td><p>Perform an Incremental PCA with 2 components on a collection of images matched by a regex pattern, processing them in batches.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.mask_diff.html#brainprep.interfaces.utils.mask_diff" title="brainprep.interfaces.utils.mask_diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask_diff</span></code></a>(im1_file, im2_file, output_dir, ...)</p></td>
 <td><p>Computes a defacing mask by thresholding the intensity difference between two input images.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.mean_correlation.html#brainprep.interfaces.utils.mean_correlation" title="brainprep.interfaces.utils.mean_correlation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean_correlation</span></code></a>(image_files_regex, ...[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.mean_correlation.html#brainprep.interfaces.utils.mean_correlation" title="brainprep.interfaces.utils.mean_correlation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean_correlation</span></code></a>(image_files_regex, ...[, ...])</p></td>
 <td><p>Compute the mean Pearson correlation between a reference image and a list of other images.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.movedir.html#brainprep.interfaces.utils.movedir" title="brainprep.interfaces.utils.movedir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">movedir</span></code></a>(source_dir, output_dir[, content, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.movedir.html#brainprep.interfaces.utils.movedir" title="brainprep.interfaces.utils.movedir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">movedir</span></code></a>(source_dir, output_dir[, content, ...])</p></td>
 <td><p>Move input directory.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.ungzfile.html#brainprep.interfaces.utils.ungzfile" title="brainprep.interfaces.utils.ungzfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ungzfile</span></code></a>(input_file, output_file, output_dir)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.interfaces.utils.ungzfile.html#brainprep.interfaces.utils.ungzfile" title="brainprep.interfaces.utils.ungzfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ungzfile</span></code></a>(input_file, output_file, output_dir)</p></td>
 <td><p>Ungzip input file.</p></td>
 </tr>
 </tbody>

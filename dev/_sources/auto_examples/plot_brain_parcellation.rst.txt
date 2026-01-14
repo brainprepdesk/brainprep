@@ -119,7 +119,7 @@ to actually run each step and generate results on disk.
                     t1_file=t1_file,
                     template_dir=(datadir / "fsaverage_sym"),
                     output_dir=outdir,
-                    do_lgi=False,
+                    do_lgi=True,
                     wm_file=(datadir / "deprecated"),
                     keep_intermediate=True,
                 )
@@ -157,6 +157,9 @@ to actually run each step and generate results on disk.
     [deprecated] - You passed a white matter file as input. This behavior is deprecated and will be removed in version >1.
     [command] - recon-all -all -subjid run-01 -i /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz -sd /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study1 -noappend -no-isrunning
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study1/run-01/scripts/recon-all.log
+    [command] - recon-all -localGI -subjid run-01 -sd /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study1 -no-isrunning
+    [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study1/run-01/surf/lh.pial_lgi
+    [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study1/run-01/surf/rh.pial_lgi
     [command] - xhemireg --s run-01
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study1/run-01/xhemi/xhemireg.lh.log
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study1/run-01/xhemi/xhemireg.rh.log
@@ -229,6 +232,9 @@ to actually run each step and generate results on disk.
     [deprecated] - You passed a white matter file as input. This behavior is deprecated and will be removed in version >1.
     [command] - recon-all -all -subjid run-01 -i /tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz -sd /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study2 -noappend -no-isrunning
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study2/run-01/scripts/recon-all.log
+    [command] - recon-all -localGI -subjid run-01 -sd /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study2 -no-isrunning
+    [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study2/run-01/surf/lh.pial_lgi
+    [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study2/run-01/surf/rh.pial_lgi
     [command] - xhemireg --s run-01
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study2/run-01/xhemi/xhemireg.lh.log
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-01/ses-study2/run-01/xhemi/xhemireg.rh.log
@@ -301,6 +307,9 @@ to actually run each step and generate results on disk.
     [deprecated] - You passed a white matter file as input. This behavior is deprecated and will be removed in version >1.
     [command] - recon-all -all -subjid run-01 -i /tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz -sd /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study1 -noappend -no-isrunning
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study1/run-01/scripts/recon-all.log
+    [command] - recon-all -localGI -subjid run-01 -sd /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study1 -no-isrunning
+    [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study1/run-01/surf/lh.pial_lgi
+    [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study1/run-01/surf/rh.pial_lgi
     [command] - xhemireg --s run-01
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study1/run-01/xhemi/xhemireg.lh.log
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study1/run-01/xhemi/xhemireg.rh.log
@@ -373,6 +382,9 @@ to actually run each step and generate results on disk.
     [deprecated] - You passed a white matter file as input. This behavior is deprecated and will be removed in version >1.
     [command] - recon-all -all -subjid run-01 -i /tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_T1w.nii.gz -sd /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study2 -noappend -no-isrunning
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study2/run-01/scripts/recon-all.log
+    [command] - recon-all -localGI -subjid run-01 -sd /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study2 -no-isrunning
+    [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study2/run-01/surf/lh.pial_lgi
+    [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study2/run-01/surf/rh.pial_lgi
     [command] - xhemireg --s run-01
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study2/run-01/xhemi/xhemireg.lh.log
     [info] - checking output: /tmp/brainprep-brainparc/derivatives/brain_parcellation/subjects/sub-02/ses-study2/run-01/xhemi/xhemireg.rh.log
@@ -729,17 +741,168 @@ to actually run each step and generate results on disk.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-95
+.. GENERATED FROM PYTHON SOURCE LINES 91-97
+
+CLI
+---
+
+Let's now generate the same analysis using the CLI. The goal here is to
+translate the workflow calls into explicit shell commands.
+See :ref:`user guide <cli>` for details.
+
+.. GENERATED FROM PYTHON SOURCE LINES 97-144
+
+.. code-block:: Python
+
+
+    from pprint import pprint
+
+    commands = []
+    commands.append(
+        [
+            [
+                "brainprep", "subject-level-brainparc",
+                "--t1_file", str(t1_file),
+                "--template_dir", str(datadir / "fsaverage_sym"),
+                "--output-dir", str(outdir),
+                "--do-lgi",
+                "--keep-intermediate",
+            ] for t1_file in [subject_data.anat1, subject_data.anat2]
+              for subject_data in data.values()
+        ]
+    )
+    commands.append(
+        [
+            [
+                "brainprep", "longitudinal-brainparc",
+                "--t1_files", f"'[{subject_data.anat1}, {subject_data.anat2}]'",
+                "--output-dir", str(outdir),
+                "--keep-intermediate",
+            ] for subject_data in data.values()
+        ]
+    )
+    commands.append(
+        [
+            [
+                "brainprep", "group-level-brainparc",
+                "--output-dir", str(outdir),
+                "--euler_threshold", "-217",
+                "--keep-intermediate",
+            ],
+            [
+                "brainprep", "group-level-brainparc",
+                "--output-dir", str(outdir),
+                "--euler_threshold", "-217",
+                "--longitudinal",
+                "--keep-intermediate",
+            ],
+        ]
+    )
+    pprint(commands)
+
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    [[['brainprep',
+       'subject-level-brainparc',
+       '--t1_file',
+       '/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz',
+       '--template_dir',
+       '/tmp/brainprep-data/fsaverage_sym',
+       '--output-dir',
+       '/tmp/brainprep-brainparc',
+       '--do-lgi',
+       '--keep-intermediate'],
+      ['brainprep',
+       'subject-level-brainparc',
+       '--t1_file',
+       '/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz',
+       '--template_dir',
+       '/tmp/brainprep-data/fsaverage_sym',
+       '--output-dir',
+       '/tmp/brainprep-brainparc',
+       '--do-lgi',
+       '--keep-intermediate'],
+      ['brainprep',
+       'subject-level-brainparc',
+       '--t1_file',
+       '/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_T1w.nii.gz',
+       '--template_dir',
+       '/tmp/brainprep-data/fsaverage_sym',
+       '--output-dir',
+       '/tmp/brainprep-brainparc',
+       '--do-lgi',
+       '--keep-intermediate'],
+      ['brainprep',
+       'subject-level-brainparc',
+       '--t1_file',
+       '/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_T1w.nii.gz',
+       '--template_dir',
+       '/tmp/brainprep-data/fsaverage_sym',
+       '--output-dir',
+       '/tmp/brainprep-brainparc',
+       '--do-lgi',
+       '--keep-intermediate']],
+     [['brainprep',
+       'longitudinal-brainparc',
+       '--t1_files',
+       "'[/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz, "
+       "/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz]'",
+       '--output-dir',
+       '/tmp/brainprep-brainparc',
+       '--keep-intermediate'],
+      ['brainprep',
+       'longitudinal-brainparc',
+       '--t1_files',
+       "'[/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz, "
+       "/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_T1w.nii.gz]'",
+       '--output-dir',
+       '/tmp/brainprep-brainparc',
+       '--keep-intermediate']],
+     [['brainprep',
+       'group-level-brainparc',
+       '--output-dir',
+       '/tmp/brainprep-brainparc',
+       '--euler_threshold',
+       '-217',
+       '--keep-intermediate'],
+      ['brainprep',
+       'group-level-brainparc',
+       '--output-dir',
+       '/tmp/brainprep-brainparc',
+       '--euler_threshold',
+       '-217',
+       '--longitudinal',
+       '--keep-intermediate']]]
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 145-157
 
 Container
 ---------
 
-Let's now perform this preprocessing using the BrainPrep container.
+Note that the commands generated by the CLI are not limited to being
+displayed for reference; they can also be executed directly within the
+workflow‑dedicated container. By running the commands inside the container,
+you benefit from a controlled runtime context where all necessary
+dependencies, libraries, and configuration files are already available.
+In practice, this means that once the CLI has produced the appropriate
+instructions, you can simply copy and run them inside the container to
+achieve the intended results. You can find the BrainPrep images on Docker
+Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.349 seconds)
+   **Total running time of the script:** (0 minutes 2.855 seconds)
 
 **Estimated memory usage:**  127 MB
 

@@ -258,7 +258,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/tbss.html">7. Tract-Based Spatial Statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/fmriprep.html">8. fMRI Pre-Processings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/reporting.html">9. Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">10. Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/cli.html">10. CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">11. Glossary</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../modules/index.html">API References</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -341,6 +342,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_brainparc.html">brainprep.interfaces.plotting.plot_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_defacing_mosaic.html">brainprep.interfaces.plotting.plot_defacing_mosaic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_histogram.html">brainprep.interfaces.plotting.plot_histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_pca.html">brainprep.interfaces.plotting.plot_pca</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -355,6 +357,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.incremental_pca.html">brainprep.interfaces.utils.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mean_correlation.html">brainprep.interfaces.utils.mean_correlation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
@@ -571,17 +574,15 @@ to actually run each step and generate results on disk.</p>
 [info] - setting workspace directory: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace
 [command] - fslreorient2std /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz
 [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz
-[command] - fsl_deface /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface.nii.gz -d /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz -f 0.5 -B -p /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface
+[command] - fsl_deface /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface.nii.gz -d /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz -f 0.5 -B
 [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface.nii.gz
 [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz
-[info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface_1.png
-[info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface_2.png
 [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemosaic.png
 [title] - Subject Level Defacing done.
 Bunch(
   step1: Bunch(
     module: &#39;brainprep.workflow.defacing.brainprep_defacing&#39;
-    description: &#39;\n    Defacing pre-processing workflow for anatomical T1-weighted images.\n\n    Applies FSL\&#39;s `fsl_deface` tool :footcite:p:`almagro2018deface` with\n    default settings to remove facial features (face and ears) from the input\n    image. This includes:\n\n    1) Reorient the T1w image to standard MNI152 template space.\n    2) Deface the T1w image.\n    3) Generate a mosaic image of the defaced T1w image.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w anatomical image file.\n    output_dir : Directory\n        Directory where the defaced image and related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (e.g., reoriented image); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - deface_t1_file : File — path to the defaced image.\n        - mask_file : File — path to the defacing mask.\n        - snap_files : list[File] — paths to defacing snapshots.\n\n    Raises\n    ------\n    ValueError\n        If the T1w file do not follow BIDS convension.\n\n    Notes\n    -----\n    This workflow assumes the input image is a valid T1-weighted anatomical\n    scan.\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_defacing\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_defacing(\n    ...         t1_file=(\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;\n    ...         ),\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     )\n    &gt;&gt;&gt; outputs\n    Bunch(\n      deface_t1_file: PosixPath(\&#39;...\&#39;)\n      mask_file: PosixPath(\&#39;...\&#39;)\n      vol_files: [PosixPath(\&#39;...\&#39;), PosixPath(\&#39;...\&#39;)]\n      mosaic_file: PosixPath(\&#39;...\&#39;)\n    )\n\n\n    References\n    ----------\n\n    .. footbibliography::\n    &#39;
+    description: &#39;\n    Defacing pre-processing workflow for anatomical T1-weighted images.\n\n    Applies FSL\&#39;s `fsl_deface` tool :footcite:p:`almagro2018deface` with\n    default settings to remove facial features (face and ears) from the input\n    image. This includes:\n\n    1) Reorient the T1w image to standard MNI152 template space.\n    2) Deface the T1w image.\n    3) Generate a mosaic image of the defaced T1w image.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w anatomical image file.\n    output_dir : Directory\n        Directory where the defaced image and related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (e.g., reoriented image); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - deface_t1_file : File — path to the defaced image.\n        - mask_file : File — path to the defacing mask.\n        - mosaic_file : File — path to defacing snapshots.\n\n    Raises\n    ------\n    ValueError\n        If the T1w file do not follow BIDS convention.\n\n    Notes\n    -----\n    This workflow assumes the input image is a valid T1-weighted anatomical\n    scan.\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_defacing\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_defacing(\n    ...         t1_file=(\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;\n    ...         ),\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     )\n    &gt;&gt;&gt; outputs\n    Bunch(\n      deface_t1_file: PosixPath(\&#39;...\&#39;)\n      mask_file: PosixPath(\&#39;...\&#39;)\n      mosaic_file: PosixPath(\&#39;...\&#39;)\n    )\n\n\n    References\n    ----------\n\n    .. footbibliography::\n    &#39;
     inputs: Bunch(
       t1_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz&#39;)
       output_dir: PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01&#39;)
@@ -590,20 +591,20 @@ Bunch(
     outputs: Bunch(
       deface_t1_file: PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface.nii.gz&#39;)
       mask_file: PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz&#39;)
-      vol_files: [PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface_1.png&#39;), PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface_2.png&#39;)]
       mosaic_file: PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemosaic.png&#39;)
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:01.346759&#39;
-      end: &#39;2025-12-18 14:35:01.346759&#39;
-      execution_time: 3.3716666666666664e-06
+      start: &#39;2026-01-14 12:06:33.627836&#39;
+      end: &#39;2026-01-14 12:06:33.627836&#39;
+      execution_time: 3.2358333333333334e-06
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -624,16 +625,17 @@ Bunch(
       outputs: PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-01_mod-T1w_reorient.nii.gz&#39;)
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:01.350853&#39;
-      end: &#39;2025-12-18 14:35:01.350853&#39;
-      execution_time: 7.111111111111111e-08
+      start: &#39;2026-01-14 12:06:33.632175&#39;
+      end: &#39;2026-01-14 12:06:33.632175&#39;
+      execution_time: 7.361111111111111e-08
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -651,19 +653,20 @@ Bunch(
       entities: {&#39;sub&#39;: &#39;01&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;, &#39;ses&#39;: &#39;01&#39;, &#39;run&#39;: &#39;01&#39;}
     )
     outputs: Bunch(
-      outputs: (PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz&#39;), [PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface_1.png&#39;), PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface_2.png&#39;)])
+      outputs: (PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_deface.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz&#39;))
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:01.354152&#39;
-      end: &#39;2025-12-18 14:35:01.354152&#39;
-      execution_time: 1.3916666666666668e-07
+      start: &#39;2026-01-14 12:06:33.635552&#39;
+      end: &#39;2026-01-14 12:06:33.635552&#39;
+      execution_time: 9.055555555555556e-08
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -686,16 +689,17 @@ Bunch(
       outputs: PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-01_mod-T1w_defacemosaic.png&#39;)
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:01.357943&#39;
-      end: &#39;2025-12-18 14:35:01.357943&#39;
-      execution_time: 5.361111111111111e-08
+      start: &#39;2026-01-14 12:06:33.638759&#39;
+      end: &#39;2026-01-14 12:06:33.638759&#39;
+      execution_time: 5.944444444444444e-08
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -707,12 +711,50 @@ Bunch(
 </pre></div>
 </div>
 </section>
+<section id="cli">
+<h2>CLI<a class="headerlink" href="#cli" title="Link to this heading">¶</a></h2>
+<p>Let’s now generate the same analysis using the CLI. The goal here is to
+translate the workflow calls into explicit shell commands.
+See <a class="reference internal" href="../user_guide/cli.html#cli"><span class="std std-ref">user guide</span></a> for details.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a>
+
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a> <span class="o">=</span> <span class="p">[]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;subject-level-defacing&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--t1_file&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">anat</span></a><span class="p">),</span>
+            <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
+            <span class="s2">&quot;--keep-intermediate&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[[[&#39;brainprep&#39;,
+   &#39;subject-level-defacing&#39;,
+   &#39;--t1_file&#39;,
+   &#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz&#39;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-defacing&#39;,
+   &#39;--keep-intermediate&#39;]]]
+</pre></div>
+</div>
+</section>
 <section id="container">
 <h2>Container<a class="headerlink" href="#container" title="Link to this heading">¶</a></h2>
-<p>Let’s now perform preprocessing using the BrainPrep container.</p>
-<p>Coming soon!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.563 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  114 MB</p>
+<p>Note that the commands generated by the CLI are not limited to being
+displayed for reference; they can also be executed directly within the
+workflow‑dedicated container. By running the commands inside the container,
+you benefit from a controlled runtime context where all necessary
+dependencies, libraries, and configuration files are already available.
+In practice, this means that once the CLI has produced the appropriate
+instructions, you can simply copy and run them inside the container to
+achieve the intended results. You can find the BrainPrep images on Docker
+Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.399 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  135 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-defacing-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/8f48ff92f5d921d3b741e1e2d0be8910/plot_defacing.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_defacing.ipynb</span></code></a></p>
@@ -789,6 +831,7 @@ Bunch(
 <li><a class="reference internal" href="#">Defacing</a><ul>
 <li><a class="reference internal" href="#data">Data</a></li>
 <li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#cli">CLI</a></li>
 <li><a class="reference internal" href="#container">Container</a></li>
 </ul>
 </li>

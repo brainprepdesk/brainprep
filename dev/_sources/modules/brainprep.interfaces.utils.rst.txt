@@ -19,6 +19,7 @@ Functions
    :template: function.rst
 
     copyfiles
+    incremental_pca
     mask_diff
     mean_correlation
     movedir

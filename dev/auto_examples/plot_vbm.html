@@ -258,7 +258,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/tbss.html">7. Tract-Based Spatial Statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/fmriprep.html">8. fMRI Pre-Processings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/reporting.html">9. Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">10. Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/cli.html">10. CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">11. Glossary</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../modules/index.html">API References</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -341,6 +342,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_brainparc.html">brainprep.interfaces.plotting.plot_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_defacing_mosaic.html">brainprep.interfaces.plotting.plot_defacing_mosaic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_histogram.html">brainprep.interfaces.plotting.plot_histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_pca.html">brainprep.interfaces.plotting.plot_pca</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -355,6 +357,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.incremental_pca.html">brainprep.interfaces.utils.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mean_correlation.html">brainprep.interfaces.utils.mean_correlation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
@@ -647,10 +650,106 @@ to actually run each step and generate results on disk.</p>
 </pre></div>
 </div>
 </section>
+<section id="cli">
+<h2>CLI<a class="headerlink" href="#cli" title="Link to this heading">¶</a></h2>
+<p>Let’s now generate the same analysis using the CLI. The goal here is to
+translate the workflow calls into explicit shell commands.
+See <a class="reference internal" href="../user_guide/cli.html#cli"><span class="std std-ref">user guide</span></a> for details.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a>
+
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a> <span class="o">=</span> <span class="p">[]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;subject-level-vbm&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--t1_file&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_data</span><span class="o">.</span><span class="n">anat1</span></a><span class="p">),</span>
+            <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
+            <span class="s2">&quot;--keep-intermediate&quot;</span><span class="p">,</span>
+        <span class="p">]</span> <span class="k">for</span> <span class="n">subject_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;longitudinal-vbm&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--t1_fileq&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&#39;[</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_data</span><span class="o">.</span><span class="n">anat1</span></a><span class="si">}</span><span class="s2">, </span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_data</span><span class="o">.</span><span class="n">anat2</span></a><span class="si">}</span><span class="s2">]&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--model&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
+            <span class="s2">&quot;--keep-intermediate&quot;</span><span class="p">,</span>
+        <span class="p">]</span> <span class="k">for</span> <span class="n">subject_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;group-level-vbm&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;group-level-vbm&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
+            <span class="s2">&quot;--longitudinal&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[[[&#39;brainprep&#39;,
+   &#39;subject-level-vbm&#39;,
+   &#39;--t1_file&#39;,
+   &#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz&#39;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-vbm&#39;,
+   &#39;--keep-intermediate&#39;],
+  [&#39;brainprep&#39;,
+   &#39;subject-level-vbm&#39;,
+   &#39;--t1_file&#39;,
+   &#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz&#39;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-vbm&#39;,
+   &#39;--keep-intermediate&#39;]],
+ [[&#39;brainprep&#39;,
+   &#39;longitudinal-vbm&#39;,
+   &#39;--t1_fileq&#39;,
+   &quot;&#39;[/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz, &quot;
+   &quot;/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz]&#39;&quot;,
+   &#39;--model&#39;,
+   &#39;1&#39;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-vbm&#39;,
+   &#39;--keep-intermediate&#39;],
+  [&#39;brainprep&#39;,
+   &#39;longitudinal-vbm&#39;,
+   &#39;--t1_fileq&#39;,
+   &quot;&#39;[/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz, &quot;
+   &quot;/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_T1w.nii.gz]&#39;&quot;,
+   &#39;--model&#39;,
+   &#39;1&#39;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-vbm&#39;,
+   &#39;--keep-intermediate&#39;]],
+ [[&#39;brainprep&#39;, &#39;group-level-vbm&#39;, &#39;--output-dir&#39;, &#39;/tmp/brainprep-vbm&#39;],
+  [&#39;brainprep&#39;,
+   &#39;group-level-vbm&#39;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-vbm&#39;,
+   &#39;--longitudinal&#39;]]]
+</pre></div>
+</div>
+</section>
 <section id="container">
 <h2>Container<a class="headerlink" href="#container" title="Link to this heading">¶</a></h2>
-<p>Let’s now perform this preprocessing using the BrainPrep container.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.246 seconds)</p>
+<p>Note that the commands generated by the CLI are not limited to being
+displayed for reference; they can also be executed directly within the
+workflow‑dedicated container. By running the commands inside the container,
+you benefit from a controlled runtime context where all necessary
+dependencies, libraries, and configuration files are already available.
+In practice, this means that once the CLI has produced the appropriate
+instructions, you can simply copy and run them inside the container to
+achieve the intended results. You can find the BrainPrep images on Docker
+Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.335 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  106 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-vbm-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
@@ -728,6 +827,7 @@ to actually run each step and generate results on disk.</p>
 <li><a class="reference internal" href="#">VBM pre-processing</a><ul>
 <li><a class="reference internal" href="#data">Data</a></li>
 <li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#cli">CLI</a></li>
 <li><a class="reference internal" href="#container">Container</a></li>
 </ul>
 </li>

@@ -59,10 +59,12 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.interfaces.plotting.plot_brainparc.html'>brainprep.interfaces.plotting.plot_brainparc</a></li>
       <li><a href='generated/brainprep.interfaces.plotting.plot_defacing_mosaic.html'>brainprep.interfaces.plotting.plot_defacing_mosaic</a></li>
       <li><a href='generated/brainprep.interfaces.plotting.plot_histogram.html'>brainprep.interfaces.plotting.plot_histogram</a></li>
+      <li><a href='generated/brainprep.interfaces.plotting.plot_pca.html'>brainprep.interfaces.plotting.plot_pca</a></li>
       <li><a href='generated/brainprep.interfaces.prequal.prequal_stats.html'>brainprep.interfaces.prequal.prequal_stats</a></li>
       <li><a href='generated/brainprep.interfaces.prequal.prequal_wf.html'>brainprep.interfaces.prequal.prequal_wf</a></li>
       <li><a href='generated/brainprep.interfaces.reorient.html'>brainprep.interfaces.reorient</a></li>
       <li><a href='generated/brainprep.interfaces.utils.copyfiles.html'>brainprep.interfaces.utils.copyfiles</a></li>
+      <li><a href='generated/brainprep.interfaces.utils.incremental_pca.html'>brainprep.interfaces.utils.incremental_pca</a></li>
       <li><a href='generated/brainprep.interfaces.utils.mask_diff.html'>brainprep.interfaces.utils.mask_diff</a></li>
       <li><a href='generated/brainprep.interfaces.utils.mean_correlation.html'>brainprep.interfaces.utils.mean_correlation</a></li>
       <li><a href='generated/brainprep.interfaces.utils.movedir.html'>brainprep.interfaces.utils.movedir</a></li>

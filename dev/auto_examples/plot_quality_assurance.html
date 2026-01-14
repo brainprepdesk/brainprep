@@ -258,7 +258,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/tbss.html">7. Tract-Based Spatial Statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/fmriprep.html">8. fMRI Pre-Processings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/reporting.html">9. Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">10. Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/cli.html">10. CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">11. Glossary</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../modules/index.html">API References</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -341,6 +342,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_brainparc.html">brainprep.interfaces.plotting.plot_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_defacing_mosaic.html">brainprep.interfaces.plotting.plot_defacing_mosaic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_histogram.html">brainprep.interfaces.plotting.plot_histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_pca.html">brainprep.interfaces.plotting.plot_pca</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -355,6 +357,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.incremental_pca.html">brainprep.interfaces.utils.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mean_correlation.html">brainprep.interfaces.utils.mean_correlation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
@@ -609,16 +612,17 @@ Bunch(
       iqm_files: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-01/anat/sub-01_T1w.json&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:03.385062&#39;
-      end: &#39;2025-12-18 14:35:03.385062&#39;
-      execution_time: 1.5208333333333333e-06
+      start: &#39;2026-01-14 12:06:35.926196&#39;
+      end: &#39;2026-01-14 12:06:35.926196&#39;
+      execution_time: 1.461111111111111e-06
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -639,16 +643,17 @@ Bunch(
       outputs: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-01/anat/sub-01_T1w.json&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:03.389483&#39;
-      end: &#39;2025-12-18 14:35:03.389483&#39;
-      execution_time: 8.750000000000001e-08
+      start: &#39;2026-01-14 12:06:35.930579&#39;
+      end: &#39;2026-01-14 12:06:35.930579&#39;
+      execution_time: 8.222222222222222e-08
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -675,16 +680,17 @@ Bunch(
       iqm_files: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-01/anat/sub-02_T1w.json&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:03.398027&#39;
-      end: &#39;2025-12-18 14:35:03.398027&#39;
-      execution_time: 1.1544444444444445e-06
+      start: &#39;2026-01-14 12:06:35.938954&#39;
+      end: &#39;2026-01-14 12:06:35.938954&#39;
+      execution_time: 1.1005555555555557e-06
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -705,16 +711,17 @@ Bunch(
       outputs: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-01/anat/sub-02_T1w.json&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:03.401519&#39;
-      end: &#39;2025-12-18 14:35:03.401519&#39;
-      execution_time: 6.444444444444445e-08
+      start: &#39;2026-01-14 12:06:35.942284&#39;
+      end: &#39;2026-01-14 12:06:35.942284&#39;
+      execution_time: 6.416666666666667e-08
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -740,16 +747,17 @@ Bunch(
       iqm_file: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:03.408904&#39;
-      end: &#39;2025-12-18 14:35:03.408904&#39;
-      execution_time: 9.513888888888889e-07
+      start: &#39;2026-01-14 12:06:35.948942&#39;
+      end: &#39;2026-01-14 12:06:35.948942&#39;
+      execution_time: 9.494444444444445e-07
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -769,16 +777,17 @@ Bunch(
       outputs: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:03.411689&#39;
-      end: &#39;2025-12-18 14:35:03.411689&#39;
-      execution_time: 5.888888888888889e-08
+      start: &#39;2026-01-14 12:06:35.951822&#39;
+      end: &#39;2026-01-14 12:06:35.951822&#39;
+      execution_time: 6.916666666666666e-08
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: True
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -790,36 +799,71 @@ Bunch(
 </pre></div>
 </div>
 </section>
+<section id="cli">
+<h2>CLI<a class="headerlink" href="#cli" title="Link to this heading">¶</a></h2>
+<p>Let’s now generate the same analysis using the CLI. The goal here is to
+translate the workflow calls into explicit shell commands.
+See <a class="reference internal" href="../user_guide/cli.html#cli"><span class="std std-ref">user guide</span></a> for details.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a>
+
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a> <span class="o">=</span> <span class="p">[]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;subject-level-qa&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--image-files&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[&#39;</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_data</span><span class="o">.</span><span class="n">anat</span></a><span class="si">}</span><span class="s2">&#39;]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
+            <span class="s2">&quot;--keep-intermediate&quot;</span><span class="p">,</span>
+        <span class="p">]</span> <span class="k">for</span> <span class="n">subject_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;group-level-qa&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--modalities&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[&#39;T1w&#39;]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[[[&#39;brainprep&#39;,
+   &#39;subject-level-qa&#39;,
+   &#39;--image-files&#39;,
+   &quot;[&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz&#39;]&quot;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-qa&#39;,
+   &#39;--keep-intermediate&#39;],
+  [&#39;brainprep&#39;,
+   &#39;subject-level-qa&#39;,
+   &#39;--image-files&#39;,
+   &quot;[&#39;/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz&#39;]&quot;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-qa&#39;,
+   &#39;--keep-intermediate&#39;]],
+ [[&#39;brainprep&#39;,
+   &#39;group-level-qa&#39;,
+   &#39;--modalities&#39;,
+   &quot;[&#39;T1w&#39;]&quot;,
+   &#39;--output-dir&#39;,
+   &#39;/tmp/brainprep-qa&#39;]]]
+</pre></div>
+</div>
+</section>
 <section id="container">
 <h2>Container<a class="headerlink" href="#container" title="Link to this heading">¶</a></h2>
-<p>Let’s now perform this preprocessing using the BrainPrep container.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">homedir</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;/tmp/brainprep-home&quot;</span><span class="p">)</span>
-<a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir" title="pathlib.Path.mkdir" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-method"><span class="n">homedir</span><span class="o">.</span><span class="n">mkdir</span></a><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">devcodedir</span></a> <span class="o">=</span> <span class="s2">&quot;/tmp/brainprep-code&quot;</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cmd</span></a> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;singularity&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;run&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--bind&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">devcodedir</span></a><span class="si">}</span><span class="s2">:/opt/brainprep&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--bind&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datadir</span></a><span class="si">}</span><span class="s2">:/data&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--bind&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="si">}</span><span class="s2">:/out&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--home&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">homedir</span></a><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--env&quot;</span><span class="p">,</span> <span class="s2">&quot;PYTHONPATH=/opt/brainprep&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--env&quot;</span><span class="p">,</span> <span class="s2">&quot;PREPEND_PATH=/opt/brainprep/brainprep/scripts&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--containall&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;docker://neurospin/brainprep-qa:latest&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;subject-level-qa&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;/data&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--image-files&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">sub01</span><span class="o">.</span><span class="n">anat</span></a><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="s2">&quot;/out&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cmd</span></a><span class="p">))</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>singularity run shell --bind /tmp/brainprep-code:/opt/brainprep --bind /tmp/brainprep-data:/data --bind /tmp/brainprep-qa:/out --home /tmp/brainprep-home --env PYTHONPATH=/opt/brainprep --env PREPEND_PATH=/opt/brainprep/brainprep/scripts --containall docker://neurospin/brainprep-qa:latest brainprep subject-level-qa /data --image-files [/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz] --output-dir /out
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.370 seconds)</p>
+<p>Note that the commands generated by the CLI are not limited to being
+displayed for reference; they can also be executed directly within the
+workflow‑dedicated container. By running the commands inside the container,
+you benefit from a controlled runtime context where all necessary
+dependencies, libraries, and configuration files are already available.
+In practice, this means that once the CLI has produced the appropriate
+instructions, you can simply copy and run them inside the container to
+achieve the intended results. You can find the BrainPrep images on Docker
+Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.539 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  126 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-quality-assurance-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
@@ -897,6 +941,7 @@ Bunch(
 <li><a class="reference internal" href="#">Quality Assurance</a><ul>
 <li><a class="reference internal" href="#data">Data</a></li>
 <li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#cli">CLI</a></li>
 <li><a class="reference internal" href="#container">Container</a></li>
 </ul>
 </li>

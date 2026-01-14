@@ -256,7 +256,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../user_guide/tbss.html">7. Tract-Based Spatial Statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user_guide/fmriprep.html">8. fMRI Pre-Processings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user_guide/reporting.html">9. Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/glossary.html">10. Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/cli.html">10. CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/glossary.html">11. Glossary</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API References</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -339,6 +340,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.plotting.plot_brainparc.html">brainprep.interfaces.plotting.plot_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.plotting.plot_defacing_mosaic.html">brainprep.interfaces.plotting.plot_defacing_mosaic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.plotting.plot_histogram.html">brainprep.interfaces.plotting.plot_histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.plotting.plot_pca.html">brainprep.interfaces.plotting.plot_pca</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -353,6 +355,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.incremental_pca.html">brainprep.interfaces.utils.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.mean_correlation.html">brainprep.interfaces.utils.mean_correlation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
@@ -518,7 +521,7 @@ signature, and not how to use it. Please refer to the
 <h1>brainprep.datasets.multi_modal.MultiModalDataset<a class="headerlink" href="#brainprep-datasets-multi-modal-multimodaldataset" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="brainprep.datasets.multi_modal.MultiModalDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brainprep.datasets.multi_modal.</span></span><span class="sig-name descname"><span class="pre">MultiModalDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datadir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/10ccf56/brainprep/datasets/multi_modal.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brainprep.datasets.multi_modal.</span></span><span class="sig-name descname"><span class="pre">MultiModalDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datadir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/1f351e2/brainprep/datasets/multi_modal.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Multi-modal dataset.</p>
 <p>This <a class="reference external" href="https://www.nitrc.org/projects/multimodal">dataset</a>
@@ -574,12 +577,12 @@ FLAIR, DTI, resting state fMRI, B0 and B1 field maps, …</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="brainprep.datasets.multi_modal.MultiModalDataset.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datadir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/10ccf56/brainprep/datasets/multi_modal.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datadir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/1f351e2/brainprep/datasets/multi_modal.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="brainprep.datasets.multi_modal.MultiModalDataset.fetch">
-<span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/10ccf56/brainprep/datasets/multi_modal.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.fetch" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/1f351e2/brainprep/datasets/multi_modal.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.fetch" title="Link to this definition">¶</a></dt>
 <dd><p>Fetch data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -609,7 +612,7 @@ FLAIR, DTI, resting state fMRI, B0 and B1 field maps, …</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="brainprep.datasets.multi_modal.MultiModalDataset.sanity_check">
-<span class="sig-name descname"><span class="pre">sanity_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/10ccf56/brainprep/datasets/multi_modal.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.sanity_check" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sanity_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/1f351e2/brainprep/datasets/multi_modal.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.sanity_check" title="Link to this definition">¶</a></dt>
 <dd><p>Check that the fetch parameters are correct.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

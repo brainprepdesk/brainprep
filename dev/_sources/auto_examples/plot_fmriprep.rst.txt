@@ -148,16 +148,17 @@ to actually run each step and generate results on disk.
           connectivity_files: [PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_atlas-schaefer200_desc-correlation_connectivity.tsv'), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv')]
         )
         runtime: Bunch(
-          start: '2025-12-18 14:40:17.133447'
-          end: '2025-12-18 14:40:17.133447'
-          execution_time: 1.1537222222222223e-05
+          start: '2026-01-14 12:11:57.203012'
+          end: '2026-01-14 12:11:57.203012'
+          execution_time: 1.162888888888889e-05
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmh13bl'
+          hostname: 'runnervmi13qx'
         )
         config: Bunch(
           verbose: True
           dryrun: True
+          with_color: True
           cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/spm')
           matlab_dir: PosixPath('/opt/mcr/v93')
@@ -182,16 +183,17 @@ to actually run each step and generate results on disk.
           outputs: ([[[PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-brain_mask.nii.gz'), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz')], [(PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-preproc_bold.nii.gz'),), (PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz'),)], (PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-fsLR_den-91k_bold.dtseries.nii'),), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_desc-confounds_timeseries.tsv')]], PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01.html'))
         )
         runtime: Bunch(
-          start: '2025-12-18 14:40:17.137891'
-          end: '2025-12-18 14:40:17.137891'
-          execution_time: 7.684166666666667e-06
+          start: '2026-01-14 12:11:57.207351'
+          end: '2026-01-14 12:11:57.207351'
+          execution_time: 7.761944444444445e-06
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmh13bl'
+          hostname: 'runnervmi13qx'
         )
         config: Bunch(
           verbose: True
           dryrun: True
+          with_color: True
           cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/spm')
           matlab_dir: PosixPath('/opt/mcr/v93')
@@ -224,16 +226,17 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_atlas-schaefer200_desc-correlation_connectivity.tsv')
         )
         runtime: Bunch(
-          start: '2025-12-18 14:40:17.169723'
-          end: '2025-12-18 14:40:17.169723'
-          execution_time: 7.194444444444444e-08
+          start: '2026-01-14 12:11:57.239631'
+          end: '2026-01-14 12:11:57.239631'
+          execution_time: 7.25e-08
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmh13bl'
+          hostname: 'runnervmi13qx'
         )
         config: Bunch(
           verbose: True
           dryrun: True
+          with_color: True
           cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/spm')
           matlab_dir: PosixPath('/opt/mcr/v93')
@@ -266,16 +269,17 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv')
         )
         runtime: Bunch(
-          start: '2025-12-18 14:40:17.173581'
-          end: '2025-12-18 14:40:17.173581'
-          execution_time: 5.833333333333333e-08
+          start: '2026-01-14 12:11:57.243586'
+          end: '2026-01-14 12:11:57.243586'
+          execution_time: 6.055555555555556e-08
           brainprep_version: '2.0.0.dev'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmh13bl'
+          hostname: 'runnervmi13qx'
         )
         config: Bunch(
           verbose: True
           dryrun: True
+          with_color: True
           cat12_file: PosixPath('/opt/spm/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/spm')
           matlab_dir: PosixPath('/opt/mcr/v93')
@@ -288,17 +292,135 @@ to actually run each step and generate results on disk.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-66
+.. GENERATED FROM PYTHON SOURCE LINES 62-68
+
+CLI
+---
+
+Let's now generate the same analysis using the CLI. The goal here is to
+translate the workflow calls into explicit shell commands.
+See :ref:`user guide <cli>` for details.
+
+.. GENERATED FROM PYTHON SOURCE LINES 68-88
+
+.. code-block:: Python
+
+
+    from pprint import pprint
+
+    commands = []
+    commands.append(
+        [
+            [
+                "brainprep", "subject-level-fmriprep",
+                "--t1-file", str(data.anat),
+                "--func-files", f"'[{data.func}]'",
+                "--dataset-description-file", str(data.description),
+                "--freesurfer-dir", "/my/freesurfer/directory",
+                "--output-dir", str(outdir),
+                "--keep-intermediate",
+            ] for subject_data in data.values()
+        ]
+    )
+    pprint(commands)
+
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    [[['brainprep',
+       'subject-level-fmriprep',
+       '--t1-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz',
+       '--func-files',
+       "'[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]'",
+       '--dataset-description-file',
+       '/tmp/brainprep-data/rawdata/dataset_description.json',
+       '--freesurfer-dir',
+       '/my/freesurfer/directory',
+       '--output-dir',
+       '/tmp/brainprep-fmriprep',
+       '--keep-intermediate'],
+      ['brainprep',
+       'subject-level-fmriprep',
+       '--t1-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz',
+       '--func-files',
+       "'[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]'",
+       '--dataset-description-file',
+       '/tmp/brainprep-data/rawdata/dataset_description.json',
+       '--freesurfer-dir',
+       '/my/freesurfer/directory',
+       '--output-dir',
+       '/tmp/brainprep-fmriprep',
+       '--keep-intermediate'],
+      ['brainprep',
+       'subject-level-fmriprep',
+       '--t1-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz',
+       '--func-files',
+       "'[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]'",
+       '--dataset-description-file',
+       '/tmp/brainprep-data/rawdata/dataset_description.json',
+       '--freesurfer-dir',
+       '/my/freesurfer/directory',
+       '--output-dir',
+       '/tmp/brainprep-fmriprep',
+       '--keep-intermediate'],
+      ['brainprep',
+       'subject-level-fmriprep',
+       '--t1-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz',
+       '--func-files',
+       "'[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]'",
+       '--dataset-description-file',
+       '/tmp/brainprep-data/rawdata/dataset_description.json',
+       '--freesurfer-dir',
+       '/my/freesurfer/directory',
+       '--output-dir',
+       '/tmp/brainprep-fmriprep',
+       '--keep-intermediate'],
+      ['brainprep',
+       'subject-level-fmriprep',
+       '--t1-file',
+       '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz',
+       '--func-files',
+       "'[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]'",
+       '--dataset-description-file',
+       '/tmp/brainprep-data/rawdata/dataset_description.json',
+       '--freesurfer-dir',
+       '/my/freesurfer/directory',
+       '--output-dir',
+       '/tmp/brainprep-fmriprep',
+       '--keep-intermediate']]]
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 89-101
 
 Container
 ---------
 
-Let's now perform this preprocessing using the BrainPrep container.
+Note that the commands generated by the CLI are not limited to being
+displayed for reference; they can also be executed directly within the
+workflow‑dedicated container. By running the commands inside the container,
+you benefit from a controlled runtime context where all necessary
+dependencies, libraries, and configuration files are already available.
+In practice, this means that once the CLI has produced the appropriate
+instructions, you can simply copy and run them inside the container to
+achieve the intended results. You can find the BrainPrep images on Docker
+Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 42.846 seconds)
+   **Total running time of the script:** (1 minutes 45.402 seconds)
 
 **Estimated memory usage:**  296 MB
 

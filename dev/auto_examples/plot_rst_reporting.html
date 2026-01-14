@@ -258,7 +258,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/tbss.html">7. Tract-Based Spatial Statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/fmriprep.html">8. fMRI Pre-Processings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/reporting.html">9. Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">10. Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/cli.html">10. CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">11. Glossary</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../modules/index.html">API References</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -341,6 +342,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_brainparc.html">brainprep.interfaces.plotting.plot_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_defacing_mosaic.html">brainprep.interfaces.plotting.plot_defacing_mosaic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_histogram.html">brainprep.interfaces.plotting.plot_histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_pca.html">brainprep.interfaces.plotting.plot_pca</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -355,6 +357,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.incremental_pca.html">brainprep.interfaces.utils.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mean_correlation.html">brainprep.interfaces.utils.mean_correlation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
@@ -602,16 +605,17 @@ Bunch(
       val: 1
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:04.316880&#39;
-      end: &#39;2025-12-18 14:35:04.316880&#39;
+      start: &#39;2026-01-14 12:06:36.871872&#39;
+      end: &#39;2026-01-14 12:06:36.871872&#39;
       execution_time: 1.388888888888889e-09
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: False
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -635,16 +639,17 @@ Bunch(
       val: 4
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:04.321907&#39;
-      end: &#39;2025-12-18 14:35:04.321907&#39;
-      execution_time: 9.33611111111111e-07
+      start: &#39;2026-01-14 12:06:36.877107&#39;
+      end: &#39;2026-01-14 12:06:36.877107&#39;
+      execution_time: 1.0277777777777777e-06
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: False
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -662,16 +667,17 @@ Bunch(
       val2: 4
     )
     runtime: Bunch(
-      start: &#39;2025-12-18 14:35:04.325239&#39;
-      end: &#39;2025-12-18 14:35:04.325239&#39;
-      execution_time: 8.333333333333334e-10
+      start: &#39;2026-01-14 12:06:36.880763&#39;
+      end: &#39;2026-01-14 12:06:36.880763&#39;
+      execution_time: 1.6666666666666667e-09
       brainprep_version: &#39;2.0.0.dev&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmh13bl&#39;
+      hostname: &#39;runnervmi13qx&#39;
     )
     config: Bunch(
       verbose: True
       dryrun: False
+      with_color: True
       cat12_file: PosixPath(&#39;/opt/spm/standalone/cat_standalone.sh&#39;)
       spm12_dir: PosixPath(&#39;/opt/spm&#39;)
       matlab_dir: PosixPath(&#39;/opt/mcr/v93&#39;)
@@ -682,7 +688,7 @@ Bunch(
 )
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.169 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.170 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  106 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-rst-reporting-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
