@@ -266,7 +266,15 @@ def brainprep_group_quasiraw(
     template_file = resource_dir / "MNI152_T1_1mm_brain.nii.gz"
     print_info(f"setting template file: {template_file}")
 
-    # FIXME: Compute PCA analysis
+    pca_file = interfaces.incremental_pca(
+        output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
+        output_dir / "qc",
+        batch_size=50,
+    )
+    pca_image_file = interfaces.plot_pca(
+        pca_file,
+    )
+
     correlations_file = interfaces.mean_correlation(
         output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
         template_file,
@@ -283,4 +291,5 @@ def brainprep_group_quasiraw(
     return Bunch(
         correlations_file=correlations_file,
         correlation_histogram_file=correlation_histogram_file,
+        pca_file=pca_file,
     )
