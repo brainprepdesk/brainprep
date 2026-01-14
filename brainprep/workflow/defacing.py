@@ -78,7 +78,7 @@ def brainprep_defacing(
     Raises
     ------
     ValueError
-        If the T1w file do not follow BIDS convension.
+        If the T1w file do not follow BIDS convention.
 
     Notes
     -----

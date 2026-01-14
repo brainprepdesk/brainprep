@@ -27,7 +27,7 @@ class Bunch(dict):
     Parameters
     ----------
     **kwargs : Any
-        Passed to dictionary contructor.
+        Passed to dictionary constructor.
 
     Examples
     --------
