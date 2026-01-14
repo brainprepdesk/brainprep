@@ -18,19 +18,19 @@ DEFAULT_OPTIONS = {
     "dryrun": False,
     "with_color": True,
     "cat12_file": Path(
-        "/opt/spm/standalone/cat_standalone.sh"
+        "/opt/cat12/standalone/cat_standalone.sh"
     ),
     "spm12_dir": Path(
-        "/opt/spm"
+        "/opt/cat12"
     ),
     "matlab_dir": Path(
-        "/opt/mcr/v93"
+        "/opt/MCR-2017b/v93"
     ),
     "tpm_file": Path(
-        "/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii"
+        "/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii"
     ),
     "darteltpm_file": Path(
-        "/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/"
+        "/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/"
         "cat12/templates_volumes/Template_1_IXI555_MNI152.nii"
     ),
 }
