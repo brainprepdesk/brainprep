@@ -112,7 +112,6 @@ def deface(
         **entities)
     deface_file = output_dir / f"{basename}.nii.gz"
     mask_file = output_dir / f"{basename}mask.nii.gz"
-    snap_pattern = output_dir / basename
 
     command = [
         "fsl_deface",
@@ -121,11 +120,9 @@ def deface(
         "-d", str(mask_file),
         "-f", "0.5",
         "-B",
-        "-p", str(snap_pattern),
     ]
-    vol_files = [Path(f"{snap_pattern}_{idx}.png") for idx in range(1, 3)]
 
-    return command, (deface_file, mask_file, vol_files)
+    return command, (deface_file, mask_file, )
 
 
 @coerceparams
