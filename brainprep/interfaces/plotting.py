@@ -241,6 +241,7 @@ def plot_brainparc(
 
     return (brainparc_image_file, )
 
+
 @coerceparams
 @log_runtime(
     bunched=False)
@@ -266,7 +267,7 @@ def plot_pca(
         Explained variance ratio for each component.
     title : str
         Title of the plot.
-    output_path : Path
+    output_dir : Path
         Path to save the plot.
     figsize : Tuple[int, int], optional
         Figure size. Default is (20, 10).
