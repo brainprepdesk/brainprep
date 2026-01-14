@@ -243,6 +243,7 @@ def plot_brainparc(
 
 
 @coerceparams
+@outputdir
 @log_runtime(
     bunched=False)
 @pywrapper
@@ -257,7 +258,8 @@ def plot_pca(
     ----------
     pca_file : File
         TSV file containing PCA two first components as two columns named
-        ``pc1`` and ``pc2``, as well as BIDS ``sub``, ``ses``, and ``run``.
+        ``pc1`` and ``pc2``, as well as BIDS ``participant_id``, ``session``,
+        and ``run``.
     output_dir : Directory
         Directory where the result image will be saved.
     dryrun : bool
@@ -278,7 +280,7 @@ def plot_pca(
         ax.scatter(df.pc1, df.pc2)
         for idx in range(len(df)):
             ax.annotate(
-                f"{df.sub[idx]}-{df.ses[idx]}-{df.run[idx]}",
+                f"{df.participant_id[idx]}-{df.session[idx]}-{df.run[idx]}",
                 xy=(df.pc1[idx], df.pc2[idx]),
                 xytext=(4, 4),
                 textcoords="offset pixels"

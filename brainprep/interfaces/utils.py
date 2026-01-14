@@ -262,7 +262,6 @@ def mean_correlation(
         If the atlas and an image have incompatible shape or geometry.
     """
     correlations_file = output_dir / "mean_correlations.tsv"
-    correlations_file.parent.mkdir(parents=True, exist_ok=True)
 
     if not dryrun:
 
@@ -332,8 +331,8 @@ def incremental_pca(
     processing. After fitting, the function transforms all batches to obtain
     the first two principal components for each image. These components are
     saved in a TSV file as two columns named ``pc1`` and ``pc2``. BIDS
-    entities (``sub``, ``ses``, ``run``) are extracted from filenames using
-    ``parse_bids_keys`` and included in the output table.
+    entities (``participant_id``, ``session``, ``run``) are extracted from
+    filenames using ``parse_bids_keys`` and included in the output table.
 
     Parameters
     ----------
@@ -363,7 +362,6 @@ def incremental_pca(
         computation.
     """
     pca_file = output_dir / "pca.tsv"
-    pca_file.parent.mkdir(parents=True, exist_ok=True)
 
     if not dryrun:
 
@@ -373,7 +371,7 @@ def incremental_pca(
             raise ValueError(
                 f"No image matches the regex pattern: {image_files_regex}"
             )
-        if n_images == 0:
+        if n_images < 2:
             raise ValueError(
                 f"The dataset contains fewer than 2 images: {n_images}"
             )
