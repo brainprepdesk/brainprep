@@ -16,6 +16,7 @@ from pathlib import Path
 DEFAULT_OPTIONS = {
     "verbose": True,
     "dryrun": False,
+    "with_color": True,
     "cat12_file": Path(
         "/opt/spm/standalone/cat_standalone.sh"
     ),
@@ -61,6 +62,7 @@ class Config:
         Keyword arguments intercepted by the wrapper function:
         - verbose : bool, default True - print information or not.
         - dryrun : bool, default False - execute commands or not
+        - with_color : bool, default True - print with colors or not.
         - cat12_file : File - path to the CAT12 standalone executable.
         - spm12_dir : Directory - path to the SPM12 standalone executable.
         - matlab_dir : Directory - path to the Matlab Compiler Runtime (MCR).

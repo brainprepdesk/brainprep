@@ -693,6 +693,7 @@ def print_color(category: str, text: str) -> None:
     """
     opts = brainprep_options.get()
     verbose = opts.get("verbose", DEFAULT_OPTIONS["verbose"])
+    with_color = opts.get("with_color", DEFAULT_OPTIONS["with_color"])
     if category != "deprecated" and not verbose:
         return
 
@@ -702,7 +703,7 @@ def print_color(category: str, text: str) -> None:
         )
     category = (
         stylize(category, fg(fg_colors[category]))
-        if IS_COLOR_TERM
+        if (with_color and IS_COLOR_TERM)
         else category
     )
     text = f"[{category}] - {text}"
