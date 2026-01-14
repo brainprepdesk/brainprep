@@ -22,6 +22,7 @@ from pathlib import Path
 from scipy.stats import pearsonr
 from sklearn.decomposition import IncrementalPCA
 
+from .plotting import plot_pca
 from ..reporting import log_runtime
 from ..typing import (
     Directory,
@@ -33,7 +34,7 @@ from ..utils import (
     parse_bids_keys,
 )
 from ..wrappers import pywrapper
-from .plotting import plot_pca
+
 
 @coerceparams
 @outputdir
@@ -317,11 +318,11 @@ def mean_correlation(
     bunched=False)
 @pywrapper
 def incremental_pca(
-    image_files_regex: Path,
-    output_dir: Directory,
-    batch_size: int = 10,
-    batch_plot: bool = False,
-    dryrun: bool = False) -> tuple[File]:
+        image_files_regex: Path,
+        output_dir: Directory,
+        batch_size: int = 10,
+        batch_plot: bool = False,
+        dryrun: bool = False) -> tuple[File]:
     """
     Compute Incremental PCA with only 2 components on a set of images
     matching a regex pattern.
@@ -329,27 +330,27 @@ def incremental_pca(
     Parameters
     ----------
     image_files_regex : str
-        A REGEX to image files, each representing an image, 
+        A REGEX to image files, each representing an image,
         all images must have the same size.
     output_dir : Directory
-        Directory where a TSV file containing the values of the first two 
+        Directory where a TSV file containing the values of the first two
         components created by the PCA ill be saved, a Directory containing
-        all the graph of all batch.   
+        all the graph of all batch.
     batch_size : int or None, optional
         Number of images to process in each batch. Default is 10 following
         sklearn's recommendation on IncrementalPCA.
     batch_plot : bool, optional
-        If True, generates and saves PCA plots for each batch. It plots 
-        all images in a batch on a graph using the first two components. 
+        If True, generates and saves PCA plots for each batch. It plots
+        all images in a batch on a graph using the first two components.
         Default is False.
     dryrun : bool, optional
-        If True, runs in dryrun mode without executing 
-        the actual computations. Default is False.       
+        If True, runs in dryrun mode without executing
+        the actual computations. Default is False.
 
     Returns
     -------
     components_file : File
-        Path to the TSV file containing the values of 
+        Path to the TSV file containing the values of
         the first two components.
 
     Raises
@@ -367,17 +368,16 @@ def incremental_pca(
 
         image_files = glob.glob(str(image_files_regex))
 
-        if len(image_files) == 0 :
+        if len(image_files) == 0:
             raise ValueError(
                 f"No files found matching the input regex:{image_files_regex}"
             )
-        batches = [ image_files[i:i + batch_size]
+        batches = [image_files[i:i + batch_size]
                     for i in range(0, len(image_files), batch_size)]
 
-        if not all(len(batch_files)>2 for batch_files in batches):
+        if not all(len(batch_files) > 2 for batch_files in batches):
             raise ValueError(
-                f"All batches must have at least "
-                "2 images for PCA computation."
+                "All batches must have at least 2 images for PCA computation."
             )
 
         ipca = IncrementalPCA(n_components=2)
@@ -387,15 +387,19 @@ def incremental_pca(
                 for batch_file in batch_files]
             data = [item.flatten() for item in data]
             ipca.partial_fit(data)
-        all_proj=[]
-        dfs=[]
+        all_proj = []
+        dfs = []
         for idx, batch_files in enumerate(batches):
-            data = [nibabel.load(batch_file).get_fdata() for batch_file in batch_files]
+            data = [
+                nibabel.load(batch_file).get_fdata()
+                for batch_file in batch_files]
             data = [img.flatten() for img in data]
             components = ipca.transform(data)
             all_proj.append(components)
 
-            info = [parse_bids_keys(Path(batch_file)) for batch_file in batch_files]
+            info = [
+                parse_bids_keys(Path(batch_file))
+                for batch_file in batch_files]
             df_batch = pd.DataFrame({
                 "participant_id": [item['sub'] for item in info],
                 "session": [item['ses'] for item in info],
