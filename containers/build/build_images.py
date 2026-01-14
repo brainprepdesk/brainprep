@@ -30,6 +30,13 @@ def main(
     working_dir : str or Path
         Directory where the instructions will be generated.
     """
+    banner = r"""
+    +----------------------------------+
+    |        BUILDING IMAGES...        |
+    +----------------------------------+
+    """
+    print(banner)
+
     working_dir = Path(working_dir).resolve()
     cw_dir = Path(__file__).parent.resolve()
     image_dir = cw_dir.parent.resolve()

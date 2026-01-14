@@ -13,6 +13,7 @@ folder = "{hopla_dir}"
 queue = "cati"
 walltime = 24
 n_cpus = 1
+memory = 5
 image = "{image_file}"
 
 [config]

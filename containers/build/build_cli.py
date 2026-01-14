@@ -74,8 +74,6 @@ def build(
         ),
         image_parameters=(
             f"--cleanenv --home {home_dir} --bind {bind_dir} "
-            f"--bind {history_file}:/opt/brainprep/.pixi/envs/default/"
-            "conda-meta/history"
         ),
         hopla_dir=hopla_dir,
     )
