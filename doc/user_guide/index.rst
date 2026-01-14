@@ -25,6 +25,7 @@ Table of contents
    tbss.rst
    fmriprep.rst
    reporting.rst
+   cli.rst
    glossary.rst
 
 Data Organization Ontology
