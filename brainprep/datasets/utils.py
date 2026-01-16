@@ -47,3 +47,37 @@ def git_download(
     with destination.open("wb") as of:
         of.write(response.content)
     del response
+
+
+def openneuro_download(
+        url: str,
+        destination: Path) -> None:
+    """
+    Download data from OpenNeuro URL and saves it locally.
+
+    Parameters
+    ----------
+    url: str
+        Direct URL to the data file on OpenNeuro.
+    destination: Path
+        Path to the saved data file.
+
+    Raises
+    ------
+    ValueError
+        If the URL does not point to 's3.amazonaws.com/openneuro.org'.
+    """
+    # Ensure it's a raw GitHub URL
+    if "s3.amazonaws.com/openneuro.org" not in url:
+        raise ValueError(
+            f"URL '{url}' does not point to 's3.amazonaws.com/openneuro.org'."
+        )
+
+    # Download the data
+    response = requests.get(url)
+    response.raise_for_status()
+
+    # Save the data
+    with destination.open("wb") as of:
+        of.write(response.content)
+    del response

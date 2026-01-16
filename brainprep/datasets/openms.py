@@ -1,5 +1,5 @@
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2025
+# NSAp - Copyright (C) CEA, 2025 - 2026
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -7,10 +7,11 @@
 ##########################################################################
 
 """
-Fetcher to download anatomical data.
+Fetcher to download the OpenMS dataset from GitHub.
 """
 
 import json
+from pathlib import Path
 
 from ..typing import (
     Directory,
@@ -24,9 +25,9 @@ from .utils import (
 )
 
 
-class AnatomicalDataset:
+class OpenMSDataset:
     """
-    Anatomical dataset.
+    Open Multiple Sclerosis (OpenMS) anatomical dataset.
 
     This `dataset <https://github.com/muschellij2/open_ms_data>`_
     :footcite:p:`lesjak2016data` contains
@@ -48,11 +49,11 @@ class AnatomicalDataset:
     --------
     >>> from brainprep.config import Config
     >>> from pathlib import Path
-    >>> from brainprep.datasets import AnatomicalDataset
+    >>> from brainprep.datasets import OpenMSDataset
     >>>
     >>> datadir = Path("/tmp/brainprep-data")
     >>> datadir.mkdir(parents=True, exist_ok=True)
-    >>> dataset = AnatomicalDataset(datadir)
+    >>> dataset = OpenMSDataset(datadir)
     >>> with Config(verbose=False):
     ...     data = dataset.fetch(
     ...         subject="01",
@@ -79,7 +80,7 @@ class AnatomicalDataset:
     def __init__(
             self,
             datadir: Directory) -> None:
-        self.datadir = datadir
+        self.datadir = Path(datadir)
         self.allowed_dtypes = [
             "cross_sectional",
             "longitudinal",
@@ -137,7 +138,7 @@ class AnatomicalDataset:
             description_file.parent.mkdir(parents=True, exist_ok=True)
             with open(description_file, "w") as of:
                 description = {
-                    "Name": "Example dataset",
+                    "Name": "OpenMS dataset",
                     "BIDSVersion": "1.0.2",
                 }
                 json.dump(description, of, indent=4)

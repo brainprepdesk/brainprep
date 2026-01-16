@@ -15,6 +15,13 @@ Quasi-raw preprocessing of T1w MRI data refers to minimal, standardized steps
 applied to raw imaging data before deeper analysis. Here, a simple affine
 (no shearing) registration to the MNI template space.
 
+Requirements
+------------
+
+Running the workflow requires:
+
+- **5 GB of RAM**
+
 Description
 -----------
 

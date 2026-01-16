@@ -209,5 +209,13 @@ def main(
         f"    singularity run --bind {cw_dir.parent.parent / 'brainprep'}:"
         "/opt/brainprep/.pixi/envs/default/lib/python3.12/site-packages/"
         "brainprep ...\n"
-        "You can now test dirtectly your dev repository."
+        "You can now test direectly your dev repository."
+    )
+
+    print(
+        "\n"
+        "⚠️  WARNING: For the brain parcellation workflows you will need "
+        "to specify the FreeSurfer license file using the following bind:\n"
+        f"    singularity run --bind [LICENSE]:/opt/freesurfer/.license "
+        "brainprep ..."
     )

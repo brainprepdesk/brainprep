@@ -14,12 +14,12 @@ Let's first get some anatomical data.
 """
 
 from pathlib import Path
-from brainprep.datasets import AnatomicalDataset
+from brainprep.datasets import OpenMSDataset
 from brainprep.utils import Bunch
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
-dataset = AnatomicalDataset(datadir)
+dataset = OpenMSDataset(datadir)
 data = Bunch(
     sub01=dataset.fetch(
         subject="01",
@@ -105,10 +105,9 @@ commands.append(
             "--t1_file", str(t1_file),
             "--template_dir", str(datadir / "fsaverage_sym"),
             "--output-dir", str(outdir),
-            "--do-lgi",
             "--keep-intermediate",
-        ] for t1_file in [subject_data.anat1, subject_data.anat2]
-          for subject_data in data.values()
+        ] for subject_data in data.values()
+          for t1_file in [subject_data.anat1, subject_data.anat2]   
     ]
 )
 commands.append(

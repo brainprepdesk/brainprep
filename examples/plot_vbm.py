@@ -14,12 +14,12 @@ Let's first get some anatomical data.
 """
 
 from pathlib import Path
-from brainprep.datasets import AnatomicalDataset
+from brainprep.datasets import OpenMSDataset
 from brainprep.utils import Bunch
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
-dataset = AnatomicalDataset(datadir)
+dataset = OpenMSDataset(datadir)
 data = Bunch(
     sub01=dataset.fetch(
         subject="01",

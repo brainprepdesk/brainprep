@@ -14,15 +14,14 @@ Let's first get some anatomical/functional data.
 """
 
 from pathlib import Path
-from brainprep.datasets import MultiModalDataset
+from brainprep.datasets import IBCDataset
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
-dataset = MultiModalDataset(datadir)
+dataset = IBCDataset(datadir)
 data = dataset.fetch(
     subject="01",
     modality="func",
-    session="01",
 )
 print(data)
 

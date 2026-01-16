@@ -27,6 +27,17 @@ derived metrics such as cortical thickness or volume changes over time.
 This is particularly valuable in studies of brain development, aging, or
 disease progression
 
+Requirements
+------------
+
+Running the workflow requires:
+
+- a CPU with **AVX** or **AVX2** support  
+  You can check this with::
+
+    lscpu | grep -i avx
+
+- **16 GB of RAM**
 
 Description
 -----------
