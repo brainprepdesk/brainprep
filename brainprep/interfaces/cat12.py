@@ -222,7 +222,18 @@ def cat12vbm_morphometry(
         atlases.
     """
     atlases = {
-        "neuromorphometrics": ["Vgm", "Vcsf", "Vwm"],
+        "Schaefer2018_100Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_200Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_400Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_600Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "aal3": ["Vgm"],
+        "cobra": ["Vgm", "Vwm"],
+        "hammers": ["Vgm", "Vwm", "Vcsf"],
+        "ibsr": ["Vgm", "Vwm", "Vcsf"],
+        "julichbrain": ["Vgm", "Vwm"],
+        "lpba40": ["Vgm", "Vwm"],
+        "mori": ["Vgm", "Vwm"],
+        "neuromorphometrics": ["Vgm", "Vwm", "Vcsf"],
         "suit": ["Vgm", "Vwm"],
         "thalamic_nuclei": ["Vgm"],
         "thalamus": ["Vgm"],
