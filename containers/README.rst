@@ -48,6 +48,7 @@ Then, generate the new recipies (one per workflow type):
         --freesurfer version=7.4.1 \
           install_path=/opt/freesurfer-7.4.1 \
           exclude_paths="average/mult-comp-cor lib/cuda lib/qt subjects/V1_average subjects/bert subjects/cvs_avg35 subjects/cvs_avg35_inMNI152 subjects/fsaverage3 subjects/fsaverage4 subjects/fsaverage5 subjects/fsaverage6 subjects/fsaverage_sym trctrain" \
+        --ants version=2.6.2 \
         --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
         > Dockerfile.quasiraw
 

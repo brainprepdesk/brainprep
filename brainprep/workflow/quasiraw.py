@@ -261,12 +261,17 @@ def brainprep_group_quasiraw(
           of each input image to the atlas image.
         - correlation_histogram_file : File - PNG file containing the
           histogram of the computed mean correlations.
+        - pca_file : File - a TSV file containing PCA two first components as
+          two columns named ``pc1`` and ``pc2``, as well as BIDS
+          ``participant_id``, ``session``, and ``run``.
+        - pca_image_file : File - PNNG file containing the two first PCA
+          components with ``participant_id``, ``session``, and ``run``
+          annotations.
     """
     resource_dir = Path(interfaces.__file__).parent.parent / "resources"
     template_file = resource_dir / "MNI152_T1_1mm_brain.nii.gz"
     print_info(f"setting template file: {template_file}")
 
-    # FIXME: Compute PCA analysis
     correlations_file = interfaces.mean_correlation(
         output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
         template_file,
@@ -280,7 +285,19 @@ def brainprep_group_quasiraw(
         bar_coords=[correlation_threshold],
     )
 
+    pca_file = interfaces.incremental_pca(
+        output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
+        output_dir / "qc",
+        batch_size=50,
+    )
+    pca_image_file = interfaces.plot_pca(
+        pca_file,
+        output_dir / "qc",
+    )
+
     return Bunch(
         correlations_file=correlations_file,
         correlation_histogram_file=correlation_histogram_file,
+        pca_file=pca_file,
+        pca_image_file=pca_image_file,
     )

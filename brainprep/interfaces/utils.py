@@ -14,11 +14,13 @@ Tools.
 import glob
 import gzip
 import shutil
+from pathlib import Path
 
 import nibabel
 import numpy as np
 import pandas as pd
 from scipy.stats import pearsonr
+from sklearn.decomposition import IncrementalPCA
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -32,6 +34,7 @@ from ..utils import (
     parse_bids_keys,
 )
 from ..wrappers import pywrapper
+from .plotting import plot_pca
 
 
 @coerceparams
@@ -260,7 +263,6 @@ def mean_correlation(
         If the atlas and an image have incompatible shape or geometry.
     """
     correlations_file = output_dir / "mean_correlations.tsv"
-    correlations_file.parent.mkdir(parents=True, exist_ok=True)
 
     if not dryrun:
 
@@ -280,7 +282,7 @@ def mean_correlation(
             )
         )
         for path in image_files:
-            entities = parse_bids_keys(path)
+            entities = parse_bids_keys(Path(path))
             im = nibabel.load(path)
             arr = atlas_im.get_fdata()
             if atlas_arr.shape != arr.shape:
@@ -313,3 +315,110 @@ def mean_correlation(
         )
 
     return (correlations_file, )
+
+
+@outputdir
+@log_runtime(
+    bunched=False)
+@pywrapper
+def incremental_pca(
+        image_files_regex: str,
+        output_dir: Directory,
+        batch_size: int = 10,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Perform an Incremental PCA with 2 components on a collection of images
+    matched by a regex pattern, processing them in batches.
+
+    The function loads all images matching the provided regex, splits them
+    into batches, and incrementally fits a PCA model using scikit-learn's
+    ``IncrementalPCA``. Each image is flattened into a 1D vector before
+    processing. After fitting, the function transforms all batches to obtain
+    the first two principal components for each image. These components are
+    saved in a TSV file as two columns named ``pc1`` and ``pc2``. BIDS
+    entities (``participant_id``, ``session``, ``run``) are extracted from
+    filenames using ``parse_bids_keys`` and included in the output table.
+
+    Parameters
+    ----------
+    image_files_regex : str
+        A REGEX to image files, each representing an image,
+        all images must have the same size.
+    output_dir : Directory
+        Directory where a TSV file containing the values of the first two
+        components created by the PCA ill be saved, a Directory containing
+        all the graph of all batch.
+    batch_size : int
+        Number of images to use in each batch. If None, a single batch is used.
+        Default is 10.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
+
+    Returns
+    -------
+    pca_file : File
+        Path to the generated ``pca.tsv`` file containing the PCA results.
+
+    Raises
+    ------
+    ValueError
+        If no image matches the regex pattern.
+        If the dataset contains fewer than 2 images, which prevents PCA
+        computation.
+    """
+    pca_file = output_dir / "pca.tsv"
+
+    if not dryrun:
+
+        image_files = glob.glob(str(image_files_regex))
+        n_images = len(image_files)
+        if n_images == 0:
+            raise ValueError(
+                f"No image matches the regex pattern: {image_files_regex}"
+            )
+        if n_images < 2:
+            raise ValueError(
+                f"The dataset contains fewer than 2 images: {n_images}"
+            )
+        batches = [
+            image_files[idx:idx + batch_size]
+            for idx in range(0, len(image_files), batch_size)
+        ]
+
+        pca = IncrementalPCA(n_components=2)
+        for batch_files in batches:
+            data = [
+                nibabel.load(_file).get_fdata().flatten()
+                for _file in batch_files
+            ]
+            pca.partial_fit(data)
+
+        df = []
+        for batch_files in batches:
+            data = [
+                nibabel.load(_file).get_fdata().flatten()
+                for _file in batch_files
+            ]
+            components = pca.transform(data)
+            info = [
+                parse_bids_keys(Path(_file))
+                for _file in batch_files
+            ]
+            partial_df = pd.DataFrame({
+                "participant_id": [item["sub"] for item in info],
+                "session": [item["ses"] for item in info],
+                "run": [item["run"] for item in info],
+                "pc1": components[:, 0],
+                "pc2": components[:, 1],
+                "explained_variance_ratio_pc1": [
+                    pca.explained_variance_ratio_[0],
+                ] * len(info),
+                "explained_variance_ratio_pc2": [
+                    pca.explained_variance_ratio_[1],
+                ] * len(info),
+            })
+            df.append(partial_df)
+        df = pd.concat(df, ignore_index=True)
+        df.to_csv(pca_file, index=False, sep="\t")
+
+    return (pca_file, )

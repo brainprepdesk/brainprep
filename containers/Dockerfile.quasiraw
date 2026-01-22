@@ -18,9 +18,11 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && chmod 777 /opt && chmod a+s /opt
 
 # Parameters
-ENV FSL_VERSION="6.0.7.19" \
+ENV ANTS_VERSION="2.6.2" \
+    FSL_VERSION="6.0.7.19" \
     FS_VERSION="8.1.0" \
-    FS_URL="https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/8.1.0/freesurfer_ubuntu22-8.1.0_amd64.deb"
+    FS_URL="https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/8.1.0/freesurfer_ubuntu22-8.1.0_amd64.deb" \
+    ANTS_URL="https://github.com/ANTsX/ANTs/releases/download/v2.6.2/ants-2.6.2-centos7-X64-gcc.zip"
 
 # Install: FSL
 ENV FSLDIR="/opt/fsl" \
@@ -166,6 +168,22 @@ RUN dpkg -i $TMPDIR/freesurfer.deb \
 RUN ln -s /usr/local/freesurfer/${FS_VERSION} /opt/freesurfer
 RUN fs_install_mcr R2019b
 
+# Install ANTs
+ENV ANTSPATH="/opt/ants" \
+    PATH="/opt/ants:$PATH"
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           ca-certificates \
+           curl \
+           unzip \
+    && rm -rf /var/lib/apt/lists/*
+RUN echo "Downloading ANTs ..." \
+    && curl -fsSL -o /opt/ants.zip $ANTS_URL
+RUN unzip /opt/ants.zip -d /opt \
+    && mv /opt/ants-${ANTS_VERSION} /opt/ants \
+    && mv /opt/ants/bin/* /opt/ants \
+    && rm /opt/ants.zip
+
 # Install: brainprep
 RUN curl -fsSL https://pixi.sh/install.sh | bash
 ENV PATH="/root/.pixi/bin:${PATH}"
@@ -191,4 +209,5 @@ LABEL org.opencontainers.image.title="BrainPrep Quasi-Raw" \
       org.opencontainers.image.source="https://github.com/neurospin-deepinsight/brainprep" \
       org.opencontainers.image.created="2025-01-15" \
       com.brainprep.fsl.version="${FSL_VERSION}" \
-      com.brainprep.freesurfer.version="${FS_VERSION}"
+      com.brainprep.freesurfer.version="${FS_VERSION}" \
+      com.brainprep.ants.version="${ANTS_VERSION}"

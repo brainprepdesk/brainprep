@@ -76,6 +76,13 @@ def main(
         If a script does not define the expected ``datadir`` or ``outdir``
         variables.
     """
+    banner = r"""
+    +----------------------------------+
+    |        BUILDING TESTS...         |
+    +----------------------------------+
+    """
+    print(banner)
+
     # Get configuration templates
     cw_dir = Path(__file__).parent.resolve()
     config_dir = cw_dir / "resources"
@@ -108,7 +115,7 @@ def main(
         sys.stdout = original_stdout
         commands = env.get("commands", [])
         if len(commands) == 0:
-            print("- No command\n")
+            print("- No command")
             continue
 
         # Prepapre commands to execute code with hoplacli

@@ -16,21 +16,22 @@ from pathlib import Path
 DEFAULT_OPTIONS = {
     "verbose": True,
     "dryrun": False,
+    "with_color": True,
     "cat12_file": Path(
-        "/opt/spm/standalone/cat_standalone.sh"
+        "/opt/cat12/standalone/cat_standalone.sh"
     ),
     "spm12_dir": Path(
-        "/opt/spm"
+        "/opt/cat12"
     ),
     "matlab_dir": Path(
-        "/opt/mcr/v93"
+        "/opt/MCR-2017b/v93"
     ),
     "tpm_file": Path(
-        "/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii"
+        "/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii"
     ),
     "darteltpm_file": Path(
-        "/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/"
-        "cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii"
+        "/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/"
+        "cat12/templates_volumes/Template_1_IXI555_MNI152.nii"
     ),
     "vbm_dirname": "cat12-vbm_v-12.8.2",
 }
@@ -62,6 +63,7 @@ class Config:
         Keyword arguments intercepted by the wrapper function:
         - verbose : bool, default True - print information or not.
         - dryrun : bool, default False - execute commands or not
+        - with_color : bool, default True - print with colors or not.
         - cat12_file : File - path to the CAT12 standalone executable.
         - spm12_dir : Directory - path to the SPM12 standalone executable.
         - matlab_dir : Directory - path to the Matlab Compiler Runtime (MCR).

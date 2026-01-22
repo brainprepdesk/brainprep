@@ -75,7 +75,7 @@ def brainprep_vbm(
     Raises
     ------
     ValueError
-        If the T1w file do not follow BIDS convension.
+        If the T1w file do not follow BIDS contension.
 
     References
     ----------
@@ -155,7 +155,7 @@ def brainprep_longitudinal_vbm(
     Raises
     ------
     ValueError
-        If the T1w file do not follow BIDS convension.
+        If the T1w file do not follow BIDS convention.
 
     References
     ----------

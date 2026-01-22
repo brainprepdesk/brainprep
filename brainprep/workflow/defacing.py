@@ -73,12 +73,12 @@ def brainprep_defacing(
 
         - deface_t1_file : File — path to the defaced image.
         - mask_file : File — path to the defacing mask.
-        - snap_files : list[File] — paths to defacing snapshots.
+        - mosaic_file : File — path to defacing snapshots.
 
     Raises
     ------
     ValueError
-        If the T1w file do not follow BIDS convension.
+        If the T1w file do not follow BIDS convention.
 
     Notes
     -----
@@ -104,7 +104,6 @@ def brainprep_defacing(
     Bunch(
       deface_t1_file: PosixPath('...')
       mask_file: PosixPath('...')
-      vol_files: [PosixPath('...'), PosixPath('...')]
       mosaic_file: PosixPath('...')
     )
 
@@ -129,7 +128,7 @@ def brainprep_defacing(
         workspace_dir,
         entities,
     )
-    deface_t1_file, mask_file, vol_files = interfaces.deface(
+    deface_t1_file, mask_file = interfaces.deface(
         reoriented_t1_file,
         output_dir,
         entities,
@@ -148,6 +147,5 @@ def brainprep_defacing(
     return Bunch(
         deface_t1_file=deface_t1_file,
         mask_file=mask_file,
-        vol_files=vol_files,
         mosaic_file=mosaic_file,
     )
