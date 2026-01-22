@@ -32,6 +32,7 @@ DEFAULT_OPTIONS = {
         "/opt/spm/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/"
         "cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii"
     ),
+    "vbm_dirname": "cat12-vbm_v-12.8.2",
 }
 
 brainprep_options = contextvars.ContextVar(
