@@ -175,6 +175,7 @@ def brainprep_longitudinal_vbm(
         t1_files,
         output_dir.parent,
         entities,
+        model_long=model,
     )
     gm_files, qc_files = interfaces.cat12vbm_wf(
         t1_files,
