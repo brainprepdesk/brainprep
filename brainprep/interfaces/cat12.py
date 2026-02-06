@@ -160,10 +160,14 @@ def write_catbatch(
             "cat12vbm_matlabbatch_longitudinal.m"
         )
     else:
+        unique_id = '_'.join(
+            ['-'.join([key,value]) for key,value in entities[0].items()
+             if key not in ['sub','ses','mod','modality']]
+        )
         batch_file = (
             output_dir /
             f"ses-{entities[0]['ses']}" /
-            "cat12vbm_matlabbatch.m"
+            f"cat12vbm_matlabbatch_{unique_id}.m"
         )
         template_batch = (
             Path(__file__).parent.parent /
