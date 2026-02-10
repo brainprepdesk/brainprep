@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:15.095** total execution time for 8 files **from auto_examples**:
+**00:23.664** total execution time for 8 files **from auto_examples**:
 
 .. container::
 
@@ -33,26 +33,26 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_plot_quality_assurance.py` (``plot_quality_assurance.py``)
-     - 00:10.996
-     - 500.0
+     - 00:16.758
+     - 567.5
    * - :ref:`sphx_glr_auto_examples_plot_brain_parcellation.py` (``plot_brain_parcellation.py``)
-     - 00:01.472
+     - 00:03.214
      - 127.9
    * - :ref:`sphx_glr_auto_examples_plot_quasiraw.py` (``plot_quasiraw.py``)
-     - 00:00.629
-     - 134.6
+     - 00:01.204
+     - 134.3
    * - :ref:`sphx_glr_auto_examples_plot_defacing.py` (``plot_defacing.py``)
-     - 00:00.580
-     - 137.1
+     - 00:00.898
+     - 115.9
    * - :ref:`sphx_glr_auto_examples_plot_fmriprep.py` (``plot_fmriprep.py``)
      - 00:00.487
-     - 107.8
+     - 107.5
    * - :ref:`sphx_glr_auto_examples_plot_vbm.py` (``plot_vbm.py``)
-     - 00:00.427
-     - 107.8
+     - 00:00.485
+     - 107.5
    * - :ref:`sphx_glr_auto_examples_plot_html_reporting.py` (``plot_html_reporting.py``)
-     - 00:00.287
-     - 108.0
+     - 00:00.395
+     - 107.7
    * - :ref:`sphx_glr_auto_examples_plot_rst_reporting.py` (``plot_rst_reporting.py``)
-     - 00:00.218
-     - 107.8
+     - 00:00.223
+     - 107.5

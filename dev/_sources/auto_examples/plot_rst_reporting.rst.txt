@@ -136,8 +136,8 @@ Now let's generate the RST report.
           val: 1
         )
         runtime: Bunch(
-          start: '2026-02-10 13:45:57.581213'
-          end: '2026-02-10 13:45:57.581213'
+          start: '2026-02-10 13:47:05.280055'
+          end: '2026-02-10 13:47:05.280055'
           execution_time: 1.6666666666666667e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
@@ -170,9 +170,9 @@ Now let's generate the RST report.
           val: 4
         )
         runtime: Bunch(
-          start: '2026-02-10 13:45:57.585812'
-          end: '2026-02-10 13:45:57.585812'
-          execution_time: 8.444444444444445e-07
+          start: '2026-02-10 13:47:05.285098'
+          end: '2026-02-10 13:47:05.285098'
+          execution_time: 8.566666666666667e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmwffz4'
@@ -198,9 +198,9 @@ Now let's generate the RST report.
           val2: 4
         )
         runtime: Bunch(
-          start: '2026-02-10 13:45:57.588827'
-          end: '2026-02-10 13:45:57.588827'
-          execution_time: 1.111111111111111e-09
+          start: '2026-02-10 13:47:05.288149'
+          end: '2026-02-10 13:47:05.288149'
+          execution_time: 1.6666666666666667e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmwffz4'
@@ -224,9 +224,9 @@ Now let's generate the RST report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.218 seconds)
+   **Total running time of the script:** (0 minutes 0.223 seconds)
 
-**Estimated memory usage:**  108 MB
+**Estimated memory usage:**  107 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_rst_reporting.py:
