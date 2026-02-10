@@ -185,9 +185,9 @@ def brainprep_brainparc(
             "You passed a white matter file as input. This behavior is "
             "deprecated and will be removed in version >1."
         )
-    if analysis_type not in ("vbm", "nextbrain"):
+    if analysis_type not in ("sbm", "nextbrain"):
         raise ValueError(
-            f"Unexpected analysis type: {analysis_type}."
+            f"Unexpected analysis type: '{analysis_type}'."
         )
 
     if analysis_type == "nextbrain":
@@ -407,7 +407,7 @@ def brainprep_longitudinal_brainparc(
             )
         )
     interfaces.movedir(
-        source_dir=log_tempalte_file.parent.parent,
+        source_dir=log_template_file.parent.parent,
         output_dir=output_dir.parent / "template",
         content=True,
     )

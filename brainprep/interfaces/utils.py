@@ -28,8 +28,8 @@ from ..typing import (
     File,
 )
 from ..utils import (
-    coerceparams,
     coerce_to_path,
+    coerceparams,
     outputdir,
     parse_bids_keys,
 )
@@ -162,14 +162,13 @@ def movedir(
             )
         if not content:
             shutil.move(source_dir, output_dir / source_dir.name)
-            output_dir /= source_dir.name
         else:
             for item in source_dir.iterdir():
                 target = output_dir / item.name
                 shutil.move(item, output_dir / item.name)
             if not any(source_dir.iterdir()):
                 source_dir.rmdir()
-    return (output_dir, )
+    return (output_dir if content else output_dir / source_dir.name, )
 
 
 @outputdir
@@ -302,7 +301,7 @@ def mean_correlation(
         scores["qc"] = (
             scores["mean_correlation"] > correlation_threshold
         ).astype(int)
-        scores = scores.sort_values(by=["participant_id","session","run"])
+        scores = scores.sort_values(by=["participant_id", "session", "run"])
         scores.to_csv(
             correlations_file,
             index=False,
@@ -383,21 +382,21 @@ def incremental_pca(
         pca = IncrementalPCA(n_components=2)
         for batch_files in batches:
             data = [
-                nibabel.load(_file).get_fdata().flatten()
-                for _file in batch_files
+                nibabel.load(file_).get_fdata().flatten()
+                for file_ in batch_files
             ]
             pca.partial_fit(data)
 
         df = []
         for batch_files in batches:
             data = [
-                nibabel.load(_file).get_fdata().flatten()
-                for _file in batch_files
+                nibabel.load(file_).get_fdata().flatten()
+                for file_ in batch_files
             ]
             components = pca.transform(data)
             info = [
-                parse_bids_keys(Path(_file))
-                for _file in batch_files
+                parse_bids_keys(Path(file_))
+                for file_ in batch_files
             ]
             partial_df = pd.DataFrame({
                 "participant_id": [item["sub"] for item in info],

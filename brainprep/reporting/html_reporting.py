@@ -172,8 +172,7 @@ class HTMLReport:
         file_name: str
             Path to the HTML file used for saving.
         """
-        with Path(file_name).open("wb") as of:
-            of.write(self.html.encode("utf-8"))
+        Path(file_name).write_bytes(self.html.encode("utf-8"))
 
 
 def generate_qc_report(

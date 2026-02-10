@@ -32,7 +32,6 @@ dependencies = [
     "decorator",
     "Jinja2",
     "fire",
-    "lxml",
 ]
 dynamic = ["version"]
 

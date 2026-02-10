@@ -265,8 +265,7 @@ class RSTReport(metaclass=SingletonReport):
                 for key, val in data.items():
                     report += f"* {key}: {val}\n"
                 report += "\n"
-        with Path(file_name).open("w") as of:
-            of.write(report)
+        Path(file_name).write_text(report)
 
 
 @decorator

@@ -35,7 +35,7 @@ from ..utils import (
 
 @coerceparams
 @bids(
-    process=DEFAULT_OPTIONS["vbm_dirname"],
+    process="vbm",
     bids_file="t1_file",
     add_subjects=True,
     container="neurospin/brainprep-vbm")
@@ -109,7 +109,7 @@ def brainprep_vbm(
 
 @coerceparams
 @bids(
-    process=DEFAULT_OPTIONS["vbm_dirname"],
+    process="vbm",
     bids_file="t1_files",
     add_subjects=True,
     longitudinal=True,
@@ -193,7 +193,7 @@ def brainprep_longitudinal_vbm(
 
 @coerceparams
 @bids(
-    process=DEFAULT_OPTIONS["vbm_dirname"],
+    process="vbm",
     container="neurospin/brainprep-vbm")
 @log_runtime(
     title="Group Level VBM Pre-Processing")

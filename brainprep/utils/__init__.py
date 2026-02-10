@@ -23,8 +23,8 @@ from .color import (
 )
 from .utils import (
     bids,
-    coerceparams,
     coerce_to_path,
+    coerceparams,
     find_stack_level,
     outputdir,
     parse_bids_keys,

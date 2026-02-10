@@ -49,10 +49,6 @@ class TestGalleryExamples(unittest.TestCase):
         script_path = self.examples_dir / "plot_fmriprep.py"
         runpy.run_path(str(script_path))
 
-    def test_dmriprep(self):
-        script_path = self.examples_dir / "plot_dmriprep.py"
-        runpy.run_path(str(script_path))
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -27,8 +27,8 @@ from ..typing import (
     File,
 )
 from ..utils import (
-    coerceparams,
     coerce_to_path,
+    coerceparams,
     outputdir,
     parse_bids_keys,
 )
@@ -160,10 +160,11 @@ def write_catbatch(
             "cat12vbm_matlabbatch_longitudinal.m"
         )
     else:
-        unique_id = '_'.join(
-            ['-'.join([key,value]) for key,value in entities[0].items()
-             if key not in ['sub','ses','mod','modality']]
-        )
+        unique_id = "_".join([
+            f"{key}-{value}"
+            for key, value in entities[0].items()
+            if key not in ["sub", "ses", "mod", "modality"]
+        ])
         batch_file = (
             output_dir /
             f"ses-{entities[0]['ses']}" /
@@ -260,10 +261,14 @@ def cat12vbm_morphometry(
     if not dryrun:
 
         mat_files = coerce_to_path(
-            glob.glob(
-                str(output_dir.parent / "subjects" / "sub-*" / "ses-*" / "label" /
-                    "catROI_*T1w.mat")
-            ),
+            glob.glob(str(
+                output_dir.parent /
+                "subjects" /
+                "sub-*" /
+                "ses-*" /
+                "label" /
+                "catROI_*T1w.mat"
+            )),
             expected_type=list[File]
         )
         entities = [
@@ -274,18 +279,20 @@ def cat12vbm_morphometry(
                 atlases, morphometry_files, strict=True):
             data = []
             for info, path in zip(entities, mat_files, strict=True):
-                _data = loadmat(path, simplify_cells=True)
-                ids = _data["S"][atlas]["ids"]
-                names = _data["S"][atlas]["names"]
+                data_ = loadmat(path, simplify_cells=True)
+                ids = data_["S"][atlas]["ids"]
+                names = data_["S"][atlas]["names"]
                 features = []
                 for brain_tissue in atlases[atlas]:
-                    values = _data["S"][atlas]["data"][brain_tissue]
+                    values = data_["S"][atlas]["data"][brain_tissue]
                     df = pd.DataFrame({
                         "ID": [int(val) for val in ids],
                         "Name": names,
                         brain_tissue: [float(val) for val in values]
                     }).T
-                    df.columns = [f"{brain_tissue}_{col}" for col in df.loc["Name"]]
+                    df.columns = [
+                        f"{brain_tissue}_{col}" for col in df.loc["Name"]
+                    ]
                     df = df[2:]
                     df = df.reset_index(drop=True)
                     features.append(df)
@@ -352,10 +359,14 @@ def cat12vbm_stats(
     if not dryrun:
 
         report_files = coerce_to_path(
-            glob.glob(
-                str(output_dir.parent / "subjects" / "sub-*" / "ses-*" / "report" /
-                "cat_*T1w.xml")
-            ),
+            glob.glob(str(
+                output_dir.parent /
+                "subjects" /
+                "sub-*" /
+                "ses-*" /
+                "report" /
+                "cat_*T1w.xml"
+            )),
             expected_type=list[File]
         )
         entities = [

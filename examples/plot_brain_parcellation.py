@@ -66,6 +66,9 @@ with Config(dryrun=True, verbose=True):
                 keep_intermediate=True,
             )
             (outputs.subject_dir / "stats").mkdir(parents=True, exist_ok=True)
+            (outputs.subject_dir / "stats" / "lh.aparc.stats").touch(
+                exist_ok=True
+            )
     outputs = brainprep_group_brainparc(
         output_dir=outdir,
         euler_threshold=-217,
@@ -78,6 +81,7 @@ with Config(dryrun=True, verbose=True):
     )
     for subject_dir in outputs.subject_dirs:
         (subject_dir / "stats").mkdir(parents=True, exist_ok=True)
+        (subject_dir / "stats" / "lh.aparc.stats").touch(exist_ok=True)
     outputs = brainprep_group_brainparc(
         output_dir=outdir,
         euler_threshold=-217,

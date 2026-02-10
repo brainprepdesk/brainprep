@@ -454,10 +454,10 @@ def surfreg(
     left_reg_file = (
         output_dir / subject / "surf" / "lh.fsaverage_sym.sphere.reg"
     )
-    for _reg_file in (right_reg_file, left_reg_file):
-        if _reg_file.is_file():
-            print_info(f"removing: {_reg_file}")
-            os.remove(_reg_file)
+    for reg_file_ in (right_reg_file, left_reg_file):
+        if reg_file_.is_file():
+            print_info(f"removing: {reg_file_}")
+            os.remove(reg_file_)
 
     commands = [
         [
@@ -1002,6 +1002,7 @@ def freesurfer_features_summary(
     source_dirs = [
         str(Path(item).parent.parent) for item in stats_dirs
     ]
+    print(source_dirs)
     subjects, sessions, runs = zip(*[
         item.lstrip(os.sep).split(os.sep)[-3:]
         for item in source_dirs
