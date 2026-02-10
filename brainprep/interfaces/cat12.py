@@ -28,6 +28,7 @@ from ..typing import (
 )
 from ..utils import (
     coerceparams,
+    coerce_to_path,
     outputdir,
     parse_bids_keys,
 )
@@ -153,10 +154,24 @@ def write_catbatch(
             output_dir /
             "cat12vbm_matlabbatch.m"
         )
+        template_batch = (
+            Path(__file__).parent.parent /
+            "resources" /
+            "cat12vbm_matlabbatch_longitudinal.m"
+        )
     else:
+        unique_id = '_'.join(
+            ['-'.join([key,value]) for key,value in entities[0].items()
+             if key not in ['sub','ses','mod','modality']]
+        )
         batch_file = (
             output_dir /
             f"ses-{entities[0]['ses']}" /
+            f"cat12vbm_matlabbatch_{unique_id}.m"
+        )
+        template_batch = (
+            Path(__file__).parent.parent /
+            "resources" /
             "cat12vbm_matlabbatch.m"
         )
     template_batch = (
@@ -220,45 +235,59 @@ def cat12vbm_morphometry(
         TSV files containing ROI-based GM, WM and CSF features for different
         atlases.
     """
-    iterparse = {
-        "neuromorphometrics": ["Vgm", "Vcsf", "Vwm"],
+    atlases = {
+        "Schaefer2018_100Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_200Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_400Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_600Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "aal3": ["Vgm"],
+        "cobra": ["Vgm", "Vwm"],
+        "hammers": ["Vgm", "Vwm", "Vcsf"],
+        "ibsr": ["Vgm", "Vwm", "Vcsf"],
+        "julichbrain": ["Vgm", "Vwm"],
+        "lpba40": ["Vgm", "Vwm"],
+        "mori": ["Vgm", "Vwm"],
+        "neuromorphometrics": ["Vgm", "Vwm", "Vcsf"],
         "suit": ["Vgm", "Vwm"],
         "thalamic_nuclei": ["Vgm"],
         "thalamus": ["Vgm"],
     }
     morphometry_files = [
-        output_dir / f"{key}_cat12_vbm_roi.tsv"
-        for key in iterparse
+        output_dir / f"{atlas}_cat12_vbm_roi.tsv"
+        for atlas in atlases
     ]
 
     if not dryrun:
 
-        mat_files = glob.glob(
-            output_dir.prent / "subjects" / "sub-*" / "ses-*" / "label" /
-            "catROI_*T1w.mat"
+        mat_files = coerce_to_path(
+            glob.glob(
+                str(output_dir.parent / "subjects" / "sub-*" / "ses-*" / "label" /
+                    "catROI_*T1w.mat")
+            ),
+            expected_type=list[File]
         )
         entities = [
             parse_bids_keys(path)
             for path in mat_files
         ]
-
-        for name, output_file in zip(
-                iterparse, morphometry_files, strict=True):
+        for atlas, output_file in zip(
+                atlases, morphometry_files, strict=True):
             data = []
             for info, path in zip(entities, mat_files, strict=True):
-                data_ = loadmat(path, simplify_cells=True)
-                ids = data_["S"][name]["ids"]
-                names = data_["S"][name]["names"]
+                _data = loadmat(path, simplify_cells=True)
+                ids = _data["S"][atlas]["ids"]
+                names = _data["S"][atlas]["names"]
                 features = []
-                for dtype in iterparse[name]:
-                    values = data_["S"][name]["data"][dtype]
+                for brain_tissue in atlases[atlas]:
+                    values = _data["S"][atlas]["data"][brain_tissue]
                     df = pd.DataFrame({
                         "ID": [int(val) for val in ids],
                         "Name": names,
-                        dtype: [float(val) for val in values]
+                        brain_tissue: [float(val) for val in values]
                     }).T
-                    df.columns = [f"{dtype}_{col}" for col in df.loc["Name"]]
+                    df.columns = [f"{brain_tissue}_{col}" for col in df.loc["Name"]]
                     df = df[2:]
+                    df = df.reset_index(drop=True)
                     features.append(df)
                 df = pd.concat(features, axis=1)
                 df.insert(0, "participant_id", info["sub"])
@@ -322,9 +351,12 @@ def cat12vbm_stats(
 
     if not dryrun:
 
-        report_files = glob.glob(
-            output_dir.parent / "subjects" / "sub-*" / "ses-*" / "report" /
-            "cat_*T1w.xml"
+        report_files = coerce_to_path(
+            glob.glob(
+                str(output_dir.parent / "subjects" / "sub-*" / "ses-*" / "report" /
+                "cat_*T1w.xml")
+            ),
+            expected_type=list[File]
         )
         entities = [
             parse_bids_keys(path)
