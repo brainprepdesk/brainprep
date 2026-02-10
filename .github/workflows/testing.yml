@@ -29,6 +29,8 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version: [3.12]
+    env:
+      FREESURFER_HOME: "/freesurfer/home"
 
     steps:
     - name: Checkout repository
