@@ -386,7 +386,10 @@ def func_vol_connectivity(
             sample_mask=sample_mask
         )
 
-        correlation_measure = ConnectivityMeasure(kind="correlation")
+        correlation_measure = ConnectivityMeasure(
+            kind="correlation",
+            standardize="zscore_sample"
+        )
         correlation_matrix = correlation_measure.fit_transform(
             [timeseries],
         )[0]
@@ -400,7 +403,7 @@ def func_vol_connectivity(
         display = plotting.plot_matrix(
             correlation_matrix,
             figure=(10, 8),
-            # labels=atlas.labels[1:],
+            labels=atlas.labels[1:],
             reorder=True,
         )
         display.figure.savefig(output_dir / f"{basename}.png")
