@@ -103,7 +103,7 @@ navigation across subjects and sessions.
   processing information.
 - ``logs/report_<timestamp>.rst``  
   Contains group-level workflow steps and parameters.
-- ``histogram_mean_correlation.png``**  
+- ``histogram_mean_correlation.png`` 
   Histogram of mean inter-image correlations used to detect outliers.
 - ``pca.png``  
   PCA projection of images for visual inspection.
