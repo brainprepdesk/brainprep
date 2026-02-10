@@ -20,12 +20,9 @@ from .brain_parcellation import (
 from .defacing import (
     brainprep_defacing,
 )
-from .dmriprep import (
-    brainprep_dmriprep,
-    brainprep_group_dmriprep,
-)
 from .fmriprep import (
     brainprep_fmriprep,
+    brainprep_group_fmriprep,
 )
 from .quality_assurance import (
     brainprep_group_quality_assurance,

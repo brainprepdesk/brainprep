@@ -11,11 +11,13 @@ Provide a command line interface to test examples on different
 infrastructure.
 """
 
+import copy
 import io
 import json
 import runpy
 import shutil
 import sys
+import tomllib
 from datetime import datetime
 from pathlib import Path
 
@@ -25,9 +27,11 @@ def main(
         infra,
         image_template,
         hopla_dir,
+        partition,
+        freesurfer_license_file,
         image_parameters=None,
         root_template=None,
-        save_template=None
+        save_template=None,
     ):
     """
     Execute examples scripts using ``hoplacli``.
@@ -53,6 +57,10 @@ def main(
         different images without duplicating code.
     hopla_dir: str or Path
         Path to the hopla working directory.
+    partition : str
+        Name of the partition to use: <name> or <project>:<name>.
+    freesurfer_license_file : str or Path
+        Path to the FreesurFer license file.
     image_parameters: str
         Additional parameters passed to the container execution command.
         Default None.
@@ -94,6 +102,9 @@ def main(
     if infra not in config_files:
         raise ValueError(f"Unsupported infrastructure: {infra}.")
     config_template = config_files[infra].read_text()
+    workflow_resource_file = config_dir / "workflows_config.toml"
+    with workflow_resource_file.open("rb") as of:
+         workflow_resource = tomllib.load(of)
     image_parameters = image_parameters or ""
 
     # Scan example scripts
@@ -105,6 +116,8 @@ def main(
 
         # Get commands from script executed in isolated namespace
         name = script_file.name.replace("".join(script_file.suffixes), "")
+        workflow_name = name.replace("plot_", "")
+
         print(
             "\n"
             f"ℹ️  INFO: Commands from script: {name}"
@@ -120,6 +133,7 @@ def main(
 
         # Prepapre commands to execute code with hoplacli
         print(f"- Execution: {len(commands)} steps")
+        confs = workflow_resource[workflow_name]
         if root_template is not None:
             datadir_orig = Path(env["datadir"])
             outdir_orig = Path(env["outdir"])
@@ -130,7 +144,7 @@ def main(
             )
             outdir = Path(
                 str(root_template).format(
-                    workflow=name.replace("plot_", ""),
+                    workflow=workflow_name,
                 )
             )
             print(f"- Copy data: {datadir_orig} -> {datadir}")
@@ -157,12 +171,20 @@ def main(
             image_file = str(image_template).format(
                 workflow=name.replace("plot_", ""),
             )
+            if confs["default"].get("use_freesurfer", False):
+                image_parameters += (
+                    f"--bind {freesurfer_license_file}:"
+                    "/opt/freesurfer/license.txt "
+                )
             config_str = config_template.format(
                 name=f"{script_file.stem}-step{idx}",
                 operator="deamon",
                 date=str(datetime.now().date()),
                 commands=step_commands_str,
                 parameters=image_parameters,
+                partition=partition,
+                n_cpus=confs["default"]["n_cpus"],
+                memory=confs["default"]["memory"],
                 image_file=image_file,
                 hopla_dir=hopla_dir,
             )
@@ -219,3 +241,45 @@ def main(
         f"    singularity run --bind [LICENSE]:/opt/freesurfer/.license "
         "brainprep ..."
     )
+
+
+def merge(defaults: dict, overrides: dict) -> dict:
+    """
+    Recursively merge two dictionaries, applying overrides to defaults.
+
+    Parameters
+    ----------
+    defaults : dict
+        The base dictionary containing default parameter values.
+    overrides : dict
+        A dictionary containing values that should override the defaults.
+        Nested dictionaries are merged recursively.
+
+    Returns
+    -------
+    dict
+        A new dictionary containing the merged result, where values from
+        `overrides` take precedence over those in `defaults`.
+
+    Notes
+    -----
+    - This function does not modify the input dictionaries.
+    - When both dictionaries contain a nested dictionary under the same key,
+      the merge is performed recursively.
+    - When a key exists only in `overrides`, it is added to the result.
+
+    Examples
+    --------
+    >>> defaults = {"a": 1, "b": {"x": 10, "y": 20}}
+    >>> overrides = {"b": {"y": 99}}
+    >>> merge(defaults, overrides)
+    {'a': 1, 'b': {'x': 10, 'y': 99}}
+    """
+    result = copy.deepcopy(defaults)
+    for key, value in overrides.items():
+        if (isinstance(value, dict) and key in result and
+                isinstance(result[key], dict)):
+            result[key] = merge(result[key], value)
+        else:
+            result[key] = value
+    return result

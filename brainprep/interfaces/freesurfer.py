@@ -14,6 +14,7 @@ FreeSurfer functions.
 import glob
 import itertools
 import os
+from pathlib import Path
 
 import nibabel
 import numpy as np
@@ -239,8 +240,7 @@ def reconall_longitudinal(
                 f"First run a cross sectional recon-all: {source_dir}"
             )
         target_dir = (
-            workspace_dir /
-            "data" /
+            output_dir /
             f"sub-{sub}_ses-{ses}_run-{run}"
         )
         target_dir.parent.mkdir(parents=True, exist_ok=True)
@@ -448,8 +448,16 @@ def surfreg(
         output_dir / subject / "surf" / "lh.fsaverage_sym.sphere.reg"
     )
     right_reg_file = (
-        output_dir / subject / "surf" / "xhemi" / "lh.fsaverage_sym.sphere.reg"
+        output_dir / subject / "xhemi" / "surf" / "lh.fsaverage_sym.sphere.reg"
     )
+
+    left_reg_file = (
+        output_dir / subject / "surf" / "lh.fsaverage_sym.sphere.reg"
+    )
+    for _reg_file in (right_reg_file, left_reg_file):
+        if _reg_file.is_file():
+            print_info(f"removing: {_reg_file}")
+            os.remove(_reg_file)
 
     commands = [
         [
@@ -518,7 +526,6 @@ def xhemireg(
 @log_runtime(
     bunched=False)
 def fsaveragesym_surfreg(
-        template_dir: Directory,
         output_dir: Directory,
         entities: dict) -> tuple[File, File]:
     """
@@ -538,8 +545,6 @@ def fsaveragesym_surfreg(
 
     Parameters
     ----------
-    template_dir : Directory
-        Path to the 'fsaverage_sym' template.
     output_dir : Directory
         FreeSurfer working directory containing all the subjects.
     entities : dict
@@ -562,27 +567,16 @@ def fsaveragesym_surfreg(
 
     .. footbibliography::
     """
-    _template_dir = output_dir / "fsaverage_sym"
-    if not _template_dir.is_symlink():
-        os.symlink(template_dir, _template_dir)
-    template_dir = _template_dir
+    template_dir = output_dir / "fsaverage_sym"
+    if template_dir.is_symlink():
+        os.remove(template_dir)
 
     subject = f"run-{entities['run']}"
     os.environ["SUBJECTS_DIR"] = str(output_dir)
-    left_reg_file = (
-        output_dir / subject / "surf" / "lh.fsaverage_sym.sphere.reg"
-    )
-    if left_reg_file.is_file():
-        print_info(f"removing: {left_reg_file}")
-        os.remove(left_reg_file)
 
-    left_log_file, right_log_file = xhemireg(
+    _left_log_file, right_log_file = xhemireg(
         output_dir,
         entities,
-    )
-    freesurfer_command_status(
-        left_log_file,
-        command="xhemireg",
     )
     freesurfer_command_status(
         right_log_file,
@@ -647,7 +641,6 @@ def mris_apply_reg(
 def fsaveragesym_projection(
         left_reg_file: File,
         right_reg_file: File,
-        template_dir: Directory,
         output_dir: Directory,
         entities: dict,
         dryrun: bool = False) -> tuple[File]:
@@ -670,8 +663,6 @@ def fsaveragesym_projection(
     right_reg_file : File
         Right hemisphere registered to `fsaverage_sym` symmetric template
         via xhemi.
-    template_dir : Directory
-        Path to the 'fsaverage_sym' template.
     output_dir : Directory
         FreeSurfer working directory containing all the subjects.
     entities : dict
@@ -702,6 +693,7 @@ def fsaveragesym_projection(
       None is returned.
     """
     subject = f"run-{entities['run']}"
+    template_dir = output_dir / "fsaverage_sym"
     reg_map = {
         "lh": left_reg_file,
         "rh": right_reg_file,
@@ -998,21 +990,32 @@ def freesurfer_features_summary(
     - Creates FreeSurfer 'SUBJECTS_DIR' for each timepoint in a working
       directory using symlinks.
     """
-    stats_dirs = glob.glob(
-        str(output_dir / "subjects" / "sub-*" / "ses-*" / "run-*" / "stats")
-    )
+    stats_dirs = glob.glob(str(
+        output_dir /
+        "subjects" /
+        "sub-*" /
+        "ses-*" /
+        "run-*" /
+        "stats" /
+        "lh.aparc.stats"
+    ))
+    source_dirs = [
+        str(Path(item).parent.parent) for item in stats_dirs
+    ]
     subjects, sessions, runs = zip(*[
-        item.lstrip(os.sep).split(os.sep)[-4:-1]
-        for item in stats_dirs
+        item.lstrip(os.sep).split(os.sep)[-3:]
+        for item in source_dirs
     ], strict=True)
     unique_sessions = set(sessions)
 
+    fs_subjects = {}
     for sub, ses, run, source_dir in zip(
-            subjects, sessions, runs, stats_dirs, strict=True):
+            subjects, sessions, runs, source_dirs, strict=True):
         target_dir = workspace_dir / ses / f"{sub}_{run}"
         target_dir.parent.mkdir(parents=True, exist_ok=True)
         if not target_dir.is_symlink():
             os.symlink(source_dir, target_dir)
+        fs_subjects.setdefault(ses, []).append(f"{sub}_{run}")
 
     summary_files = []
     measures = [
@@ -1028,7 +1031,7 @@ def freesurfer_features_summary(
         for hemi in ["lh", "rh"]:
             for meas in measures:
                 desikan_stat_file, destrieux_stat_file = aparcstats2table(
-                    subjects,
+                    fs_subjects[ses],
                     ses.replace("ses-", ""),
                     hemi,
                     meas,
@@ -1040,7 +1043,7 @@ def freesurfer_features_summary(
                 ])
 
         volume_stat_file = asegstats2table(
-            subjects,
+            fs_subjects[ses],
             ses.replace("ses-", ""),
             morphometry,
         )
@@ -1091,9 +1094,18 @@ def freesurfer_euler_numbers(
 
     if not dryrun:
 
-        log_files = glob.glob(
-            output_dir / "*" / "*" / "run-*" / "scripts" / "recon-all.log"
-        )
+        log_files = glob.glob(str(
+            output_dir /
+            "subjects" /
+            "sub-*" /
+            "ses-*" /
+            "run-*" /
+            "scripts" /
+            "recon-all.log"
+        ))
+        log_files = [
+            Path(item) for item in log_files
+        ]
 
         scores = pd.DataFrame(
             columns=(
@@ -1104,20 +1116,26 @@ def freesurfer_euler_numbers(
             )
         )
         for path in log_files:
-            entities = parse_bids_keys(path)
+            entities = parse_bids_keys(path, full_path=True)
             lines = path.read_text().splitlines()
             selection = [item for item in lines
                          if item.startswith("orig.nofix lheno")]
-            assert len(selection) == 1, selection
-            _, left_euler_number, right_euler_number = selection[0].split("=")
-            left_euler_number, _ = left_euler_number.split(",")
-            left_euler_number = int(left_euler_number.strip())
-            right_euler_number = int(right_euler_number.strip())
+            if len(selection) != 1:
+                print_warn(f"no Euler number: {entities}")
+                euler_number = float("-inf")
+            else:
+                (_, left_euler_number,
+                 right_euler_number) = selection[0].split("=")
+                left_euler_number, _ = left_euler_number.split(",")
+                euler_number = 0.5 * (
+                     int(left_euler_number.strip()) +
+                     int(right_euler_number.strip())
+                )
             scores.loc[len(scores)] = [
                 entities["sub"],
                 entities["ses"],
                 entities["run"],
-                0.5 * (left_euler_number + right_euler_number),
+                euler_number,
             ]
 
         scores["qc"] = (scores["euler_number"] > euler_threshold).astype(int)
@@ -1266,21 +1284,71 @@ def freesurfer_tissues(
             csf_mask_arr
         )
 
-        nibabel.save(
-            nibabel.Nifti1Image(wm_mask_arr, im.affine),
-            wm_mask_file,
-        )
-        nibabel.save(
-            nibabel.Nifti1Image(gm_mask_arr, im.affine),
-            gm_mask_file,
-        )
-        nibabel.save(
-            nibabel.Nifti1Image(csf_mask_arr, im.affine),
-            csf_mask_file,
-        )
-        nibabel.save(
-            nibabel.Nifti1Image(brain_mask_arr, im.affine),
-            brain_mask_file,
-        )
+        for arr, out_file in ((wm_mask_arr, wm_mask_file),
+                              (gm_mask_arr, gm_mask_file),
+                              (csf_mask_arr, csf_mask_file),
+                              (brain_mask_arr, brain_mask_file)):
+            nibabel.save(
+                nibabel.Nifti1Image(
+                    arr.astype(np.uint8),
+                    im.affine,
+                    dtype=np.uint8,
+                ),
+                out_file,
+            )
 
     return (wm_mask_file, gm_mask_file, csf_mask_file, brain_mask_file)
+
+
+@coerceparams
+@log_runtime(
+    bunched=False)
+@cmdwrapper
+@coerceparams
+def nextbrain(
+        t1_file: File,
+        output_dir: Directory,
+        entities: dict) -> tuple[list[str], tuple[File]]:
+    """
+    Uses NextBrain probabilistic atlas of the human brain, to segment ~300
+    distinct ROIs per hemisphere.
+
+    Segmentation relies on a Bayesian algorithm and is thus robust against
+    changes in MRI pulse sequence (e.g., T1-weighted, T2-weighted,
+    FLAIR, etc).
+
+    Parameters
+    ----------
+    t1_file : File
+        Path to the input T1w image file.
+    output_dir : Directory
+        FreeSurfer working directory containing all the subjects.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
+
+    Returns
+    -------
+    command : list[str]
+        NextBrain parcellation command-lines.
+    outputs : tuple[File]
+        - left_seg_file : File - Generated left hemisphere NextBrain atlas.
+        - right_seg_file : File - Generated right hemisphere NextBrain atlas.
+
+    References
+    ----------
+
+    .. footbibliography::
+    """
+    subject = f"run-{entities['run']}"
+    left_seg_file = output_dir / subject / "nextbrain" / "seg.left.nii.gz"
+    right_seg_file = output_dir / subject / "nextbrain" / "seg.right.nii.gz"
+
+    command = [
+        "mri_histo_atlas_segment_fireants",
+        str(t1_file),
+        str(output_dir / subject / "nextbrain"),
+        "0",
+        str(os.cpu_count())
+    ]
+
+    return command, (left_seg_file, right_seg_file)

@@ -6,14 +6,15 @@ date = "{date}"
 [inputs]
 commands = {commands}
 parameters = "{parameters}"
+freesurfer = false
 
 [environment]
 cluster = "slurm"
 folder = "{hopla_dir}"
-queue = "cati"
-walltime = 24
-n_cpus = 1
-memory = 5
+queue = "{partition}"
+walltime = 48
+n_cpus = {n_cpus}
+memory = {memory}
 image = "{image_file}"
 
 [config]

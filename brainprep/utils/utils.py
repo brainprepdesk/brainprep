@@ -157,6 +157,7 @@ def bids(
 @decorator
 def outputdir(
         func: Callable,
+        plotting: bool = False,
         *args: Any,
         **kw: Any) -> Callable:
     """
@@ -168,6 +169,9 @@ def outputdir(
     ----------
     func : Callable
         The function to be decorated.
+    plotting : bool
+        If True, add a 'figures' upper level directory in the output
+        directory. Default False.
     *args : Any
         Positional arguments passed to `func`.
     **kw : Any
@@ -188,6 +192,12 @@ def outputdir(
     if "output_dir" not in inputs:
         raise ValueError(
             "The 'outputdir' decorator needs a 'output_dir' function argument."
+        )
+
+    if plotting:
+        inputs["output_dir"] = (
+            Path(inputs["output_dir"]) /
+            "figures"
         )
 
     Path(inputs["output_dir"]).mkdir(parents=True, exist_ok=True)
@@ -284,7 +294,8 @@ def coerce_to_path(
 
 
 def parse_bids_keys(
-        bids_path: File) -> dict[str]:
+        bids_path: File,
+        full_path: bool = False) -> dict[str]:
     """
     Parses BIDS keys and modality from a filename or path with validation.
 
@@ -292,14 +303,16 @@ def parse_bids_keys(
     ----------
     bids_path : File
         The BIDS file.
+    full_path: bool
+        Find the BIDS keys frol the full input path. Default False.
 
     Returns
     -------
     entities : dict[str]
         A dictionary of parsed BIDS entities including modality.
     """
-    # Extract the filename from the path
-    filename = bids_path.name
+    # Extract the filename from the path id necessary
+    filename = str(bids_path) if full_path else bids_path.name
 
     # Regex pattern for BIDS entities
     entity_pattern = (

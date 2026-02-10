@@ -253,8 +253,7 @@ def brainprep_group_vbm(
           GM, WM and CSF features for different atlases.
         - correlations_file : File - a TSV file containing mean correlation
           of each input image to the atlas image.
-        - group_stats_file : File - a TSV file containing quality metrics
-          such as NCR, ICR and IQR.
+        - group_stats_file : File - a TSV file containing quality metrics.
         - histogram_files : list[File] - PNG files containing histograms of
           selected important information.
 

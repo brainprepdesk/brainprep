@@ -108,5 +108,5 @@ Then, generate the new recipies (one per workflow type):
 Creation
 --------
 
-The **build/build_cli.py build ** configuration script generates a tree
+The **build/build_cli.py build** configuration script generates a tree
 structure and aggregates the creation/test instructions in a **commands** file.

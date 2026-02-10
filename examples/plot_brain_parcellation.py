@@ -60,7 +60,6 @@ with Config(dryrun=True, verbose=True):
         for t1_file in [subject_data.anat1, subject_data.anat2]:
             outputs = brainprep_brainparc(
                 t1_file=t1_file,
-                template_dir=(datadir / "fsaverage_sym"),
                 output_dir=outdir,
                 do_lgi=True,
                 wm_file=(datadir / "deprecated"),
@@ -103,7 +102,6 @@ commands.append(
         [
             "brainprep", "subject-level-brainparc",
             "--t1_file", str(t1_file),
-            "--template_dir", str(datadir / "fsaverage_sym"),
             "--output-dir", str(outdir),
             "--keep-intermediate",
         ] for subject_data in data.values()
@@ -113,8 +111,21 @@ commands.append(
 commands.append(
     [
         [
+            "brainprep", "subject-level-brainparc",
+            "--t1_file", str(t1_file),
+            "--output-dir", str(outdir),
+            "--analysis-type", "nextbrain",
+            "--keep-intermediate",
+        ] for subject_data in data.values()
+          for t1_file in [subject_data.anat1, subject_data.anat2]   
+    ]
+)
+commands.append(
+    [
+        [
             "brainprep", "longitudinal-brainparc",
-            "--t1_files", f"'[{subject_data.anat1}, {subject_data.anat2}]'",
+            "--t1_files",
+            f"\"['{subject_data.anat1}', '{subject_data.anat2}']\"",
             "--output-dir", str(outdir),
             "--keep-intermediate",
         ] for subject_data in data.values()

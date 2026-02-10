@@ -20,6 +20,7 @@ from .cat12 import (
     write_catbatch,
 )
 from .fmriprep import (
+    fmriprep_stats,
     fmriprep_wf,
     func_vol_connectivity,
 )
@@ -33,6 +34,7 @@ from .freesurfer import (
     fsaveragesym_surfreg,
     localgi,
     mgz_to_nii,
+    nextbrain,
     reconall,
     reconall_longitudinal,
 )
@@ -53,10 +55,6 @@ from .plotting import (
     plot_defacing_mosaic,
     plot_histogram,
     plot_pca,
-)
-from .prequal import (
-    prequal_stats,
-    prequal_wf,
 )
 from .utils import (
     copyfiles,

@@ -11,8 +11,11 @@
 fMRIprep functions.
 """
 
+import glob
 import json
+import os
 import shutil
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -83,9 +86,10 @@ def fmriprep_wf(
        Pre-processing command-line.
     outputs : tuple[File | list[File]]
         - mask_files : File - Brain masks in template spaces.
-        - fmri_rest_image_files : list[File] - Pre-processed rfMRI volumes:
-          2mm MNI152NLin6Asym and MNI152NLin2009cAsym.
-        - fmri_rest_surf_file: File - Pre-processed rfMRI surfaces: fsLR23k.
+        - fmri_image_files : list[File] - Pre-processed rfMRI volumes:
+          T1w and MNI152NLin2009cAsym.
+        - fmri_surf_files: File - Pre-processed rfMRI surfaces: fsnative
+          and fsLR23k.
         - confounds_file : File - File with calculated confounds.
         - qc_file : File - Visual report.
 
@@ -102,6 +106,7 @@ def fmriprep_wf(
     for path in (anat_dir, func_dir, work_dir):
         path.mkdir(parents=True, exist_ok=True)
     subject, session = entities["sub"], entities["ses"]
+    fshome_dir = Path(os.getenv("FREESURFER_HOME"))
 
     for source_file, target_dir in zip(
             [t1_file, *func_files],
@@ -124,74 +129,76 @@ def fmriprep_wf(
         )
 
     fmriprep_dir = (
-        output_dir / f"sub-{subject}" / f"ses-{session}"
+        output_dir.parent.parent / f"sub-{subject}" / f"ses-{session}"
     )
     qc_file = (
-        fmriprep_dir / f"sub-{subject}.html"
+        fmriprep_dir.parent.parent / f"sub-{subject}.html"
     )
     rfmri_outputs = []
     for func_file in func_files:
-        func_entities = parse_bids_keys(func_file)
-        if func_entities["task"] == "rest":
-            basename = (
-                "sub-{sub}_ses-{ses}_task-rest_run-{run}".format(
-                    **func_entities)
-            )
-            mask_files = [
-                (
-                    fmriprep_dir /
-                    "func" /
-                    f"{basename}_space-{template}_desc-brain_mask.nii.gz"
-                )
-                for template in ("MNI152NLin6Asym_res-2",
-                                 "MNI152NLin2009cAsym")
-            ]
-            fmri_rest_image_files = [
-                (
-                    fmriprep_dir /
-                    "func" /
-                    f"{basename}_space-{template}_desc-preproc_bold.nii.gz",
-                )
-                for template in ("MNI152NLin6Asym_res-2",
-                                 "MNI152NLin2009cAsym")
-            ]
-            fmri_rest_surf_file = (
+        basename = func_file.stem.replace("_bold", "").split(".")[0]
+        mask_files = [
+            (
                 fmriprep_dir /
                 "func" /
-                f"{basename}_space-fsLR_den-91k_bold.dtseries.nii",
-
+                f"{basename}_space-{template}_desc-brain_mask.nii.gz"
             )
-            confounds_file = (
+            for template in ("T1w",
+                             "MNI152NLin2009cAsym")
+        ]
+        fmri_image_files = [
+            (
                 fmriprep_dir /
                 "func" /
-                f"{basename}_desc-confounds_timeseries.tsv"
+                f"{basename}_space-{template}_desc-preproc_bold.nii.gz"
             )
-            rfmri_outputs.append([
-                mask_files,
-                fmri_rest_image_files,
-                fmri_rest_surf_file,
-                confounds_file,
-            ])
+            for template in ("T1w",
+                             "MNI152NLin2009cAsym")
+        ]
+        fmri_surf_files = [
+            (
+                fmriprep_dir /
+                "func" /
+                f"{basename}_space-{template}_den-91k_bold.dtseries.nii",
+            )
+            for template in ("fsnative",
+                             "fsLR")
+        ]
+        confounds_file = (
+            fmriprep_dir /
+            "func" /
+            f"{basename}_desc-confounds_timeseries.tsv"
+        )
+        rfmri_outputs.append([
+            mask_files,
+            fmri_image_files,
+            fmri_surf_files,
+            confounds_file,
+        ])
 
     command = [
         "fmriprep",
         str(rawdata_dir),
-        str(output_dir),
+        str(output_dir.parent.parent),
         "participant",
         "--fs-subjects-dir", str(freesurfer_dir),
-        "-w", str(work_dir),
-        "--n_cpus", "1",
+        "--work-dir", str(work_dir),
+        "--n-cpus", str(os.cpu_count()),
         "--stop-on-first-crash",
-        "--fs-license-file", "/code/freesurfer.txt",
-        "--skip_bids_validation",
-        "--force bbr",
+        "--fs-license-file", str(fshome_dir / "license.txt"),
+        "--skip-bids-validation",
+        "--fs-no-reconall",
+        "--fs-no-resume",
+        "--force", "bbr", "syn-sdc",
         "--no-msm",
         "--cifti-output", "91k",
-        "--output-spaces", (
-            "MNI152NLin2009cAsym MNI152NLin6Asym:res-2 fsaverage fsLR"),
+        "--output-spaces",
+        "T1w", "MNI152NLin2009cAsym", "MNI152NLin2009cAsym:res-2",
+        "fsnative", "fsLR",
         "--ignore", "slicetiming",
-        "--participant_label", subject,
+        "--participant-label", subject,
     ]
+    command = ["ls", "."]
 
     return command, (rfmri_outputs, qc_file)
 
@@ -205,6 +212,7 @@ def func_vol_connectivity(
         fmri_rest_image_file: File,
         mask_file: File,
         counfounds_file: File,
+        workspace_dir: Directory,
         output_dir: Directory,
         entities: dict,
         low_pass: float = 0.1,
@@ -213,7 +221,7 @@ def func_vol_connectivity(
         fd_threshold: float = 0.2,
         std_dvars_threshold: int = 3,
         detrend: bool = True,
-        standardize: bool = True,
+        standardize: str | None = "zscore_sample",
         remove_volumes: bool = True,
         fwhm: float | list[float] = 0.,
         dryrun: bool = False) -> tuple[File]:
@@ -266,6 +274,8 @@ def func_vol_connectivity(
         Brain mask used to restrict signal cleaning.
     counfounds_file : File
         Confounds file from fMRIPrep.
+    workspace_dir: Directory
+        Working directory with the workspace of the current processing.
     output_dir : Directory
         Output directory for generated files.
     entities : dict
@@ -292,9 +302,9 @@ def func_vol_connectivity(
         squared variance over voxels. Default 3.
     detrend : bool
         Detrend data prior to confound removal. Default True
-    standardize : bool
-        Set this flag if you want to standardize the output signal between
-        [0 1]. Default True.
+    standardize : str | None
+        Strategy to standardize the signal: 'zscore_sample', 'psc', or None .
+        Default 'zscore_sample'.
     remove_volumes : bool
         This flag determines whether contaminated volumes should be removed
         from the output data. Default True.
@@ -317,33 +327,20 @@ def func_vol_connectivity(
     - ROI atlas used: Schaefer 2018 (200 regions)
     - Connectivity metric: Pearson correlation
     """
-    subject, session = entities["sub"], entities["ses"]
-    fmriprep_dir = (
-        output_dir / f"sub-{subject}" / f"ses-{session}"
-    )
     basename = "sub-{sub}_ses-{ses}_task-rest_run-{run}_space-{space}".format(
         **entities)
     if "res" in entities:
         basename += f"_res-{entities['res']}"
     basename = f"{basename}_atlas-schaefer200_desc-correlation_connectivity"
     connectivity_file = (
-        fmriprep_dir /
+        output_dir /
         f"{basename}.tsv"
     )
 
     if not dryrun:
-        atlas_dir = output_dir / "atlases"
-        atlas_dir.mkdir(parents=True, exist_ok=True)
         atlas = datasets.fetch_atlas_schaefer_2018(
             n_rois=200,
-            data_dir=atlas_dir,
-        )
-        plotting.plot_roi(
-            atlas.maps,
-            cut_coords=(8, -4, 9),
-            colorbar=True,
-            cmap="Paired",
-            output_file=atlas_dir / "schaefer.png",
+            data_dir=workspace_dir,
         )
 
         sidecar_file = (
@@ -354,7 +351,7 @@ def func_vol_connectivity(
         tr = info["RepetitionTime"]
 
         select_confounds, sample_mask = load_confounds(
-            fmri_rest_image_file,
+            str(fmri_rest_image_file),
             strategy=["high_pass", "motion", "wm_csf", "global_signal"],
             motion="derivatives",
             wm_csf="basic",
@@ -395,15 +392,126 @@ def func_vol_connectivity(
         )[0]
         np.fill_diagonal(correlation_matrix, 0)
         correlation_df = pd.DataFrame(
-            correlation_measure, index=atlas.labels, columns=atlas.labels
+            correlation_matrix,
+            index=atlas.labels[1:],
+            columns=atlas.labels[1:]
         )
         correlation_df.to_csv(connectivity_file, sep="\t")
         display = plotting.plot_matrix(
             correlation_matrix,
             figure=(10, 8),
-            labels=atlas.labels,
+            # labels=atlas.labels[1:],
             reorder=True,
         )
-        display.figure.savefig(fmriprep_dir / f"{basename}.png")
+        display.figure.savefig(output_dir / f"{basename}.png")
 
     return (connectivity_file, )
+
+
+@coerceparams
+@outputdir
+@log_runtime(
+    bunched=False)
+@pywrapper
+def fmriprep_stats(
+        output_dir: Directory,
+        fd_mean_threshold: float = 0.2,
+        dvars_std_threshold: float = 1.5,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Parse the CAT12 VBM report stats for all subjects and applies a
+    quality control.
+
+    The following quuality metrics are considered:
+
+    - Image Correlation Ratio (ICR) - Measures how well the subject's image
+      aligns with a reference template. High ICR suggests good
+      registration quality.
+    - Noise to Contrast Ratio (NCR) - Assesses image clarity by comparing
+      noise levels to tissue contrast. Lower NCR may indicate poor image
+      quality.
+    - Image Quality Rating (IQR) - A composite score summarizing overall
+      scan quality. Combines multiple metrics like noise, resolution,
+      and bias field. Higher IQR = better quality.
+
+    Parameters
+    ----------
+    output_dir : Directory
+        Working directory containing the outputs.
+    fd_mean_threshold : float
+        Quality control threshold on the Mean Framewise Displacement (mm).
+        Default 0.2.
+    dvars_std_threshold : float
+        Quality control threshold on the Standardized DVARS.
+        Default 1.5.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
+
+    Returns
+    -------
+    group_stats_file : File
+        A TSV file containing quality metrics with the following columns:
+
+        - ``participant_id`` : subject identifier
+        - ``fd_mean`` : mean framewise displacement
+        - ``dvars_std`` : mean standardized DVARS
+        - ``qc`` : quality check output
+
+    Notes
+    -----
+    Missing metrics (e.g., ``snr`` or ``aor``) are filled with ``NaN``.
+    """
+    group_stats_file = output_dir / "group_stats.tsv"
+
+    if not dryrun:
+
+        report_files = glob.glob(str(
+            output_dir.parent / "subjects" / "sub-*" / "ses-*" / "func" /
+            "*desc-confounds_timeseries.tsv"
+        ))
+        entities = [
+            parse_bids_keys(Path(path))
+            for path in report_files
+        ]
+
+        def safe_mean(df, col):
+            if col not in df:
+                return np.nan
+            return (
+                df[col]
+                .replace("n/a", np.nan)
+                .astype(float)
+                .mean()
+            )
+
+        stats = []
+        for info, path in zip(entities, report_files, strict=True):
+            df = pd.read_csv(
+                path,
+                sep="\t",
+            )
+            stats.append(pd.DataFrame.from_dict(
+                {
+                    "participant_id": [info["sub"]],
+                    "session": [info["ses"]],
+                    "run": [info["run"]],
+                    "fd_mean": [safe_mean(df, "framewise_displacement")],
+                    "dvars_std": [safe_mean(df, "std_dvars")],
+                }
+            ))
+
+        df = pd.concat(stats)
+        df.sort_values(by=["participant_id"], inplace=True)
+
+        df["qc"] = (
+            (df["fd_mean"] < fd_mean_threshold) &
+            (df["dvars_std"] < dvars_std_threshold)
+        ).astype(int)
+
+        df.to_csv(
+            group_stats_file,
+            index=False,
+            sep="\t",
+        )
+
+    return (group_stats_file, )

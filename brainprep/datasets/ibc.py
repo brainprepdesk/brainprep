@@ -100,7 +100,8 @@ class IBCDataset:
         subject : str
             Subject identifier: ['01' - '13'].
         modality : str
-            Modality to be fetched: 'anat', 'func' or 'dwi'.
+            Modality to be fetched: 'anat', 'func' or 'dwi'. A combination
+            of modalitites can be specified using the '|' delimiter.
 
         Returns
         -------
@@ -108,7 +109,9 @@ class IBCDataset:
             Fetched data path. A 'description' entry is also available.
         """
         dataset = Bunch()
-        self.sanity_check(subject, modality)
+        modalities = modality.split("|")
+        for mod in modalities:
+            self.sanity_check(subject, mod)
 
         description_file = (
             self.datadir /
@@ -153,7 +156,7 @@ class IBCDataset:
              sidecar_t1w,
              f"sub-{subject}_ses-00_T1w.json"),
         ]
-        if modality == "dwi":
+        if "dwi" in modalities:
             mapping += [
                 ("dwi",
                  f"sub-{subject}_ses-00_dwi.nii.gz",
@@ -168,7 +171,7 @@ class IBCDataset:
                  "dwi.json",
                  f"sub-{subject}_ses-00_dwi.json"),
             ]
-        elif modality == "func":
+        if "func" in modalities:
             task = "ArchiStandard"
             mapping += [
                 ("func",

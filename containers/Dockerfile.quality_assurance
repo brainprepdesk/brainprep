@@ -22,6 +22,7 @@ ENV PATH="${HOME}/.pixi/bin:${PATH}"
 WORKDIR /opt/brainprep
 COPY pixi.toml .
 RUN pixi install
+RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainprep
 
 COPY entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh

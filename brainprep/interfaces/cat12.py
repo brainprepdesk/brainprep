@@ -246,12 +246,12 @@ def cat12vbm_morphometry(
                 iterparse, morphometry_files, strict=True):
             data = []
             for info, path in zip(entities, mat_files, strict=True):
-                _data = loadmat(path, simplify_cells=True)
-                ids = _data["S"][name]["ids"]
-                names = _data["S"][name]["names"]
+                data_ = loadmat(path, simplify_cells=True)
+                ids = data_["S"][name]["ids"]
+                names = data_["S"][name]["names"]
                 features = []
                 for dtype in iterparse[name]:
-                    values = _data["S"][name]["data"][dtype]
+                    values = data_["S"][name]["data"][dtype]
                     df = pd.DataFrame({
                         "ID": [int(val) for val in ids],
                         "Name": names,

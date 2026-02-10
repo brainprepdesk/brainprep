@@ -3,33 +3,84 @@
 Defacing
 ========
 
+.. image:: ../images/preproc-defacing.png
+   :width: 50%
+   :align: center
+
 Introduction
 ------------
 
 Defacing MRI data is crucial for protecting participant privacy in
 neuroimaging research. Structural brain MRI include facial features
 that can be reconstructed and used to identify individuals. Defacing removes
-or blurs these features while preserving brain anatomy for analysis.
+these features while preserving brain anatomy for analysis.
 
-Defacing is a standard step in anonymizing data, helping researchers meet legal
-and ethical standards for handling sensitive health information
+The UK-Biobank imaging pipeline incorporates a customized
+defacing workflow based on FSL :footcite:p:`almagro2018deface`. This workflow
+is applied to T1-weighted (T1w) structural images and can be propagated to
+other modalities through rigid alignement.
+
+Requirements
+------------
+
++------------+--------------+
+| CPU        | RAM          |
++============+==============+
+| 1          | 5 GB         |
++------------+--------------+
 
 Description
 -----------
 
-**Steps**: The UK-Biobank study uses a customized image processing pipeline
-based on FSL :footcite:p:`almagro2018deface` which includes a defacing
-approach. It is applied to T1w images and can be backpropagated to other
-modalities using rigid alignement. This defacing approach is released as part
-of the main FSL package as ``fsl_deface``. Like other tools, such as
-``mri_deface`` :footcite:p:`bischoff2007deface` and ``pydeface``
-:footcite:p:`gulban2009deface`, this method uses linear registration to
-create a mask of face voxels, and then sets voxels in the mask to zero.
-Unlike ``mri_deface`` and ``pydeface``, this method also removes the ears.
-We used ``fsl_deface`` as included in FSL with default
-settings.
+**Processing Steps**
 
-**Quality control**: A manual quality control was performed.
+The defacing method used in the UK Biobank pipeline is provided as part of the
+standard FSL distribution under the command ``fsl_deface``. Similar to other
+established defacing tools—such as ``mri_deface`` :footcite:p:`bischoff2007deface`
+and ``pydeface`` :footcite:p:`gulban2009deface`—the method relies on linear
+registration to generate a mask that identifies facial voxels. Voxels within
+this mask are then set to zero to remove identifiable facial features.
+
+A key distinction of ``fsl_deface`` compared with ``mri_deface`` and
+``pydeface`` is that it additionally removes the ears, providing a more
+comprehensive anonymization of head anatomy.
+
+**Quality Control**
+
+A manual quality control step is performed using the generated
+``defacemosaic`` figure, allowing visual inspection of the defaced image and
+verification that facial structures have been successfully removed.
+
+Outputs
+-------
+
+.. code-block:: text
+
+    deface
+    ├── dataset_description.json
+    └── subjects
+        └── sub-01
+            └── ses-01
+                ├── logs
+                │   └── report_<timestamp>.rst
+                ├── figures
+                │   └── sub-01_ses-01_run-01_mod-T1w_defacemosaic.png
+                ├── sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz 
+                └── sub-01_ses-01_run-01_mod-T1w_deface.nii.gz
+
+**Description of contents**:
+
+- ``dataset_description.json``  
+  Metadata describing the defacing dataset, including versioning and
+  processing information.
+- ``logs/report_<timestamp>.rst``  
+  Contains workflow steps and parameters.
+- ``sub-01_ses-01_run-01_mod-T1w_defacemask.nii.gz``  
+  The binary mask identifying voxels removed during defacing (face and ears).
+- ``sub-01_ses-01_run-01_mod-T1w_defacemosaic.png``  
+  A visual mosaic showing before slices for quick quality assessment.
+- ``sub-01_ses-01_run-01_mod-T1w_deface.nii.gz``  
+  The final defaced T1w image with facial structures removed.
 
 Featured examples
 -----------------

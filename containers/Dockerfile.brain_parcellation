@@ -125,6 +125,27 @@ RUN dpkg -i $TMPDIR/freesurfer.deb \
     && unset TMPDIR
 RUN ln -s /usr/local/freesurfer/${FS_VERSION} /opt/freesurfer
 RUN fs_install_mcr R2019b
+RUN curl -o $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation_810.tgz \
+       https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/stage/ERC_bayesian_segmentation_810.tgz \
+    && tar zxpf $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation_810.tgz -C $FREESURFER_HOME/python/packages \
+    && rm $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation_810.tgz
+RUN curl -o $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation/atlas_simplified.zip \
+       https://ftp.nmr.mgh.harvard.edu/pub/dist/lcnpublic/dist/Histo_Atlas_Iglesias_2023/atlas_simplified.zip
+RUN unzip $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation/atlas_simplified.zip -d $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation \
+    && rm $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation/atlas_simplified.zip
+
+# Create a fake cp that filter proviledge argument
+RUN echo '#!/bin/bash' > /usr/local/bin/cp && \
+    echo 'args=()' >> /usr/local/bin/cp && \
+    echo 'for arg in "$@"; do' >> /usr/local/bin/cp && \
+    echo '    case "$arg" in' >> /usr/local/bin/cp && \
+    echo '        -p|--preserve|--preserve=*) ;;' >> /usr/local/bin/cp && \
+    echo '        *) args+=("$arg") ;;' >> /usr/local/bin/cp && \
+    echo '    esac' >> /usr/local/bin/cp && \
+    echo 'done' >> /usr/local/bin/cp && \
+    echo 'echo "[cp wrapper] filtered args: ${args[@]}"' >> /usr/local/bin/cp && \
+    echo '/bin/cp "${args[@]}"' >> /usr/local/bin/cp && \
+    chmod +x /usr/local/bin/cp
 
 # Install: brainprep
 RUN curl -fsSL https://pixi.sh/install.sh | bash
@@ -136,6 +157,7 @@ RUN apt-get update -qq \
     && rm -rf /var/lib/apt/lists/*
 COPY pixi.toml .
 RUN pixi install
+RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainprep
 
 COPY entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh

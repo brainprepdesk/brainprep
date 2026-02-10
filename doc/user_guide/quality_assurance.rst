@@ -13,6 +13,13 @@ clean, reliable, and ready for analysis.
 QA helps standardize datasets, making it easier to replicate findings and
 share data with confidence.
 
+Requirements
+------------
+
+Running the workflow requires:
+
+- **20 GB of RAM**
+
 Description
 -----------
 

@@ -140,7 +140,7 @@ def movedir(
     output_dir : Directory
         Directory where the folder is moved.
     content : bool
-        If True, copy only the content of the source directory. Default False.
+        If True, move the content of the source directory. Default False.
     dryrun : bool
         If True, skip actual computation and file writing. Default False.
 
@@ -154,26 +154,21 @@ def movedir(
     ValueError
         If `source_dir` is not a directory.
     """
-    target_directory = output_dir
-    if not content:
-        target_directory /= source_dir.name
     if not dryrun:
         if not source_dir.is_dir():
             raise ValueError(
                 f"Source '{source_dir}' is not a directory."
             )
         if not content:
-            shutil.copytree(source_dir, output_dir)
+            shutil.move(source_dir, output_dir / source_dir.name)
+            output_dir /= source_dir.name
         else:
             for item in source_dir.iterdir():
                 target = output_dir / item.name
-                if item.is_dir():
-                    shutil.copytree(item, target, dirs_exist_ok=True)
-                else:
-                    shutil.copy2(item, target)
+                shutil.move(item, output_dir / item.name)
             if not any(source_dir.iterdir()):
                 source_dir.rmdir()
-    return (target_directory, )
+    return (output_dir, )
 
 
 @outputdir

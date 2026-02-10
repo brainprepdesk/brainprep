@@ -26,6 +26,9 @@ from build_tests import main as build_tests_main
 def build(
         working_dir,
         bind_dir,
+        partition,
+        freesurfer_license_file,
+        dev=False,
     ):
     """
     Parse available Docker files and generate associated build (creation and
@@ -37,6 +40,12 @@ def build(
         Directory where the instructions will be generated.
     bind_dir : str or Path
         Directory where the data are available.
+    partition : str
+        Name of the partition to use: <name> or <project>:<name>.
+    freesurfer_license_file : str or Path
+        Path to the FreesurFer license file.
+    dev : bool
+        Overwrite the brainprep module in the container image. Default False.
     """
     cw_dir = Path(__file__).parent.resolve()
     working_dir = Path(working_dir)
@@ -52,6 +61,13 @@ def build(
         working_dir,
     )
     placeholder = "{workflow}"
+    image_parameters = f"--cleanenv --home {home_dir} --bind {bind_dir} "
+    if dev:
+        image_parameters += (
+            f"--bind {cw_dir.parent.parent / 'brainprep'}:"
+            "/opt/brainprep/.pixi/envs/default/lib/python3.12/site-packages/"
+            "brainprep "
+        )
     build_tests_main(
         examples_dir,
         infra="slurm",
@@ -72,10 +88,10 @@ def build(
             f"v{version}" /
             placeholder
         ),
-        image_parameters=(
-            f"--cleanenv --home {home_dir} --bind {bind_dir} "
-        ),
+        image_parameters=image_parameters,
         hopla_dir=hopla_dir,
+        partition=partition,
+        freesurfer_license_file=freesurfer_license_file,
     )
 
 

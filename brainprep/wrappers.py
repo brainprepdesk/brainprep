@@ -206,7 +206,7 @@ def _is_list_list_str(
 
 
 def _check_outputs(
-        item: str | Path | list[str] | list[Path] | tuple[str] | tuple[Path],
+        item: File | list[File] | tuple[File],
         dryrun: bool = False,
         verbose: bool = False) -> None:
     """
@@ -214,7 +214,7 @@ def _check_outputs(
 
     Parameters
     ----------
-    item : str | Path | list[str] | list[Path] | tuple[str] | tuple[Path]
+    item : File | list[File] | tuple[File]
         A single file path or a collection of paths to validate.
     dryrun : bool
         If True, skips file existence checks. Default False.
@@ -226,7 +226,7 @@ def _check_outputs(
     FileNotFoundError
         If `dryrun` is False and any specified path does not exist.
     ValueError
-        If the input is neither a path nor a list/tuple of paths.
+        If the input is neither a File nor a list/tuple of Files.
     """
     if isinstance(item, (list, tuple)):
         for subitem in item:
@@ -238,9 +238,11 @@ def _check_outputs(
             raise FileNotFoundError(
                 f"Output file/directory not found: {path}"
             )
+    elif item is None:
+        return
     else:
         raise ValueError(
-            "The outputs must be either a path or a list/tuple of paths."
+            "The outputs must be either a File or a list/tuple of Files."
         )
 
 

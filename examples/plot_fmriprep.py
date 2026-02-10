@@ -73,12 +73,12 @@ commands.append(
         [
             "brainprep", "subject-level-fmriprep",
             "--t1-file", str(data.anat),
-            "--func-files", f"'[{data.func}]'",
+            "--func-files", f"\"['{data.func}']\"",
             "--dataset-description-file", str(data.description),
-            "--freesurfer-dir", "/my/freesurfer/directory",
+            "--freesurfer-dir", "../freesurfer",
             "--output-dir", str(outdir),
             "--keep-intermediate",
-        ] for subject_data in data.values()
+        ]
     ]
 )
 pprint(commands)

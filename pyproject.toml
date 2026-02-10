@@ -81,6 +81,13 @@ brainprep = [
     "workflow/resources/*.tsv",
 ]
 
+[tool.ruff]
+preview = true
+extend-exclude = [
+    "tests",
+]
+line-length = 79
+
 [tool.ruff.lint]
 extend-select = [
     "E",
@@ -100,6 +107,8 @@ extend-select = [
     "RUF",
     "W293", # blank-line-with-whitespace
     "W291", # trailing whitespace
+    "E203", # whitespace before ':'
+    "E501", # line too long (226 > 79 characters)
 ]
 ignore = [
     "D401",     # First line of docstring should be in imperative mood
@@ -107,17 +116,14 @@ ignore = [
     "D200",     # One-line docstring should fit on one line
     "D210",     # whitespaces allowed surrounding docstring text
     "D105",     # Missing docstring in magic method
-    "RUF001"    # String contains ambiguous `ℹ` (INFORMATION SOURCE)
+    "RUF001",   # String contains ambiguous `ℹ` (INFORMATION SOURCE)
+    "FURB189",  # `dict` can be error prone, use `collections.UserDict`
+
 ]
 select = ["D"]   # enable pycodestyle and docstring rules
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
-
-[tool.ruff]
-extend-exclude = [
-    "tests",
-]
 
 [tool.ruff.lint.per-file-ignores]
 "*/__init__.py" = ["F401"]

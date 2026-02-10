@@ -34,7 +34,7 @@ from ..utils import (
 @bids(
     process="quality_assurance",
     bids_file="image_files",
-    container="neurospin/brainprep-qa")
+    container="neurospin/brainprep-quality_assurance")
 @log_runtime(
     title="Subject Level Quality Assurance")
 @save_runtime
@@ -119,7 +119,8 @@ def brainprep_quality_assurance(
 
 @coerceparams
 @bids(
-    process="quality_assurance")
+    process="quality_assurance",
+    container="neurospin/brainprep-quality_assurance")
 @log_runtime(
     title="Group Level Quality Assurance")
 @save_runtime

@@ -100,8 +100,8 @@ def brainprep_fmriprep(
     dataset_description_file : File
         Path to the BIDS dataset description file.
     freesurfer_dir : Directory
-        Path to an existing FreeSurfer subjects directory where the reconall
-        command has already been performed.
+        Path to an existing FreeSurfer subjects directory in which the
+        recon-all commands have already been executed.
     output_dir : Directory
         Directory where the prep-processing related outputs will be saved
         (i.e., the root of your dataset).
@@ -189,36 +189,105 @@ def brainprep_fmriprep(
         output_dir,
         entities,
     )
-    fmri_rest_image_files = list(itertools.chain.from_iterable(
-        [item[1] for item in rfmri_outputs]
-    ))
-    fmri_rest_surf_files = [item[2] for item in rfmri_outputs]
 
     connectivity_files = []
-    for fmri_data in rfmri_outputs:
-        counfounds_file = fmri_data[3]
-        for mask_file, fmri_rest_image_files in zip(
-                fmri_data[0], fmri_data[1], strict=True):
-            for fmri_rest_image_file in fmri_rest_image_files:
-                entities = parse_bids_keys(fmri_rest_image_file)
-                connectivity_files.append(
-                    interfaces.func_vol_connectivity(
-                        fmri_rest_image_file,
-                        mask_file,
-                        counfounds_file,
-                        output_dir,
-                        entities,
-                        fwhm=0.,
-                    )
+    for mask_files, fmri_image_files, _, confounds_file in rfmri_outputs:
+        for mask_file, fmri_image_file in zip(
+                mask_files, fmri_image_files, strict=True):
+            if "space-T1w" in str(fmri_image_file):
+                continue
+            entities = parse_bids_keys(fmri_image_file)
+            connectivity_files.append(
+                interfaces.func_vol_connectivity(
+                    fmri_image_file,
+                    mask_file,
+                    confounds_file,
+                    workspace_dir,
+                    output_dir / "figures",
+                    entities,
+                    fwhm=0.,
                 )
+            )
 
     if not keep_intermediate:
         print_info(f"cleaning workspace directory: {workspace_dir}")
         shutil.rmtree(workspace_dir)
 
     return Bunch(
-        fmri_rest_image_files=fmri_rest_image_files,
-        fmri_rest_surf_files=fmri_rest_surf_files,
+        fmri_rest_image_files=list(itertools.chain.from_iterable(
+            [item[1] for item in rfmri_outputs]
+        )),
+        fmri_rest_surf_files=[
+            item[2] for item in rfmri_outputs
+        ],
         qc_file=qc_file,
         connectivity_files=connectivity_files,
+    )
+
+
+@coerceparams
+@bids(
+    process="fmriprep",
+    container="neurospin/brainprep-fmriprep")
+@log_runtime(
+    title="Group Level fMRI PreProcessing")
+@save_runtime
+def brainprep_group_fmriprep(
+        output_dir: Directory,
+        fd_mean_threshold: float = 0.2,
+        dvars_std_threshold: float = 1.5,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Group level functional MRI pre-processing.
+
+    Scans a derivatives/fmriprep directory, loads confound
+    timeseries TSV files, computes summary QC metrics, applies grounded
+    thresholds, and writes a TSV file containing the results.
+
+    Parameters
+    ----------
+    output_dir : Directory
+        Working directory containing all the subjects.
+    fd_mean_threshold : float
+        Quality control threshold on the Mean Framewise Displacement (mm).
+        Default 0.2.
+    dvars_std_threshold : float
+        Quality control threshold on the Standardized DVARS.
+        Default 1.5.
+    keep_intermediate : bool
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging. Default False.
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+
+        - group_stats_file : File - a TSV file containing quality metrics.
+        - histogram_files : list[File] - PNG files containing histograms of
+          selected important information.
+    """
+    group_stats_file = interfaces.fmriprep_stats(
+        output_dir / "qc",
+        fd_mean_threshold,
+        dvars_std_threshold,
+    )
+    histogram_files = [
+        interfaces.plot_histogram(
+            group_stats_file,
+            "fd_mean",
+            output_dir,
+            bar_coords=[fd_mean_threshold],
+        ),
+        interfaces.plot_histogram(
+            group_stats_file,
+            "dvars_std",
+            output_dir,
+            bar_coords=[dvars_std_threshold],
+        ),
+    ]
+
+    return Bunch(
+        group_stats_file=group_stats_file,
+        histogram_files=histogram_files,
     )

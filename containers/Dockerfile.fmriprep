@@ -1,4 +1,4 @@
-FROM nipreps/fmriprep:25.2.3
+FROM nipreps/fmriprep:25.2.4
 
 ENV LANG="en_US.UTF-8" \
     LC_ALL="en_US.UTF-8"
@@ -22,6 +22,7 @@ ENV PATH="${HOME}/.pixi/bin:${PATH}"
 WORKDIR /opt/brainprep
 COPY pixi.toml .
 RUN pixi install
+RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainprep
 
 COPY entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh
@@ -36,4 +37,4 @@ LABEL org.opencontainers.image.title="BrainPrep functional MRI preprocessings" \
       org.opencontainers.image.documentation="https://neurospin-deepinsight.github.io/brainprep/stable" \
       org.opencontainers.image.source="https://github.com/neurospin-deepinsight/brainprep" \
       org.opencontainers.image.created="2025-01-15" \
-      com.brainprep.fmriprep.version="25.2.3"
+      com.brainprep.fmriprep.version="25.2.4"

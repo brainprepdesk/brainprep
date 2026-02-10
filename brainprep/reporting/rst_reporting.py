@@ -363,15 +363,15 @@ def log_runtime(
     report.register(identifier, "inputs", inputs)
     start = datetime.datetime.now()
     outputs = func(*args, **kw)
-    _outputs = (
+    outputs_ = (
         Bunch(outputs=outputs)
         if not isinstance(outputs, Bunch)
         else outputs
     )
     end = datetime.datetime.now()
-    report.register(identifier, "outputs", _outputs)
+    report.register(identifier, "outputs", outputs_)
     if bunched:
-        outputs = _outputs
+        outputs = outputs_
     runtime = Bunch(
         start=str(start),
         end=str(start),
@@ -398,7 +398,7 @@ def save_runtime(
         *args: Any,
         **kw: Any) -> Any:
     """
-    Decorator that save logged runtime metadata in a 'output_dir/logs' folder.
+    Decorator that save logged runtime metadata in a 'output_dir/log' folder.
 
     Parameters
     ----------
@@ -443,13 +443,13 @@ def save_runtime(
     if parent:
         report_file = (
             Path(inputs.get("output_dir")).parent /
-            "logs" /
+            "log" /
             f"report_{timestamp}.rst"
         )
     else:
         report_file = (
             Path(inputs.get("output_dir")) /
-            "logs" /
+            "log" /
             f"report_{timestamp}.rst"
         )
     report_file.parent.mkdir(parents=True, exist_ok=True)

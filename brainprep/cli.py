@@ -37,14 +37,11 @@ def main():
         "subject-level-quasiraw": wf.brainprep_quasiraw,
         "group-level-quasiraw": wf.brainprep_group_quasiraw,
         "subject-level-brainparc": wf.brainprep_brainparc,
-        "group-level-brainparc": wf.brainprep_group_brainparc,
         "longitudinal-brainparc": wf.brainprep_longitudinal_brainparc,
+        "group-level-brainparc": wf.brainprep_group_brainparc,
         "subject-level-vbm": wf.brainprep_vbm,
-        "group-level-vbm": wf.brainprep_group_vbm,
         "longitudinal-vbm": wf.brainprep_longitudinal_vbm,
+        "group-level-vbm": wf.brainprep_group_vbm,
         "subject-level-fmriprep": wf.brainprep_fmriprep,
-        # "tbss-preproc": wf.brainprep_tbss_preproc,
-        # "tbss": wf.brainprep_tbss,
-        "subject-level-dmriprep": wf.brainprep_dmriprep,
-        "group-level-dmriprep": wf.brainprep_group_dmriprep
+        "group-level-fmriprep": wf.brainprep_group_fmriprep,
     })

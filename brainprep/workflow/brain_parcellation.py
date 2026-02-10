@@ -10,6 +10,7 @@
 Brain parcellation pre-processing.
 """
 
+import os
 import shutil
 
 import brainprep.interfaces as interfaces
@@ -37,14 +38,14 @@ from ..utils import (
     process="brain_parcellation",
     bids_file="t1_file",
     add_subjects=True,
-    container="neurospin/brainprep-brainparc")
+    container="neurospin/brainprep-brain_parcellation")
 @log_runtime(
     title="Subject Level Brain Parcellation")
 @save_runtime
 def brainprep_brainparc(
         t1_file: File,
-        template_dir: Directory,
         output_dir: Directory,
+        analysis_type: str = "sbm",
         do_lgi: bool = False,
         wm_file: File | None = None,
         keep_intermediate: bool = False) -> Bunch:
@@ -67,10 +68,11 @@ def brainprep_brainparc(
     ----------
     t1_file : File
         Path to the input T1w image file.
-    template_dir : Directory
-        Path to the 'fsaverage_sym' template.
     output_dir : Directory
         FreeSurfer working directory containing all the subjects.
+    analysis_type : str
+        Type of the analysis that will be performed: 'sbm' or 'nextbrain'.
+        Default 'sbm'.
     do_lgi : bool
         Perform the Local Gyrification Index (LGI) computation - requires
         Matlab. Default False.
@@ -111,6 +113,8 @@ def brainprep_brainparc(
           Nifti file available in the 'mri' folder.
         - brainparc_image_file : File - a PNG image of the GM mask and GM, WM,
           CSF tissues histograms.
+        - left_seg_file : File - left hemisphere NextBrain atlas.
+        - right_seg_file : File - right hemisphere NextBrain atlas.
 
     Notes
     -----
@@ -129,7 +133,6 @@ def brainprep_brainparc(
     ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
     ...             "sub-01_ses-01_run-01_T1w.nii.gz"
     ...         ),
-    ...         template_dir="/tmp/template",
     ...         output_dir="/tmp/dataset/derivatives",
     ...     )
     >>> outputs
@@ -182,6 +185,22 @@ def brainprep_brainparc(
             "You passed a white matter file as input. This behavior is "
             "deprecated and will be removed in version >1."
         )
+    if analysis_type not in ("vbm", "nextbrain"):
+        raise ValueError(
+            f"Unexpected analysis type: {analysis_type}."
+        )
+
+    if analysis_type == "nextbrain":
+        left_seg_file, right_seg_file = interfaces.nextbrain(
+            t1_file,
+            output_dir,
+            entities,
+        )
+        return Bunch(
+            subject_dir=output_dir / f"run-{entities['run']}",
+            left_seg_file=left_seg_file,
+            right_seg_file=right_seg_file,
+        )
 
     log_file = interfaces.reconall(
         t1_file,
@@ -203,7 +222,6 @@ def brainprep_brainparc(
             command="recon-all",
         )
     left_reg_file, right_reg_file = interfaces.fsaveragesym_surfreg(
-        template_dir,
         output_dir,
         entities,
     )
@@ -212,7 +230,6 @@ def brainprep_brainparc(
      lh_sulc_file, rh_sulc_file) = interfaces.fsaveragesym_projection(
         left_reg_file,
         right_reg_file,
-        template_dir,
         output_dir,
         entities,
     )
@@ -235,6 +252,11 @@ def brainprep_brainparc(
         output_dir,
         entities,
     )
+
+    for name in ("fsaverage", "fsaverage_sym"):
+        template_dir = output_dir / name
+        if template_dir.is_symlink():
+            os.remove(template_dir)
 
     if not keep_intermediate:
         print_info(f"cleaning workspace directory: {workspace_dir}")
@@ -271,7 +293,7 @@ def brainprep_brainparc(
     bids_file="t1_files",
     add_subjects=True,
     longitudinal=True,
-    container="neurospin/brainprep-brainparc")
+    container="neurospin/brainprep-brain_parcellation")
 @log_runtime(
     title="Longitudinal Brain Parcellation")
 @save_runtime(
@@ -287,7 +309,7 @@ def brainprep_longitudinal_brainparc(
     :footcite:p:`reuter2012freesurferlong`. This includes:
 
     1) the creation of a template for this subject.
-    2) the parcellation refinementsfrom the new generated template.
+    2) the parcellation refinements from the new generated template.
 
     Parameters
     ----------
@@ -368,13 +390,14 @@ def brainprep_longitudinal_brainparc(
             log_file,
             command="recon-all",
         )
+
     subject_dirs = []
     for log_file in log_files:
         identifier = log_file.parent.parent.name.split(".long.")[0]
         _, session_name, run_name = identifier.split("_")
         subject_dirs.append(
             interfaces.movedir(
-                source_dir=log_file.parent.parent.parent,
+                source_dir=log_file.parent.parent,
                 output_dir=(
                     output_dir.parent /
                     session_name /
@@ -383,6 +406,15 @@ def brainprep_longitudinal_brainparc(
                 content=True,
             )
         )
+    interfaces.movedir(
+        source_dir=log_tempalte_file.parent.parent,
+        output_dir=output_dir.parent / "template",
+        content=True,
+    )
+
+    for target_dir in output_dir.parent.iterdir():
+        if target_dir.is_symlink():
+            target_dir.unlink()
 
     if not keep_intermediate:
         print_info(f"cleaning workspace directory: {workspace_dir}")
@@ -396,7 +428,7 @@ def brainprep_longitudinal_brainparc(
 @coerceparams
 @bids(
     process="brain_parcellation",
-    container="neurospin/brainprep-brainparc")
+    container="neurospin/brainprep-brain_parcellation")
 @log_runtime(
     title="Group Level Brain Parcellation")
 @save_runtime
@@ -480,15 +512,18 @@ def brainprep_group_brainparc(
         workspace_dir,
         output_dir,
     )
-    euler_numbers_file = interfaces.freesurfer_euler_numbers(
-        output_dir,
-    )
-    euler_numbers_histogram_file = interfaces.plot_histogram(
-        euler_numbers_file,
-        "euler_number",
-        output_dir / "qc",
-        bar_coords=[euler_threshold],
-    )
+    if not longitudinal:
+        euler_numbers_file = interfaces.freesurfer_euler_numbers(
+            output_dir,
+        )
+        euler_numbers_histogram_file = interfaces.plot_histogram(
+            euler_numbers_file,
+            "euler_number",
+            output_dir,
+            bar_coords=[euler_threshold],
+        )
+    else:
+        euler_numbers_file, euler_numbers_histogram_file = (None, None)
 
     if not keep_intermediate:
         print_info(f"cleaning workspace directory: {workspace_dir}")

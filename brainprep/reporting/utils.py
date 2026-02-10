@@ -90,6 +90,7 @@ def png_image_to_base64(
         Binary image string.
     """
     assert image_path.suffix == ".png"
-    with open(image_path, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
+    encoded_string = base64.b64encode(
+        image_path.read_bytes()
+    )
     return encoded_string.decode()

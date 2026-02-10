@@ -281,7 +281,7 @@ def brainprep_group_quasiraw(
     correlation_histogram_file = interfaces.plot_histogram(
         correlations_file,
         "mean_correlation",
-        output_dir / "qc",
+        output_dir,
         bar_coords=[correlation_threshold],
     )
 
@@ -292,7 +292,7 @@ def brainprep_group_quasiraw(
     )
     pca_image_file = interfaces.plot_pca(
         pca_file,
-        output_dir / "qc",
+        output_dir,
     )
 
     return Bunch(

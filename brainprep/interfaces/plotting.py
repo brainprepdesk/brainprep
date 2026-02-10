@@ -32,7 +32,8 @@ from ..wrappers import pywrapper
 
 
 @coerceparams
-@outputdir
+@outputdir(
+    plotting=True)
 @log_runtime(
     bunched=False)
 @pywrapper
@@ -92,7 +93,8 @@ def plot_defacing_mosaic(
 
 
 @coerceparams
-@outputdir
+@outputdir(
+    plotting=True)
 @log_runtime(
     bunched=False)
 @pywrapper
@@ -157,7 +159,8 @@ def plot_histogram(
 
 
 @coerceparams
-@outputdir
+@outputdir(
+    plotting=True)
 @log_runtime(
     bunched=False)
 @pywrapper
@@ -200,7 +203,7 @@ def plot_brainparc(
     if not dryrun:
 
         subject = f"run-{entities['run']}"
-        anat_file = output_dir / subject / "mri" / "norm.mgz"
+        anat_file = output_dir.parent / subject / "mri" / "norm.mgz"
 
         fig, axs = plt.subplots(2)
         plotting.plot_roi(
@@ -214,16 +217,16 @@ def plot_brainparc(
         anat_arr = nibabel.load(anat_file).get_fdata()
         mask_arr = nibabel.load(brain_mask_file).get_fdata()
         bins = np.histogram_bin_edges(
-            anat_arr[mask_arr],
+            anat_arr[mask_arr.astype(bool)],
             bins="auto",
         )
         palette = itertools.cycle(sns.color_palette("Set1"))
         for name, path in [("WM", wm_mask_file),
                            ("GM", gm_mask_file),
                            ("CSF", csf_mask_file)]:
-            mask = nibabel.load(path).get_fdata().astype(int)
+            mask = nibabel.load(path).get_fdata()
             sns.histplot(
-                anat_arr[mask],
+                anat_arr[mask.astype(bool)],
                 bins=bins,
                 color=next(palette),
                 alpha=0.6,
@@ -243,7 +246,8 @@ def plot_brainparc(
 
 
 @coerceparams
-@outputdir
+@outputdir(
+    plotting=True)
 @log_runtime(
     bunched=False)
 @pywrapper
