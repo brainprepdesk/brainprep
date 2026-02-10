@@ -21,8 +21,6 @@ Table of contents
    quasiraw.rst
    vbm.rst
    brain_parcellation.rst
-   dmriprep.rst
-   tbss.rst
    fmriprep.rst
    reporting.rst
    cli.rst

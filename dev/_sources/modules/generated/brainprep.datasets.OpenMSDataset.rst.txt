@@ -7,18 +7,18 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.datasets.anatomical.AnatomicalDataset
-===============================================
+brainprep.datasets.OpenMSDataset
+================================
 
-.. currentmodule:: brainprep.datasets.anatomical
+.. currentmodule:: brainprep.datasets
 
-.. autoclass:: AnatomicalDataset
+.. autoclass:: OpenMSDataset
    :members:
    :show-inheritance:
    :special-members: __init__
    :member-order: alphabetical
 
-.. include:: brainprep.datasets.anatomical.AnatomicalDataset.examples
+.. include:: brainprep.datasets.OpenMSDataset.examples
 
 .. raw:: html
 

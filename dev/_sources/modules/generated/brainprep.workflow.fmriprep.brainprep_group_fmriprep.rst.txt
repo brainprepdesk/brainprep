@@ -7,14 +7,14 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.workflow.dmriprep.brainprep_group_dmriprep
+brainprep.workflow.fmriprep.brainprep_group_fmriprep
 ====================================================
 
-.. currentmodule:: brainprep.workflow.dmriprep
+.. currentmodule:: brainprep.workflow.fmriprep
 
-.. autofunction:: brainprep_group_dmriprep
+.. autofunction:: brainprep_group_fmriprep
 
-.. include:: brainprep.workflow.dmriprep.brainprep_group_dmriprep.examples
+.. include:: brainprep.workflow.fmriprep.brainprep_group_fmriprep.examples
 
 .. raw:: html
 

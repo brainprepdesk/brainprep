@@ -14,22 +14,20 @@ Let's first get some anatomical data.
 """
 
 from pathlib import Path
-from brainprep.datasets import AnatomicalDataset
+from brainprep.datasets import IBCDataset
 from brainprep.utils import Bunch
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
-dataset = AnatomicalDataset(datadir)
+dataset = IBCDataset(datadir)
 data = Bunch(
     sub01=dataset.fetch(
         subject="01",
-        modality="T1w",
-        dtype="cross_sectional",
+        modality="anat|dwi|func",
     ),
     sub02=dataset.fetch(
         subject="02",
-        modality="T1w",
-        dtype="cross_sectional",
+        modality="anat|dwi|func",
     ),
 )
 print(data)
@@ -58,14 +56,18 @@ with Config(dryrun=True, verbose=True):
     for subject_data in data.values():
         report = RSTReport()
         brainprep_quality_assurance(
-            image_files=[subject_data.anat],
+            image_files=[
+                subject_data.anat,
+                subject_data.func,
+                subject_data.dwi
+            ],
             output_dir=outdir,
             keep_intermediate=True,
         )
         print(report)
     report = RSTReport()
     brainprep_group_quality_assurance(
-        modalities=["T1w"],
+        modalities=["T1w", 'bold', 'dwi'],
         output_dir=outdir,
     )
     print(report)
@@ -86,7 +88,9 @@ commands.append(
     [
         [
             "brainprep", "subject-level-qa",
-            "--image-files", f"['{subject_data.anat}']",
+            "--image-files",
+            f"\"['{subject_data.anat}', '{subject_data.func}', "
+            f"'{subject_data.dwi}']\"",
             "--output-dir", str(outdir),
             "--keep-intermediate",
         ] for subject_data in data.values()
@@ -96,7 +100,7 @@ commands.append(
     [
         [
             "brainprep", "group-level-qa",
-            "--modalities", f"['T1w']",
+            "--modalities", f"\"['T1w', 'bold', 'dwi']\"",
             "--output-dir", str(outdir),
         ]
     ]

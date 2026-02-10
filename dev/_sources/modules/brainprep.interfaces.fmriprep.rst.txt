@@ -18,6 +18,7 @@ Functions
    :toctree: generated/
    :template: function.rst
 
+    fmriprep_stats
     fmriprep_wf
     func_vol_connectivity
 

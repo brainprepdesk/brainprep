@@ -3,17 +3,17 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="brainprep.datasets.multi_modal.MultiModalDataset" />
+<meta property="og:title" content="brainprep.interfaces.freesurfer.nextbrain" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https:///github.com.github.io/modules/generated/brainprep.datasets.multi_modal.MultiModalDataset.html" />
+<meta property="og:url" content="https:///github.com.github.io/modules/generated/brainprep.interfaces.freesurfer.nextbrain.html" />
 <meta property="og:site_name" content="brainprep" />
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
-<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.datasets: Module that implements datasets." href="../brainprep.datasets.html" /><link rel="prev" title="brainprep.datasets.multi_modal: Fetcher to download anatomical data." href="../brainprep.datasets.multi_modal.html" />
+<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.interfaces.freesurfer.reconall" href="brainprep.interfaces.freesurfer.reconall.html" /><link rel="prev" title="brainprep.interfaces.freesurfer.mris_apply_reg" href="brainprep.interfaces.freesurfer.mris_apply_reg.html" />
         <link rel="prefetch" href="../../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
-        <title>brainprep.datasets.multi_modal.MultiModalDataset - brainprep 2.0.0.dev documentation</title>
+        <title>brainprep.interfaces.freesurfer.nextbrain - brainprep 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=2da93098" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -183,11 +183,7 @@
 
 <a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
-<div class="announcement">
-  <aside class="announcement-content">
-     <p>This is the development documentation of brainprep (2.0.0.dev) <a class="sd-sphinx-override sd-badge sd-text-wrap sd-btn-outline-dark reference external" href="https:/github.com.github.io/neurospin-deepinsight/stable"><span>Switch to stable version (0.0.2)</span></a></p> 
-  </aside>
-</div>
+
 
 <div class="page">
   <header class="mobile-header">
@@ -198,7 +194,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">brainprep 2.0.0.dev documentation</div></a>
+      <a href="../../index.html"><div class="brand">brainprep 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -224,7 +220,7 @@
     <img class="sidebar-logo" src="../../_static/brainprep-transparent.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">brainprep 2.0.0.dev documentation</span>
+  <span class="sidebar-brand-text">brainprep 2.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -242,7 +238,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../auto_examples/plot_quasiraw.html">Quasi-RAW pre-processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_examples/plot_rst_reporting.html">RST reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_examples/plot_vbm.html">VBM pre-processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/plot_dmriprep.html">fMRI Pre-Processings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_examples/plot_fmriprep.html">fMRI Pre-Processings</a></li>
 </ul>
 </li>
@@ -252,12 +247,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../user_guide/quasiraw.html">3. Quasi RAW</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user_guide/vbm.html">4. Voxel Based Morphometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user_guide/brain_parcellation.html">5. Brain parcellation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/dmriprep.html">6. dMRI Pre-Processings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/tbss.html">7. Tract-Based Spatial Statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/fmriprep.html">8. fMRI Pre-Processings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/reporting.html">9. Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/cli.html">10. CLI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/glossary.html">11. Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/fmriprep.html">6. fMRI Pre-Processings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/reporting.html">7. Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/cli.html">8. CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/glossary.html">9. Glossary</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API References</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -269,21 +262,24 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.config.Config.html">brainprep.config.Config</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.datasets.anatomical.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.anatomical</span></code>: Fetcher to download anatomical data.</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of brainprep.datasets.anatomical: Fetcher to download anatomical data.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.anatomical.AnatomicalDataset.html">brainprep.datasets.anatomical.AnatomicalDataset</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.datasets.ibc.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.ibc</span></code>: Fetcher to download IBC dataset from OpenNeuro.</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of brainprep.datasets.ibc: Fetcher to download IBC dataset from OpenNeuro.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.ibc.IBCDataset.html">brainprep.datasets.ibc.IBCDataset</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="../brainprep.datasets.multi_modal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.multi_modal</span></code>: Fetcher to download anatomical data.</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of brainprep.datasets.multi_modal: Fetcher to download anatomical data.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">brainprep.datasets.multi_modal.MultiModalDataset</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.datasets.openms.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.openms</span></code>: Fetcher to download the OpenMS dataset from GitHub.</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of brainprep.datasets.openms: Fetcher to download the OpenMS dataset from GitHub.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.openms.OpenMSDataset.html">brainprep.datasets.openms.OpenMSDataset</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.datasets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets</span></code>: Module that implements datasets.</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of brainprep.datasets: Module that implements datasets.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.AnatomicalDataset.html">brainprep.datasets.AnatomicalDataset</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.datasets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets</span></code>: Module that implements dataset fetchers.</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of brainprep.datasets: Module that implements dataset fetchers.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.IBCDataset.html">brainprep.datasets.IBCDataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.OpenMSDataset.html">brainprep.datasets.OpenMSDataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.git_download.html">brainprep.datasets.git_download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.openneuro_download.html">brainprep.datasets.openneuro_download</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.datasets.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.utils</span></code>: Dataset creation tools.</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of brainprep.datasets.utils: Dataset creation tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.utils.git_download.html">brainprep.datasets.utils.git_download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.datasets.utils.openneuro_download.html">brainprep.datasets.utils.openneuro_download</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.ants.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.ants</span></code>: ANTs functions.</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.ants: ANTs functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -298,11 +294,12 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.fmriprep</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.fmriprep: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.fmriprep.fmriprep_stats.html">brainprep.interfaces.fmriprep.fmriprep_stats</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.fmriprep.fmriprep_wf.html">brainprep.interfaces.fmriprep.fmriprep_wf</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.fmriprep.func_vol_connectivity.html">brainprep.interfaces.fmriprep.func_vol_connectivity</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.freesurfer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.freesurfer</span></code>: FreeSurfer functions.</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.freesurfer: FreeSurfer functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../brainprep.interfaces.freesurfer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.freesurfer</span></code>: FreeSurfer functions.</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.freesurfer: FreeSurfer functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.aparcstats2table.html">brainprep.interfaces.freesurfer.aparcstats2table</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.asegstats2table.html">brainprep.interfaces.freesurfer.asegstats2table</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.brainmask.html">brainprep.interfaces.freesurfer.brainmask</a></li>
@@ -316,6 +313,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.mgz_to_nii.html">brainprep.interfaces.freesurfer.mgz_to_nii</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.mri_convert.html">brainprep.interfaces.freesurfer.mri_convert</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.mris_apply_reg.html">brainprep.interfaces.freesurfer.mris_apply_reg</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">brainprep.interfaces.freesurfer.nextbrain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.reconall.html">brainprep.interfaces.freesurfer.reconall</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.reconall_longitudinal.html">brainprep.interfaces.freesurfer.reconall_longitudinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.freesurfer.surfreg.html">brainprep.interfaces.freesurfer.surfreg</a></li>
@@ -343,17 +341,12 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.plotting.plot_pca.html">brainprep.interfaces.plotting.plot_pca</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.prequal.prequal_stats.html">brainprep.interfaces.prequal.prequal_stats</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.prequal.prequal_wf.html">brainprep.interfaces.prequal.prequal_wf</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces</span></code>: Module that implements interfaces.</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of brainprep.interfaces: Module that implements interfaces.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces</span></code>: Module that implements interfaces.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces: Module that implements interfaces.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.deface.html">brainprep.interfaces.deface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.reorient.html">brainprep.interfaces.reorient</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.incremental_pca.html">brainprep.interfaces.utils.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
@@ -362,33 +355,33 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.ungzfile.html">brainprep.interfaces.utils.ungzfile</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.html_reporting.HTMLReport.html">brainprep.reporting.html_reporting.HTMLReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.html_reporting.generate_qc_report.html">brainprep.reporting.html_reporting.generate_qc_report</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting</span></code>: Module that implements reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of brainprep.reporting: Module that implements reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting</span></code>: Module that implements reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of brainprep.reporting: Module that implements reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.RSTReport.html">brainprep.reporting.RSTReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.generate_qc_report.html">brainprep.reporting.generate_qc_report</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.rst_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.rst_reporting</span></code>: Provides signature-preserving function decorators in decorator factories.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.reporting.rst_reporting: Provides signature-preserving function decorators in decorator factories.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.rst_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.rst_reporting</span></code>: Provides signature-preserving function decorators in decorator factories.</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of brainprep.reporting.rst_reporting: Provides signature-preserving function decorators in decorator factories.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.rst_reporting.RSTReport.html">brainprep.reporting.rst_reporting.RSTReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.rst_reporting.SingletonReport.html">brainprep.reporting.rst_reporting.SingletonReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.rst_reporting.trace_module_calls.html">brainprep.reporting.rst_reporting.trace_module_calls</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.utils</span></code>: Reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of brainprep.reporting.utils: Reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.utils</span></code>: Reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.reporting.utils: Reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.utils.dataframe_to_html.html">brainprep.reporting.utils.dataframe_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.utils.inject_with_jinja.html">brainprep.reporting.utils.inject_with_jinja</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.reporting.utils.png_image_to_base64.html">brainprep.reporting.utils.png_image_to_base64</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.utils.bunch.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.bunch</span></code>: An extension of dictionaries by enabling values to be accessed by a key or by</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of brainprep.utils.bunch: An extension of dictionaries by enabling values to be accessed by a key or by</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.utils.bunch.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.bunch</span></code>: An extension of dictionaries by enabling values to be accessed by a key or by</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of brainprep.utils.bunch: An extension of dictionaries by enabling values to be accessed by a key or by</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.bunch.Bunch.html">brainprep.utils.bunch.Bunch</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.utils.color.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.color</span></code>: Utility methods to print the results in a terminal using term colors.</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of brainprep.utils.color: Utility methods to print the results in a terminal using term colors.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.utils.color.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.color</span></code>: Utility methods to print the results in a terminal using term colors.</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of brainprep.utils.color: Utility methods to print the results in a terminal using term colors.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.color.Colored.html">brainprep.utils.color.Colored</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.color.attr.html">brainprep.utils.color.attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.color.fg.html">brainprep.utils.color.fg</a></li>
@@ -405,49 +398,45 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.color.stylize.html">brainprep.utils.color.stylize</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.parse_bids_keys.html">brainprep.utils.utils.parse_bids_keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.sidecar_from_file.html">brainprep.utils.utils.sidecar_from_file</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.brain_parcellation.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.brain_parcellation</span></code>: Brain parcellation pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of brainprep.workflow.brain_parcellation: Brain parcellation pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.brain_parcellation.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.brain_parcellation</span></code>: Brain parcellation pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of brainprep.workflow.brain_parcellation: Brain parcellation pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.brain_parcellation.brainprep_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.brain_parcellation.brainprep_group_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_group_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.brain_parcellation.brainprep_longitudinal_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_longitudinal_brainparc</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.defacing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.defacing</span></code>: Brain imaging defacing.</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of brainprep.workflow.defacing: Brain imaging defacing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.defacing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.defacing</span></code>: Brain imaging defacing.</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of brainprep.workflow.defacing: Brain imaging defacing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.defacing.brainprep_defacing.html">brainprep.workflow.defacing.brainprep_defacing</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.dmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.dmriprep</span></code>: Diffusion MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.workflow.dmriprep: Diffusion MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.dmriprep.brainprep_dmriprep.html">brainprep.workflow.dmriprep.brainprep_dmriprep</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.dmriprep.brainprep_group_dmriprep.html">brainprep.workflow.dmriprep.brainprep_group_dmriprep</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.fmriprep</span></code>: Functional MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of brainprep.workflow.fmriprep: Functional MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.fmriprep</span></code>: Functional MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of brainprep.workflow.fmriprep: Functional MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.fmriprep.brainprep_fmriprep.html">brainprep.workflow.fmriprep.brainprep_fmriprep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.fmriprep.brainprep_group_fmriprep.html">brainprep.workflow.fmriprep.brainprep_group_fmriprep</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.quality_assurance.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quality_assurance</span></code>: Quality assurance.</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quality_assurance: Quality assurance.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.quality_assurance.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quality_assurance</span></code>: Quality assurance.</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quality_assurance: Quality assurance.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.quality_assurance.brainprep_group_quality_assurance.html">brainprep.workflow.quality_assurance.brainprep_group_quality_assurance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.quality_assurance.brainprep_quality_assurance.html">brainprep.workflow.quality_assurance.brainprep_quality_assurance</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.quasiraw.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quasiraw</span></code>: Quasi-RAW pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quasiraw: Quasi-RAW pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.quasiraw.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quasiraw</span></code>: Quasi-RAW pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quasiraw: Quasi-RAW pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.quasiraw.brainprep_group_quasiraw.html">brainprep.workflow.quasiraw.brainprep_group_quasiraw</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.quasiraw.brainprep_quasiraw.html">brainprep.workflow.quasiraw.brainprep_quasiraw</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.vbm.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.vbm</span></code>: Diffusion MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of brainprep.workflow.vbm: Diffusion MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.workflow.vbm.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.vbm</span></code>: Diffusion MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of brainprep.workflow.vbm: Diffusion MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.vbm.brainprep_group_vbm.html">brainprep.workflow.vbm.brainprep_group_vbm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.vbm.brainprep_longitudinal_vbm.html">brainprep.workflow.vbm.brainprep_longitudinal_vbm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.workflow.vbm.brainprep_vbm.html">brainprep.workflow.vbm.brainprep_vbm</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.wrappers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.wrappers</span></code>: Functions for running shell commands.</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of brainprep.wrappers: Functions for running shell commands.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.wrappers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.wrappers</span></code>: Functions for running shell commands.</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of brainprep.wrappers: Functions for running shell commands.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.wrappers._check_outputs.html">brainprep.wrappers._check_outputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.wrappers._is_list_list_str.html">brainprep.wrappers._is_list_list_str</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.wrappers._is_list_str.html">brainprep.wrappers._is_list_str</a></li>
@@ -487,12 +476,12 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="https://github.com/neurospin-deepinsight/brainprep/blob/main/doc/modules/generated/brainprep.datasets.multi_modal.MultiModalDataset.rst?plain=true" title="View this page">
+  <a class="muted-link" href="https://github.com/neurospin-deepinsight/brainprep/blob/main/doc/modules/generated/brainprep.interfaces.freesurfer.nextbrain.rst?plain=true" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
 </div><div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/neurospin-deepinsight/brainprep/edit/main/doc/modules/generated/brainprep.datasets.multi_modal.MultiModalDataset.rst" rel="edit" title="Edit this page">
+  <a class="muted-link" href="https://github.com/neurospin-deepinsight/brainprep/edit/main/doc/modules/generated/brainprep.interfaces.freesurfer.nextbrain.rst" rel="edit" title="Edit this page">
     <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
@@ -513,129 +502,44 @@
         <article role="main" id="furo-main-content">
           <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This page is a reference documentation. It only explains the class
-signature, and not how to use it. Please refer to the
+<p>This page is a reference documentation. It only explains the
+function signature, and not how to use it. Please refer to the
 <a class="reference internal" href="../../user_guide/index.html#user-guide"><span class="std std-ref">user guide</span></a> for the big picture.</p>
 </div>
-<section id="brainprep-datasets-multi-modal-multimodaldataset">
-<h1>brainprep.datasets.multi_modal.MultiModalDataset<a class="headerlink" href="#brainprep-datasets-multi-modal-multimodaldataset" title="Link to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="brainprep.datasets.multi_modal.MultiModalDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brainprep.datasets.multi_modal.</span></span><span class="sig-name descname"><span class="pre">MultiModalDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datadir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/7965438/brainprep/datasets/multi_modal.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Multi-modal dataset.</p>
-<p>This <a class="reference external" href="https://www.nitrc.org/projects/multimodal">dataset</a>
-<a class="footnote-reference brackets" href="#footcite-landman2011data" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> contains Magnetic Resonance (MR) images of
-21 healthy volunteers: scan-rescan imaging sessions including MPRAGE,
-FLAIR, DTI, resting state fMRI, B0 and B1 field maps, …</p>
+<section id="brainprep-interfaces-freesurfer-nextbrain">
+<h1>brainprep.interfaces.freesurfer.nextbrain<a class="headerlink" href="#brainprep-interfaces-freesurfer-nextbrain" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="brainprep.interfaces.freesurfer.nextbrain">
+<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.freesurfer.</span></span><span class="sig-name descname"><span class="pre">nextbrain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entities</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/03c2164/brainprep/interfaces/freesurfer.py#L1304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.freesurfer.nextbrain" title="Link to this definition">¶</a></dt>
+<dd><p>Uses NextBrain probabilistic atlas of the human brain, to segment ~300
+distinct ROIs per hemisphere.</p>
+<p>Segmentation relies on a Bayesian algorithm and is thus robust against
+changes in MRI pulse sequence (e.g., T1-weighted, T2-weighted,
+FLAIR, etc).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>datadir</strong><span class="classifier">Directory</span></dt><dd><p>Directory where data will be stored.</p>
+<dt><strong>t1_file</strong><span class="classifier">File</span></dt><dd><p>Path to the input T1w image file.</p>
 </dd>
-</dl>
+<dt><strong>output_dir</strong><span class="classifier">Directory</span></dt><dd><p>FreeSurfer working directory containing all the subjects.</p>
 </dd>
-<dt class="field-even">Attributes<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>_url</strong><span class="classifier">str</span></dt><dd><p>Internal URL used to fetch data.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">References</p>
-<div class="docutils container" id="id2">
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footcite-landman2011data" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>Bennett A Landman, Alan J Huang, Aliya Gifford, Deepti S Vikram, Issel Anne L Lim, Jonathan A D Farrell, John A Bogovic, Jun Hua, Min Chen, Samson Jarso, Seth A Smith, Suresh Joel, Susumu Mori, James J Pekar, Peter B Barker, Jerry L Prince, and Peter C M van Zijl. Multi-parametric neuroimaging reproducibility: a 3-T resource study. <em>Neuroimage</em>, 54(4):2854–2866, February 2011.</p>
-</aside>
-</aside>
-</div>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">brainprep.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">brainprep.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiModalDataset</span>
-<span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">datadir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/tmp/brainprep-data&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">datadir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">MultiModalDataset</span><span class="p">(</span><span class="n">datadir</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Config</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">subject</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">modality</span><span class="o">=</span><span class="s2">&quot;func&quot;</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">session</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
-<span class="go">Bunch(</span>
-<span class="go">  description: PosixPath(&#39;...&#39;)</span>
-<span class="go">  anat: PosixPath(&#39;...&#39;)</span>
-<span class="go">  fmap1: PosixPath(&#39;...&#39;)</span>
-<span class="go">  fmap2: PosixPath(&#39;...&#39;)</span>
-<span class="go">  func: PosixPath(&#39;...&#39;)</span>
-<span class="go">)</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="brainprep.datasets.multi_modal.MultiModalDataset.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datadir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/7965438/brainprep/datasets/multi_modal.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.__init__" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="brainprep.datasets.multi_modal.MultiModalDataset.fetch">
-<span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/7965438/brainprep/datasets/multi_modal.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.fetch" title="Link to this definition">¶</a></dt>
-<dd><p>Fetch data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>subject</strong><span class="classifier">str</span></dt><dd><p>Subject identifier: [‘01’ - ‘21’].</p>
-</dd>
-<dt><strong>modality</strong><span class="classifier">str</span></dt><dd><p>Modality to be fetched: ‘func’ or ‘dwi’.</p>
-</dd>
-<dt><strong>session</strong><span class="classifier">str</span></dt><dd><p>Session: ‘01’ or ‘02’.</p>
+<dt><strong>entities</strong><span class="classifier">dict</span></dt><dd><p>A dictionary of parsed BIDS entities including modality.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>dataset: Bunch</dt><dd><p>Fetched data path. A ‘description’ entry is also available.</p>
+<dt><strong>command</strong><span class="classifier">list[str]</span></dt><dd><p>NextBrain parcellation command-lines.</p>
 </dd>
-</dl>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt>ValueError</dt><dd><p>If data could not be extracted from the fetched archive.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="brainprep.datasets.multi_modal.MultiModalDataset.sanity_check">
-<span class="sig-name descname"><span class="pre">sanity_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/7965438/brainprep/datasets/multi_modal.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.datasets.multi_modal.MultiModalDataset.sanity_check" title="Link to this definition">¶</a></dt>
-<dd><p>Check that the fetch parameters are correct.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>subject</strong><span class="classifier">str</span></dt><dd><p>the subject identifier. This identifier must lie in [‘01’ - ‘30’],
-[‘01’ - ‘20’], for cross sectional or longitudinal data
-respectively.</p>
-</dd>
-<dt><strong>modality</strong><span class="classifier">str</span></dt><dd><p>the modality to be fetched: ‘dwi’, or ‘func’.</p>
-</dd>
-<dt><strong>session</strong><span class="classifier">str</span></dt><dd><p>Session: ‘01’ or ‘02’.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>ValueError</dt><dd><p>If the fetch input parameters are not correct.</p>
+<dt><strong>outputs</strong><span class="classifier">tuple[File]</span></dt><dd><ul class="simple">
+<li><p>left_seg_file : File - Generated left hemisphere NextBrain atlas.</p></li>
+<li><p>right_seg_file : File - Generated right hemisphere NextBrain atlas.</p></li>
+</ul>
 </dd>
 </dl>
 </dd>
 </dl>
-</dd></dl>
-
+<p class="rubric">References</p>
 </dd></dl>
 
 <div style='clear:both'></div></section>
@@ -645,23 +549,23 @@ respectively.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../brainprep.datasets.html">
+          <a class="next-page" href="brainprep.interfaces.freesurfer.reconall.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets</span></code>: Module that implements datasets.</div>
+                <div class="title">brainprep.interfaces.freesurfer.reconall</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../brainprep.datasets.multi_modal.html">
+          <a class="prev-page" href="brainprep.interfaces.freesurfer.mris_apply_reg.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.multi_modal</span></code>: Fetcher to download anatomical data.</div>
+                <div class="title">brainprep.interfaces.freesurfer.mris_apply_reg</div>
                 
               </div>
             </a>
@@ -698,13 +602,8 @@ respectively.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">brainprep.datasets.multi_modal.MultiModalDataset</a><ul>
-<li><a class="reference internal" href="#brainprep.datasets.multi_modal.MultiModalDataset"><code class="docutils literal notranslate"><span class="pre">MultiModalDataset</span></code></a><ul>
-<li><a class="reference internal" href="#brainprep.datasets.multi_modal.MultiModalDataset.__init__"><code class="docutils literal notranslate"><span class="pre">MultiModalDataset.__init__</span></code></a></li>
-<li><a class="reference internal" href="#brainprep.datasets.multi_modal.MultiModalDataset.fetch"><code class="docutils literal notranslate"><span class="pre">MultiModalDataset.fetch</span></code></a></li>
-<li><a class="reference internal" href="#brainprep.datasets.multi_modal.MultiModalDataset.sanity_check"><code class="docutils literal notranslate"><span class="pre">MultiModalDataset.sanity_check</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">brainprep.interfaces.freesurfer.nextbrain</a><ul>
+<li><a class="reference internal" href="#brainprep.interfaces.freesurfer.nextbrain"><code class="docutils literal notranslate"><span class="pre">nextbrain</span></code></a></li>
 </ul>
 </li>
 </ul>

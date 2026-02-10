@@ -7,18 +7,18 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.datasets.AnatomicalDataset
-====================================
+brainprep.datasets.IBCDataset
+=============================
 
 .. currentmodule:: brainprep.datasets
 
-.. autoclass:: AnatomicalDataset
+.. autoclass:: IBCDataset
    :members:
    :show-inheritance:
    :special-members: __init__
    :member-order: alphabetical
 
-.. include:: brainprep.datasets.AnatomicalDataset.examples
+.. include:: brainprep.datasets.IBCDataset.examples
 
 .. raw:: html
 

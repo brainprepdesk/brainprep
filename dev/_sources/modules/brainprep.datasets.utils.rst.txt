@@ -19,6 +19,7 @@ Functions
    :template: function.rst
 
     git_download
+    openneuro_download
 
 
 

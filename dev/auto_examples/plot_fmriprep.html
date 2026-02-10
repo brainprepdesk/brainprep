@@ -11,11 +11,11 @@
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
 <meta name="description" content="Simple example. Example on how to run the fMRI pre-processing using BrainPrep. See user guide for details. Data: Let’s first get some anatomical/functional data. Analysis: Let’s now perform the pre..." />
-<link rel="search" title="Search" href="../search.html" /><link rel="next" title="User guide" href="../user_guide/index.html" /><link rel="prev" title="fMRI Pre-Processings" href="plot_dmriprep.html" />
+<link rel="search" title="Search" href="../search.html" /><link rel="next" title="User guide" href="../user_guide/index.html" /><link rel="prev" title="VBM pre-processing" href="plot_vbm.html" />
         <link rel="prefetch" href="../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
-        <title>fMRI Pre-Processings - brainprep 2.0.0.dev documentation</title>
+        <title>fMRI Pre-Processings - brainprep 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=2da93098" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -185,11 +185,7 @@
 
 <a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
-<div class="announcement">
-  <aside class="announcement-content">
-     <p>This is the development documentation of brainprep (2.0.0.dev) <a class="sd-sphinx-override sd-badge sd-text-wrap sd-btn-outline-dark reference external" href="https:/github.com.github.io/neurospin-deepinsight/stable"><span>Switch to stable version (0.0.2)</span></a></p> 
-  </aside>
-</div>
+
 
 <div class="page">
   <header class="mobile-header">
@@ -200,7 +196,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">brainprep 2.0.0.dev documentation</div></a>
+      <a href="../index.html"><div class="brand">brainprep 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -226,7 +222,7 @@
     <img class="sidebar-logo" src="../_static/brainprep-transparent.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">brainprep 2.0.0.dev documentation</span>
+  <span class="sidebar-brand-text">brainprep 2.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -244,7 +240,6 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_quasiraw.html">Quasi-RAW pre-processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_rst_reporting.html">RST reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_vbm.html">VBM pre-processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_dmriprep.html">fMRI Pre-Processings</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">fMRI Pre-Processings</a></li>
 </ul>
 </li>
@@ -254,12 +249,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/quasiraw.html">3. Quasi RAW</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/vbm.html">4. Voxel Based Morphometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/brain_parcellation.html">5. Brain parcellation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/dmriprep.html">6. dMRI Pre-Processings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/tbss.html">7. Tract-Based Spatial Statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/fmriprep.html">8. fMRI Pre-Processings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/reporting.html">9. Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/cli.html">10. CLI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">11. Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/fmriprep.html">6. fMRI Pre-Processings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/reporting.html">7. Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/cli.html">8. CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/glossary.html">9. Glossary</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../modules/index.html">API References</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API References</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -271,21 +264,24 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.config.Config.html">brainprep.config.Config</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.anatomical.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.anatomical</span></code>: Fetcher to download anatomical data.</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of brainprep.datasets.anatomical: Fetcher to download anatomical data.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.anatomical.AnatomicalDataset.html">brainprep.datasets.anatomical.AnatomicalDataset</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.ibc.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.ibc</span></code>: Fetcher to download IBC dataset from OpenNeuro.</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of brainprep.datasets.ibc: Fetcher to download IBC dataset from OpenNeuro.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.ibc.IBCDataset.html">brainprep.datasets.ibc.IBCDataset</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.multi_modal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.multi_modal</span></code>: Fetcher to download anatomical data.</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of brainprep.datasets.multi_modal: Fetcher to download anatomical data.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.multi_modal.MultiModalDataset.html">brainprep.datasets.multi_modal.MultiModalDataset</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.openms.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.openms</span></code>: Fetcher to download the OpenMS dataset from GitHub.</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of brainprep.datasets.openms: Fetcher to download the OpenMS dataset from GitHub.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.openms.OpenMSDataset.html">brainprep.datasets.openms.OpenMSDataset</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets</span></code>: Module that implements datasets.</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of brainprep.datasets: Module that implements datasets.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.AnatomicalDataset.html">brainprep.datasets.AnatomicalDataset</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets</span></code>: Module that implements dataset fetchers.</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of brainprep.datasets: Module that implements dataset fetchers.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.IBCDataset.html">brainprep.datasets.IBCDataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.OpenMSDataset.html">brainprep.datasets.OpenMSDataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.git_download.html">brainprep.datasets.git_download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.openneuro_download.html">brainprep.datasets.openneuro_download</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.datasets.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.datasets.utils</span></code>: Dataset creation tools.</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of brainprep.datasets.utils: Dataset creation tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.utils.git_download.html">brainprep.datasets.utils.git_download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.datasets.utils.openneuro_download.html">brainprep.datasets.utils.openneuro_download</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.ants.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.ants</span></code>: ANTs functions.</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.ants: ANTs functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -300,6 +296,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.fmriprep</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.fmriprep: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fmriprep.fmriprep_stats.html">brainprep.interfaces.fmriprep.fmriprep_stats</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fmriprep.fmriprep_wf.html">brainprep.interfaces.fmriprep.fmriprep_wf</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.fmriprep.func_vol_connectivity.html">brainprep.interfaces.fmriprep.func_vol_connectivity</a></li>
 </ul>
@@ -318,6 +315,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.mgz_to_nii.html">brainprep.interfaces.freesurfer.mgz_to_nii</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.mri_convert.html">brainprep.interfaces.freesurfer.mri_convert</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.mris_apply_reg.html">brainprep.interfaces.freesurfer.mris_apply_reg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.nextbrain.html">brainprep.interfaces.freesurfer.nextbrain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.reconall.html">brainprep.interfaces.freesurfer.reconall</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.reconall_longitudinal.html">brainprep.interfaces.freesurfer.reconall_longitudinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.freesurfer.surfreg.html">brainprep.interfaces.freesurfer.surfreg</a></li>
@@ -345,17 +343,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.plotting.plot_pca.html">brainprep.interfaces.plotting.plot_pca</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.prequal.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.prequal</span></code>: fMRIprep functions.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.prequal: fMRIprep functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.prequal.prequal_stats.html">brainprep.interfaces.prequal.prequal_stats</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.prequal.prequal_wf.html">brainprep.interfaces.prequal.prequal_wf</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces</span></code>: Module that implements interfaces.</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of brainprep.interfaces: Module that implements interfaces.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces</span></code>: Module that implements interfaces.</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of brainprep.interfaces: Module that implements interfaces.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.deface.html">brainprep.interfaces.deface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.reorient.html">brainprep.interfaces.reorient</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Tools.</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.incremental_pca.html">brainprep.interfaces.utils.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.mask_diff.html">brainprep.interfaces.utils.mask_diff</a></li>
@@ -364,33 +357,33 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.interfaces.utils.ungzfile.html">brainprep.interfaces.utils.ungzfile</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.html_reporting.HTMLReport.html">brainprep.reporting.html_reporting.HTMLReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.html_reporting.generate_qc_report.html">brainprep.reporting.html_reporting.generate_qc_report</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting</span></code>: Module that implements reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of brainprep.reporting: Module that implements reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting</span></code>: Module that implements reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of brainprep.reporting: Module that implements reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.RSTReport.html">brainprep.reporting.RSTReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.generate_qc_report.html">brainprep.reporting.generate_qc_report</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.rst_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.rst_reporting</span></code>: Provides signature-preserving function decorators in decorator factories.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.reporting.rst_reporting: Provides signature-preserving function decorators in decorator factories.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.rst_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.rst_reporting</span></code>: Provides signature-preserving function decorators in decorator factories.</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of brainprep.reporting.rst_reporting: Provides signature-preserving function decorators in decorator factories.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.rst_reporting.RSTReport.html">brainprep.reporting.rst_reporting.RSTReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.rst_reporting.SingletonReport.html">brainprep.reporting.rst_reporting.SingletonReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.rst_reporting.trace_module_calls.html">brainprep.reporting.rst_reporting.trace_module_calls</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.utils</span></code>: Reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of brainprep.reporting.utils: Reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.reporting.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.utils</span></code>: Reporting tools.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.reporting.utils: Reporting tools.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.utils.dataframe_to_html.html">brainprep.reporting.utils.dataframe_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.utils.inject_with_jinja.html">brainprep.reporting.utils.inject_with_jinja</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.reporting.utils.png_image_to_base64.html">brainprep.reporting.utils.png_image_to_base64</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.bunch.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.bunch</span></code>: An extension of dictionaries by enabling values to be accessed by a key or by</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of brainprep.utils.bunch: An extension of dictionaries by enabling values to be accessed by a key or by</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.bunch.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.bunch</span></code>: An extension of dictionaries by enabling values to be accessed by a key or by</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of brainprep.utils.bunch: An extension of dictionaries by enabling values to be accessed by a key or by</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.bunch.Bunch.html">brainprep.utils.bunch.Bunch</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.color.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.color</span></code>: Utility methods to print the results in a terminal using term colors.</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of brainprep.utils.color: Utility methods to print the results in a terminal using term colors.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.color.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.color</span></code>: Utility methods to print the results in a terminal using term colors.</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of brainprep.utils.color: Utility methods to print the results in a terminal using term colors.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.Colored.html">brainprep.utils.color.Colored</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.attr.html">brainprep.utils.color.attr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.fg.html">brainprep.utils.color.fg</a></li>
@@ -407,49 +400,45 @@
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.color.stylize.html">brainprep.utils.color.stylize</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.parse_bids_keys.html">brainprep.utils.utils.parse_bids_keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.utils.utils.sidecar_from_file.html">brainprep.utils.utils.sidecar_from_file</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.brain_parcellation.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.brain_parcellation</span></code>: Brain parcellation pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of brainprep.workflow.brain_parcellation: Brain parcellation pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.brain_parcellation.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.brain_parcellation</span></code>: Brain parcellation pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of brainprep.workflow.brain_parcellation: Brain parcellation pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.brain_parcellation.brainprep_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.brain_parcellation.brainprep_group_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_group_brainparc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.brain_parcellation.brainprep_longitudinal_brainparc.html">brainprep.workflow.brain_parcellation.brainprep_longitudinal_brainparc</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.defacing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.defacing</span></code>: Brain imaging defacing.</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of brainprep.workflow.defacing: Brain imaging defacing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.defacing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.defacing</span></code>: Brain imaging defacing.</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of brainprep.workflow.defacing: Brain imaging defacing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.defacing.brainprep_defacing.html">brainprep.workflow.defacing.brainprep_defacing</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.dmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.dmriprep</span></code>: Diffusion MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.workflow.dmriprep: Diffusion MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.dmriprep.brainprep_dmriprep.html">brainprep.workflow.dmriprep.brainprep_dmriprep</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.dmriprep.brainprep_group_dmriprep.html">brainprep.workflow.dmriprep.brainprep_group_dmriprep</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.fmriprep</span></code>: Functional MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of brainprep.workflow.fmriprep: Functional MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.fmriprep.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.fmriprep</span></code>: Functional MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of brainprep.workflow.fmriprep: Functional MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.fmriprep.brainprep_fmriprep.html">brainprep.workflow.fmriprep.brainprep_fmriprep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.fmriprep.brainprep_group_fmriprep.html">brainprep.workflow.fmriprep.brainprep_group_fmriprep</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.quality_assurance.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quality_assurance</span></code>: Quality assurance.</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quality_assurance: Quality assurance.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.quality_assurance.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quality_assurance</span></code>: Quality assurance.</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quality_assurance: Quality assurance.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quality_assurance.brainprep_group_quality_assurance.html">brainprep.workflow.quality_assurance.brainprep_group_quality_assurance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quality_assurance.brainprep_quality_assurance.html">brainprep.workflow.quality_assurance.brainprep_quality_assurance</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.quasiraw.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quasiraw</span></code>: Quasi-RAW pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quasiraw: Quasi-RAW pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.quasiraw.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.quasiraw</span></code>: Quasi-RAW pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of brainprep.workflow.quasiraw: Quasi-RAW pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quasiraw.brainprep_group_quasiraw.html">brainprep.workflow.quasiraw.brainprep_group_quasiraw</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.quasiraw.brainprep_quasiraw.html">brainprep.workflow.quasiraw.brainprep_quasiraw</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.vbm.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.vbm</span></code>: Diffusion MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of brainprep.workflow.vbm: Diffusion MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.workflow.vbm.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.workflow.vbm</span></code>: Diffusion MRI pre-processing.</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of brainprep.workflow.vbm: Diffusion MRI pre-processing.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.vbm.brainprep_group_vbm.html">brainprep.workflow.vbm.brainprep_group_vbm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.vbm.brainprep_longitudinal_vbm.html">brainprep.workflow.vbm.brainprep_longitudinal_vbm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.workflow.vbm.brainprep_vbm.html">brainprep.workflow.vbm.brainprep_vbm</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.wrappers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.wrappers</span></code>: Functions for running shell commands.</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of brainprep.wrappers: Functions for running shell commands.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/brainprep.wrappers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.wrappers</span></code>: Functions for running shell commands.</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of brainprep.wrappers: Functions for running shell commands.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.wrappers._check_outputs.html">brainprep.wrappers._check_outputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.wrappers._is_list_list_str.html">brainprep.wrappers._is_list_list_str</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/generated/brainprep.wrappers._is_list_str.html">brainprep.wrappers._is_list_str</a></li>
@@ -527,27 +516,23 @@ See <a class="reference internal" href="../user_guide/fmriprep.html#fmriprep"><s
 <h2>Data<a class="headerlink" href="#data" title="Link to this heading">¶</a></h2>
 <p>Let’s first get some anatomical/functional data.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a>
-<span class="kn">from</span><span class="w"> </span><span class="nn">brainprep.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiModalDataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">brainprep.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../modules/generated/brainprep.datasets.IBCDataset.html#brainprep.datasets.IBCDataset" title="brainprep.datasets.IBCDataset" class="sphx-glr-backref-module-brainprep-datasets sphx-glr-backref-type-py-class"><span class="n">IBCDataset</span></a>
 
 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datadir</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;/tmp/brainprep-data&quot;</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir" title="pathlib.Path.mkdir" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-method"><span class="n">datadir</span><span class="o">.</span><span class="n">mkdir</span></a><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">MultiModalDataset</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datadir</span></a><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span>
+<a href="../modules/generated/brainprep.datasets.IBCDataset.html#brainprep.datasets.IBCDataset" title="brainprep.datasets.IBCDataset" class="sphx-glr-backref-module-brainprep-datasets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a> <span class="o">=</span> <a href="../modules/generated/brainprep.datasets.IBCDataset.html#brainprep.datasets.IBCDataset" title="brainprep.datasets.IBCDataset" class="sphx-glr-backref-module-brainprep-datasets sphx-glr-backref-type-py-class"><span class="n">IBCDataset</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datadir</span></a><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <a href="../modules/generated/brainprep.datasets.IBCDataset.html#brainprep.datasets.IBCDataset.fetch" title="brainprep.datasets.IBCDataset.fetch" class="sphx-glr-backref-module-brainprep-datasets sphx-glr-backref-type-py-method"><span class="n">dataset</span><span class="o">.</span><span class="n">fetch</span></a><span class="p">(</span>
     <span class="n">subject</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span>
     <span class="n">modality</span><span class="o">=</span><span class="s2">&quot;func&quot;</span><span class="p">,</span>
-    <span class="n">session</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[info] - extracting: KKI2009-01-fMRI.nii
-[info] - extracting: KKI2009-01-fMRI.par
-Bunch(
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Bunch(
   description: PosixPath(&#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;)
-  anat: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz&#39;)
-  fmap1: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/fmap/sub-01_ses-01_magnitude1.nii.gz&#39;)
-  fmap2: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/fmap/sub-01_ses-01_magnitude2.nii.gz&#39;)
-  func: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz&#39;)
+  anat: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz&#39;)
+  func: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz&#39;)
+  fmap: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/fmap/sub-01_ses-00_task-ArchiStandard_dir-ap_sbref.nii.gz&#39;)
 )
 </pre></div>
 </div>
@@ -580,43 +565,43 @@ to actually run each step and generate results on disk.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[title] - Subject Level fMRI PreProcessing...
-[info] - setting workspace directory: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/workspace
-[command] - fmriprep /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/workspace/rawdata /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01 participant --fs-subjects-dir /my/freesurfer/directory -w /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/workspace/work --n_cpus 1 --stop-on-first-crash --fs-license-file /code/freesurfer.txt --skip_bids_validation --force bbr --no-msm --cifti-output 91k --output-spaces MNI152NLin2009cAsym MNI152NLin6Asym:res-2 fsaverage fsLR --ignore slicetiming --participant_label 01
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-brain_mask.nii.gz
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-preproc_bold.nii.gz
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-fsLR_den-91k_bold.dtseries.nii
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_desc-confounds_timeseries.tsv
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01.html
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_atlas-schaefer200_desc-correlation_connectivity.tsv
-[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv
+[info] - setting workspace directory: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace
+[command] - ls .
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-brain_mask.nii.gz
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-preproc_bold.nii.gz
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsnative_den-91k_bold.dtseries.nii
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsLR_den-91k_bold.dtseries.nii
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_desc-confounds_timeseries.tsv
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01.html
+[info] - checking output: /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv
 [title] - Subject Level fMRI PreProcessing done.
 Bunch(
   step1: Bunch(
     module: &#39;brainprep.workflow.fmriprep.brainprep_fmriprep&#39;
-    description: &#39;\n    Subject level functional MRI pre-processing.\n\n    Applies fmriprep tool :footcite:p:`esteban2019fmriprep` with the following\n    setting:\n\n    1) T1-weighted volume was corrected for INU (intensity non-uniformity)\n       using N4BiasFieldCorrection and skull-stripped using\n       antsBrainExtraction.sh (using the OASIS template).\n    2) Brain mask estimated previously was refined with a custom variation of\n       the method to reconcile ANTs-derived and FreeSurfer-derived\n       segmentations of the cortical gray-matter of Mindboggle.\n    3) Spatial normalization to the ICBM 152 Nonlinear Asymmetrical template\n       version 2009c was performed through nonlinear registration with the\n       antsRegistration tool of ANTs, using brain-extracted versions of both\n       T1w volume and template.\n    4) Brain tissue segmentation of cerebrospinal fluid (CSF), white-matter\n       (WM) and gray-matter (GM) was performed on the brain-extracted T1w\n       using FSL fast.\n    5) Functional data was motion corrected using FSL mcflirt.\n    6) This was followed by co-registration to the corresponding T1w using\n       boundary-based registration with six degrees of freedom, using\n       FreeSurfer bbregister.\n    7) Motion correcting transformations, BOLD-to-T1w transformation and\n       T1w-to-template (MNI) warp were concatenated and applied in a single\n       step using ANTs antsApplyTransforms using Lanczos interpolation.\n    8) Physiological noise regressors were extracted applying CompCor.\n       Principal components were estimated for the two CompCor variants:\n       temporal (tCompCor) and anatomical (aCompCor).A mask to exclude signal\n       with cortical origin was obtained by eroding the brain mask, ensuring\n       it only contained subcortical structures. Six tCompCor components were\n       then calculated including only the top 5% variable voxels within that\n       subcortical mask. For aCompCor, six components were calculated within\n       the intersection of the subcortical mask and the union of CSF and WM\n       masks calculated in T1w space, after their projection to the native\n       space of each functional run.\n    9) Frame-wise displacement was calculated for each functional run using\n       Nipype.\n\n    Then, compute functional ROI-based functional connectivity from\n    pre-processed volumetric fMRI data based on the Schaefer 200 ROI atlas.\n    Connectivity is computed using Pearson correlation.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    func_files : list[File]\n        Path to the input functional image files of one subject.\n    dataset_description_file : File\n        Path to the BIDS dataset description file.\n    freesurfer_dir : Directory\n        Path to an existing FreeSurfer subjects directory where the reconall\n        command has already been performed.\n    output_dir : Directory\n        Directory where the prep-processing related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - fmri_rest_image_files: list[File] - pre-processed rfMRI NIFTI\n          volumes: 2mm MNI152NLin6Asym and MNI152NLin2009cAsym.\n        - fmri_rest_surf_files: File - pre-processed rfMRI CIFTI surfaces:\n          fsLR23k.\n        - qc_file: File - the HTML visual report for the subject\&#39;s data.\n        - connectivity_files: list[File] - TSV files containing the ROI-to-ROI\n          connectivity matrix for each resting-state fMRI pre-processed\n          image.\n\n    Notes\n    -----\n    This workflow assumes the T1w image is organized in BIDS.\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_fmriprep\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_fmriprep(\n    ...         t1_file=(\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;\n    ...         ),\n    ...         func_files=[\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/func/&quot;\n    ...             &quot;sub-01_ses-01_task-rest_run-01_bold.nii.gz&quot;,\n    ...         ],\n    ...         dataset_description_file=(\n    ...             &quot;/tmp/dataset/rawdata/dataset_description.json&quot;\n    ...         ),\n    ...         freesurfer_dir=(\n    ...             &quot;/tmp/dataset/derivatives/brain_parcellation/subjects&quot;\n    ...         ),\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     ) # doctest: +SKIP\n    &gt;&gt;&gt; outputs # doctest: +SKIP\n    Bunch(\n        fmri_rest_image_files=[PosixPath(\&#39;...\&#39;)],\n        fmri_rest_surf_files=[PosixPath(\&#39;...\&#39;)],\n        qc_file=PosixPath(\&#39;...\&#39;),\n        connectivity_files=[PosixPath(\&#39;...\&#39;)],\n    )\n\n    Raises\n    ------\n    ValueError\n        If the input T1w file is not BIDS-compliant.\n\n    References\n    ----------\n\n    .. footbibliography::\n    &#39;
+    description: &#39;\n    Subject level functional MRI pre-processing.\n\n    Applies fmriprep tool :footcite:p:`esteban2019fmriprep` with the following\n    setting:\n\n    1) T1-weighted volume was corrected for INU (intensity non-uniformity)\n       using N4BiasFieldCorrection and skull-stripped using\n       antsBrainExtraction.sh (using the OASIS template).\n    2) Brain mask estimated previously was refined with a custom variation of\n       the method to reconcile ANTs-derived and FreeSurfer-derived\n       segmentations of the cortical gray-matter of Mindboggle.\n    3) Spatial normalization to the ICBM 152 Nonlinear Asymmetrical template\n       version 2009c was performed through nonlinear registration with the\n       antsRegistration tool of ANTs, using brain-extracted versions of both\n       T1w volume and template.\n    4) Brain tissue segmentation of cerebrospinal fluid (CSF), white-matter\n       (WM) and gray-matter (GM) was performed on the brain-extracted T1w\n       using FSL fast.\n    5) Functional data was motion corrected using FSL mcflirt.\n    6) This was followed by co-registration to the corresponding T1w using\n       boundary-based registration with six degrees of freedom, using\n       FreeSurfer bbregister.\n    7) Motion correcting transformations, BOLD-to-T1w transformation and\n       T1w-to-template (MNI) warp were concatenated and applied in a single\n       step using ANTs antsApplyTransforms using Lanczos interpolation.\n    8) Physiological noise regressors were extracted applying CompCor.\n       Principal components were estimated for the two CompCor variants:\n       temporal (tCompCor) and anatomical (aCompCor).A mask to exclude signal\n       with cortical origin was obtained by eroding the brain mask, ensuring\n       it only contained subcortical structures. Six tCompCor components were\n       then calculated including only the top 5% variable voxels within that\n       subcortical mask. For aCompCor, six components were calculated within\n       the intersection of the subcortical mask and the union of CSF and WM\n       masks calculated in T1w space, after their projection to the native\n       space of each functional run.\n    9) Frame-wise displacement was calculated for each functional run using\n       Nipype.\n\n    Then, compute functional ROI-based functional connectivity from\n    pre-processed volumetric fMRI data based on the Schaefer 200 ROI atlas.\n    Connectivity is computed using Pearson correlation.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    func_files : list[File]\n        Path to the input functional image files of one subject.\n    dataset_description_file : File\n        Path to the BIDS dataset description file.\n    freesurfer_dir : Directory\n        Path to an existing FreeSurfer subjects directory in which the\n        recon-all commands have already been executed.\n    output_dir : Directory\n        Directory where the prep-processing related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - fmri_rest_image_files: list[File] - pre-processed rfMRI NIFTI\n          volumes: 2mm MNI152NLin6Asym and MNI152NLin2009cAsym.\n        - fmri_rest_surf_files: File - pre-processed rfMRI CIFTI surfaces:\n          fsLR23k.\n        - qc_file: File - the HTML visual report for the subject\&#39;s data.\n        - connectivity_files: list[File] - TSV files containing the ROI-to-ROI\n          connectivity matrix for each resting-state fMRI pre-processed\n          image.\n\n    Notes\n    -----\n    This workflow assumes the T1w image is organized in BIDS.\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_fmriprep\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_fmriprep(\n    ...         t1_file=(\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;\n    ...         ),\n    ...         func_files=[\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/func/&quot;\n    ...             &quot;sub-01_ses-01_task-rest_run-01_bold.nii.gz&quot;,\n    ...         ],\n    ...         dataset_description_file=(\n    ...             &quot;/tmp/dataset/rawdata/dataset_description.json&quot;\n    ...         ),\n    ...         freesurfer_dir=(\n    ...             &quot;/tmp/dataset/derivatives/brain_parcellation/subjects&quot;\n    ...         ),\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     ) # doctest: +SKIP\n    &gt;&gt;&gt; outputs # doctest: +SKIP\n    Bunch(\n        fmri_rest_image_files=[PosixPath(\&#39;...\&#39;)],\n        fmri_rest_surf_files=[PosixPath(\&#39;...\&#39;)],\n        qc_file=PosixPath(\&#39;...\&#39;),\n        connectivity_files=[PosixPath(\&#39;...\&#39;)],\n    )\n\n    Raises\n    ------\n    ValueError\n        If the input T1w file is not BIDS-compliant.\n\n    References\n    ----------\n\n    .. footbibliography::\n    &#39;
     inputs: Bunch(
-      t1_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz&#39;)
-      func_files: [PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz&#39;)]
+      t1_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz&#39;)
+      func_files: [PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz&#39;)]
       dataset_description_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;)
       freesurfer_dir: PosixPath(&#39;/my/freesurfer/directory&#39;)
-      output_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01&#39;)
+      output_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00&#39;)
       keep_intermediate: True
     )
     outputs: Bunch(
-      fmri_rest_image_files: (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&#39;),)
-      fmri_rest_surf_files: [(PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-fsLR_den-91k_bold.dtseries.nii&#39;),)]
-      qc_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01.html&#39;)
-      connectivity_files: [PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;)]
+      fmri_rest_image_files: [PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-preproc_bold.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&#39;)]
+      fmri_rest_surf_files: [[(PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsnative_den-91k_bold.dtseries.nii&#39;),), (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsLR_den-91k_bold.dtseries.nii&#39;),)]]
+      qc_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01.html&#39;)
+      connectivity_files: [PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-01-14 13:10:44.250589&#39;
-      end: &#39;2026-01-14 13:10:44.250589&#39;
-      execution_time: 1.1905277777777778e-05
-      brainprep_version: &#39;2.0.0.dev&#39;
+      start: &#39;2026-02-10 13:45:58.640158&#39;
+      end: &#39;2026-02-10 13:45:58.640158&#39;
+      execution_time: 5.277333333333333e-05
+      brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmi13qx&#39;
+      hostname: &#39;runnervmwffz4&#39;
     )
     config: Bunch(
       verbose: True
@@ -626,32 +611,32 @@ Bunch(
       spm12_dir: PosixPath(&#39;/opt/cat12&#39;)
       matlab_dir: PosixPath(&#39;/opt/MCR-2017b/v93&#39;)
       tpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii&#39;)
-      darteltpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii&#39;)
+      darteltpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii&#39;)
     )
   )
   step2: Bunch(
     module: &#39;brainprep.interfaces.fmriprep.fmriprep_wf&#39;
-    description: &quot;\n    Compute fMRI prep-processing using fMRIPrep.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    func_files : list[File]\n        Path to the input functional image files of one subject.\n    dataset_description_file : File\n        Path to the BIDS dataset description file.\n    freesurfer_dir : Directory\n        Path to an existing FreeSurfer subjects directory where the reconall\n        command has already been performed.\n    workspace_dir: Directory\n        Working directory with the workspace of the current processing, and\n        where subject specific data are symlinked.\n    output_dir : Directory\n        Directory where the prep-processing related outputs will be saved\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n       Pre-processing command-line.\n    outputs : tuple[File | list[File]]\n        - mask_files : File - Brain masks in template spaces.\n        - fmri_rest_image_files : list[File] - Pre-processed rfMRI volumes:\n          2mm MNI152NLin6Asym and MNI152NLin2009cAsym.\n        - fmri_rest_surf_file: File - Pre-processed rfMRI surfaces: fsLR23k.\n        - confounds_file : File - File with calculated confounds.\n        - qc_file : File - Visual report.\n\n    Notes\n    -----\n    - Creates BIDS subject specific working directory using copy in\n      &#39;rawdata&#39;.\n    - Store intermediate pre-processing outputs in &#39;work&#39;.\n    &quot;
+    description: &quot;\n    Compute fMRI prep-processing using fMRIPrep.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    func_files : list[File]\n        Path to the input functional image files of one subject.\n    dataset_description_file : File\n        Path to the BIDS dataset description file.\n    freesurfer_dir : Directory\n        Path to an existing FreeSurfer subjects directory where the reconall\n        command has already been performed.\n    workspace_dir: Directory\n        Working directory with the workspace of the current processing, and\n        where subject specific data are symlinked.\n    output_dir : Directory\n        Directory where the prep-processing related outputs will be saved\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n       Pre-processing command-line.\n    outputs : tuple[File | list[File]]\n        - mask_files : File - Brain masks in template spaces.\n        - fmri_image_files : list[File] - Pre-processed rfMRI volumes:\n          T1w and MNI152NLin2009cAsym.\n        - fmri_surf_files: File - Pre-processed rfMRI surfaces: fsnative\n          and fsLR23k.\n        - confounds_file : File - File with calculated confounds.\n        - qc_file : File - Visual report.\n\n    Notes\n    -----\n    - Creates BIDS subject specific working directory using copy in\n      &#39;rawdata&#39;.\n    - Store intermediate pre-processing outputs in &#39;work&#39;.\n    &quot;
     trace: &#39;brainprep.workflow.fmriprep.brainprep_fmriprep&#39;
     inputs: Bunch(
-      t1_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz&#39;)
-      func_files: [PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz&#39;)]
+      t1_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz&#39;)
+      func_files: [PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz&#39;)]
       dataset_description_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;)
       freesurfer_dir: PosixPath(&#39;/my/freesurfer/directory&#39;)
-      workspace_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/workspace&#39;)
-      output_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01&#39;)
-      entities: {&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;01&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;, &#39;run&#39;: &#39;01&#39;}
+      workspace_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace&#39;)
+      output_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00&#39;)
+      entities: {&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;00&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;, &#39;run&#39;: &#39;01&#39;}
     )
     outputs: Bunch(
-      outputs: ([[[PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-brain_mask.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz&#39;)], [(PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-preproc_bold.nii.gz&#39;),), (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&#39;),)], (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-fsLR_den-91k_bold.dtseries.nii&#39;),), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_desc-confounds_timeseries.tsv&#39;)]], PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01.html&#39;))
+      outputs: ([[[PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-brain_mask.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz&#39;)], [PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-preproc_bold.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&#39;)], [(PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsnative_den-91k_bold.dtseries.nii&#39;),), (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsLR_den-91k_bold.dtseries.nii&#39;),)], PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_desc-confounds_timeseries.tsv&#39;)]], PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01.html&#39;))
     )
     runtime: Bunch(
-      start: &#39;2026-01-14 13:10:44.254893&#39;
-      end: &#39;2026-01-14 13:10:44.254893&#39;
-      execution_time: 7.842222222222222e-06
-      brainprep_version: &#39;2.0.0.dev&#39;
+      start: &#39;2026-02-10 13:45:58.644163&#39;
+      end: &#39;2026-02-10 13:45:58.644163&#39;
+      execution_time: 5.0077499999999996e-05
+      brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmi13qx&#39;
+      hostname: &#39;runnervmwffz4&#39;
     )
     config: Bunch(
       verbose: True
@@ -661,40 +646,41 @@ Bunch(
       spm12_dir: PosixPath(&#39;/opt/cat12&#39;)
       matlab_dir: PosixPath(&#39;/opt/MCR-2017b/v93&#39;)
       tpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii&#39;)
-      darteltpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii&#39;)
+      darteltpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii&#39;)
     )
   )
   step3: Bunch(
     module: &#39;brainprep.interfaces.fmriprep.func_vol_connectivity&#39;
-    description: &#39;\n    ROI-based functional connectivity from volumetric fMRI data.\n\n    This function uses Nilearn to extract ROI time series and compute\n    functional connectivity based on the Schaefer 200 ROI atlas. It applies\n    the Yeo et al. (2011) preprocessing pipeline, including detrending,\n    filtering, confound regression, and standardization.\n\n    Connectivity is computed using Pearson correlation and saved as a TSV file\n    following BIDS derivatives conventions. The output filename includes BIDS\n    entities and specifies the atlas and metric used.\n\n    Preprocessing steps:\n\n    1. Detrending\n    2. Low-pass and high-pass filtering\n    3. Confound regression\n    4. Standardization\n\n    Filtering:\n\n    - Low-pass removes high-frequency noise (&gt; 0.1 Hz by default).\n    - High-pass removes scanner drift and low-frequency fluctuations\n      (&lt; 0.01 Hz by default).\n\n    Confounds:\n\n    - 1 global signal\n    - 12 motion parameters + derivatives\n    - 8 discrete cosine basis regressors\n    - 2 tissue-based confounds (white matter and CSF)\n\n    Total: 23 base confound regressors\n\n    Scrubbing:\n\n    - Volumes with excessive motion (FD &gt; 0.2 mm or standardized DVARS &gt; 3)\n      are removed.\n    - Segments shorter than `scrub` frames are discarded.\n    - One-hot regressors are added for scrubbed volumes.\n\n    Parameters\n    ----------\n    fmri_rest_image_file : File\n       Pre-processed resting-state fMRI volumes.\n    mask_file : File\n        Brain mask used to restrict signal cleaning.\n    counfounds_file : File\n        Confounds file from fMRIPrep.\n    output_dir : Directory\n        Output directory for generated files.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    low_pass : float\n        Low-pass filter cutoff frequency in Hz. Set to None to disable.\n        Default 0.1.\n    high_pass : float\n        High-pass filter cutoff frequency in Hz. Set to None to disable.\n        Default 0.01\n    scrub : int\n        After accounting for time frames with excessive motion, further remove\n        segments shorter than the given number. The default value is 5. When\n        the value is 0, remove time frames based on excessive framewise\n        displacement and DVARS only. One-hot encoding vectors are added as\n        regressors for each scrubbed frame. Default 5\n    fd_threshold : float\n        Framewise displacement threshold for scrub. This value is typically\n        between 0 and 1 mm. Default 0.2\n    std_dvars_threshold : int\n        Standardized DVARS threshold for scrub. DVARs is defined as root mean\n        squared intensity difference of volume N to volume N + 1. D refers\n        to temporal derivative of timecourses, VARS referring to root mean\n        squared variance over voxels. Default 3.\n    detrend : bool\n        Detrend data prior to confound removal. Default True\n    standardize : bool\n        Set this flag if you want to standardize the output signal between\n        [0 1]. Default True.\n    remove_volumes : bool\n        This flag determines whether contaminated volumes should be removed\n        from the output data. Default True.\n    fwhm : float | list[float]\n        Smoothing strength, expressed as as Full-Width at Half Maximum\n        (fwhm), in millimeters. Can be a single number ``fwhm=8``, the width\n        is identical along x, y and z or ``fwhm=0``, no smoothing is performed.\n        Can be three consecutive numbers, ``fwhm=[1,1.5,2.5]``, giving the fwhm\n        along each axis. Default 0.\n    dryrun : bool\n        If True, skip actual computation and file writing. Default False.\n\n    Returns\n    -------\n    connectivity_file : File\n        Path to the TSV file containing the ROI-to-ROI connectivity matrix.\n\n    Notes\n    -----\n    - ROI atlas used: Schaefer 2018 (200 regions)\n    - Connectivity metric: Pearson correlation\n    &#39;
+    description: &quot;\n    ROI-based functional connectivity from volumetric fMRI data.\n\n    This function uses Nilearn to extract ROI time series and compute\n    functional connectivity based on the Schaefer 200 ROI atlas. It applies\n    the Yeo et al. (2011) preprocessing pipeline, including detrending,\n    filtering, confound regression, and standardization.\n\n    Connectivity is computed using Pearson correlation and saved as a TSV file\n    following BIDS derivatives conventions. The output filename includes BIDS\n    entities and specifies the atlas and metric used.\n\n    Preprocessing steps:\n\n    1. Detrending\n    2. Low-pass and high-pass filtering\n    3. Confound regression\n    4. Standardization\n\n    Filtering:\n\n    - Low-pass removes high-frequency noise (&gt; 0.1 Hz by default).\n    - High-pass removes scanner drift and low-frequency fluctuations\n      (&lt; 0.01 Hz by default).\n\n    Confounds:\n\n    - 1 global signal\n    - 12 motion parameters + derivatives\n    - 8 discrete cosine basis regressors\n    - 2 tissue-based confounds (white matter and CSF)\n\n    Total: 23 base confound regressors\n\n    Scrubbing:\n\n    - Volumes with excessive motion (FD &gt; 0.2 mm or standardized DVARS &gt; 3)\n      are removed.\n    - Segments shorter than `scrub` frames are discarded.\n    - One-hot regressors are added for scrubbed volumes.\n\n    Parameters\n    ----------\n    fmri_rest_image_file : File\n       Pre-processed resting-state fMRI volumes.\n    mask_file : File\n        Brain mask used to restrict signal cleaning.\n    counfounds_file : File\n        Confounds file from fMRIPrep.\n    workspace_dir: Directory\n        Working directory with the workspace of the current processing.\n    output_dir : Directory\n        Output directory for generated files.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    low_pass : float\n        Low-pass filter cutoff frequency in Hz. Set to None to disable.\n        Default 0.1.\n    high_pass : float\n        High-pass filter cutoff frequency in Hz. Set to None to disable.\n        Default 0.01\n    scrub : int\n        After accounting for time frames with excessive motion, further remove\n        segments shorter than the given number. The default value is 5. When\n        the value is 0, remove time frames based on excessive framewise\n        displacement and DVARS only. One-hot encoding vectors are added as\n        regressors for each scrubbed frame. Default 5\n    fd_threshold : float\n        Framewise displacement threshold for scrub. This value is typically\n        between 0 and 1 mm. Default 0.2\n    std_dvars_threshold : int\n        Standardized DVARS threshold for scrub. DVARs is defined as root mean\n        squared intensity difference of volume N to volume N + 1. D refers\n        to temporal derivative of timecourses, VARS referring to root mean\n        squared variance over voxels. Default 3.\n    detrend : bool\n        Detrend data prior to confound removal. Default True\n    standardize : str | None\n        Strategy to standardize the signal: &#39;zscore_sample&#39;, &#39;psc&#39;, or None .\n        Default &#39;zscore_sample&#39;.\n    remove_volumes : bool\n        This flag determines whether contaminated volumes should be removed\n        from the output data. Default True.\n    fwhm : float | list[float]\n        Smoothing strength, expressed as as Full-Width at Half Maximum\n        (fwhm), in millimeters. Can be a single number ``fwhm=8``, the width\n        is identical along x, y and z or ``fwhm=0``, no smoothing is performed.\n        Can be three consecutive numbers, ``fwhm=[1,1.5,2.5]``, giving the fwhm\n        along each axis. Default 0.\n    dryrun : bool\n        If True, skip actual computation and file writing. Default False.\n\n    Returns\n    -------\n    connectivity_file : File\n        Path to the TSV file containing the ROI-to-ROI connectivity matrix.\n\n    Notes\n    -----\n    - ROI atlas used: Schaefer 2018 (200 regions)\n    - Connectivity metric: Pearson correlation\n    &quot;
     trace: &#39;brainprep.workflow.fmriprep.brainprep_fmriprep&#39;
     inputs: Bunch(
-      fmri_rest_image_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-preproc_bold.nii.gz&#39;)
-      mask_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_desc-brain_mask.nii.gz&#39;)
-      counfounds_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_desc-confounds_timeseries.tsv&#39;)
-      output_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01&#39;)
-      entities: {&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;01&#39;, &#39;task&#39;: &#39;rest&#39;, &#39;run&#39;: &#39;01&#39;, &#39;space&#39;: &#39;MNI152NLin6Asym&#39;, &#39;res&#39;: &#39;2&#39;, &#39;modality&#39;: &#39;bold&#39;, &#39;mod&#39;: &#39;bold&#39;}
+      fmri_rest_image_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&#39;)
+      mask_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz&#39;)
+      counfounds_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_desc-confounds_timeseries.tsv&#39;)
+      workspace_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace&#39;)
+      output_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures&#39;)
+      entities: {&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;00&#39;, &#39;task&#39;: &#39;ArchiStandard&#39;, &#39;dir&#39;: &#39;pa&#39;, &#39;space&#39;: &#39;MNI152NLin2009cAsym&#39;, &#39;modality&#39;: &#39;bold&#39;, &#39;mod&#39;: &#39;bold&#39;, &#39;run&#39;: &#39;01&#39;}
       low_pass: 0.1
       high_pass: 0.01
       scrub: 5
       fd_threshold: 0.2
       std_dvars_threshold: 3
       detrend: True
-      standardize: True
+      standardize: &#39;zscore_sample&#39;
       remove_volumes: True
       fwhm: 0.0
       dryrun: False
     )
     outputs: Bunch(
-      outputs: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin6Asym_res-2_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;)
+      outputs: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;)
     )
     runtime: Bunch(
-      start: &#39;2026-01-14 13:10:44.287995&#39;
-      end: &#39;2026-01-14 13:10:44.287995&#39;
-      execution_time: 7.111111111111111e-08
-      brainprep_version: &#39;2.0.0.dev&#39;
+      start: &#39;2026-02-10 13:45:58.829066&#39;
+      end: &#39;2026-02-10 13:45:58.829066&#39;
+      execution_time: 7.222222222222221e-08
+      brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmi13qx&#39;
+      hostname: &#39;runnervmwffz4&#39;
     )
     config: Bunch(
       verbose: True
@@ -704,50 +690,7 @@ Bunch(
       spm12_dir: PosixPath(&#39;/opt/cat12&#39;)
       matlab_dir: PosixPath(&#39;/opt/MCR-2017b/v93&#39;)
       tpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii&#39;)
-      darteltpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii&#39;)
-    )
-  )
-  step4: Bunch(
-    module: &#39;brainprep.interfaces.fmriprep.func_vol_connectivity&#39;
-    description: &#39;\n    ROI-based functional connectivity from volumetric fMRI data.\n\n    This function uses Nilearn to extract ROI time series and compute\n    functional connectivity based on the Schaefer 200 ROI atlas. It applies\n    the Yeo et al. (2011) preprocessing pipeline, including detrending,\n    filtering, confound regression, and standardization.\n\n    Connectivity is computed using Pearson correlation and saved as a TSV file\n    following BIDS derivatives conventions. The output filename includes BIDS\n    entities and specifies the atlas and metric used.\n\n    Preprocessing steps:\n\n    1. Detrending\n    2. Low-pass and high-pass filtering\n    3. Confound regression\n    4. Standardization\n\n    Filtering:\n\n    - Low-pass removes high-frequency noise (&gt; 0.1 Hz by default).\n    - High-pass removes scanner drift and low-frequency fluctuations\n      (&lt; 0.01 Hz by default).\n\n    Confounds:\n\n    - 1 global signal\n    - 12 motion parameters + derivatives\n    - 8 discrete cosine basis regressors\n    - 2 tissue-based confounds (white matter and CSF)\n\n    Total: 23 base confound regressors\n\n    Scrubbing:\n\n    - Volumes with excessive motion (FD &gt; 0.2 mm or standardized DVARS &gt; 3)\n      are removed.\n    - Segments shorter than `scrub` frames are discarded.\n    - One-hot regressors are added for scrubbed volumes.\n\n    Parameters\n    ----------\n    fmri_rest_image_file : File\n       Pre-processed resting-state fMRI volumes.\n    mask_file : File\n        Brain mask used to restrict signal cleaning.\n    counfounds_file : File\n        Confounds file from fMRIPrep.\n    output_dir : Directory\n        Output directory for generated files.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    low_pass : float\n        Low-pass filter cutoff frequency in Hz. Set to None to disable.\n        Default 0.1.\n    high_pass : float\n        High-pass filter cutoff frequency in Hz. Set to None to disable.\n        Default 0.01\n    scrub : int\n        After accounting for time frames with excessive motion, further remove\n        segments shorter than the given number. The default value is 5. When\n        the value is 0, remove time frames based on excessive framewise\n        displacement and DVARS only. One-hot encoding vectors are added as\n        regressors for each scrubbed frame. Default 5\n    fd_threshold : float\n        Framewise displacement threshold for scrub. This value is typically\n        between 0 and 1 mm. Default 0.2\n    std_dvars_threshold : int\n        Standardized DVARS threshold for scrub. DVARs is defined as root mean\n        squared intensity difference of volume N to volume N + 1. D refers\n        to temporal derivative of timecourses, VARS referring to root mean\n        squared variance over voxels. Default 3.\n    detrend : bool\n        Detrend data prior to confound removal. Default True\n    standardize : bool\n        Set this flag if you want to standardize the output signal between\n        [0 1]. Default True.\n    remove_volumes : bool\n        This flag determines whether contaminated volumes should be removed\n        from the output data. Default True.\n    fwhm : float | list[float]\n        Smoothing strength, expressed as as Full-Width at Half Maximum\n        (fwhm), in millimeters. Can be a single number ``fwhm=8``, the width\n        is identical along x, y and z or ``fwhm=0``, no smoothing is performed.\n        Can be three consecutive numbers, ``fwhm=[1,1.5,2.5]``, giving the fwhm\n        along each axis. Default 0.\n    dryrun : bool\n        If True, skip actual computation and file writing. Default False.\n\n    Returns\n    -------\n    connectivity_file : File\n        Path to the TSV file containing the ROI-to-ROI connectivity matrix.\n\n    Notes\n    -----\n    - ROI atlas used: Schaefer 2018 (200 regions)\n    - Connectivity metric: Pearson correlation\n    &#39;
-    trace: &#39;brainprep.workflow.fmriprep.brainprep_fmriprep&#39;
-    inputs: Bunch(
-      fmri_rest_image_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&#39;)
-      mask_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz&#39;)
-      counfounds_file: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/func/sub-01_ses-01_task-rest_run-01_desc-confounds_timeseries.tsv&#39;)
-      output_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01&#39;)
-      entities: {&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;01&#39;, &#39;task&#39;: &#39;rest&#39;, &#39;run&#39;: &#39;01&#39;, &#39;space&#39;: &#39;MNI152NLin2009cAsym&#39;, &#39;modality&#39;: &#39;bold&#39;, &#39;mod&#39;: &#39;bold&#39;}
-      low_pass: 0.1
-      high_pass: 0.01
-      scrub: 5
-      fd_threshold: 0.2
-      std_dvars_threshold: 3
-      detrend: True
-      standardize: True
-      remove_volumes: True
-      fwhm: 0.0
-      dryrun: False
-    )
-    outputs: Bunch(
-      outputs: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-01/sub-01/ses-01/sub-01_ses-01_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;)
-    )
-    runtime: Bunch(
-      start: &#39;2026-01-14 13:10:44.292025&#39;
-      end: &#39;2026-01-14 13:10:44.292025&#39;
-      execution_time: 6e-08
-      brainprep_version: &#39;2.0.0.dev&#39;
-      platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmi13qx&#39;
-    )
-    config: Bunch(
-      verbose: True
-      dryrun: True
-      with_color: True
-      cat12_file: PosixPath(&#39;/opt/cat12/standalone/cat_standalone.sh&#39;)
-      spm12_dir: PosixPath(&#39;/opt/cat12&#39;)
-      matlab_dir: PosixPath(&#39;/opt/MCR-2017b/v93&#39;)
-      tpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii&#39;)
-      darteltpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii&#39;)
+      darteltpm_file: PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii&#39;)
     )
   )
 )
@@ -767,12 +710,12 @@ See <a class="reference internal" href="../user_guide/cli.html#cli"><span class=
         <span class="p">[</span>
             <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;subject-level-fmriprep&quot;</span><span class="p">,</span>
             <span class="s2">&quot;--t1-file&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">anat</span></a><span class="p">),</span>
-            <span class="s2">&quot;--func-files&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&#39;[</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">func</span></a><span class="si">}</span><span class="s2">]&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--func-files&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">[&#39;</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">func</span></a><span class="si">}</span><span class="s2">&#39;]</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="s2">&quot;--dataset-description-file&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">description</span></a><span class="p">),</span>
-            <span class="s2">&quot;--freesurfer-dir&quot;</span><span class="p">,</span> <span class="s2">&quot;/my/freesurfer/directory&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--freesurfer-dir&quot;</span><span class="p">,</span> <span class="s2">&quot;../freesurfer&quot;</span><span class="p">,</span>
             <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
             <span class="s2">&quot;--keep-intermediate&quot;</span><span class="p">,</span>
-        <span class="p">]</span> <span class="k">for</span> <span class="n">subject_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="p">]</span>
     <span class="p">]</span>
 <span class="p">)</span>
 <a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">commands</span></a><span class="p">)</span>
@@ -781,65 +724,13 @@ See <a class="reference internal" href="../user_guide/cli.html#cli"><span class=
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[[[&#39;brainprep&#39;,
    &#39;subject-level-fmriprep&#39;,
    &#39;--t1-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz&#39;,
+   &#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz&#39;,
    &#39;--func-files&#39;,
-   &quot;&#39;[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]&#39;&quot;,
+   &#39;&quot;[\&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz\&#39;]&quot;&#39;,
    &#39;--dataset-description-file&#39;,
    &#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;,
    &#39;--freesurfer-dir&#39;,
-   &#39;/my/freesurfer/directory&#39;,
-   &#39;--output-dir&#39;,
-   &#39;/tmp/brainprep-fmriprep&#39;,
-   &#39;--keep-intermediate&#39;],
-  [&#39;brainprep&#39;,
-   &#39;subject-level-fmriprep&#39;,
-   &#39;--t1-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz&#39;,
-   &#39;--func-files&#39;,
-   &quot;&#39;[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]&#39;&quot;,
-   &#39;--dataset-description-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;,
-   &#39;--freesurfer-dir&#39;,
-   &#39;/my/freesurfer/directory&#39;,
-   &#39;--output-dir&#39;,
-   &#39;/tmp/brainprep-fmriprep&#39;,
-   &#39;--keep-intermediate&#39;],
-  [&#39;brainprep&#39;,
-   &#39;subject-level-fmriprep&#39;,
-   &#39;--t1-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz&#39;,
-   &#39;--func-files&#39;,
-   &quot;&#39;[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]&#39;&quot;,
-   &#39;--dataset-description-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;,
-   &#39;--freesurfer-dir&#39;,
-   &#39;/my/freesurfer/directory&#39;,
-   &#39;--output-dir&#39;,
-   &#39;/tmp/brainprep-fmriprep&#39;,
-   &#39;--keep-intermediate&#39;],
-  [&#39;brainprep&#39;,
-   &#39;subject-level-fmriprep&#39;,
-   &#39;--t1-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz&#39;,
-   &#39;--func-files&#39;,
-   &quot;&#39;[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]&#39;&quot;,
-   &#39;--dataset-description-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;,
-   &#39;--freesurfer-dir&#39;,
-   &#39;/my/freesurfer/directory&#39;,
-   &#39;--output-dir&#39;,
-   &#39;/tmp/brainprep-fmriprep&#39;,
-   &#39;--keep-intermediate&#39;],
-  [&#39;brainprep&#39;,
-   &#39;subject-level-fmriprep&#39;,
-   &#39;--t1-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii.gz&#39;,
-   &#39;--func-files&#39;,
-   &quot;&#39;[/tmp/brainprep-data/rawdata/sub-01/ses-01/func/sub-01_ses-01_task-rest_bold.nii.gz]&#39;&quot;,
-   &#39;--dataset-description-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;,
-   &#39;--freesurfer-dir&#39;,
-   &#39;/my/freesurfer/directory&#39;,
+   &#39;../freesurfer&#39;,
    &#39;--output-dir&#39;,
    &#39;/tmp/brainprep-fmriprep&#39;,
    &#39;--keep-intermediate&#39;]]]
@@ -857,8 +748,8 @@ In practice, this means that once the CLI has produced the appropriate
 instructions, you can simply copy and run them inside the container to
 achieve the intended results. You can find the BrainPrep images on Docker
 Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 45.628 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  296 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.487 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  108 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-fmriprep-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/4670340dd71857f94bc653cf2c7edffa/plot_fmriprep.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_fmriprep.ipynb</span></code></a></p>
@@ -888,14 +779,14 @@ Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neu
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="plot_dmriprep.html">
+          <a class="prev-page" href="plot_vbm.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">fMRI Pre-Processings</div>
+                <div class="title">VBM pre-processing</div>
                 
               </div>
             </a>

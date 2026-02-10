@@ -7,14 +7,14 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.interfaces.prequal.prequal_wf
-=======================================
+brainprep.datasets.utils.openneuro_download
+===========================================
 
-.. currentmodule:: brainprep.interfaces.prequal
+.. currentmodule:: brainprep.datasets.utils
 
-.. autofunction:: prequal_wf
+.. autofunction:: openneuro_download
 
-.. include:: brainprep.interfaces.prequal.prequal_wf.examples
+.. include:: brainprep.datasets.utils.openneuro_download.examples
 
 .. raw:: html
 

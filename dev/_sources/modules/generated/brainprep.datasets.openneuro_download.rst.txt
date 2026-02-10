@@ -7,14 +7,14 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.workflow.dmriprep.brainprep_dmriprep
-==============================================
+brainprep.datasets.openneuro_download
+=====================================
 
-.. currentmodule:: brainprep.workflow.dmriprep
+.. currentmodule:: brainprep.datasets
 
-.. autofunction:: brainprep_dmriprep
+.. autofunction:: openneuro_download
 
-.. include:: brainprep.workflow.dmriprep.brainprep_dmriprep.examples
+.. include:: brainprep.datasets.openneuro_download.examples
 
 .. raw:: html
 

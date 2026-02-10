@@ -7,18 +7,18 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.datasets.multi_modal.MultiModalDataset
-================================================
+brainprep.datasets.ibc.IBCDataset
+=================================
 
-.. currentmodule:: brainprep.datasets.multi_modal
+.. currentmodule:: brainprep.datasets.ibc
 
-.. autoclass:: MultiModalDataset
+.. autoclass:: IBCDataset
    :members:
    :show-inheritance:
    :special-members: __init__
    :member-order: alphabetical
 
-.. include:: brainprep.datasets.multi_modal.MultiModalDataset.examples
+.. include:: brainprep.datasets.ibc.IBCDataset.examples
 
 .. raw:: html
 

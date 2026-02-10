@@ -7,14 +7,14 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.interfaces.prequal.prequal_stats
-==========================================
+brainprep.interfaces.freesurfer.nextbrain
+=========================================
 
-.. currentmodule:: brainprep.interfaces.prequal
+.. currentmodule:: brainprep.interfaces.freesurfer
 
-.. autofunction:: prequal_stats
+.. autofunction:: nextbrain
 
-.. include:: brainprep.interfaces.prequal.prequal_stats.examples
+.. include:: brainprep.interfaces.freesurfer.nextbrain.examples
 
 .. raw:: html
 

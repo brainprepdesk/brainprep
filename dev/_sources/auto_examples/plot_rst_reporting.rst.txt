@@ -136,12 +136,12 @@ Now let's generate the RST report.
           val: 1
         )
         runtime: Bunch(
-          start: '2026-01-14 13:05:24.833297'
-          end: '2026-01-14 13:05:24.833297'
+          start: '2026-02-10 13:45:57.581213'
+          end: '2026-02-10 13:45:57.581213'
           execution_time: 1.6666666666666667e-09
-          brainprep_version: '2.0.0.dev'
+          brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmi13qx'
+          hostname: 'runnervmwffz4'
         )
         config: Bunch(
           verbose: True
@@ -151,7 +151,7 @@ Now let's generate the RST report.
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
-          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
         )
       )
     )
@@ -170,12 +170,12 @@ Now let's generate the RST report.
           val: 4
         )
         runtime: Bunch(
-          start: '2026-01-14 13:05:24.838439'
-          end: '2026-01-14 13:05:24.838439'
-          execution_time: 1.0033333333333334e-06
-          brainprep_version: '2.0.0.dev'
+          start: '2026-02-10 13:45:57.585812'
+          end: '2026-02-10 13:45:57.585812'
+          execution_time: 8.444444444444445e-07
+          brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmi13qx'
+          hostname: 'runnervmwffz4'
         )
         config: Bunch(
           verbose: True
@@ -185,7 +185,7 @@ Now let's generate the RST report.
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
-          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
         )
       )
       step2: Bunch(
@@ -198,12 +198,12 @@ Now let's generate the RST report.
           val2: 4
         )
         runtime: Bunch(
-          start: '2026-01-14 13:05:24.842016'
-          end: '2026-01-14 13:05:24.842016'
-          execution_time: 8.333333333333334e-10
-          brainprep_version: '2.0.0.dev'
+          start: '2026-02-10 13:45:57.588827'
+          end: '2026-02-10 13:45:57.588827'
+          execution_time: 1.111111111111111e-09
+          brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmi13qx'
+          hostname: 'runnervmwffz4'
         )
         config: Bunch(
           verbose: True
@@ -213,7 +213,7 @@ Now let's generate the RST report.
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
-          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_volumes/Template_1_IXI555_MNI152.nii')
+          darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
         )
       )
     )
@@ -224,9 +224,9 @@ Now let's generate the RST report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.166 seconds)
+   **Total running time of the script:** (0 minutes 0.218 seconds)
 
-**Estimated memory usage:**  106 MB
+**Estimated memory usage:**  108 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_rst_reporting.py:

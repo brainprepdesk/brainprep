@@ -12,8 +12,8 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
 
    brainprep.cli.rst
    brainprep.config.rst
-   brainprep.datasets.anatomical.rst
-   brainprep.datasets.multi_modal.rst
+   brainprep.datasets.ibc.rst
+   brainprep.datasets.openms.rst
    brainprep.datasets.rst
    brainprep.datasets.utils.rst
    brainprep.interfaces.ants.rst
@@ -23,7 +23,6 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
    brainprep.interfaces.fsl.rst
    brainprep.interfaces.mriqc.rst
    brainprep.interfaces.plotting.rst
-   brainprep.interfaces.prequal.rst
    brainprep.interfaces.rst
    brainprep.interfaces.utils.rst
    brainprep.reporting.html_reporting.rst
@@ -35,7 +34,6 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
    brainprep.utils.utils.rst
    brainprep.workflow.brain_parcellation.rst
    brainprep.workflow.defacing.rst
-   brainprep.workflow.dmriprep.rst
    brainprep.workflow.fmriprep.rst
    brainprep.workflow.quality_assurance.rst
    brainprep.workflow.quasiraw.rst

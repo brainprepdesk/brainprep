@@ -1,5 +1,5 @@
-:mod:`brainprep.datasets`: Module that implements datasets.
-===========================================================
+:mod:`brainprep.datasets`: Module that implements dataset fetchers.
+===================================================================
 
 .. automodule:: brainprep.datasets
    :no-members:
@@ -16,7 +16,8 @@ Classes
    :toctree: generated/
    :template: class.rst
 
-    AnatomicalDataset
+    IBCDataset
+    OpenMSDataset
 
 .. .. autoclasstree:: brainprep.datasets
        :strict:
@@ -33,6 +34,7 @@ Functions
    :template: function.rst
 
     git_download
+    openneuro_download
 
 
 

@@ -19,6 +19,7 @@ Functions
    :template: function.rst
 
     brainprep_fmriprep
+    brainprep_group_fmriprep
 
 
 

@@ -14,12 +14,12 @@ Let's first get some anatomical data.
 """
 
 from pathlib import Path
-from brainprep.datasets import AnatomicalDataset
+from brainprep.datasets import OpenMSDataset
 from brainprep.utils import Bunch
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
-dataset = AnatomicalDataset(datadir)
+dataset = OpenMSDataset(datadir)
 data = Bunch(
     sub01=dataset.fetch(
         subject="01",
@@ -60,13 +60,15 @@ with Config(dryrun=True, verbose=True):
         for t1_file in [subject_data.anat1, subject_data.anat2]:
             outputs = brainprep_brainparc(
                 t1_file=t1_file,
-                template_dir=(datadir / "fsaverage_sym"),
                 output_dir=outdir,
                 do_lgi=True,
                 wm_file=(datadir / "deprecated"),
                 keep_intermediate=True,
             )
             (outputs.subject_dir / "stats").mkdir(parents=True, exist_ok=True)
+            (outputs.subject_dir / "stats" / "lh.aparc.stats").touch(
+                exist_ok=True
+            )
     outputs = brainprep_group_brainparc(
         output_dir=outdir,
         euler_threshold=-217,
@@ -79,6 +81,7 @@ with Config(dryrun=True, verbose=True):
     )
     for subject_dir in outputs.subject_dirs:
         (subject_dir / "stats").mkdir(parents=True, exist_ok=True)
+        (subject_dir / "stats" / "lh.aparc.stats").touch(exist_ok=True)
     outputs = brainprep_group_brainparc(
         output_dir=outdir,
         euler_threshold=-217,
@@ -103,19 +106,30 @@ commands.append(
         [
             "brainprep", "subject-level-brainparc",
             "--t1_file", str(t1_file),
-            "--template_dir", str(datadir / "fsaverage_sym"),
             "--output-dir", str(outdir),
-            "--do-lgi",
             "--keep-intermediate",
-        ] for t1_file in [subject_data.anat1, subject_data.anat2]
-          for subject_data in data.values()
+        ] for subject_data in data.values()
+          for t1_file in [subject_data.anat1, subject_data.anat2]   
+    ]
+)
+commands.append(
+    [
+        [
+            "brainprep", "subject-level-brainparc",
+            "--t1_file", str(t1_file),
+            "--output-dir", str(outdir),
+            "--analysis-type", "nextbrain",
+            "--keep-intermediate",
+        ] for subject_data in data.values()
+          for t1_file in [subject_data.anat1, subject_data.anat2]   
     ]
 )
 commands.append(
     [
         [
             "brainprep", "longitudinal-brainparc",
-            "--t1_files", f"'[{subject_data.anat1}, {subject_data.anat2}]'",
+            "--t1_files",
+            f"\"['{subject_data.anat1}', '{subject_data.anat2}']\"",
             "--output-dir", str(outdir),
             "--keep-intermediate",
         ] for subject_data in data.values()
