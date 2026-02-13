@@ -175,11 +175,6 @@ def write_catbatch(
             "resources" /
             "cat12vbm_matlabbatch.m"
         )
-    template_batch = (
-        Path(__file__).parent.parent /
-        "resources" /
-        "cat12vbm_matlabbatch.m"
-    )
     output_dirs = [
         output_dir / f"ses-{info['ses']}"
         for info in entities
