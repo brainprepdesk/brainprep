@@ -102,7 +102,7 @@ commands.append(
     [
         [
             "brainprep", "longitudinal-vbm",
-            "--t1_fileq", f"'[{subject_data.anat1}, {subject_data.anat2}]'",
+            "--t1_files", f"{subject_data.anat1},{subject_data.anat2}",
             "--model", "1",
             "--output-dir", str(outdir),
             "--keep-intermediate",

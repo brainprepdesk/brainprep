@@ -211,27 +211,30 @@ def coerceparams(
         *args: Any,
         **kw: Any) -> Callable:
     """
-    Converts arguments typed as `File` or `Directory` to `pathlib.Path`.
+    Convert arguments annotated as ``File`` or ``Directory`` to
+    ``pathlib.Path``, and convert arguments annotated as list types from
+    comma‑separated strings into Python lists.
 
     Parameters
     ----------
     func : Callable
         The function to be decorated.
     *args : Any
-        Positional arguments passed to `func`.
+        Positional arguments passed to ``func``.
     **kw : Any
-        Keyword arguments passed to `func`.
+        Keyword arguments passed to ``func``.
 
     Returns
     -------
-    wrapper : Callable
-        A wrapped function with the 'File' and 'Directory' arguments properly
-        typed.
+    Callable
+        A wrapped function in which arguments annotated as ``File`` or
+        ``Directory`` are converted to ``pathlib.Path`` objects, and list‑typed
+        arguments are coerced from comma‑separated strings into lists.
 
     Raises
     ------
     ValueError
-        If the decorated function have untyped arguments.
+        If the decorated function contains arguments without type annotations.
     """
     inputs = inspect.getcallargs(func, *args, **kw)
     sig = inspect.signature(func)
@@ -241,9 +244,56 @@ def coerceparams(
             raise ValueError(
                 "The decorated function must only have typed arguments."
             )
-        inputs[name] = coerce_to_path(inputs[name], param.annotation)
+        inputs[name] = coerce_to_path(
+            coerce_to_list(
+                inputs[name],
+                param.annotation,
+            ),
+            param.annotation,
+        )
 
     return func(**inputs)
+
+
+def coerce_to_list(
+        value: Any,
+        expected_type: type) -> Any:
+    """
+    Coerce a value into a list when the expected type annotation indicates
+    a list or tuple.
+
+    Parameters
+    ----------
+    value : Any
+        The input value to be coerced.
+    expected_type : type
+        The expected type annotation (e.g., `File`, `List[File]`,
+        `Dict[str, Directory]`, `Union[str, Directory]`).
+
+    Returns
+    -------
+    typed_value : Any
+        The coerced value, with `list` converted to `list`.
+
+    Notes
+    -----
+    - Comma-separated strings (e.g., ``"a,b,c"``) are split into lists.
+    - Single non-list values are wrapped into a list.
+    - Existing lists or tuples are returned as lists.
+    """
+    if value is None:
+        return value
+
+    origin = get_origin(expected_type)
+
+    if origin in {list, tuple}:
+        if isinstance(value, str) and "," in value:
+            return value.split(",")
+        if not isinstance(value, (list, tuple)):
+            return [value]
+        return list(value)
+
+    return value
 
 
 def coerce_to_path(

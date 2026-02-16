@@ -129,7 +129,7 @@ commands.append(
         [
             "brainprep", "longitudinal-brainparc",
             "--t1_files",
-            f"\"['{subject_data.anat1}', '{subject_data.anat2}']\"",
+            f"{subject_data.anat1},{subject_data.anat2}",
             "--output-dir", str(outdir),
             "--keep-intermediate",
         ] for subject_data in data.values()
