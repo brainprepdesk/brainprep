@@ -98,8 +98,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"brainprep"
-copyright = u"""{0}, brainprep developers <antoine.grigis@cea.fr>""".format(
+project = "brainprep"
+copyright = """{0}, brainprep developers <antoine.grigis@cea.fr>""".format(
     datetime.date.today().year)
 
 # The version info for the project you're documenting, acts as replacement for
