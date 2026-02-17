@@ -6,31 +6,129 @@
 # for details.
 ##########################################################################
 
-""" Provide a command line interface.
+""" Command-line interface (CLI) utilities for BrainPrep workflows.
+
+This module provides a dynamic, Fire-powered command-line interface that
+automatically exposes all BrainPrep workflows as CLI commands. It also
+injects global configuration parameters into each workflow function
+signature, enabling users to override default processing options directly
+from the command line.
 """
+
+
+import functools
+import inspect
+
+import fire
+
+import brainprep.workflow as wf
+from brainprep.config import DEFAULT_OPTIONS
+
+
+def make_wrapped(fn, is_vbm=False):
+    """
+    Wrap a workflow function and extend its signature with global
+    configuration parameters.
+
+    This function creates a wrapper around a BrainPrep workflow function
+    so that:
+
+    - All original parameters of ``fn`` are preserved.
+    - All global configuration parameters from ``DEFAULT_OPTIONS`` are
+      added as keyword-only parameters.
+    - Configuration parameters passed via the CLI are extracted from
+      ``kwargs`` and applied through the ``Config`` context manager.
+    - The modified signature is exposed to Fire, ensuring that the CLI
+      help message displays the extended parameter list.
+
+    Parameters
+    ----------
+    fn : callable
+        The workflow function to wrap. Its signature is inspected and
+        extended with additional keyword-only configuration parameters.
+
+    Returns
+    -------
+    method : callable
+        A wrapped version of ``fn`` whose signature includes both the
+        original parameters and the global configuration parameters.
+    is_vbm : bool
+       Whether the wrapped function corresponds to a VBM workflow.
+       If ``False`` (default), VBM-specific configuration parameters
+       such as ``cat12_file``, ``spm12_dir``, ``matlab_dir``,
+       ``tpm_file``, and ``darteltpm_file`` are excluded from the
+       generated signature. If ``True``, all configuration parameters
+       are included. Default False.
+
+    Notes
+    -----
+    The wrapper inspects the signature of ``fn`` using
+    ``inspect.signature`` and reconstructs a new signature that includes
+    both workflow-specific and global configuration parameters. Each
+    configuration parameter is annotated as ``"Context Manager"`` to
+    indicate that it is handled by the ``Config`` system rather than
+    passed directly to the workflow.
+    During execution, configuration parameters are removed from
+    ``kwargs`` and passed to the ``Config`` context manager. Remaining
+    arguments are forwarded to the underlying workflow function.
+    """
+    @functools.wraps(fn)
+    def wrapped_fn(*args, **kwargs):
+        from brainprep.config import Config
+        config_params = {
+            key: kwargs.pop(key)
+            for key in DEFAULT_OPTIONS
+            if key in kwargs
+        }
+        with Config(**config_params):
+            return fn(*args, **kwargs)
+
+    sig = inspect.signature(fn)
+    params = list(sig.parameters.values())
+    for key, val in DEFAULT_OPTIONS.items():
+        if not is_vbm and key in (
+                "cat12_file", "spm12_dir", "matlab_dir", "tpm_file",
+                "darteltpm_file"):
+            continue
+        params.append(
+            inspect.Parameter(
+                key,
+                inspect.Parameter.KEYWORD_ONLY,
+                annotation="Context Manager",
+                default=val,
+            )
+        )
+    wrapped_fn.__signature__ = sig.replace(parameters=params)
+
+    return wrapped_fn
 
 
 def main():
     """
-    BrainPrep command-line interface.
+    Entry point for the BrainPrep command-line interface.
 
-    This function exposes all BrainPrep workflows through a unified
-    command-line interface powered by ``fire``. Each workflow
-    corresponds to a processing pipeline implemented in
-    ``brainprep.workflow`` and can be invoked directly from the terminal.
+    This function exposes all BrainPrep workflows as Fire commands.
+    Each workflow is wrapped so that global configuration parameters can
+    be passed directly from the command line.
+
+    The CLI supports all workflows defined in ``brainprep.workflow`` and
+    automatically displays them in the help message.
 
     Notes
     -----
-    This function relies on ``fire.Fire`` to automatically generate a
-    command-line interface from a dictionary mapping workflow names to
-    their corresponding functions. Any additional keyword arguments
-    provided on the command line are forwarded to the selected workflow.
+    This function should not be called directly from Python code.
+
+    Examples
+    --------
+    Listing available commands::
+
+        $ brainprep --help
+
+    Command help::
+
+        $ brainprep subject-level-qa --help
     """
-    import fire
-
-    import brainprep.workflow as wf
-
-    fire.Fire({
+    commands = {
         "subject-level-qa": wf.brainprep_quality_assurance,
         "group-level-qa": wf.brainprep_group_quality_assurance,
         "subject-level-defacing": wf.brainprep_defacing,
@@ -44,4 +142,7 @@ def main():
         "group-level-vbm": wf.brainprep_group_vbm,
         "subject-level-fmriprep": wf.brainprep_fmriprep,
         "group-level-fmriprep": wf.brainprep_group_fmriprep,
-    })
+    }
+    for key, fn in commands.items():
+        commands[key] = make_wrapped(fn, is_vbm=key.endswith("vbm"))
+    fire.Fire(commands)

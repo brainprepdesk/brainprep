@@ -16,7 +16,7 @@ from pathlib import Path
 DEFAULT_OPTIONS = {
     "verbose": True,
     "dryrun": False,
-    "with_color": True,
+    "no_color": False,
     "cat12_file": Path(
         "/opt/cat12/standalone/cat_standalone.sh"
     ),

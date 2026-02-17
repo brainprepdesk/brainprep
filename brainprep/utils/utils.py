@@ -213,7 +213,7 @@ def coerceparams(
     """
     Convert arguments annotated as ``File`` or ``Directory`` to
     ``pathlib.Path``, and convert arguments annotated as list types from
-    comma‑separated strings into Python lists.
+    comma-separated strings into Python lists.
 
     Parameters
     ----------
@@ -228,8 +228,8 @@ def coerceparams(
     -------
     Callable
         A wrapped function in which arguments annotated as ``File`` or
-        ``Directory`` are converted to ``pathlib.Path`` objects, and list‑typed
-        arguments are coerced from comma‑separated strings into lists.
+        ``Directory`` are converted to ``pathlib.Path`` objects, and list-typed
+        arguments are coerced from comma-separated strings into lists.
 
     Raises
     ------

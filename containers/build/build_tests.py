@@ -156,6 +156,10 @@ def main(
             config_path = outdir / f"config_step{idx}.toml"
 
             # Format commands
+            step_commands = [
+                [*cmd, "--no-color"]
+                for cmd in step_commands
+            ]
             step_commands_str = json.dumps(step_commands, indent=2)
             if root_template is not None:
                 step_commands_str = step_commands_str.replace(
