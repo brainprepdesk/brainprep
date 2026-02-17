@@ -80,8 +80,8 @@ def plot_pca(X, df_description, outdir):
     for idx, desc in enumerate(df_description["participant_id"]):
         ax.annotate(desc, xy=(components[idx, 0], components[idx, 1]),
                     xytext=(4, 4), textcoords="offset pixels")
-    plt.xlabel("PC1 (var=%.2f)" % pca.explained_variance_ratio_[0])
-    plt.ylabel("PC2 (var=%.2f)" % pca.explained_variance_ratio_[1])
+    plt.xlabel("PC1 (var={:.2f})".format(pca.explained_variance_ratio_[0]))
+    plt.ylabel("PC2 (var={:.2f})".format(pca.explained_variance_ratio_[1]))
     plt.axis("equal")
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
@@ -247,8 +247,7 @@ def parse_cat12vbm_roi(
                 vol_abs_cgw = cat['vol_abs_CGW'][7][1:-1].split()
                 vol_abs_cgw = [float(volume) for volume in vol_abs_cgw]
             except Exception:
-                print('Parsing error for %s:\n%s' %
-                      (xml_file, traceback.format_exc()))
+                print('Parsing error for {}:\n{}'.format(xml_file, traceback.format_exc()))
             else:
                 # put these volumes in a dataframe
                 globvolume_dico_sub = {}
@@ -295,8 +294,7 @@ def parse_cat12vbm_roi(
                     v_wm = [float(volume) for volume in v_wm]
                     assert len(roi_names) == len(v_wm)
             except Exception:
-                print('Parsing error for %s: \n%s' %
-                      (xml_file, traceback.format_exc()))
+                print('Parsing error for {}: \n{}'.format(xml_file, traceback.format_exc()))
             else:
                 rois_sub = {}
                 gm_rois_names = [rois_name + '_GM_Vol' for rois_name
