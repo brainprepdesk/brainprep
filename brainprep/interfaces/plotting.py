@@ -11,13 +11,21 @@ Plotting functions.
 """
 
 import itertools
+import warnings
 
 import matplotlib.pyplot as plt
 import nibabel
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from nilearn import plotting
+
+with warnings.catch_warnings():
+    warnings.filterwarnings(
+        "ignore",
+        message=".*'agg' matplotlib backend.*",
+        category=UserWarning
+    )
+    from nilearn import plotting
 
 from ..reporting import log_runtime
 from ..typing import (
