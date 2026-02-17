@@ -61,8 +61,8 @@ doc = [
 
 [project.urls]
 Development = "https://github.com/AGrigis/pysphinxdoc"
-Tracker = "https://github.com/AGrigis/pysphinxdoc/issues"
-Homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
+issues = "https://github.com/AGrigis/pysphinxdoc/issues"
+homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
 
 [tool.setuptools]
 include-package-data = true
