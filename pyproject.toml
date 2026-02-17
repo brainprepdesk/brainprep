@@ -16,7 +16,8 @@ license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Console",
-    "Operating System :: OS Independent",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
     "Programming Language :: Python",
     "Topic :: Scientific/Engineering",
 ]
@@ -64,7 +65,6 @@ Tracker = "https://github.com/AGrigis/pysphinxdoc/issues"
 Homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
 
 [tool.setuptools]
-platforms = ["Linux", "OSX"]
 include-package-data = true
 
 [tool.setuptools.dynamic]
