@@ -146,7 +146,7 @@ def tbss_1_preproc(tbss_dir, fa_file):
     print_subtitle("Launch tbss_1_preproc...")
     if not os.path.isdir(tbss_dir):
         os.mkdir(tbss_dir)
-    if not (os.getcwd() == tbss_dir):
+    if os.getcwd() != tbss_dir:
         os.chdir(tbss_dir)
     assert tbss_dir == os.path.dirname(fa_file), (
         "FA file must be in TBSS folder.")
@@ -201,7 +201,7 @@ def tbss_2_reg(tbss_dir, fa_file, use_fmrib58_fa_1mm=True, target_img=None):
     """
     print_subtitle("Launch tbss_2_reg...")
     tbss_fa_dir = os.path.join(tbss_dir, "FA")
-    if not (os.getcwd() == tbss_fa_dir):
+    if os.getcwd() != tbss_fa_dir:
         os.chdir(tbss_fa_dir)
     cmd = ["tbss_2_reg"]
     target_file = os.path.join(tbss_fa_dir, "target.nii.gz")
@@ -257,7 +257,7 @@ def tbss_3_postreg(tbss_dir, use_fmrib58_fa_mean_and_skel=True):
         path to the skeletonized mean FA.
     """
     print_subtitle("Launch tbss_3_postreg...")
-    if not (os.getcwd() == tbss_dir):
+    if os.getcwd() != tbss_dir:
         os.chdir(tbss_dir)
     cmd = ["tbss_3_postreg"]
     if use_fmrib58_fa_mean_and_skel:
@@ -307,7 +307,7 @@ def tbss_4_prestats(tbss_dir, threshold=0.2):
         text file indicating threshold used.
     """
     print_subtitle("Launch tbss_4_prestats...")
-    if not (os.getcwd() == tbss_dir):
+    if os.getcwd() != tbss_dir:
         os.chdir(tbss_dir)
     cmd = ["tbss_4_prestats", str(threshold)]
     check_command("tbss_4_prestats")
