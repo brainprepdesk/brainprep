@@ -15,6 +15,7 @@ import glob
 import gzip
 import shutil
 from pathlib import Path
+import re
 
 import nibabel
 import numpy as np
@@ -412,3 +413,50 @@ def incremental_pca(
         df.to_csv(pca_file, index=False, sep="\t")
 
     return (pca_file, )
+
+@outputdir
+@log_runtime(
+    bunched = False
+)
+@coerceparams
+def filter_metrics(
+    metrics_files: list[str],
+    modalities: list[str],
+    output_dir: Directory) -> tuple(list[File]):
+    """
+
+    """
+    metrics_by_modalities = {
+        'T1w': ['cjv', 'cnr', 'efc','fber','wm2max', 'inu_med','qi_1', 'qi_2'
+        'icvs_wm','fwhm_avg', 'rpvs_wm', 'snr_wm', 'snrd_wm','wm2max',
+        'bids_name'],
+        'bold': ['aor', 'aqi', 'dummy_trs', 'dvars_vstd', 'efc', 'fber',
+        'fd_mean', 'fwhm_avg', 'gcor', 'gsr_x', 'gsr_y', 'snr', 'tsnr',
+        'bids_name'],
+        'dwi':['bdiffs_max', 'bdiffs_median', 'efc_shell01', 'efc_shell02',
+        'fber_shell01', 'fber_shell02', 'fd_mean', 'ndc', 'sigma_pca', 
+        'sigma_piesno', 'snr_cc_shell0', 'snr_cc_shell1_best',
+        'snr_cc_shell1_worst', 'spikes_global', 'bids_name']
+    }
+    forbidden_prefixes = ('spacing', 'summary', 'tpm', 'size')
+    for file in metrics_files:
+        metric_df = pd.read_csv(file, sep='\t')
+        match = re.search(r"group_(\w+).tsv", Path(file).name)
+
+        if match:
+            if match.group(1) not in modalities:
+                raise ValueError(f"Modality {match.group(1)} not in {modalities}")
+            
+            cols_to_keep = [
+                col for col in metric_df.columns
+                if not col.startswith(forbidden_prefixes)
+                and col in metrics_by_modalities[match.group(1)]
+                ]
+
+            filtered_df = metric_df[cols_to_keep].copy()
+            output_file = output_dir / f"filtered_{Path(file).name}"
+            filtered_df.to_csv(output_file, sep='\t', index=False)
+        else:
+            raise ValueError(f"Invalid filename format: {Path(file).name}")
+
+    return (filtered_df, )
