@@ -200,7 +200,7 @@ def parse_fsreconall_stats(fs_dirs):
 
 def parse_cat12vbm_roi(
         xml_filenames, output_file,
-        iterparse={"neuromorphometrics": ["ids", "Vgm", "Vcsf"]}):
+        iterparse=None):
     """ Parse the cat12vbm xml generated rois files for all
     subjects.
 
@@ -221,6 +221,8 @@ def parse_cat12vbm_roi(
     output_file: str
         rois tsv path.
     """
+    if iterparse is None:
+        iterparse = {"neuromorphometrics": ["ids", "Vgm", "Vcsf"]}
     roi_names = None
     cohort_globvol = pd.DataFrame()
     cohort_roivol = pd.DataFrame()

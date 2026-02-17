@@ -152,7 +152,7 @@ def compute_score(data, dtype_iqms):
     return score
 
 
-def detect_outliers(data, percentiles=[95, 5]):
+def detect_outliers(data, percentiles=None):
     """ Detect outliers.
     Lower outlier threshold is calculated as 5% quartile(data) -
     1.5*IQR(data); upper outlier threshold calculated as 95% quartile(data) +
@@ -170,6 +170,8 @@ def detect_outliers(data, percentiles=[95, 5]):
     qc: array
         the QC result as a binary vector.
     """
+    if percentiles is None:
+        percentiles = [95, 5]
     qc = []
     for key in data.columns:
         if key in ["_id", "source", "dummy_trs"]:
