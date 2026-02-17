@@ -30,8 +30,8 @@ dataset = MRIToyDataset(root=DATADIR)
 t1w_file = os.path.join(DATADIR, os.path.basename(MRIToyDataset.t1w_url))
 func_file = t1w_file
 desc_file = t1w_file
-cmd = ["singularity", "run", "--bind", "{}:/data".format(DATADIR),
-       "--bind", "{}:/out".format(OUTDIR), "--home", HOMEDIR, "--cleanenv",
+cmd = ["singularity", "run", "--bind", f"{DATADIR}:/data",
+       "--bind", f"{OUTDIR}:/out", "--home", HOMEDIR, "--cleanenv",
        SIMG,
        "brainprep", SCRIPT,
        t1w_file.replace(DATADIR, "/data"),

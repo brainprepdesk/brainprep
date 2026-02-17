@@ -99,8 +99,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "brainprep"
-copyright = """{}, brainprep developers <antoine.grigis@cea.fr>""".format(
-    datetime.date.today().year)
+copyright = f"""{datetime.date.today().year}, brainprep developers <antoine.grigis@cea.fr>"""
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

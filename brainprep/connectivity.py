@@ -147,11 +147,11 @@ def func_connectivity(fmri_file, counfounds_file, mask_file,
         elif atlas_name == "msdl":
             atlas = datasets.fetch_atlas_msdl(data_dir=atlasdir)
         else:
-            raise ValueError("Unsupported atlas '{}'.".format(atlas))
+            raise ValueError(f"Unsupported atlas '{atlas}'.")
         data[atlas_name] = {
             "atlas_filename": atlas.maps,
             "atlas_labels": atlas.labels}
-        atlas_snap = os.path.join(atlasdir, "{}.png".format(atlas_name))
+        atlas_snap = os.path.join(atlasdir, f"{atlas_name}.png")
         if not os.path.isfile(atlas_snap):
             plotting.plot_roi(
                 data[atlas_name]["atlas_filename"], title=atlas_name,
@@ -201,7 +201,7 @@ def func_connectivity(fmri_file, counfounds_file, mask_file,
             display = plotting.plot_matrix(
                 correlation_matrix, figure=(10, 8),
                 labels=params["atlas_labels"], reorder=True,
-                title="{}-{}".format(atlas_name, metric))
+                title=f"{atlas_name}-{metric}")
             display.figure.savefig(corr_snap)
             print_result(corr_snap)
             params[metric] = correlation_matrix

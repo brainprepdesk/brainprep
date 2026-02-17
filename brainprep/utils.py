@@ -63,8 +63,8 @@ def check_command(command):
     stderr = stderr.decode("utf8")
     exitcode = process.returncode
     if exitcode != 0:
-        print_error("Command {}: {}".format(command, stderr))
-        raise ValueError("Impossible to locate command '{}'.".format(command))
+        print_error(f"Command {command}: {stderr}")
+        raise ValueError(f"Impossible to locate command '{command}'.")
 
 
 def check_version(package_name, check_pkg_version):
@@ -88,17 +88,17 @@ def check_version(package_name, check_pkg_version):
         # local computer installation
         if exitcode != 0:
             version = None
-            print_error("Version {}: {}".format(package_name, stderr))
+            print_error(f"Version {package_name}: {stderr}")
             raise ValueError(
-                "Impossible to check package '{}' version."
-                .format(package_name))
+                f"Impossible to check package '{package_name}' version."
+                )
         else:
             versions = re.findall("Version: .*$", stdout, re.MULTILINE)
             version = "|".join(versions)
     else:
         # specific installation
         version = "custom install (no check)."
-    print("{} - {}".format(package_name, version))
+    print(f"{package_name} - {version}")
 
 
 def write_matlabbatch(template, nii_files, tpm_file, darteltpm_file,
@@ -133,8 +133,7 @@ def write_matlabbatch(template, nii_files, tpm_file, darteltpm_file,
     if not isinstance(outdir, list):
         outdir = [outdir]
     for idx, path in enumerate(nii_files):
-        nii_files_str += "'{}' \n".format(
-            ungzip_file(path, outdir=outdir[idx]))
+        nii_files_str += f"'{ungzip_file(path, outdir=outdir[idx])}' \n"
     with open(template) as of:
         stream = of.read()
         stream = stream.format(model_long=model_long, anat_file=nii_files_str,
@@ -164,10 +163,10 @@ def ungzip_file(zfile, prefix="u", outdir=None):
     """
     # Checks
     if not os.path.isfile(zfile):
-        raise ValueError("'{}' is not a valid filename.".format(zfile))
+        raise ValueError(f"'{zfile}' is not a valid filename.")
     if outdir is not None:
         if not os.path.isdir(outdir):
-            raise ValueError("'{}' is not a valid directory.".format(outdir))
+            raise ValueError(f"'{outdir}' is not a valid directory.")
     else:
         outdir = os.path.dirname(zfile)
 
@@ -217,8 +216,7 @@ def get_bids_keys(filename):
         if len(set(match)) != 1:
             if name == "participant_id":
                 raise ValueError(
-                    "Found several or no '{}' in path '{}'.".format(
-                        name, filename))
+                    f"Found several or no '{name}' in path '{filename}'.")
         else:
             keys[name] = match[0]
     if "run" not in keys:
@@ -285,7 +283,7 @@ def create_clickable(path_or_url):
     url: str
         a href formated URL.
     """
-    url = "<a href='{}' target='_blank'>&plus;</a>".format(path_or_url)
+    url = f"<a href='{path_or_url}' target='_blank'>&plus;</a>"
     return url
 
 

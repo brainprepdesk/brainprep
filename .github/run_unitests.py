@@ -20,7 +20,7 @@ test_files = [
     for basename in files
     if basename.endswith(".py")
 ]
-print("'{}' tests found!".format(len(test_files)))
+print(f"'{len(test_files)}' tests found!")
 
 def runner(path):
     print("-- ", path)

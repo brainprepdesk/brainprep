@@ -44,7 +44,7 @@ def brainprep_quasiraw(anatomical, mask, outdir, target=None, no_bids=False):
     """
     print_title("Set outputs and default target if applicable...")
     if not os.path.isdir(outdir):
-        raise ValueError("{} does not exist".format(outdir))
+        raise ValueError(f"{outdir} does not exist")
     if target is None:
         resource_dir = os.path.join(
             os.path.dirname(brainprep.__file__), "resources")
@@ -86,7 +86,7 @@ def brainprep_quasiraw(anatomical, mask, outdir, target=None, no_bids=False):
 
     print_title("Make datasets...")
     if not os.path.exists(applyfile):
-        raise ValueError("{} file doesn't exists".format(applyfile))
+        raise ValueError(f"{applyfile} file doesn't exists")
     nii_img = nibabel.load(applyfile)
     nii_arr = nii_img.get_fdata()
     nii_arr = nii_arr.astype(np.float32)

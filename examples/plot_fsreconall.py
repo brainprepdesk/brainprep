@@ -29,9 +29,9 @@ for path in (DATADIR, OUTDIR, HOMEDIR):
 dataset = MRIToyDataset(root=DATADIR)
 t1w_file = os.path.join(DATADIR, os.path.basename(MRIToyDataset.t1w_url))
 mask_file = os.path.join(DATADIR, os.path.basename(MRIToyDataset.mask_url))
-cmd = ["SINGULARITYENV_FS_LICENSE={}".format(FS_LICENSE),
-       "singularity", "run", "--bind", "{}:/data".format(DATADIR),
-       "--bind", "{}:/out".format(OUTDIR), "--home", HOMEDIR, "--cleanenv",
+cmd = [f"SINGULARITYENV_FS_LICENSE={FS_LICENSE}",
+       "singularity", "run", "--bind", f"{DATADIR}:/data",
+       "--bind", f"{OUTDIR}:/out", "--home", HOMEDIR, "--cleanenv",
        SIMG,
        "brainprep", SCRIPT,
        "sub-test",

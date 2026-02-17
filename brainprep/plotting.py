@@ -62,8 +62,7 @@ def plot_images(nii_files, cut_coords, outdir):
             session = keys["session"]
             run = keys["run"]
             snap_path = os.path.join(
-                snapdir, "sub-{}_ses-{}_run-{}_snaps.png".format(
-                    participant_id, session, run))
+                snapdir, f"sub-{participant_id}_ses-{session}_run-{run}_snaps.png")
             plt.savefig(snap_path)
             snaps.append(snap_path)
             bar.update(cnt)
@@ -172,8 +171,7 @@ def plot_fsreconall(fs_dirs, outdir, include_cerebellum=False):
             session = keys["session"]
             run = keys["run"]
             snap_path = os.path.join(
-                snapdir, "sub-{}_ses-{}_run-{}_snaps.png".format(
-                    participant_id, session, run))
+                snapdir, f"sub-{participant_id}_ses-{session}_run-{run}_snaps.png")
             plt.savefig(snap_path)
             snaps.append(snap_path)
             bar.update(cnt1)

@@ -176,7 +176,7 @@ def biasfield(imfile, bfcfile, maskfile=None, nb_iterations=50,
         "-c", "[{}, {}]".format(
             "x".join([str(nb_iterations)] * 4), convergence_threshold),
         "-t", "[{}]".format(", ".join(histogram_sharpening)),
-        "-o", "[{}, {}]".format(bfcfile, bffile),
+        "-o", f"[{bfcfile}, {bffile}]",
         "-v"]
     if maskfile is not None:
         cmd += ["-x", maskfile]

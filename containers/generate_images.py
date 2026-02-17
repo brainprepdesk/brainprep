@@ -41,32 +41,32 @@ def main(working_dir):
             if not os.path.isdir(_path):
                 os.mkdir(_path)
         shutil.copy(path, os.path.join(dest_dir, "Dockerfile"))
-        cmds = "export WDIR={}\n".format(dest_dir)
+        cmds = f"export WDIR={dest_dir}\n"
         cmds += "cd $WDIR\n"
-        cmds += "export IMG={}\n".format(name)
+        cmds += f"export IMG={name}\n"
         cmds += "sudo docker build --no-cache --tag brainprep-$IMG .\n"
         cmds += "sudo docker images\n"
-        cmds += ("sudo docker save -o brainprep-$IMG-{0}.tar "
-                 "brainprep-$IMG:{0}\n".format(today))
-        cmds += "sudo chmod 755 brainprep-$IMG-{}.tar\n".format(today)
+        cmds += (f"sudo docker save -o brainprep-$IMG-{today}.tar "
+                 f"brainprep-$IMG:{today}\n")
+        cmds += f"sudo chmod 755 brainprep-$IMG-{today}.tar\n"
         cmds += ("sudo SINGULARITY_TMPDIR=$WDIR/tmp SINGULARITY_CACHEDIR="
-                 "$WDIR/cache singularity build brainprep-$IMG-{}.simg "
-                 "docker-archive://brainprep-$IMG-{}.tar\n"
-                 .format(today, today))
-        cmds += "singularity inspect brainprep-$IMG-{}.simg\n".format(today)
+                 f"$WDIR/cache singularity build brainprep-$IMG-{today}.simg "
+                 f"docker-archive://brainprep-$IMG-{today}.tar\n"
+                 )
+        cmds += f"singularity inspect brainprep-$IMG-{today}.simg\n"
         cmds_file = os.path.join(dest_dir, "commands")
         with open(cmds_file, "w") as of:
             of.write(cmds)
-        print("Ready to execute: {}".format(cmds_file))
+        print(f"Ready to execute: {cmds_file}")
 
     for path in glob.glob(os.path.join(image_dir, "Singularity.*")):
         basename = os.path.basename(path)
         dirname = os.path.dirname(path)
         name = basename.split(".", 1)[1]
-        docker_path = os.path.join(dirname, "Dockerfile.{}".format(name))
+        docker_path = os.path.join(dirname, f"Dockerfile.{name}")
         if not os.path.isfile(docker_path):
-            raise ValueError("Please define the '{}' docker file associated "
-                             "to the singularity recipe.".format(docker_path))
+            raise ValueError(f"Please define the '{docker_path}' docker file associated "
+                             "to the singularity recipe.")
         dest_dir = os.path.join(working_dir, name)
         if not os.path.isdir(dest_dir):
             os.mkdir(dest_dir)
@@ -78,27 +78,27 @@ def main(working_dir):
                 os.mkdir(_path)
         shutil.copy(path, os.path.join(dest_dir, "Singularity"))
         shutil.copy(docker_path, os.path.join(dest_dir, "Dockerfile"))
-        cmds = "export WDIR={}\n".format(dest_dir)
+        cmds = f"export WDIR={dest_dir}\n"
         cmds += "cd $WDIR\n"
-        cmds += "export IMG={}\n".format(name)
+        cmds += f"export IMG={name}\n"
         cmds += ("sudo SINGULARITY_TMPDIR=$WDIR/tmp "
                  "SINGULARITY_CACHEDIR=$WDIR/cache "
                  "SINGULARITY_HOME=$WDIR/home "
-                 "singularity build brainprep-$IMG-{}.simg Singularity\n"
-                 .format(today))
-        cmds += "singularity sif list brainprep-$IMG-{}.simg\n".format(today)
-        cmds += ("singularity sif dump 4 brainprep-$IMG-{}.simg "
-                 "> data.squash\n".format(today))
+                 f"singularity build brainprep-$IMG-{today}.simg Singularity\n"
+                 )
+        cmds += f"singularity sif list brainprep-$IMG-{today}.simg\n"
+        cmds += (f"singularity sif dump 4 brainprep-$IMG-{today}.simg "
+                 "> data.squash\n")
         cmds += "unsquashfs -dest data data.squash\n"
         cmds += "docker build --tag brainprep-$IMG .\n"
         cmds += "sudo docker images\n"
-        cmds += ("sudo docker save -o brainprep-$IMG-{0}.tar "
-                 "brainprep-$IMG:{0}\n".format(today))
-        cmds += "sudo chmod 755 brainprep-$IMG-{}.tar\n".format(today)
+        cmds += (f"sudo docker save -o brainprep-$IMG-{today}.tar "
+                 f"brainprep-$IMG:{today}\n")
+        cmds += f"sudo chmod 755 brainprep-$IMG-{today}.tar\n"
         cmds_file = os.path.join(dest_dir, "commands")
         with open(cmds_file, "w") as of:
             of.write(cmds)
-        print("Ready to execute: {}".format(cmds_file))
+        print(f"Ready to execute: {cmds_file}")
 
 
 if __name__ == "__main__":

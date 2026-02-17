@@ -97,7 +97,7 @@ def brainprep_mriqc_summary(indir, outdir, filters=None):
         fields = user_data["t1w"]["bids_meta.MagneticFieldStrength"].values
         filters = []
         for val in np.unique(fields):
-            filters.append("FIELD == {}".format(val))
+            filters.append(f"FIELD == {val}")
     api_data = {key: filter_iqms(val, filters)
                     for key, val in api_data.items()}
     data = {key: merge_dfs(user_data[key], api_data[key])
@@ -116,7 +116,7 @@ def brainprep_mriqc_summary(indir, outdir, filters=None):
         df["qc"] = qc.astype(int)
         df = df[df["source"] == "user"]
         df = df.drop(columns=["source"])
-        df.to_csv(os.path.join(outdir, "{}_qc.tsv".format(dtype)), sep="\t",
+        df.to_csv(os.path.join(outdir, f"{dtype}_qc.tsv"), sep="\t",
                   index=False)
 
 
@@ -247,7 +247,7 @@ def filter_iqms(apidf, filters):
     for cond in filters:
         var, op, val = cond.split(" ")
         if var not in expected_filters:
-            raise ValueError("Unrecognize filtering variable: {}.".format(var))
+            raise ValueError(f"Unrecognize filtering variable: {var}.")
         cond_str = expected_filters[var] + op + val
         query.append(cond_str)
         query = [" or ".join(query)]
@@ -382,7 +382,7 @@ def plot_iqms(data, dtype, outdir, rm_outliers=False):
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.set_ylabel(var_name)
-        plt.savefig(os.path.join(outdir, "{}_{}.png".format(dtype, var_name)))
+        plt.savefig(os.path.join(outdir, f"{dtype}_{var_name}.png"))
 
 
 def query_api(dtype, filters=None, maxpage=None):
@@ -421,12 +421,11 @@ def query_api(dtype, filters=None, maxpage=None):
     headers = {"content-type": "application/json", "Accept-Charset": "UTF-8"}
     while True:
         if page % 10 == 0:
-            print("On page {}/{}...".format(page, last_page))
+            print(f"On page {page}/{last_page}...")
         if filters is not None:
-            page_url = url_root + "?max_results=1000&{}&page={}".format(
-                filters_str, page)
+            page_url = url_root + f"?max_results=1000&{filters_str}&page={page}"
         else:
-            page_url = url_root + "?max_results=1000&page={}".format(page)
+            page_url = url_root + f"?max_results=1000&page={page}"
         req = requests.get(page_url, headers=headers)
         data = req.json()
         if last_page == -1:
@@ -447,8 +446,8 @@ if __name__ == "__main__":
     dirname = os.path.dirname(__file__)
     destdir = os.path.join(dirname, "resources")
     for mod in ("T1w", "T2w", "bold"):
-        print_title("Fetching {} reference...".format(mod))
+        print_title(f"Fetching {mod} reference...")
         df = query_api(dtype=mod, filters=None, maxpage=5000)
         print(df)
-        df.to_csv(os.path.join(destdir, "iqm_{}.tsv".format(mod)), sep="\t",
+        df.to_csv(os.path.join(destdir, f"iqm_{mod}.tsv"), sep="\t",
                   index=False)

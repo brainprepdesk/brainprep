@@ -80,8 +80,8 @@ def plot_pca(X, df_description, outdir):
     for idx, desc in enumerate(df_description["participant_id"]):
         ax.annotate(desc, xy=(components[idx, 0], components[idx, 1]),
                     xytext=(4, 4), textcoords="offset pixels")
-    plt.xlabel("PC1 (var={:.2f})".format(pca.explained_variance_ratio_[0]))
-    plt.ylabel("PC2 (var={:.2f})".format(pca.explained_variance_ratio_[1]))
+    plt.xlabel(f"PC1 (var={pca.explained_variance_ratio_[0]:.2f})")
+    plt.ylabel(f"PC2 (var={pca.explained_variance_ratio_[1]:.2f})")
     plt.axis("equal")
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
@@ -118,7 +118,7 @@ def compute_mean_correlation(X, df_description, outdir):
     for key in ("participant_id", "ni_path", "session", "run"):
         if key not in df_description.columns:
             raise ValueError(
-                "'df_description' must contains a '{}' column.".format(key))
+                f"'df_description' must contains a '{key}' column.")
 
     # Compute the correlation matrix
     X = X.reshape(len(X), -1)
@@ -247,7 +247,7 @@ def parse_cat12vbm_roi(
                 vol_abs_cgw = cat['vol_abs_CGW'][7][1:-1].split()
                 vol_abs_cgw = [float(volume) for volume in vol_abs_cgw]
             except Exception:
-                print('Parsing error for {}:\n{}'.format(xml_file, traceback.format_exc()))
+                print(f'Parsing error for {xml_file}:\n{traceback.format_exc()}')
             else:
                 # put these volumes in a dataframe
                 globvolume_dico_sub = {}
@@ -294,7 +294,7 @@ def parse_cat12vbm_roi(
                     v_wm = [float(volume) for volume in v_wm]
                     assert len(roi_names) == len(v_wm)
             except Exception:
-                print('Parsing error for {}: \n{}'.format(xml_file, traceback.format_exc()))
+                print(f'Parsing error for {xml_file}: \n{traceback.format_exc()}')
             else:
                 rois_sub = {}
                 gm_rois_names = [rois_name + '_GM_Vol' for rois_name
@@ -352,7 +352,7 @@ def parse_cat12vbm_qc(qc_files):
             except Exception as e:
                 print(e)
                 trace = traceback.format_exc()
-                print("Parsing error for {}:\n{}".format(xml_file, trace))
+                print(f"Parsing error for {xml_file}:\n{trace}")
                 ncr, icr, iqr = (np.nan, np.nan, np.nan)
             scores.setdefault("participant_id", []).append(participant_id)
             scores.setdefault("session", []).append(session)
@@ -390,17 +390,17 @@ def parse_cat12vbm_report(img_files, cat12vbm_root):
         elif name.endswith(".nii"):
             name = name.replace(".nii", ".pdf")
         else:
-            raise ValueError("Unexpected file extension: {}.".format(path))
+            raise ValueError(f"Unexpected file extension: {path}.")
         rpath = [
             os.path.join(
-                "sub-{}".format(participant_id), "ses-{}".format(session),
-                "anat", "report", "catreport_{}".format(name)),
+                f"sub-{participant_id}", f"ses-{session}",
+                "anat", "report", f"catreport_{name}"),
             os.path.join(
-                "sub-{}".format(participant_id), "anat", "report",
-                "catreport_{}".format(name)),
+                f"sub-{participant_id}", "anat", "report",
+                f"catreport_{name}"),
             os.path.join(
-                "sub-{}".format(participant_id), "ses-{}".format(session),
-                "anat", "report", "catreport_r{}".format(name)),
+                f"sub-{participant_id}", f"ses-{session}",
+                "anat", "report", f"catreport_r{name}"),
             None
         ]
         for _rpath in rpath:

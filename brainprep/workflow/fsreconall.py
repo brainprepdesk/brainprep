@@ -84,12 +84,12 @@ def brainprep_fsreconall(subjid, anatomical, outdir, template_dir,
             texture_file = regex.format(hemi, name)
             if not os.path.isfile(texture_file):
                 warnings.warn(
-                    "Texture file not found: {}".format(texture_file),
+                    f"Texture file not found: {texture_file}",
                     UserWarning)
                 continue
             values = nibabel.load(texture_file).get_fdata().transpose(1, 2, 0)
-            key = "hemi-{}_texture-{}".format(hemi, name)
-            print("- {}: {}".format(key, values.shape))
+            key = f"hemi-{hemi}_texture-{name}"
+            print(f"- {key}: {values.shape}")
             data.append(values)
             labels.append(key)
     data = np.concatenate(data, axis=1)
@@ -160,7 +160,7 @@ def brainprep_fsreconall_summary(fsdir, outdir):
                 table_file = regex.format(template, hemi, meas)
                 if not os.path.isfile(table_file):
                     warnings.warn(
-                        "Table file not found: {}".format(table_file),
+                        f"Table file not found: {table_file}",
                         UserWarning)
                     continue
                 df = pd.read_csv(table_file, sep=",")
@@ -186,22 +186,22 @@ def brainprep_fsreconall_summary(fsdir, outdir):
                         "Inconsistent regions list.")
                 values = values[:, 1:]
                 values = np.expand_dims(values, axis=1)
-                key = "hemi-{}_measure-{}".format(hemi, meas)
-                print("- {}: {}".format(key, values.shape))
+                key = f"hemi-{hemi}_measure-{meas}"
+                print(f"- {key}: {values.shape}")
                 data.append(values)
                 labels.append(key)
         data = np.concatenate(data, axis=1)
         print("- data:", data.shape)
-        destfile = os.path.join(outdir, "channels-{}.txt".format(template))
+        destfile = os.path.join(outdir, f"channels-{template}.txt")
         np.savetxt(destfile, labels, fmt="%s")
         print_result(destfile)
-        destfile = os.path.join(outdir, "subjects-{}.txt".format(template))
+        destfile = os.path.join(outdir, f"subjects-{template}.txt")
         np.savetxt(destfile, subjects, fmt="%s")
         print_result(destfile)
-        destfile = os.path.join(outdir, "rois-{}.txt".format(template))
+        destfile = os.path.join(outdir, f"rois-{template}.txt")
         np.savetxt(destfile, columns, fmt="%s")
         print_result(destfile)
-        destfile = os.path.join(outdir, "roi-{}.npy".format(template))
+        destfile = os.path.join(outdir, f"roi-{template}.npy")
         np.save(destfile, data)
         print_result(destfile)
 
