@@ -185,7 +185,7 @@ def brainprep_quasiraw_qc(img_regex, outdir, brainmask_regex=None,
     img_files_cat = (
         [np.asarray(img_files)[sorted_indices]] +
         [np.asarray(item)[sorted_indices] for item in extra_img_files])
-    img_files_cat = [item for item in zip(*img_files_cat)]
+    img_files_cat = list(zip(*img_files_cat))
     cut_coords = [(1, 1, 1)] * (len(extra_img_files) + 1)
     snaps, snapdir = plot_images(img_files_cat, cut_coords, outdir)
     df_report = df_qc.copy()
