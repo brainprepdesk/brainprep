@@ -73,7 +73,7 @@ def brainprep_deface_qc(anatomical, anatomical_deface, deface_root,
         cut_coords=25, black_bg=True, output_file=outfile)
     arr = plt.imread(outfile)
     cut = int(arr.shape[1] / 5)
-    fig = plt.figure()
+    fig = plt.figure()  # noqa: F841
     arr = np.concatenate(
         [arr[:, idx * cut: (idx + 1) * cut] for idx in range(5)], axis=0)
     plt.imshow(arr)

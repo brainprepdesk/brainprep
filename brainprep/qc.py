@@ -247,7 +247,7 @@ def parse_cat12vbm_roi(
                 tiv = cat['vol_TIV'][7]
                 vol_abs_cgw = cat['vol_abs_CGW'][7][1:-1].split()
                 vol_abs_cgw = [float(volume) for volume in vol_abs_cgw]
-            except Exception as e:
+            except Exception:
                 print('Parsing error for %s:\n%s' %
                       (xml_file, traceback.format_exc()))
             else:
@@ -295,7 +295,7 @@ def parse_cat12vbm_roi(
                             .str.split(";")[0])
                     v_wm = [float(volume) for volume in v_wm]
                     assert len(roi_names) == len(v_wm)
-            except Exception as e:
+            except Exception:
                 print('Parsing error for %s: \n%s' %
                       (xml_file, traceback.format_exc()))
             else:

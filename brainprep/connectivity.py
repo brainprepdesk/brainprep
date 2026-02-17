@@ -179,7 +179,7 @@ def func_connectivity(fmri_file, counfounds_file, mask_file,
 
     if np.array(fwhm).sum() > 0.0:
         print_subtitle("Smooth fMRI timeseries...")
-        smooth_im = smooth_img(clean_im, fwhm)
+        smooth_im = smooth_img(clean_im, fwhm)  # noqa: F841
 
     print_subtitle("Extract average fMRI timeseries...")
     for atlas_name, params in data.items():

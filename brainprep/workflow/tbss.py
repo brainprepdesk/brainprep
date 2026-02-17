@@ -76,7 +76,7 @@ def brainprep_tbss_preproc(outdir, fa_file=None, data=None, bvecs=None,
         norm_fa_file = brainprep.tbss_2_reg(
             outdir, fa_file, use_fmrib58_fa_1mm=False, target_img=target)
     else:
-        norm_fa_file = brainprep.tbss_2_reg(
+        norm_fa_file = brainprep.tbss_2_reg(  # noqa: F841
             outdir, fa_file, use_fmrib58_fa_1mm=True, target_img=None)
     print_title("Done.")
 
