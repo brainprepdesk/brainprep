@@ -8,7 +8,7 @@
 
 
 """
-Diffusion MRI pre-processing.
+Voxel‑based morphometry (VBM) workflow.
 """
 
 import brainprep.interfaces as interfaces
@@ -40,7 +40,7 @@ from ..utils import (
     add_subjects=True,
     container="neurospin/brainprep-vbm")
 @log_runtime(
-    title="Subject Level VBM Pre-Processing")
+    title="Subject Level VBM")
 @save_runtime
 def brainprep_vbm(
         t1_file: File,
@@ -115,7 +115,7 @@ def brainprep_vbm(
     longitudinal=True,
     container="neurospin/brainprep-vbm")
 @log_runtime(
-    title="Longitudinal VBM Pre-Processing")
+    title="Longitudinal VBM")
 @save_runtime(
     parent=True)
 def brainprep_longitudinal_vbm(
@@ -196,7 +196,7 @@ def brainprep_longitudinal_vbm(
     process="vbm",
     container="neurospin/brainprep-vbm")
 @log_runtime(
-    title="Group Level VBM Pre-Processing")
+    title="Group Level VBM")
 @save_runtime
 def brainprep_group_vbm(
         output_dir: Directory,

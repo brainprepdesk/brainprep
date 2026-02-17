@@ -1,6 +1,6 @@
 """
-VBM pre-processing 
-==================
+VBM
+===
 
 Simple example.
 
