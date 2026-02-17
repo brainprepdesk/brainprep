@@ -96,8 +96,8 @@ class TestPreprocessing(unittest.TestCase):
         mock_enter = mock.Mock()
         mock_enter.return_value = mock_file
         mock_exit = mock.Mock()
-        setattr(mock_context_manager, "__enter__", mock_enter)
-        setattr(mock_context_manager, "__exit__", mock_exit)
+        mock_context_manager.__enter__ = mock_enter
+        mock_context_manager.__exit__ = mock_exit
         mock_glob.return_value = []
         for key, (fct, kwargs) in self.processes.items():
             print_subtitle(f"{key}...")
