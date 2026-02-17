@@ -12,7 +12,6 @@ Common functions to spatialy normalize the data.
 """
 
 # Imports
-import os
 
 import nibabel
 import numpy as np

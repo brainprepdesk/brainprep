@@ -11,7 +11,6 @@ Singularity container.
 # sphinx_gallery_thumbnail_path = '_static/carousel/fmriprep.png'
 
 import os
-import subprocess
 
 from brainrise.datasets import MRIToyDataset
 
