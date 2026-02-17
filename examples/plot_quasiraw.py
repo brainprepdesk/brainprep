@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Quasi RAW pre-processing use case
 =================================

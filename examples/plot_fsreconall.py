@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 FreeSurfer pre-processing use case
 ==================================

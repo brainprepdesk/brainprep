@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 fmriprep pre-processing use case
 ================================

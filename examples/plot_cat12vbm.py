@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 CAT12 VBM pre-processing use case
 =================================

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
 # NSAp - Copyright (C) CEA, 2021 - 2023
 # Distributed under the terms of the CeCILL-B license, as published by

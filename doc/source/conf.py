@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
 # pysphinxdoc - Copyright (C) AGrigis, 2021
 # Distributed under the terms of the CeCILL-B license, as published by
