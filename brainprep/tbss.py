@@ -159,10 +159,10 @@ def tbss_1_preproc(tbss_dir, fa_file):
     tbss_orig_dir = os.path.join(tbss_dir, "origdata")
     if not os.path.isdir(tbss_fa_dir):
         raise ValueError(
-            f"tbss_1_preproc did not create FA directory: {fa_dir}.")
+            f"tbss_1_preproc did not create FA directory: {tbss_fa_dir}.")
     if not os.path.isdir(tbss_orig_dir):
         raise ValueError(
-            f"tbss_1_preproc did not create orig directory: {orig_dir}.")
+            f"tbss_1_preproc did not create orig directory: {tbss_orig_dir}.")
     fa_file = os.path.join(
         tbss_fa_dir, fa_basename.replace(".nii.gz", "_FA.nii.gz"))
     if not os.path.isfile(fa_file):

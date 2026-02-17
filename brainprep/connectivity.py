@@ -19,7 +19,7 @@ import os
 import numpy as np
 from nilearn import datasets, plotting
 from nilearn.connectome import ConnectivityMeasure
-from nilearn.image import clean_img
+from nilearn.image import clean_img, smooth_img
 from nilearn.interfaces.fmriprep import load_confounds
 from nilearn.maskers import NiftiLabelsMasker
 
@@ -145,7 +145,7 @@ def func_connectivity(fmri_file, counfounds_file, mask_file,
         if atlas_name == "schaefer":
             atlas = datasets.fetch_atlas_schaefer_2018(
                 n_rois=200, data_dir=atlasdir)
-        elif atlass_name == "msdl":
+        elif atlas_name == "msdl":
             atlas = datasets.fetch_atlas_msdl(data_dir=atlasdir)
         else:
             raise ValueError("Unsupported atlas '{}'.".format(atlas))
@@ -179,7 +179,7 @@ def func_connectivity(fmri_file, counfounds_file, mask_file,
 
     if np.array(fwhm).sum() > 0.0:
         print_subtitle("Smooth fMRI timeseries...")
-        smooth_im = nl_img.smooth_img(clean_im, fwhm)
+        smooth_im = smooth_img(clean_im, fwhm)
 
     print_subtitle("Extract average fMRI timeseries...")
     for atlas_name, params in data.items():
