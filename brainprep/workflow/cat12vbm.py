@@ -83,8 +83,8 @@ def brainprep_cat12vbm(
                                     session, batch_file, outdir)
         outdir = [os.path.join(outdir, session[0])]
     else:
-        assert len(anatomical) == len(session), "each longitudinal image must"\
-                                                " have a session specified"
+        assert len(anatomical) == len(session), \
+            "each longitudinal image must have a session specified"
         template_batch = os.path.join(
             resource_dir, "cat12vbm_matlabbatch_longitudinal.m")
         print("use matlab batch:", template_batch)
