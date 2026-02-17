@@ -121,7 +121,7 @@ def brainprep_cat12vbm(
                           " in the output folder,"
                           " you need to gzip your images")
         if not os.path.exists(mwp1):
-            raise ValueError("{0} file doesn't exists".format(mwp1))
+            raise ValueError("{} file doesn't exists".format(mwp1))
         nii_img = nibabel.load(mwp1)
         nii_arr = nii_img.get_fdata()
         nii_arr = nii_arr.astype(np.float32)

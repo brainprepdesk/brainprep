@@ -27,8 +27,8 @@ for path in (DATADIR, OUTDIR, HOMEDIR, WORKDIR):
     if not os.path.isdir(path):
         os.mkdir(path)
 dataset = MRIToyDataset(root=DATADIR)
-cmd = ["singularity", "run", "--bind", "{0}:/data".format(DATADIR),
-       "--bind", "{0}:/out".format(OUTDIR), "--home", HOMEDIR, "--cleanenv",
+cmd = ["singularity", "run", "--bind", "{}:/data".format(DATADIR),
+       "--bind", "{}:/out".format(OUTDIR), "--home", HOMEDIR, "--cleanenv",
        SIMG,
        "brainprep", SCRIPT,
        "/data",

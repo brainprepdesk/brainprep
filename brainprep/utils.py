@@ -38,8 +38,8 @@ def execute_command(command):
     output, error = proc.communicate()
     if proc.returncode != 0:
         raise ValueError(
-            "\nCommand {0} failed:\n\n- output:\n{1}\n\n- error: "
-            "{2}\n\n".format(" ".join(command),
+            "\nCommand {} failed:\n\n- output:\n{}\n\n- error: "
+            "{}\n\n".format(" ".join(command),
                              output.decode("utf8"),
                              error.decode("utf8")))
 
@@ -63,8 +63,8 @@ def check_command(command):
     stderr = stderr.decode("utf8")
     exitcode = process.returncode
     if exitcode != 0:
-        print_error("Command {0}: {1}".format(command, stderr))
-        raise ValueError("Impossible to locate command '{0}'.".format(command))
+        print_error("Command {}: {}".format(command, stderr))
+        raise ValueError("Impossible to locate command '{}'.".format(command))
 
 
 def check_version(package_name, check_pkg_version):
@@ -88,9 +88,9 @@ def check_version(package_name, check_pkg_version):
         # local computer installation
         if exitcode != 0:
             version = None
-            print_error("Version {0}: {1}".format(package_name, stderr))
+            print_error("Version {}: {}".format(package_name, stderr))
             raise ValueError(
-                "Impossible to check package '{0}' version."
+                "Impossible to check package '{}' version."
                 .format(package_name))
         else:
             versions = re.findall("Version: .*$", stdout, re.MULTILINE)
@@ -98,7 +98,7 @@ def check_version(package_name, check_pkg_version):
     else:
         # specific installation
         version = "custom install (no check)."
-    print("{0} - {1}".format(package_name, version))
+    print("{} - {}".format(package_name, version))
 
 
 def write_matlabbatch(template, nii_files, tpm_file, darteltpm_file,
@@ -133,7 +133,7 @@ def write_matlabbatch(template, nii_files, tpm_file, darteltpm_file,
     if not isinstance(outdir, list):
         outdir = [outdir]
     for idx, path in enumerate(nii_files):
-        nii_files_str += "'{0}' \n".format(
+        nii_files_str += "'{}' \n".format(
             ungzip_file(path, outdir=outdir[idx]))
     with open(template) as of:
         stream = of.read()
@@ -164,10 +164,10 @@ def ungzip_file(zfile, prefix="u", outdir=None):
     """
     # Checks
     if not os.path.isfile(zfile):
-        raise ValueError("'{0}' is not a valid filename.".format(zfile))
+        raise ValueError("'{}' is not a valid filename.".format(zfile))
     if outdir is not None:
         if not os.path.isdir(outdir):
-            raise ValueError("'{0}' is not a valid directory.".format(outdir))
+            raise ValueError("'{}' is not a valid directory.".format(outdir))
     else:
         outdir = os.path.dirname(zfile)
 

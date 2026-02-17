@@ -54,17 +54,17 @@ def recon_all(fsdir, anatfile, sid, reconstruction_stage="all", resume=False,
     """
     # Check input parameters
     if not os.path.isdir(fsdir):
-        raise ValueError("'{0}' FreeSurfer home directory does not "
+        raise ValueError("'{}' FreeSurfer home directory does not "
                          "exists.".format(fsdir))
     if reconstruction_stage not in ("all", "autorecon1", "autorecon2",
                                     "autorecon2-cp", "autorecon2-wm",
                                     "autorecon2-pial", "autorecon3"):
-        raise ValueError("Unsupported '{0}' recon-all reconstruction "
+        raise ValueError("Unsupported '{}' recon-all reconstruction "
                          "stage.".format(reconstruction_stage))
 
     # Call FreeSurfer segmentation
     check_command("recon-all")
-    cmd = ["recon-all", "-{0}".format(reconstruction_stage), "-subjid", sid,
+    cmd = ["recon-all", "-{}".format(reconstruction_stage), "-subjid", sid,
            "-i", anatfile, "-sd", fsdir, "-noappend", "-no-isrunning"]
     if t2file is not None:
         cmd.extend(["-T2", t2file, "-T2pial"])
@@ -240,7 +240,7 @@ def interhemi_surfreg(fsdir, sid, template_dir):
     hemi = "lh"
     subjfsdir = os.path.join(fsdir, sid)
     if not os.path.isdir(subjfsdir):
-        raise ValueError("'{0}' is not a valid directory.".format(subjfsdir))
+        raise ValueError("'{}' is not a valid directory.".format(subjfsdir))
 
     # Symlink input data in destination foler
     dest_template_dir = os.path.join(fsdir, "fsaverage_sym")
@@ -250,15 +250,15 @@ def interhemi_surfreg(fsdir, sid, template_dir):
     # Create the commands
     os.environ["SUBJECTS_DIR"] = fsdir
     sym_template_file = os.path.join(
-        subjfsdir, "surf", "{0}.fsaverage_sym.sphere.reg".format(hemi))
+        subjfsdir, "surf", "{}.fsaverage_sym.sphere.reg".format(hemi))
     if os.path.isfile(sym_template_file):
         os.remove(sym_template_file)
     cmds = [
         ["surfreg", "--s", sid, "--t", "fsaverage_sym",
-         "--{0}".format(hemi)],
+         "--{}".format(hemi)],
         ["xhemireg", "--s", sid],
         ["surfreg", "--s", sid, "--t", "fsaverage_sym",
-         "--{0}".format(hemi), "--xhemi"]]
+         "--{}".format(hemi), "--xhemi"]]
 
     # Call FreeSurfer xhemi
     check_command("surfreg")
@@ -269,7 +269,7 @@ def interhemi_surfreg(fsdir, sid, template_dir):
     # Get outputs
     xhemidir = os.path.join(subjfsdir, "xhemi")
     spherefile = os.path.join(
-        subjfsdir, "surf", "{0}.fsaverage_sym.sphere.reg".format(hemi))
+        subjfsdir, "surf", "{}.fsaverage_sym.sphere.reg".format(hemi))
 
     return xhemidir, spherefile
 
@@ -304,7 +304,7 @@ def interhemi_projection(fsdir, sid, template_dir):
         xhemi_features[name] = {}
         for hemi in ("lh", "rh"):
             texture_file = os.path.join(
-                subjfsdir, "surf", "{0}.{1}".format(hemi, name))
+                subjfsdir, "surf", "{}.{}".format(hemi, name))
             if not os.path.isfile(texture_file):
                 warnings.warn(
                     "Texture file not found: {}".format(texture_file),
@@ -315,7 +315,7 @@ def interhemi_projection(fsdir, sid, template_dir):
             else:
                 reg_file = reg_xhemi_file
             dest_texture_file = os.path.join(
-                subjfsdir, "surf", "{0}.{1}.xhemi.mgh".format(
+                subjfsdir, "surf", "{}.{}.xhemi.mgh".format(
                     hemi, name))
             cmd = ["mris_apply_reg", "--src", texture_file,
                    "--trg", dest_texture_file, "--streg", reg_file,
@@ -381,7 +381,7 @@ def localgi(fsdir, sid):
     # Check input parameters
     subjfsdir = os.path.join(fsdir, sid)
     if not os.path.isdir(subjfsdir):
-        raise ValueError("'{0}' FreeSurfer subject directory does not "
+        raise ValueError("'{}' FreeSurfer subject directory does not "
                          "exists.".format(subjfsdir))
 
     # Call FreeSurfer local gyrification
@@ -413,7 +413,7 @@ def stats2table(fsdir, outdir):
     # Check input parameters
     for path in (fsdir, outdir):
         if not os.path.isdir(path):
-            raise ValueError("'{0}' is not a valid directory.".format(path))
+            raise ValueError("'{}' is not a valid directory.".format(path))
 
     # Fist find all the subjects with a stat dir
     statdirs = glob.glob(os.path.join(fsdir, "*", "stats"))
@@ -431,7 +431,7 @@ def stats2table(fsdir, outdir):
     for hemi in ["lh", "rh"]:
         for meas in measures:
             statfile = os.path.join(
-                outdir, "aparc_stats_{0}_{1}.csv".format(hemi, meas))
+                outdir, "aparc_stats_{}_{}.csv".format(hemi, meas))
             statfiles.append(statfile)
             cmd = ["aparcstats2table", "--subjects"] + subjects + [
                 "--hemi", hemi, "--meas", meas, "--tablefile", statfile,
@@ -442,7 +442,7 @@ def stats2table(fsdir, outdir):
     for hemi in ["lh", "rh"]:
         for meas in measures:
             statfile = os.path.join(
-                outdir, "aparc2009s_stats_{0}_{1}.csv".format(hemi, meas))
+                outdir, "aparc2009s_stats_{}_{}.csv".format(hemi, meas))
             statfiles.append(statfile)
             cmd = ["aparcstats2table", "--subjects"] + subjects + [
                 "--parc", "aparc.a2009s", "--hemi", hemi, "--meas", meas,

@@ -45,7 +45,7 @@ def brainprep_fmriprep(anatomical, functionals, subjid, descfile, fsdir,
     print_subtitle("Launch fmriprep...")
     if not isinstance(functionals, list):
         functionals = functionals.split(",")
-    destdir = os.path.join(outdir, "fmriprep_{0}".format(subjid))
+    destdir = os.path.join(outdir, "fmriprep_{}".format(subjid))
     status = os.path.join(destdir, subjid, "ok")
     if not os.path.isfile(status):
         with tempfile.TemporaryDirectory() as tmpdir:
