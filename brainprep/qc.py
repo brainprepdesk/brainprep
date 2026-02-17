@@ -181,7 +181,7 @@ def parse_fsreconall_stats(fs_dirs):
         session = keys["session"]
         run = keys["run"]
         logfile = os.path.join(path, "scripts", "recon-all.log")
-        with open(logfile, "rt") as of:
+        with open(logfile) as of:
             lines = of.readlines()
         selection = [item for item in lines
                      if item.startswith("orig.nofix lheno")]

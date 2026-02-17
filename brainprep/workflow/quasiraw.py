@@ -199,6 +199,6 @@ def brainprep_quasiraw_qc(img_regex, outdir, brainmask_regex=None,
     report_path = os.path.join(outdir, "qc.html")
     html_report = df_report.to_html(index=False, table_id="table-brainprep")
     html_report = unescape(html_report)
-    with open(report_path, "wt") as of:
+    with open(report_path, "w") as of:
         of.write(html_report)
     print_result(report_path)

@@ -55,7 +55,7 @@ def main(working_dir):
                  .format(today, today))
         cmds += "singularity inspect brainprep-$IMG-{}.simg\n".format(today)
         cmds_file = os.path.join(dest_dir, "commands")
-        with open(cmds_file, "wt") as of:
+        with open(cmds_file, "w") as of:
             of.write(cmds)
         print("Ready to execute: {}".format(cmds_file))
 
@@ -96,7 +96,7 @@ def main(working_dir):
                  "brainprep-$IMG:{0}\n".format(today))
         cmds += "sudo chmod 755 brainprep-$IMG-{}.tar\n".format(today)
         cmds_file = os.path.join(dest_dir, "commands")
-        with open(cmds_file, "wt") as of:
+        with open(cmds_file, "w") as of:
             of.write(cmds)
         print("Ready to execute: {}".format(cmds_file))
 

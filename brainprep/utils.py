@@ -135,7 +135,7 @@ def write_matlabbatch(template, nii_files, tpm_file, darteltpm_file,
     for idx, path in enumerate(nii_files):
         nii_files_str += "'{0}' \n".format(
             ungzip_file(path, outdir=outdir[idx]))
-    with open(template, "r") as of:
+    with open(template) as of:
         stream = of.read()
         stream = stream.format(model_long=model_long, anat_file=nii_files_str,
                                tpm_file=tpm_file,

@@ -204,7 +204,7 @@ def load_iqms(files):
     data = []
     for path in files:
         name = os.path.basename(path).split(".")[0]
-        with open(path, "rt") as of:
+        with open(path) as of:
             _data = json.load(of)
         _data["_id"] = name
         data.append(_data)
