@@ -14,7 +14,8 @@ license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Console",
-    "Operating System :: OS Independent",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
     "Programming Language :: Python",
     "Topic :: Scientific/Engineering",
 ]
@@ -37,7 +38,6 @@ Source = "https://github.com/neurospin-deepinsight/brainprep"
 Tracker = "https://github.com/neurospin-deepinsight/brainprep/issues"
 
 [tool.setuptools]
-platforms = ["Linux", "OSX"]
 include-package-data = true
 script-files = [
     "brainprep/scripts/brainprep",
