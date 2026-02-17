@@ -238,7 +238,7 @@ def parse_cat12vbm_roi(
         df_sub_key["session"] = [session]
         df_sub_key["run"] = [run]
 
-        if (re.match(".*report/cat_.*\.xml", xml_file) and
+        if (re.match(r".*report/cat_.*\.xml", xml_file) and
                 "avg" not in xml_file):
             cat = pd.read_xml(xml_file)
             try:
@@ -261,7 +261,7 @@ def parse_cat12vbm_roi(
             sub_globvol = pd.concat(concat_globvol, axis=1)
             cohort_globvol = pd.concat([cohort_globvol, sub_globvol], axis=0)
 
-        elif re.match('.*label/catROI_.*\.xml', xml_file):
+        elif re.match(r'.*label/catROI_.*\.xml', xml_file):
             tree = ET.parse(xml_file)
             try:
                 # read the label xml file
@@ -277,19 +277,19 @@ def parse_cat12vbm_roi(
                 # parse GM, WM and CSF data if needed
                 if "Vgm" in iterparse[key]:
                     v_gm = (catroi['Vgm']
-                            .str.replace("\[|\]", "", regex=True)
+                            .str.replace(r"\[|\]", "", regex=True)
                             .str.split(";")[0])
                     v_gm = [float(volume) for volume in v_gm]
                     assert len(roi_names) == len(v_gm)
                 if "Vcsf" in iterparse[key]:
                     v_csf = (catroi['Vcsf']
-                             .str.replace("\[|\]", "", regex=True)
+                             .str.replace(r"\[|\]", "", regex=True)
                              .str.split(";")[0])
                     v_csf = [float(volume) for volume in v_csf]
                     assert len(roi_names) == len(v_csf)
                 if "Vwm" in iterparse[key]:
                     v_wm = (catroi['Vwm']
-                            .str.replace("\[|\]", "", regex=True)
+                            .str.replace(r"\[|\]", "", regex=True)
                             .str.split(";")[0])
                     v_wm = [float(volume) for volume in v_wm]
                     assert len(roi_names) == len(v_wm)
@@ -343,7 +343,7 @@ def parse_cat12vbm_qc(qc_files):
         participant_id = keys["participant_id"]
         session = keys["session"]
         run = keys["run"]
-        if re.match(".*report/cat_.*\.xml", xml_file):
+        if re.match(r".*report/cat_.*\.xml", xml_file):
             tree = ET.parse(xml_file)
             try:
                 ncr = float(tree.find("qualityratings").find("NCR").text)
