@@ -39,7 +39,7 @@ def main(
 
     working_dir = Path(working_dir).resolve()
     cw_dir = Path(__file__).parent.resolve()
-    image_dir = cw_dir.parent.resolve()
+    image_dir = cw_dir.parent.parent / "containers"
 
     print(
         "⚠️  WARNING: Don't use Docker default storage directory "
