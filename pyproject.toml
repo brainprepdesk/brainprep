@@ -12,7 +12,7 @@ authors = [
     {name = "brainprep developers", email = "antoine.grigis@cea.fr"},
 ]
 license = "CECILL-B"
-license-files = ["LICENSE.rst"]
+license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Console",
