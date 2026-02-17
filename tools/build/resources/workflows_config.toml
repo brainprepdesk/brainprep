@@ -1,0 +1,40 @@
+[brain_parcellation.default]
+n_cpus = 1
+memory = 16
+use_freesurfer = true
+
+[brain_parcellation.nextflow]
+memory = 64
+
+[brain_parcellation.group]
+memory = 5
+
+[defacing.default]
+n_cpus = 1
+memory = 5
+
+[fmriprep.default]
+n_cpus = 1
+memory = 10
+use_freesurfer = true
+
+[fmriprep.group]
+n_cpus = 1
+memory = 5
+
+[quality_assurance.default]
+n_cpus = 1
+memory = 20
+
+[quality_assurance.group]
+n_cpus = 1
+memory = 5
+
+[quasiraw.default]
+n_cpus = 1
+memory = 5
+use_freesurfer = true
+
+[vbm.default]
+n_cpus = 1
+memory = 5
