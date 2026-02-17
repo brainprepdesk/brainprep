@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Brain parcellation pre-processing.
+Surface‑based morphometry (SBM) workflow.
 """
 
 import os
@@ -35,12 +35,12 @@ from ..utils import (
 
 @coerceparams
 @bids(
-    process="brain_parcellation",
+    process="sbm",
     bids_file="t1_file",
     add_subjects=True,
-    container="neurospin/brainprep-brain_parcellation")
+    container="neurospin/brainprep-sbm")
 @log_runtime(
-    title="Subject Level Brain Parcellation")
+    title="Subject Level SBM")
 @save_runtime
 def brainprep_brainparc(
         t1_file: File,
@@ -289,13 +289,13 @@ def brainprep_brainparc(
 
 @coerceparams
 @bids(
-    process="brain_parcellation",
+    process="sbm",
     bids_file="t1_files",
     add_subjects=True,
     longitudinal=True,
-    container="neurospin/brainprep-brain_parcellation")
+    container="neurospin/brainprep-sbm")
 @log_runtime(
-    title="Longitudinal Brain Parcellation")
+    title="Longitudinal SBM")
 @save_runtime(
     parent=True)
 def brainprep_longitudinal_brainparc(
@@ -427,10 +427,10 @@ def brainprep_longitudinal_brainparc(
 
 @coerceparams
 @bids(
-    process="brain_parcellation",
-    container="neurospin/brainprep-brain_parcellation")
+    process="sbm",
+    container="neurospin/brainprep-sbm")
 @log_runtime(
-    title="Group Level Brain Parcellation")
+    title="Group Level SBM")
 @save_runtime
 def brainprep_group_brainparc(
         output_dir: Directory,

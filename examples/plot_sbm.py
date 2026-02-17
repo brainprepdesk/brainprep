@@ -1,11 +1,11 @@
 """
-Brain Parcellation
-==================
+SBM
+===
 
 Simple example.
 
-Example on how to run the brain parcellation pre-processing using BrainPrep.
-See :ref:`user guide <brain_parcellation>` for details.
+Example on how to run the SBM pre-processing using BrainPrep.
+See :ref:`user guide <sbm>` for details.
 
 Data
 ----

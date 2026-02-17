@@ -1,4 +1,4 @@
-.. _brain_parcellation:
+.. _sbm:
 
 Brain parcellation
 ==================
