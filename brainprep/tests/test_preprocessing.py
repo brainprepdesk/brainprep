@@ -43,8 +43,8 @@ class TestPreprocessing(unittest.TestCase):
             _defaults = _signature.defaults or []
             _defaults = (
                 [None] * (len(_args) - len(_defaults)) + list(_defaults))
-            _kwargs = dict((key, val if val is not None else key)
-                           for key, val in zip(_args, _defaults))
+            _kwargs = {key: val if val is not None else key
+                           for key, val in zip(_args, _defaults)}
             self.processes[name] = (_func, _kwargs)
         self.processes["apply_affine"][1]["affines"] = ["trf"]
         self.processes["deface"][1]["anat_file"] = "sub-XX_T1w.nii.gz"

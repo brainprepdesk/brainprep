@@ -78,8 +78,8 @@ def brainprep_mriqc_summary(indir, outdir, filters=None):
         "bold": pd.read_csv(os.path.join(resource_dir, "iqm_bold.csv"))}
     selected_iqms = pd.read_csv(os.path.join(
         resource_dir, "iqm_select.tsv"), sep="\t")
-    dtype_iqms = dict((row["ALIAS"], row["MAXIMIZE"])
-                      for _, row in selected_iqms.iterrows())
+    dtype_iqms = {row["ALIAS"]: row["MAXIMIZE"]
+                      for _, row in selected_iqms.iterrows()}
     anat_iqms = selected_iqms[selected_iqms["APPLIES_TO"].isin(
         ["structural", "structural, functional"])]["ALIAS"].values.tolist()
     func_iqms = selected_iqms[selected_iqms["APPLIES_TO"].isin(
@@ -91,16 +91,16 @@ def brainprep_mriqc_summary(indir, outdir, filters=None):
             indir, "sub-*", "ses-*", "anat", "sub-*T2w.json")),
         "bold": glob.glob(os.path.join(
             indir, "sub-*", "ses-*", "func", "sub-*bold.json"))}
-    user_data = dict((key, load_iqms(val)) for key, val in user_files.items())
+    user_data = {key: load_iqms(val) for key, val in user_files.items()}
     if filters is None:
         fields = user_data["t1w"]["bids_meta.MagneticFieldStrength"].values
         filters = []
         for val in np.unique(fields):
             filters.append("FIELD == {}".format(val))
-    api_data = dict((key, filter_iqms(val, filters))
-                    for key, val in api_data.items())
-    data = dict((key, merge_dfs(user_data[key], api_data[key]))
-                for key in user_data)
+    api_data = {key: filter_iqms(val, filters)
+                    for key, val in api_data.items()}
+    data = {key: merge_dfs(user_data[key], api_data[key])
+                for key in user_data}
     data = {
         "t1w": data["t1w"][["_id", "source"] + anat_iqms],
         "t2w": data["t2w"][["_id", "source"] + anat_iqms],
