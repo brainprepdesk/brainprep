@@ -14,6 +14,7 @@ Common defacing functions.
 
 # Imports
 import os
+
 from .utils import check_command, execute_command
 
 

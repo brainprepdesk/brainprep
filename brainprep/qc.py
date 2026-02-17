@@ -15,13 +15,15 @@ Usefull automatic quality control (QC) functions.
 import os
 import re
 import traceback
+import xml.etree.ElementTree as ET
+from pprint import pprint
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from pprint import pprint
-import xml.etree.ElementTree as ET
-from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.decomposition import PCA
+
 from .utils import get_bids_keys
 
 

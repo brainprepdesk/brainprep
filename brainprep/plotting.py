@@ -12,14 +12,16 @@ Usefull plotting functions.
 """
 
 # Imports
-import os
-import nibabel
 import itertools
+import os
+
+import matplotlib.pyplot as plt
+import nibabel
 import numpy as np
 import progressbar
-from nilearn import plotting
-import matplotlib.pyplot as plt
 import seaborn as sns
+from nilearn import plotting
+
 from .utils import get_bids_keys
 
 

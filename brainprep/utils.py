@@ -12,14 +12,16 @@ Module that contains some utility functions.
 """
 
 # Imports
+import gzip
 import os
 import re
-import sys
-import gzip
 import subprocess
+import sys
+
+import nibabel
 import numpy as np
 import pandas as pd
-import nibabel
+
 from .color_utils import print_command, print_error
 
 

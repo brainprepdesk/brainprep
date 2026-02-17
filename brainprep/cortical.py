@@ -13,11 +13,12 @@ Common cortical functions.
 """
 
 # Imports
-import os
 import glob
+import os
 import shutil
 import tempfile
 import warnings
+
 from .utils import check_command, execute_command
 
 

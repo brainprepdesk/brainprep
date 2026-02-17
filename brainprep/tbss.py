@@ -15,9 +15,9 @@ FSL TBSS tools.
 # Imports
 import os
 import shutil
-from .utils import check_command, execute_command
-from .color_utils import print_subtitle, print_result
 
+from .color_utils import print_result, print_subtitle
+from .utils import check_command, execute_command
 
 # Global parameters
 FSL_EXTS = {

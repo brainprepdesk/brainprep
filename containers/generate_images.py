@@ -9,11 +9,12 @@
 ##########################################################################
 
 # System import
-import os
 import glob
-import fire
+import os
 import shutil
 from datetime import date
+
+import fire
 
 
 def main(working_dir):

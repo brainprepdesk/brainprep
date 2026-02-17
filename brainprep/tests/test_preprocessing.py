@@ -8,15 +8,17 @@
 ##########################################################################
 
 # System import
+import inspect
+import os
 import unittest
 import unittest.mock as mock
 from unittest.mock import patch
-import os
-import inspect
+
 import nibabel
 import numpy as np
+
 import brainprep
-from brainprep.color_utils import print_title, print_subtitle
+from brainprep.color_utils import print_subtitle, print_title
 
 
 class TestPreprocessing(unittest.TestCase):

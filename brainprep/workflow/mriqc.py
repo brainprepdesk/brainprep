@@ -12,15 +12,17 @@ Interface for mriqc.
 """
 
 # System import
-import os
-import json
 import glob
-import requests
+import json
+import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
+import requests
 import seaborn as sns
-import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
+
 import brainprep
 from brainprep.color_utils import print_title
 

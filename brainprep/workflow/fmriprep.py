@@ -13,9 +13,10 @@ Interface for fmriprep.
 
 # System import
 import os
-import tempfile
-import brainprep
 import shutil
+import tempfile
+
+import brainprep
 from brainprep.color_utils import print_subtitle
 
 

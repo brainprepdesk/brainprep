@@ -12,14 +12,20 @@ Interface for prequal.
 """
 
 # Imports
-import os
 import glob
+import os
 import shutil
-import tempfile
 import subprocess
+import tempfile
+
 import pandas as pd
+
 from brainprep.color_utils import (
-    print_result, print_subtitle, print_title, print_command)
+    print_command,
+    print_result,
+    print_subtitle,
+    print_title,
+)
 from brainprep.plotting import plot_hists
 from brainprep.utils import listify
 
@@ -152,8 +158,8 @@ def brainprep_prequal_qc(data_regex, outdir, sub_idx=-4, thr_low=0.3,
     thr_up: float, default 0.75
         upper treshold for outlier selection.
     """
-    import seaborn as sns
     import matplotlib.pyplot as plt
+    import seaborn as sns
 
     print_title("Loading PreQual dtiQA stats files...")
     stat_files = glob.glob(data_regex)

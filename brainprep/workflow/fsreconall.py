@@ -12,18 +12,20 @@ Interface for FreeSurfer recon-all.
 """
 
 # System import
-import os
 import glob
-import nibabel
+import os
 import warnings
+from html import unescape
+
+import nibabel
 import numpy as np
 import pandas as pd
-from html import unescape
+
 import brainprep
-from brainprep.utils import create_clickable, listify
-from brainprep.color_utils import print_title, print_result
-from brainprep.qc import parse_fsreconall_stats
+from brainprep.color_utils import print_result, print_title
 from brainprep.plotting import plot_fsreconall, plot_hists
+from brainprep.qc import parse_fsreconall_stats
+from brainprep.utils import create_clickable, listify
 
 
 def brainprep_fsreconall(subjid, anatomical, outdir, template_dir,

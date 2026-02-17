@@ -12,16 +12,18 @@ Interface for quasi-raw.
 """
 
 # System import
-import os
 import glob
+import os
+from html import unescape
+
 import nibabel
 import numpy as np
-from html import unescape
+
 import brainprep
-from brainprep.utils import load_images, create_clickable, listify
-from brainprep.color_utils import print_title, print_result
-from brainprep.qc import plot_pca, compute_mean_correlation, check_files
-from brainprep.plotting import plot_images, plot_hists
+from brainprep.color_utils import print_result, print_title
+from brainprep.plotting import plot_hists, plot_images
+from brainprep.qc import check_files, compute_mean_correlation, plot_pca
+from brainprep.utils import create_clickable, listify, load_images
 
 
 def brainprep_quasiraw(anatomical, mask, outdir, target=None, no_bids=False):

@@ -13,9 +13,11 @@ Common functions to spatialy normalize the data.
 
 # Imports
 import os
+
 import nibabel
 import numpy as np
-from .utils import check_version, check_command, execute_command
+
+from .utils import check_command, check_version, execute_command
 
 
 def scale(imfile, scaledfile, scale, check_pkg_version=False):

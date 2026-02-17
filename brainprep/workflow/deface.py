@@ -12,12 +12,13 @@ Interface for brain imaging defacing.
 """
 
 # System import
+import matplotlib.pyplot as plt
 import nibabel
 import numpy as np
 from nilearn import plotting
-import matplotlib.pyplot as plt
+
 import brainprep
-from brainprep.color_utils import print_title, print_result
+from brainprep.color_utils import print_result, print_title
 
 
 def brainprep_deface(anatomical, outdir):

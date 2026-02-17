@@ -15,15 +15,15 @@ connectivity matrices based on standard parcellations and metrics.
 
 # Imports
 import os
-import numpy as np
-from nilearn import datasets
-from nilearn import plotting
-from nilearn.image import clean_img
-from nilearn.maskers import NiftiLabelsMasker
-from nilearn.connectome import ConnectivityMeasure
-from nilearn.interfaces.fmriprep import load_confounds
-from .color_utils import print_subtitle, print_result
 
+import numpy as np
+from nilearn import datasets, plotting
+from nilearn.connectome import ConnectivityMeasure
+from nilearn.image import clean_img
+from nilearn.interfaces.fmriprep import load_confounds
+from nilearn.maskers import NiftiLabelsMasker
+
+from .color_utils import print_result, print_subtitle
 
 # Define global parameters
 CONNECTIVITIES = ["correlation", "partial correlation"]

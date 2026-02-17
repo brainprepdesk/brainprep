@@ -15,7 +15,6 @@ Utility methods to print the results in a terminal using term colors.
 import os
 import platform
 
-
 IS_WINDOWS = platform.system() == "Windows"
 COLOR_TERMS = ["xterm-256color", "cygwin", "xterm-color"]
 IS_COLOR_TERM = "TERM" in os.environ and (
