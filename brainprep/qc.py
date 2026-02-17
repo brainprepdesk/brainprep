@@ -266,7 +266,7 @@ def parse_cat12vbm_roi(
             try:
                 # read the label xml file
                 catroi = pd.read_xml(xml_file, iterparse=iterparse)
-                key = list(iterparse.keys())[0]
+                key = next(iter(iterparse.keys()))
                 # get the ROI names
                 _roi_names = [item.text for item in
                               tree.find(key)
