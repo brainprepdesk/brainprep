@@ -31,17 +31,17 @@ dependencies = [
     "progressbar2",
     "fire"
 ]
+console_scripts = [
+    "brainprep/scripts/brainprep",
+]
 dynamic = ["version"]
 
 [project.urls]
-Source = "https://github.com/neurospin-deepinsight/brainprep"
-Tracker = "https://github.com/neurospin-deepinsight/brainprep/issues"
+source = "https://github.com/neurospin-deepinsight/brainprep"
+issues = "https://github.com/neurospin-deepinsight/brainprep/issues"
 
 [tool.setuptools]
 include-package-data = true
-script-files = [
-    "brainprep/scripts/brainprep",
-]
 
 [tool.setuptools.dynamic]
 version = {attr = "brainprep.info.__version__"}
