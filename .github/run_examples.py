@@ -15,12 +15,12 @@ from joblib import Parallel, delayed
 currentdir = os.path.dirname(__file__)
 examplesdir = os.path.join(currentdir, os.pardir, "examples")
 
-example_files = []
-for root, dirs, files in os.walk(examplesdir):
-    for basename in files:
-        if basename.endswith(".py"):
-             example_files.append(os.path.abspath(
-                os.path.join(root, basename)))
+example_files = [
+    os.path.abspath(os.path.join(root, basename))
+    for root, dirs, files in os.walk(examplesdir)
+    for basename in files
+    if basename.endswith(".py")
+]
 print("'{0}' examples found!".format(len(example_files)))
 
 def runner(path):

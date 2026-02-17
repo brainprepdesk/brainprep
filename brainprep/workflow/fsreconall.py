@@ -165,12 +165,14 @@ def brainprep_fsreconall_summary(fsdir, outdir):
                         UserWarning)
                     continue
                 df = pd.read_csv(table_file, sep=",")
-                todrop = []
-                for name in (
+                todrop = [
+                    name
+                    for name in (
                         "MeanThickness", "WhiteSurfArea", "BrainSegVolNotVent",
-                        "eTIV"):
-                    if name in df:
-                        todrop.append(name)
+                        "eTIV"
+                    )
+                    if name in df
+                ]
                 df.drop(columns=todrop, inplace=True)
                 values = df.values
                 if subjects is None:

@@ -15,12 +15,12 @@ from joblib import Parallel, delayed
 currentdir = os.path.dirname(__file__)
 testsdir = os.path.join(currentdir, os.pardir, "brainprep", "tests")
 
-test_files = []
-for root, dirs, files in os.walk(testsdir):
-    for basename in files:
-        if basename.endswith(".py"):
-             test_files.append(os.path.abspath(
-                os.path.join(root, basename)))
+test_files = [
+    os.path.abspath(os.path.join(root, basename))
+    for root, dirs, files in os.walk(testsdir)
+    for basename in files
+    if basename.endswith(".py")
+]
 print("'{0}' tests found!".format(len(test_files)))
 
 def runner(path):
