@@ -416,15 +416,34 @@ def incremental_pca(
 
 @outputdir
 @log_runtime(
-    bunched = False
-)
+    bunched = False)
 @coerceparams
 def filter_metrics(
     metrics_files: list[str],
     modalities: list[str],
     output_dir: Directory) -> tuple(list[File]):
     """
+    Filter the MRIQC metrics based on the modality and default criteria.
+    
+    Parameters
+    ----------
+    metrics_files : list[str]
+        List of paths to the MRIQC metrics files.
+    modalities : list[str]
+        List of modalities in the current study.
+    output_dir : Directory
+        Directory where the filtered metrics will be saved.
 
+    Returns
+    -------
+    iqm_files : list[File] — paths to the group level 
+        Image Quality Metrics (IQMs) filtered.
+
+    Raises
+    ------
+    ValueError
+        If modality does not match the provided modalities (BIDS).
+        If filename format does not match "group_{modality}.tsv").
     """
     metrics_by_modalities = {
         'T1w': ['cjv', 'cnr', 'efc','fber','wm2max', 'inu_med','qi_1', 'qi_2'
@@ -445,7 +464,8 @@ def filter_metrics(
 
         if match:
             if match.group(1) not in modalities:
-                raise ValueError(f"Modality {match.group(1)} not in {modalities}")
+                raise ValueError(
+                    f"Modality {match.group(1)} not in {modalities}")
             
             cols_to_keep = [
                 col for col in metric_df.columns
