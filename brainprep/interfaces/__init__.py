@@ -63,6 +63,7 @@ from .utils import (
     mean_correlation,
     movedir,
     ungzfile,
+    filter_metrics,
 )
 
 __all__ = [

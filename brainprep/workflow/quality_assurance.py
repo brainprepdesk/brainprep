@@ -184,6 +184,12 @@ def brainprep_group_quality_assurance(
         output_dir,
     )
 
+    iqm_file = interfaces.filter_metrics(
+        iqm_file,
+        modalities,
+        output_dir
+        )
+
     return Bunch(
         iqm_file=iqm_file,
     )
