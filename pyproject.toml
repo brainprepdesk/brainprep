@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools-scm"]
+requires = ["setuptools>=77.0.3", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -9,7 +9,8 @@ requires-python = ">=3.9"
 authors = [
     {name = "brainprep developers", email = "antoine.grigis@cea.fr"},
 ]
-license = {text = "CeCILL-B"}
+license = "CECILL-B"
+license-files = ["LICENSE.rst"]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Console",
