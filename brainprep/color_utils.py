@@ -299,7 +299,7 @@ def HEX(color):
     return new_xterm_colors[color]
 
 
-class colored(object):
+class colored:
 
     def __init__(self, color):
 
