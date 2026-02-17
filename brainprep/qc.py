@@ -148,10 +148,10 @@ def compute_mean_correlation(X, df_description, outdir):
     plt.savefig(corr_path)
 
     # Generate data frame with results
-    df_corr = pd.DataFrame(dict(participant_id=participant_ids,
-                                session=sessions_ids,
-                                run=run_ids,
-                                corr_mean=zcorr_mean[sort_idx]))
+    df_corr = pd.DataFrame({"participant_id": participant_ids,
+                                "session": sessions_ids,
+                                "run": run_ids,
+                                "corr_mean": zcorr_mean[sort_idx]})
     df_corr = df_corr.reindex(
         ["participant_id", "session", "run", "corr_mean"], axis="columns")
 
