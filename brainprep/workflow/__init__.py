@@ -8,14 +8,12 @@
 
 """
 Available workflows.
-
-from .tbss import brainprep_tbss_preproc, brainprep_tbss
 """
 
-from .brain_parcellation import (
-    brainprep_brainparc,
-    brainprep_group_brainparc,
-    brainprep_longitudinal_brainparc,
+from .sbm import (
+    brainprep_sbm,
+    brainprep_group_sbm,
+    brainprep_longitudinal_sbm,
 )
 from .defacing import (
     brainprep_defacing,

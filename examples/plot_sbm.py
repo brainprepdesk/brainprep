@@ -46,19 +46,19 @@ print(data)
 
 
 from brainprep.workflow import (
-    brainprep_brainparc,
-    brainprep_group_brainparc,
-    brainprep_longitudinal_brainparc,
+    brainprep_sbm,
+    brainprep_group_sbm,
+    brainprep_longitudinal_sbm,
 )
 from brainprep.config import Config
 from brainprep.reporting import RSTReport
 
-outdir = Path("/tmp/brainprep-brainparc")
+outdir = Path("/tmp/brainprep-sbm")
 outdir.mkdir(parents=True, exist_ok=True)
 with Config(dryrun=True, verbose=True):
     for subject_data in data.values():
         for t1_file in [subject_data.anat1, subject_data.anat2]:
-            outputs = brainprep_brainparc(
+            outputs = brainprep_sbm(
                 t1_file=t1_file,
                 output_dir=outdir,
                 do_lgi=True,
@@ -69,12 +69,12 @@ with Config(dryrun=True, verbose=True):
             (outputs.subject_dir / "stats" / "lh.aparc.stats").touch(
                 exist_ok=True
             )
-    outputs = brainprep_group_brainparc(
+    outputs = brainprep_group_sbm(
         output_dir=outdir,
         euler_threshold=-217,
         keep_intermediate=True,
     )
-    outputs = brainprep_longitudinal_brainparc(
+    outputs = brainprep_longitudinal_sbm(
         t1_files=[subject_data.anat1, subject_data.anat2],
         output_dir=outdir,
         keep_intermediate=True,
@@ -82,7 +82,7 @@ with Config(dryrun=True, verbose=True):
     for subject_dir in outputs.subject_dirs:
         (subject_dir / "stats").mkdir(parents=True, exist_ok=True)
         (subject_dir / "stats" / "lh.aparc.stats").touch(exist_ok=True)
-    outputs = brainprep_group_brainparc(
+    outputs = brainprep_group_sbm(
         output_dir=outdir,
         euler_threshold=-217,
         longitudinal=True,
@@ -104,7 +104,7 @@ commands = []
 commands.append(
     [
         [
-            "brainprep", "subject-level-brainparc",
+            "brainprep", "subject-level-sbm",
             "--t1_file", str(t1_file),
             "--output-dir", str(outdir),
             "--keep-intermediate",
@@ -115,7 +115,7 @@ commands.append(
 commands.append(
     [
         [
-            "brainprep", "subject-level-brainparc",
+            "brainprep", "subject-level-sbm",
             "--t1_file", str(t1_file),
             "--output-dir", str(outdir),
             "--analysis-type", "nextbrain",
@@ -127,7 +127,7 @@ commands.append(
 commands.append(
     [
         [
-            "brainprep", "longitudinal-brainparc",
+            "brainprep", "longitudinal-sbm",
             "--t1_files",
             f"{subject_data.anat1},{subject_data.anat2}",
             "--output-dir", str(outdir),
@@ -138,13 +138,13 @@ commands.append(
 commands.append(
     [
         [
-            "brainprep", "group-level-brainparc",
+            "brainprep", "group-level-sbm",
             "--output-dir", str(outdir),
             "--euler_threshold", "-217",
             "--keep-intermediate",
         ],
         [
-            "brainprep", "group-level-brainparc",
+            "brainprep", "group-level-sbm",
             "--output-dir", str(outdir),
             "--euler_threshold", "-217",
             "--longitudinal",

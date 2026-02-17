@@ -1,12 +1,12 @@
-[brain_parcellation.default]
+[sbm.default]
 n_cpus = 1
 memory = 16
 use_freesurfer = true
 
-[brain_parcellation.nextflow]
+[sbm.nextflow]
 memory = 64
 
-[brain_parcellation.group]
+[sbm.group]
 memory = 5
 
 [defacing.default]

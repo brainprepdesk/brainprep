@@ -20,7 +20,7 @@ Table of contents
    defacing.rst
    quasiraw.rst
    vbm.rst
-   brain_parcellation.rst
+   sbm.rst
    fmriprep.rst
    reporting.rst
    cli.rst

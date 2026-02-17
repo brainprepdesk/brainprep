@@ -42,7 +42,7 @@ from ..utils import (
 @log_runtime(
     title="Subject Level SBM")
 @save_runtime
-def brainprep_brainparc(
+def brainprep_sbm(
         t1_file: File,
         output_dir: Directory,
         analysis_type: str = "sbm",
@@ -128,7 +128,7 @@ def brainprep_brainparc(
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()
-    ...     outputs = brainprep_brainparc(
+    ...     outputs = brainprep_sbm(
     ...         t1_file=(
     ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
     ...             "sub-01_ses-01_run-01_T1w.nii.gz"
@@ -298,7 +298,7 @@ def brainprep_brainparc(
     title="Longitudinal SBM")
 @save_runtime(
     parent=True)
-def brainprep_longitudinal_brainparc(
+def brainprep_longitudinal_sbm(
         t1_files: list[File],
         output_dir: Directory,
         keep_intermediate: bool = False) -> Bunch:
@@ -340,7 +340,7 @@ def brainprep_longitudinal_brainparc(
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()
-    ...     outputs = brainprep_longitudinal_brainparc(
+    ...     outputs = brainprep_longitudinal_sbm(
     ...         t1_files=[
     ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
     ...             "sub-01_ses-01_run-01_T1w.nii.gz",
@@ -432,7 +432,7 @@ def brainprep_longitudinal_brainparc(
 @log_runtime(
     title="Group Level SBM")
 @save_runtime
-def brainprep_group_brainparc(
+def brainprep_group_sbm(
         output_dir: Directory,
         euler_threshold: int = -217,
         longitudinal: bool = False,
@@ -487,7 +487,7 @@ def brainprep_group_brainparc(
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()
-    ...     outputs = brainprep_group_brainparc(
+    ...     outputs = brainprep_group_sbm(
     ...         output_dir="/tmp/dataset/derivatives",
     ...     ) # doctest: +SKIP
     >>> outputs # doctest: +SKIP
