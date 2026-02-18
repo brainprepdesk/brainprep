@@ -421,7 +421,8 @@ def incremental_pca(
 def filter_metrics(
     metrics_files: list[str],
     modalities: list[str],
-    output_dir: Directory) -> tuple(list[File]):
+    output_dir: Directory,
+    dryrun : bool = False) -> tuple(list[File]):
     """
     Filter the MRIQC metrics based on the modality and default criteria.
     
@@ -457,33 +458,32 @@ def filter_metrics(
         'sigma_piesno', 'snr_cc_shell0', 'snr_cc_shell1_best',
         'snr_cc_shell1_worst', 'spikes_global', 'bids_name']
     }
-    forbidden_prefixes = ('spacing', 'summary', 'tpm', 'size')
-    
-    print(f"Filtering metrics for modalities: {metrics_files}")
+    if not dryrun:
+        forbidden_prefixes = ('spacing', 'summary', 'tpm', 'size')
 
-    iqm_files = [
-        output_dir / f"filtered_group_{mod}.tsv"
-        for mod in modalities
-    ]
-    for file in metrics_files:
-        metric_df = pd.read_csv(str(file), sep='\t')
-        match = re.search(r"group_(\w+).tsv", Path(file).name)
+        iqm_files = [
+            output_dir / f"filtered_group_{mod}.tsv"
+            for mod in modalities
+        ]
+        for file in metrics_files:
+            metric_df = pd.read_csv(str(file), sep='\t')
+            match = re.search(r"group_(\w+).tsv", Path(file).name)
 
-        if match:
-            if match.group(1) not in modalities:
-                raise ValueError(
-                    f"Modality {match.group(1)} not in {modalities}")
-            
-            cols_to_keep = [
-                col for col in metric_df.columns
-                if not col.startswith(forbidden_prefixes)
-                and col in metrics_by_modalities[match.group(1)]
-                ]
+            if match:
+                if match.group(1) not in modalities:
+                    raise ValueError(
+                        f"Modality {match.group(1)} not in {modalities}")
+                
+                cols_to_keep = [
+                    col for col in metric_df.columns
+                    if not col.startswith(forbidden_prefixes)
+                    and col in metrics_by_modalities[match.group(1)]
+                    ]
 
-            filtered_df = metric_df[cols_to_keep].copy()
-            output_file = output_dir / f"filtered_{Path(file).name}"
-            filtered_df.to_csv(output_file, sep='\t', index=False)
-        else:
-            raise ValueError(f"Invalid filename format: {Path(file).name}")
+                filtered_df = metric_df[cols_to_keep].copy()
+                output_file = output_dir / f"filtered_{Path(file).name}"
+                filtered_df.to_csv(output_file, sep='\t', index=False)
+            else:
+                raise ValueError(f"Invalid filename format: {Path(file).name}")
 
     return (iqm_files, )
