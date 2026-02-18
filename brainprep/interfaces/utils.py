@@ -458,12 +458,15 @@ def filter_metrics(
         'snr_cc_shell1_worst', 'spikes_global', 'bids_name']
     }
     forbidden_prefixes = ('spacing', 'summary', 'tpm', 'size')
+    
+    print(f"Filtering metrics for modalities: {metrics_files}")
+
     iqm_files = [
-        output_dir / "quality_assurance" / f"filtered_group_{mod}.tsv"
+        output_dir / f"filtered_group_{mod}.tsv"
         for mod in modalities
     ]
     for file in metrics_files:
-        metric_df = pd.read_csv(file, sep='\t')
+        metric_df = pd.read_csv(str(file), sep='\t')
         match = re.search(r"group_(\w+).tsv", Path(file).name)
 
         if match:
@@ -478,7 +481,7 @@ def filter_metrics(
                 ]
 
             filtered_df = metric_df[cols_to_keep].copy()
-            output_file = output_dir / "quality_assurance" / f"filtered_{Path(file).name}"
+            output_file = output_dir / f"filtered_{Path(file).name}"
             filtered_df.to_csv(output_file, sep='\t', index=False)
         else:
             raise ValueError(f"Invalid filename format: {Path(file).name}")
