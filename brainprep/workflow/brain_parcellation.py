@@ -10,6 +10,7 @@
 Brain parcellation pre-processing.
 """
 
+import json
 import os
 import shutil
 
@@ -176,7 +177,12 @@ def brainprep_brainparc(
     print_info(f"setting workspace directory: {workspace_dir}")
 
     entities = parse_bids_keys(t1_file)
-    if len(entities) == 0:
+    img_json = output_dir / f"img-{entities['img']}.json"
+    with open(img_json, 'w') as file:
+        saved_dict = {key:value for key,value in entities.items()
+                      if key not in ["modality"]}
+        json.dump(saved_dict, file, indent=4)
+    if len(entities) == 0:  # condition needs to be changed if img in entities
         raise ValueError(
             f"The T1w file '{t1_file}' is not BIDS-compliant."
         )
@@ -197,7 +203,7 @@ def brainprep_brainparc(
             entities,
         )
         return Bunch(
-            subject_dir=output_dir / f"run-{entities['run']}",
+            subject_dir=output_dir / f"img-{entities['img']}",
             left_seg_file=left_seg_file,
             right_seg_file=right_seg_file,
         )
@@ -263,7 +269,7 @@ def brainprep_brainparc(
         shutil.rmtree(workspace_dir)
 
     return Bunch(
-        subject_dir=output_dir / f"run-{entities['run']}",
+        subject_dir=output_dir / f"img-{entities['img']}",
         left_reg_file=left_reg_file,
         right_reg_file=right_reg_file,
         lh_thickness_file=lh_thickness_file,
@@ -394,14 +400,14 @@ def brainprep_longitudinal_brainparc(
     subject_dirs = []
     for log_file in log_files:
         identifier = log_file.parent.parent.name.split(".long.")[0]
-        _, session_name, run_name = identifier.split("_")
+        _, session_name, img_name = identifier.split("_")
         subject_dirs.append(
             interfaces.movedir(
                 source_dir=log_file.parent.parent,
                 output_dir=(
                     output_dir.parent /
                     session_name /
-                    run_name
+                    img_name
                 ),
                 content=True,
             )

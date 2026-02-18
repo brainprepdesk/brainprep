@@ -14,6 +14,7 @@ import inspect
 import json
 import re
 from collections.abc import Callable, Iterable
+from hashlib import sha256
 from pathlib import Path
 from typing import (
     Any,
@@ -317,7 +318,7 @@ def parse_bids_keys(
     # Regex pattern for BIDS entities
     entity_pattern = (
         r"(?P<entity>(sub|ses|task|acq|run|echo|rec|dir|mod|ce|part|space|res|"
-        r"recording))"
+        r"recording|img))"
         r"-(?P<value>[^_/]+)"
     )
     entities = {}
@@ -338,6 +339,12 @@ def parse_bids_keys(
     # Update modality
     if "mod" not in entities and "modality" in entities:
         entities["mod"] = entities["modality"]
+
+    # add an id that distinguishes images in the same session
+    if "img" not in entities.keys():
+        basename = bids_path.name
+        unique_id = sha256(basename.encode("utf-8")).hexdigest()[:4]
+        entities["img"] = unique_id
 
     # Define default values for missing entities
     defaults = {

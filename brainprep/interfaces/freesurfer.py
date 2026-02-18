@@ -77,7 +77,7 @@ def brainmask(
 
     .. footbibliography::
     """
-    basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_brainmask".format(
+    basename = "sub-{sub}_ses-{ses}_img-{img}_mod-{mod}_brainmask".format(
         **entities)
     mask_file = output_dir / f"{basename}.nii.gz"
 
@@ -142,7 +142,7 @@ def reconall(
 
     .. footbibliography::
     """
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     log_file = output_dir / subject / "scripts" / "recon-all.log"
 
     command = [
@@ -215,8 +215,8 @@ def reconall_longitudinal(
         If a cross-sectional `recon-all` is not available or if multiple
         subjects are passed as inputs.
     """
-    subjects, sessions, runs = zip(*[
-        (info["sub"], info["ses"], info["run"])
+    subjects, sessions, imgs = zip(*[
+        (info["sub"], info["ses"], info["img"])
         for info in entities
     ], strict=True)
     unique_subjects = set(subjects)
@@ -227,13 +227,13 @@ def reconall_longitudinal(
     subject = subjects[0]
 
     workspace_subjects = []
-    for sub, ses, run in zip(subjects, sessions, runs, strict=True):
+    for sub, ses, img in zip(subjects, sessions, imgs, strict=True):
         source_dir = (
             output_dir.parent.parent.parent /
             "subjects" /
             f"sub-{sub}" /
             f"ses-{ses}" /
-            f"run-{run}"
+            f"img-{img}"
         )
         if not source_dir.is_dir():
             raise ValueError(
@@ -241,12 +241,12 @@ def reconall_longitudinal(
             )
         target_dir = (
             output_dir /
-            f"sub-{sub}_ses-{ses}_run-{run}"
+            f"sub-{sub}_ses-{ses}_img-{img}"
         )
         target_dir.parent.mkdir(parents=True, exist_ok=True)
         if not target_dir.is_symlink():
             os.symlink(source_dir, target_dir)
-        workspace_subjects.append(f"sub-{sub}_ses-{ses}_run-{run}")
+        workspace_subjects.append(f"sub-{sub}_ses-{ses}_img-{img}")
 
     template_name = f"sub-{subject}_template_ses-{':'.join(sessions)}"
     log_template_file = (
@@ -395,7 +395,7 @@ def localgi(
 
     .. footbibliography::
     """
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     left_lgi_file = output_dir / subject / "surf" / "lh.pial_lgi"
     right_lgi_file = output_dir / subject / "surf" / "rh.pial_lgi"
 
@@ -443,7 +443,7 @@ def surfreg(
         - right_reg_file : File - Right hemisphere registered to
           `fsaverage_sym` symmetric template via xhemi.
     """
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     left_reg_file = (
         output_dir / subject / "surf" / "lh.fsaverage_sym.sphere.reg"
     )
@@ -509,7 +509,7 @@ def xhemireg(
         - right_log_file : File - The log of the right to left registration
           process.
     """
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     left_log_file = output_dir / subject / "xhemi" / "xhemireg.lh.log"
     right_log_file = output_dir / subject / "xhemi" / "xhemireg.rh.log"
 
@@ -571,7 +571,7 @@ def fsaveragesym_surfreg(
     if template_dir.is_symlink():
         os.remove(template_dir)
 
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     os.environ["SUBJECTS_DIR"] = str(output_dir)
 
     _left_log_file, right_log_file = xhemireg(
@@ -692,7 +692,7 @@ def fsaveragesym_projection(
     - This function is resilient if a feature is missing. In this case a
       None is returned.
     """
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     template_dir = output_dir / "fsaverage_sym"
     reg_map = {
         "lh": left_reg_file,
@@ -809,7 +809,7 @@ def mgz_to_nii(
         - ribbon_file
         - brain_file
     """
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     reference_file = output_dir / subject / "mri" / "rawavg.mgz"
 
     images = []
@@ -995,7 +995,7 @@ def freesurfer_features_summary(
         "subjects" /
         "sub-*" /
         "ses-*" /
-        "run-*" /
+        "img-*" /
         "stats" /
         "lh.aparc.stats"
     ))
@@ -1003,20 +1003,20 @@ def freesurfer_features_summary(
         str(Path(item).parent.parent) for item in stats_dirs
     ]
     print(source_dirs)
-    subjects, sessions, runs = zip(*[
+    subjects, sessions, imgs = zip(*[
         item.lstrip(os.sep).split(os.sep)[-3:]
         for item in source_dirs
     ], strict=True)
     unique_sessions = set(sessions)
 
     fs_subjects = {}
-    for sub, ses, run, source_dir in zip(
-            subjects, sessions, runs, source_dirs, strict=True):
-        target_dir = workspace_dir / ses / f"{sub}_{run}"
+    for sub, ses, img, source_dir in zip(
+            subjects, sessions, imgs, source_dirs, strict=True):
+        target_dir = workspace_dir / ses / f"{sub}_{img}"
         target_dir.parent.mkdir(parents=True, exist_ok=True)
         if not target_dir.is_symlink():
             os.symlink(source_dir, target_dir)
-        fs_subjects.setdefault(ses, []).append(f"{sub}_{run}")
+        fs_subjects.setdefault(ses, []).append(f"{sub}_{img}")
 
     summary_files = []
     measures = [
@@ -1088,7 +1088,7 @@ def freesurfer_euler_numbers(
     -------
     euler_numbers_file : File
         A TSV file containing FreeSurfer's averaged Euler numbers - the table
-        contains 'participant_id', 'session', 'run', and 'euler_number'
+        contains 'participant_id', 'session', 'img', and 'euler_number'
         columns, as well as a binary 'qc' column containing the results
         of the quality control.
 
@@ -1107,7 +1107,7 @@ def freesurfer_euler_numbers(
             "subjects" /
             "sub-*" /
             "ses-*" /
-            "run-*" /
+            "img-*" /
             "scripts" /
             "recon-all.log"
         ))
@@ -1119,7 +1119,7 @@ def freesurfer_euler_numbers(
             columns=(
                 "participant_id",
                 "session",
-                "run",
+                "img",
                 "euler_number",
             )
         )
@@ -1142,7 +1142,7 @@ def freesurfer_euler_numbers(
             scores.loc[len(scores)] = [
                 entities["sub"],
                 entities["ses"],
-                entities["run"],
+                entities["img"],
                 euler_number,
             ]
 
@@ -1225,7 +1225,7 @@ def freesurfer_tissues(
     comprehensive masks for downstream analysis or visualization. Use
     FreeSurfer's `ribbon.mgz` and `wmparc.mgz` files.
     """
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     wm_mask_file = workspace_dir / f"wm_{subject}.nii.gz"
     gm_mask_file = workspace_dir / f"gm_{subject}.nii.gz"
     csf_mask_file = workspace_dir / f"csf_{subject}.nii.gz"
@@ -1348,7 +1348,7 @@ def nextbrain(
 
     .. footbibliography::
     """
-    subject = f"run-{entities['run']}"
+    subject = f"img-{entities['img']}"
     left_seg_file = output_dir / subject / "nextbrain" / "seg.left.nii.gz"
     right_seg_file = output_dir / subject / "nextbrain" / "seg.right.nii.gz"
 
