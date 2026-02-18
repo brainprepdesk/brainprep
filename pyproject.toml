@@ -77,8 +77,8 @@ brainprep = [
     "tests/*.py",
     "resources/*.m",
     "resources/*.nii.gz",
-    "workflow/resources/*.csv",
-    "workflow/resources/*.tsv",
+    "resources/*.csv",
+    "resources/*.tsv",
 ]
 
 [tool.ruff]
