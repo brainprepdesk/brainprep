@@ -944,7 +944,8 @@ def asegstats2table(
 
 
 @coerceparams
-@outputdir
+@outputdir(
+    morphometry=True)
 @log_runtime(
     bunched=False)
 def freesurfer_features_summary(
@@ -991,7 +992,7 @@ def freesurfer_features_summary(
       directory using symlinks.
     """
     stats_dirs = glob.glob(str(
-        output_dir /
+        output_dir.parent /
         "subjects" /
         "sub-*" /
         "ses-*" /
@@ -1002,7 +1003,6 @@ def freesurfer_features_summary(
     source_dirs = [
         str(Path(item).parent.parent) for item in stats_dirs
     ]
-    print(source_dirs)
     subjects, sessions, runs = zip(*[
         item.lstrip(os.sep).split(os.sep)[-3:]
         for item in source_dirs
@@ -1023,8 +1023,6 @@ def freesurfer_features_summary(
         "area", "volume", "thickness", "thicknessstd",
         "meancurv", "gauscurv", "foldind", "curvind"
     ]
-    morphometry = output_dir / "morphometry"
-    morphometry.mkdir(parents=True, exist_ok=True)
     for ses in unique_sessions:
         data_dir = workspace_dir / ses
         os.environ["SUBJECTS_DIR"] = str(data_dir)
@@ -1036,7 +1034,7 @@ def freesurfer_features_summary(
                     ses.replace("ses-", ""),
                     hemi,
                     meas,
-                    morphometry,
+                    output_dir,
                 )
                 summary_files.extend([
                     desikan_stat_file,
@@ -1046,107 +1044,11 @@ def freesurfer_features_summary(
         volume_stat_file = asegstats2table(
             fs_subjects[ses],
             ses.replace("ses-", ""),
-            morphometry,
+            output_dir,
         )
         summary_files.append(volume_stat_file)
 
     return summary_files
-
-
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
-def freesurfer_euler_numbers(
-        output_dir: Directory,
-        euler_threshold: int = -217,
-        dryrun: bool = False) -> tuple[File]:
-    """
-    FreeSurfer quality control.
-
-    Parse the FreeSurfer's Euler numbers for all subjects and applies the
-    quality control described in :footcite:p:`rosen2018euler`.
-
-    Parameters
-    ----------
-    output_dir : Directory
-        FreeSurfer working directory containing all the subjects.
-    euler_threshold : int
-        Quality control threshold on the Euler number. Default 217.
-    dryrun : bool
-        If True, skip actual computation and file writing. Default False.
-
-    Returns
-    -------
-    euler_numbers_file : File
-        A TSV file containing FreeSurfer's averaged Euler numbers - the table
-        contains 'participant_id', 'session', 'run', and 'euler_number'
-        columns, as well as a binary 'qc' column containing the results
-        of the quality control.
-
-    References
-    ----------
-
-    .. footbibliography::
-    """
-    euler_numbers_file = output_dir / "qc" / "euler_numbers.tsv"
-    euler_numbers_file.parent.mkdir(parents=True, exist_ok=True)
-
-    if not dryrun:
-
-        log_files = glob.glob(str(
-            output_dir /
-            "subjects" /
-            "sub-*" /
-            "ses-*" /
-            "run-*" /
-            "scripts" /
-            "recon-all.log"
-        ))
-        log_files = [
-            Path(item) for item in log_files
-        ]
-
-        scores = pd.DataFrame(
-            columns=(
-                "participant_id",
-                "session",
-                "run",
-                "euler_number",
-            )
-        )
-        for path in log_files:
-            entities = parse_bids_keys(path, full_path=True)
-            lines = path.read_text().splitlines()
-            selection = [item for item in lines
-                         if item.startswith("orig.nofix lheno")]
-            if len(selection) != 1:
-                print_warn(f"no Euler number: {entities}")
-                euler_number = float("-inf")
-            else:
-                (_, left_euler_number,
-                 right_euler_number) = selection[0].split("=")
-                left_euler_number, _ = left_euler_number.split(",")
-                euler_number = 0.5 * (
-                     int(left_euler_number.strip()) +
-                     int(right_euler_number.strip())
-                )
-            scores.loc[len(scores)] = [
-                entities["sub"],
-                entities["ses"],
-                entities["run"],
-                euler_number,
-            ]
-
-        scores["qc"] = (scores["euler_number"] > euler_threshold).astype(int)
-        scores.to_csv(
-            euler_numbers_file,
-            index=False,
-            sep="\t",
-        )
-
-    return (euler_numbers_file, )
 
 
 @coerceparams

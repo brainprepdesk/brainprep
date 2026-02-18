@@ -15,19 +15,16 @@ from .ants import (
 )
 from .cat12 import (
     cat12vbm_morphometry,
-    cat12vbm_stats,
     cat12vbm_wf,
     write_catbatch,
 )
 from .fmriprep import (
-    fmriprep_stats,
     fmriprep_wf,
     func_vol_connectivity,
 )
 from .freesurfer import (
     brainmask,
     freesurfer_command_status,
-    freesurfer_euler_numbers,
     freesurfer_features_summary,
     freesurfer_tissues,
     fsaveragesym_projection,
@@ -54,13 +51,21 @@ from .plotting import (
     plot_brainparc,
     plot_defacing_mosaic,
     plot_histogram,
+    plot_network,
     plot_pca,
+)
+from .qualcheck import (
+    euler_numbers,
+    fmriprep_metrics,
+    incremental_pca,
+    mask_overlap,
+    mean_correlation,
+    network_entropy,
+    vbm_metrics,
 )
 from .utils import (
     copyfiles,
-    incremental_pca,
-    mask_diff,
-    mean_correlation,
+    maskdiff,
     movedir,
     ungzfile,
 )

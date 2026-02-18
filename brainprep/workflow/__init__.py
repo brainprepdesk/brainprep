@@ -10,13 +10,9 @@
 Available workflows.
 """
 
-from .sbm import (
-    brainprep_sbm,
-    brainprep_group_sbm,
-    brainprep_longitudinal_sbm,
-)
 from .defacing import (
     brainprep_defacing,
+    brainprep_group_defacing,
 )
 from .fmriprep import (
     brainprep_fmriprep,
@@ -29,6 +25,11 @@ from .quality_assurance import (
 from .quasiraw import (
     brainprep_group_quasiraw,
     brainprep_quasiraw,
+)
+from .sbm import (
+    brainprep_group_sbm,
+    brainprep_longitudinal_sbm,
+    brainprep_sbm,
 )
 from .vbm import (
     brainprep_group_vbm,

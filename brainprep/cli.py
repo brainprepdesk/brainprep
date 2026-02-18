@@ -132,6 +132,7 @@ def main():
         "subject-level-qa": wf.brainprep_quality_assurance,
         "group-level-qa": wf.brainprep_group_quality_assurance,
         "subject-level-defacing": wf.brainprep_defacing,
+        "group-level-defacing": wf.brainprep_group_defacing,
         "subject-level-quasiraw": wf.brainprep_quasiraw,
         "group-level-quasiraw": wf.brainprep_group_quasiraw,
         "subject-level-sbm": wf.brainprep_sbm,

@@ -37,20 +37,26 @@ print(data)
 # to actually run each step and generate results on disk.
 
 
-from brainprep.workflow import brainprep_defacing
+from brainprep.workflow import (
+    brainprep_defacing,
+    brainprep_group_defacing,
+)
 from brainprep.config import Config
 from brainprep.reporting import RSTReport
 
 outdir = Path("/tmp/brainprep-defacing")
 outdir.mkdir(parents=True, exist_ok=True)
-report = RSTReport()
 with Config(dryrun=True, verbose=True):
+    report = RSTReport()
     brainprep_defacing(
         t1_file=data.anat,
         output_dir=outdir,
         keep_intermediate=True,
     )
-print(report)
+    print(report)
+    brainprep_group_defacing(
+        output_dir=outdir,
+    )
 
 
 # %%
@@ -71,6 +77,14 @@ commands.append(
             "--t1_file", str(data.anat),
             "--output-dir", str(outdir),
             "--keep-intermediate",
+        ]
+    ]
+)
+commands.append(
+    [
+        [
+            "brainprep", "group-level-defacing",
+            "--output-dir", str(outdir),
         ]
     ]
 )

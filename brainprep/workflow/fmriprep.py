@@ -208,6 +208,11 @@ def brainprep_fmriprep(
                     fwhm=0.,
                 )
             )
+            interfaces.plot_network(
+                connectivity_files[-1],
+                output_dir,
+                entities,
+            )
 
     if not keep_intermediate:
         print_info(f"cleaning workspace directory: {workspace_dir}")
@@ -236,24 +241,37 @@ def brainprep_group_fmriprep(
         output_dir: Directory,
         fd_mean_threshold: float = 0.2,
         dvars_std_threshold: float = 1.5,
+        entropy_threshold: float = 12,
         keep_intermediate: bool = False) -> Bunch:
     """
     Group level functional MRI pre-processing.
 
-    Scans a derivatives/fmriprep directory, loads confound
-    timeseries TSV files, computes summary QC metrics, applies grounded
-    thresholds, and writes a TSV file containing the results.
+    1) Generate a TSV file containing the quality metrics described below.
+    2) Apply threshold-based quality checks on the selected quality metrics.
+    3) Generate a histogram showing the distribution of these quality metrics.
+
+    The following quality metrics are considered:
+
+    - ``fd_mean`` : mean framewise displacement  (mm), a measure of head motion
+      across the time series.
+    - ``dvars_std`` : mean standardized DVARS, quantifying the rate of change
+      in BOLD signal intensity between consecutive volumes.
+    - ``entropy`` : network entropy, quantifying whether a connectivity
+      matrix exhibits meaningful structure.
 
     Parameters
     ----------
     output_dir : Directory
         Working directory containing all the subjects.
     fd_mean_threshold : float
-        Quality control threshold on the Mean Framewise Displacement (mm).
+        Quality control threshold applied on the mean framewise displacement.
         Default 0.2.
     dvars_std_threshold : float
-        Quality control threshold on the Standardized DVARS.
+        Quality control threshold applied on the standardized DVARS.
         Default 1.5.
+    entropy_threshold : float
+        Quality control threshold applied on the network entropy.
+        Default 12.
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
@@ -263,14 +281,57 @@ def brainprep_group_fmriprep(
     Bunch
         A dictionary-like object containing:
 
-        - group_stats_file : File - a TSV file containing quality metrics.
+        - group_stats_file : File - a TSV file containing quality check (QC)
+          metrics.
+        - entropy_file : File - a TSV file network entropy quality check (QC)
+          metric.
         - histogram_files : list[File] - PNG files containing histograms of
           selected important information.
+
+    Notes
+    -----
+    This workflow assumes the subject-level analyses have already been
+    performed.
+
+    A ``qc`` column is added to the TSV QC output table. It contains a
+    binary flag indicating whether the produced results should be kept:
+    ``qc = 1`` if the result passes the thresholds, otherwise ``qc = 0``.
+
+    The associated PNG histograms help verify that the chosen thresholds
+    are neither too restrictive nor too permissive.
+
+    Examples
+    --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
+    >>> from brainprep.workflow import brainprep_group_fmriprep
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_group_fmriprep(
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     ) # doctest: +SKIP
+    >>> outputs # doctest: +SKIP
+    Bunch(
+        group_stats_file=PosixPath('...')
+        entropy_file=PosixPath('...')
+        histogram_files=[PosixPath('...'),...,PosixPath('...')]
+    )
     """
-    group_stats_file = interfaces.fmriprep_stats(
-        output_dir / "qc",
+    group_stats_file = interfaces.fmriprep_metrics(
+        output_dir,
         fd_mean_threshold,
         dvars_std_threshold,
+    )
+    entropy_file = interfaces.network_entropy(
+        (
+            output_dir /
+            "subjects" / "sub-*" / "ses-*" /
+            "figures" /
+            "*_atlas-schaefer200_desc-correlation_connectivity.tsv"
+        ),
+        output_dir,
+        entropy_threshold,
     )
     histogram_files = [
         interfaces.plot_histogram(
@@ -289,5 +350,6 @@ def brainprep_group_fmriprep(
 
     return Bunch(
         group_stats_file=group_stats_file,
+        entropy_file=entropy_file,
         histogram_files=histogram_files,
     )

@@ -158,34 +158,46 @@ def bids(
 def outputdir(
         func: Callable,
         plotting: bool = False,
+        quality_check: bool = False,
+        morphometry: bool = False,
         *args: Any,
         **kw: Any) -> Callable:
     """
-    Output directory creation.
+    Create the output directory for the decorated function.
 
-    Decorator that create the output directory.
+    This decorator ensures that the output directory exists before the
+    wrapped function is executed. Optional subdirectories can also be
+    created, such as a ``figures`` directory for plots or a ``quality_check``
+    directory for quality check outputs or ``morphometry`` directory
+    for morphometry outputs.
 
     Parameters
     ----------
     func : Callable
         The function to be decorated.
     plotting : bool
-        If True, add a 'figures' upper level directory in the output
+        If True, add a ``figures`` upper level directory in the output
+        directory. Default False.
+    quality_check : bool
+        If True, add a ``quality_check`` upper level directory in the output
+        directory. Default False.
+    morphometry : bool
+        If True, add a ``morphometry`` upper level directory in the output
         directory. Default False.
     *args : Any
-        Positional arguments passed to `func`.
+        Positional arguments passed to ``func``.
     **kw : Any
-        Keyword arguments passed to `func`.
+        Keyword arguments passed to ``func``.
 
     Returns
     -------
     wrapper : Callable
-        A wrapped function with the 'output_dir' created on disk.
+        A wrapped function with the ``output_dir`` created on disk.
 
     Raises
     ------
     ValueError
-        If the decorated function has no 'output_dir' argument.
+        If the decorated function has no ``output_dir`` argument.
     """
     inputs = inspect.getcallargs(func, *args, **kw)
 
@@ -199,6 +211,16 @@ def outputdir(
             Path(inputs["output_dir"]) /
             "figures"
         )
+    if quality_check:
+        inputs["output_dir"] = (
+            Path(inputs["output_dir"]) /
+            "quality_check"
+        )
+    if morphometry:
+        inputs["output_dir"] = (
+            Path(inputs["output_dir"]) /
+            "morphometry"
+        )
 
     Path(inputs["output_dir"]).mkdir(parents=True, exist_ok=True)
 
@@ -211,9 +233,15 @@ def coerceparams(
         *args: Any,
         **kw: Any) -> Callable:
     """
-    Convert arguments annotated as ``File`` or ``Directory`` to
-    ``pathlib.Path``, and convert arguments annotated as list types from
-    comma-separated strings into Python lists.
+    Convert annotated arguments before calling the decorated function.
+
+    This decorator inspects the type annotations of the wrapped function
+    and performs two automatic conversions:
+
+    - Arguments annotated as ``File`` or ``Directory`` are converted into
+      ``pathlib.Path`` instances.
+    - Arguments annotated as list types are parsed from comma-separated
+      strings into Python lists.
 
     Parameters
     ----------
@@ -347,19 +375,24 @@ def parse_bids_keys(
         bids_path: File,
         full_path: bool = False) -> dict[str]:
     """
-    Parses BIDS keys and modality from a filename or path with validation.
+    Parse BIDS keys and modality from a filename or path with validation.
+
+    This function extracts BIDS entities (e.g., subject, session, task,
+    run) and determines the modality from the provided file or path. The
+    input is validated to ensure it conforms to BIDS naming conventions.
 
     Parameters
     ----------
     bids_path : File
-        The BIDS file.
+        The BIDS file to parse.
     full_path: bool
-        Find the BIDS keys frol the full input path. Default False.
+        If True, extract BIDS keys from the full input path rather than
+        only the filename. Default is False.
 
     Returns
     -------
     entities : dict[str]
-        A dictionary of parsed BIDS entities including modality.
+        A dictionary containing hthe parsed BIDS entities and modality.
     """
     # Extract the filename from the path id necessary
     filename = str(bids_path) if full_path else bids_path.name
@@ -407,14 +440,14 @@ def sidecar_from_file(
     """
     Infers the corresponding JSON sidecar file for a given NIfTI image file.
 
-    This function checks that the input file has a `.nii.gz` extension and
-    attempts to locate a sidecar `.json` file with the same base name. If
+    This function checks that the input file has a ``.nii.gz`` extension and
+    attempts to locate a sidecar ``.json`` file with the same base name. If
     either condition fails, it raises a ValueError.
 
     Parameters
     ----------
     image_file : File
-        Path to the NIfTI image file with `.nii.gz` extension.
+        The NIfTI image file for which to infer the JSON sidecar.
 
     Returns
     -------
@@ -453,8 +486,36 @@ def sidecar_from_file(
 
 def find_stack_level() -> int:
     """
-    Find the first place in the stack that is not inside brainprep.
-    Taken from the pandas codebase.
+    Return the index of the first stack frame outside the ``brainprep``
+    package.
+
+    This function walks backward through the current call stack and finds the
+    first frame whose file path does not belong to the ``brainprep`` package
+    directory. Test files (i.e., files whose names start with ``test_``) are
+    always treated as external. This is useful for producing cleaner warnings
+    and error messages by pointing to user code rather than internal library
+    frames.
+
+    Returns
+    -------
+    int
+        The number of internal frames to skip before reaching user code.
+
+    Notes
+    -----
+    Adapted from the pandas codebase.
+
+    Examples
+    --------
+    >>> import warnings
+    >>> from brainprep.utils import find_stack_level
+    >>>
+    >>> def load_data(path):
+    ...     if not path.exists():
+    ...         warnings.warn(
+    ...             "The provided path does not exist.",
+    ...             stacklevel=find_stack_level()
+    ...         )
     """
     import brainprep
 

@@ -213,7 +213,8 @@ def write_catbatch(
 
 
 @coerceparams
-@outputdir
+@outputdir(
+    morphometry=True)
 @log_runtime(
     bunched=False)
 @pywrapper
@@ -310,92 +311,3 @@ def cat12vbm_morphometry(
             )
 
     return (morphometry_files, )
-
-
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
-def cat12vbm_stats(
-        output_dir: Directory,
-        ncr_threshold: float = 4.5,
-        iqr_threshold: float = 4.5,
-        dryrun: bool = False) -> tuple[File]:
-    """
-    Parse the CAT12 VBM report stats for all subjects and applies a
-    quality control.
-
-    The following quuality metrics are considered:
-
-    - Image Correlation Ratio (ICR) - Measures how well the subject's image
-      aligns with a reference template. High ICR suggests good
-      registration quality.
-    - Noise to Contrast Ratio (NCR) - Assesses image clarity by comparing
-      noise levels to tissue contrast. Lower NCR may indicate poor image
-      quality.
-    - Image Quality Rating (IQR) - A composite score summarizing overall
-      scan quality. Combines multiple metrics like noise, resolution,
-      and bias field. Higher IQR = better quality.
-
-    Parameters
-    ----------
-    output_dir : Directory
-        Working directory containing the outputs.
-    ncr_threshold : float
-         Quality control threshold on the NCR scores. Default 4.5.
-    iqr_threshold : float
-         Quality control threshold on the IQR scores. Default 4.5.
-    dryrun : bool
-        If True, skip actual computation and file writing. Default False.
-
-    Returns
-    -------
-    group_stats_file : File
-        A TSV file containing quality metrics.
-    """
-    group_stats_file = output_dir / "group_stats.tsv"
-
-    if not dryrun:
-
-        report_files = coerce_to_path(
-            glob.glob(str(
-                output_dir.parent /
-                "subjects" /
-                "sub-*" /
-                "ses-*" /
-                "report" /
-                "cat_*T1w.xml"
-            )),
-            expected_type=list[File]
-        )
-        entities = [
-            parse_bids_keys(path)
-            for path in report_files
-        ]
-
-        stats = []
-        for info, path in zip(entities, report_files, strict=True):
-            df = pd.read_xml(
-                path,
-                iterparse={"qualityratings": ["ICR", "NCR", "IQR"]},
-            )
-            df.insert(0, "participant_id", info["sub"])
-            df.insert(1, "session", info["ses"])
-            df.insert(2, "run", info["run"])
-            stats.append(df)
-        df = pd.concat(stats)
-        df.sort_values(by=["participant_id"], inplace=True)
-
-        df["qc"] = (
-            (df["NCR"] < ncr_threshold) &
-            (df["IQR"] < iqr_threshold)
-        ).astype(int)
-
-        df.to_csv(
-            group_stats_file,
-            index=False,
-            sep="\t",
-        )
-
-    return (group_stats_file, )

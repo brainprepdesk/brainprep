@@ -7,20 +7,15 @@
 ##########################################################################
 
 """
-Tools.
+Utils functions.
 """
 
-
-import glob
 import gzip
 import shutil
-from pathlib import Path
 
 import nibabel
 import numpy as np
 import pandas as pd
-from scipy.stats import pearsonr
-from sklearn.decomposition import IncrementalPCA
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -28,13 +23,10 @@ from ..typing import (
     File,
 )
 from ..utils import (
-    coerce_to_path,
     coerceparams,
     outputdir,
-    parse_bids_keys,
 )
 from ..wrappers import pywrapper
-from .plotting import plot_pca
 
 
 @coerceparams
@@ -42,52 +34,99 @@ from .plotting import plot_pca
 @log_runtime(
     bunched=False)
 @pywrapper
-def mask_diff(
-        im1_file: File,
-        im2_file: File,
+def maskdiff(
+        mask1_file: File,
+        mask2_file: File,
         output_dir: Directory,
         entities: dict,
-        threshold: float = 0.6,
+        inv_mask1: bool = False,
+        inv_mask2: bool = False,
         dryrun: bool = False) -> tuple[File]:
     """
-    Computes a defacing mask by thresholding the intensity difference between
-    two input images.
+    Compute summary statistics comparing two binary masks.
+
+    This function loads two binary mask images, verifies that they share
+    the same spatial dimensions and affine transformation, computes their
+    voxel-wise intersection, and writes a summary table containing voxel
+    counts and physical volumes (in mm³) for each mask and their intersection.
 
     Parameters
     ----------
-    im1_file : File
-        Path to the first image.
-    im2_file : File
-        Path to the second image.
+    mask1_file : File
+        Path to the first binary mask image.
+    mask2_file : File
+        Path to the second binary mask image.
     output_dir : Directory
         Directory where the defacing mask will be saved.
     entities : dict
         A dictionary of parsed BIDS entities including modality.
-    threshold : float
-        Threshold for intensity difference to define the mask. Default 0.6.
+    inv_mask1 : bool
+        If True, the first mask is inverted before comparison. This is
+        useful when the mask represents an exclusion region rather than an
+        inclusion region. Default False.
+    inv_mask2 : bool
+        If True, the second mask is inverted before comparison. This is
+        useful when the mask represents an exclusion region rather than an
+        inclusion region. Default False.
     dryrun : bool
         If True, skip actual computation and file writing. Default False.
 
     Returns
     -------
-    mask_file : File
-        Path to the saved mask image.
+    summary_file : File
+        Path to the generated summary TSV file.
+
+    Raises
+    ------
+    ValueError
+        If both masks have not identical shapes and affines.
     """
     basename = "sub-{sub}_ses-{ses}_run-{run}_mod-T1w_defacemask".format(
         **entities)
-    mask_file = output_dir / f"{basename}.nii.gz"
+    summary_file = output_dir / f"{basename}.tsv"
 
     if not dryrun:
-        im1 = nibabel.load(im1_file)
-        im2 = nibabel.load(im2_file)
-        mask = np.abs(im1.get_fdata() - im2.get_fdata())
-        indices = np.where(mask > threshold)
-        mask[...] = 0
-        mask[indices] = 1
-        im_mask = nibabel.Nifti1Image(mask, im1.affine)
-        nibabel.save(im_mask, mask_file)
 
-    return (mask_file, )
+        mask1_im = nibabel.load(mask1_file)
+        mask2_im = nibabel.load(mask2_file)
+        mask1 = mask1_im.get_fdata().astype(bool)
+        mask2 = mask2_im.get_fdata().astype(bool)
+
+        if inv_mask1:
+            mask1 = ~mask1
+        if inv_mask2:
+            mask1 = ~mask2
+
+        if mask1.shape != mask2.shape:
+            raise ValueError(
+                f"Mask shapes differ: {mask1.shape} vs {mask2.shape}. "
+                "Resampling is required."
+            )
+        if not np.allclose(mask1_im.affine, mask2_im.affine):
+            raise ValueError(
+                "Mask affines differ. Resampling is required before "
+                "intersection."
+            )
+
+        intersection = np.logical_and(mask1, mask2)
+        voxel_volume = np.abs(np.linalg.det(mask1_im.affine[:3, :3]))
+
+        summary_df = pd.DataFrame({
+            "mask": ["mask1", "mask2", "intersection"],
+            "voxels": [
+                mask1.sum(),
+                mask2.sum(),
+                intersection.sum(),
+            ],
+            "volume_mm3": [
+                mask1.sum() * voxel_volume,
+                mask2.sum() * voxel_volume,
+                intersection.sum() * voxel_volume,
+            ]
+        })
+        summary_df.to_csv(summary_file, sep="\t", index=False)
+
+    return (summary_file, )
 
 
 @coerceparams
@@ -214,205 +253,3 @@ def ungzfile(
             output_file.write_bytes(gzfobj.read())
 
     return (output_file, )
-
-
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
-def mean_correlation(
-        image_files_regex: str,
-        atlas_file: File,
-        output_dir: Directory,
-        correlation_threshold: float = 0.5,
-        dryrun: bool = False) -> tuple[File]:
-    """
-    Compute the mean Pearson correlation between a reference image and a list
-    of other images.
-
-    Parameters
-    ----------
-    image_files_regex : str
-        A REGEX to image files, each representing an image of the same shape
-        and geometry as `atlas_file`.
-    atlas_file : File
-        An file representing the reference image.
-    output_dir : Directory
-        Directory where a TSV file containing the mean correlation values is
-        created.
-    correlation_threshold : float
-        Quality control threshold on the correlation score. Default 0.5.
-    dryrun : bool
-        If True, skip actual computation and file writing. Default False.
-
-    Returns
-    -------
-    correlations_file : File
-        A TSV file containing the Pearson correlation coefficient between the
-        atlas image and each image pointed by the input REGEX.
-
-    Raises
-    ------
-    ValueError
-        If the atlas and an image have incompatible shape or geometry.
-    """
-    correlations_file = output_dir / "mean_correlations.tsv"
-
-    if not dryrun:
-
-        image_files = coerce_to_path(glob.glob(
-            str(image_files_regex)),
-            expected_type=list[File]
-        )
-        atlas_im = nibabel.load(atlas_file)
-        atlas_arr = atlas_im.get_fdata()
-
-        scores = pd.DataFrame(
-            columns=(
-                "participant_id",
-                "session",
-                "run",
-                "mean_correlation",
-            )
-        )
-        for path in image_files:
-            entities = parse_bids_keys(Path(path))
-            im = nibabel.load(path)
-            arr = atlas_im.get_fdata()
-            if atlas_arr.shape != arr.shape:
-                raise ValueError(
-                    f"Atlas and image have incompatible shape: {path}"
-                )
-            if not np.allclose(atlas_im.affine, im.affine):
-                raise ValueError(
-                    f"Atlas and image have incompatible orientation: {path}"
-                )
-            corr, _ = pearsonr(
-                atlas_arr.flatten(),
-                arr.flatten(),
-            )
-            scores.loc[len(scores)] = [
-                entities["sub"],
-                entities["ses"],
-                entities["run"],
-                corr,
-            ]
-
-        scores["qc"] = (
-            scores["mean_correlation"] > correlation_threshold
-        ).astype(int)
-        scores = scores.sort_values(by=["participant_id", "session", "run"])
-        scores.to_csv(
-            correlations_file,
-            index=False,
-            sep="\t",
-        )
-
-    return (correlations_file, )
-
-
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
-def incremental_pca(
-        image_files_regex: str,
-        output_dir: Directory,
-        batch_size: int = 10,
-        dryrun: bool = False) -> tuple[File]:
-    """
-    Perform an Incremental PCA with 2 components on a collection of images
-    matched by a regex pattern, processing them in batches.
-
-    The function loads all images matching the provided regex, splits them
-    into batches, and incrementally fits a PCA model using scikit-learn's
-    ``IncrementalPCA``. Each image is flattened into a 1D vector before
-    processing. After fitting, the function transforms all batches to obtain
-    the first two principal components for each image. These components are
-    saved in a TSV file as two columns named ``pc1`` and ``pc2``. BIDS
-    entities (``participant_id``, ``session``, ``run``) are extracted from
-    filenames using ``parse_bids_keys`` and included in the output table.
-
-    Parameters
-    ----------
-    image_files_regex : str
-        A REGEX to image files, each representing an image,
-        all images must have the same size.
-    output_dir : Directory
-        Directory where a TSV file containing the values of the first two
-        components created by the PCA ill be saved, a Directory containing
-        all the graph of all batch.
-    batch_size : int
-        Number of images to use in each batch. If None, a single batch is used.
-        Default is 10.
-    dryrun : bool
-        If True, skip actual computation and file writing. Default False.
-
-    Returns
-    -------
-    pca_file : File
-        Path to the generated ``pca.tsv`` file containing the PCA results.
-
-    Raises
-    ------
-    ValueError
-        If no image matches the regex pattern.
-        If the dataset contains fewer than 2 images, which prevents PCA
-        computation.
-    """
-    pca_file = output_dir / "pca.tsv"
-
-    if not dryrun:
-
-        image_files = glob.glob(str(image_files_regex))
-        n_images = len(image_files)
-        if n_images == 0:
-            raise ValueError(
-                f"No image matches the regex pattern: {image_files_regex}"
-            )
-        if n_images < 2:
-            raise ValueError(
-                f"The dataset contains fewer than 2 images: {n_images}"
-            )
-        batches = [
-            image_files[idx:idx + batch_size]
-            for idx in range(0, len(image_files), batch_size)
-        ]
-
-        pca = IncrementalPCA(n_components=2)
-        for batch_files in batches:
-            data = [
-                nibabel.load(file_).get_fdata().flatten()
-                for file_ in batch_files
-            ]
-            pca.partial_fit(data)
-
-        df = []
-        for batch_files in batches:
-            data = [
-                nibabel.load(file_).get_fdata().flatten()
-                for file_ in batch_files
-            ]
-            components = pca.transform(data)
-            info = [
-                parse_bids_keys(Path(file_))
-                for file_ in batch_files
-            ]
-            partial_df = pd.DataFrame({
-                "participant_id": [item["sub"] for item in info],
-                "session": [item["ses"] for item in info],
-                "run": [item["run"] for item in info],
-                "pc1": components[:, 0],
-                "pc2": components[:, 1],
-                "explained_variance_ratio_pc1": [
-                    pca.explained_variance_ratio_[0],
-                ] * len(info),
-                "explained_variance_ratio_pc2": [
-                    pca.explained_variance_ratio_[1],
-                ] * len(info),
-            })
-            df.append(partial_df)
-        df = pd.concat(df, ignore_index=True)
-        df.to_csv(pca_file, index=False, sep="\t")
-
-    return (pca_file, )

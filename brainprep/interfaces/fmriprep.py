@@ -22,7 +22,6 @@ import pandas as pd
 from nilearn import (
     datasets,
     image,
-    plotting,
 )
 from nilearn.connectome import ConnectivityMeasure
 from nilearn.interfaces.fmriprep import load_confounds
@@ -198,7 +197,6 @@ def fmriprep_wf(
         "--ignore", "slicetiming",
         "--participant-label", subject,
     ]
-    command = ["ls", "."]
 
     return command, (rfmri_outputs, qc_file)
 
@@ -400,121 +398,5 @@ def func_vol_connectivity(
             columns=atlas.labels[1:]
         )
         correlation_df.to_csv(connectivity_file, sep="\t")
-        display = plotting.plot_matrix(
-            correlation_matrix,
-            figure=(10, 8),
-            labels=atlas.labels[1:],
-            reorder=True,
-        )
-        display.figure.savefig(output_dir / f"{basename}.png")
 
     return (connectivity_file, )
-
-
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
-def fmriprep_stats(
-        output_dir: Directory,
-        fd_mean_threshold: float = 0.2,
-        dvars_std_threshold: float = 1.5,
-        dryrun: bool = False) -> tuple[File]:
-    """
-    Parse the CAT12 VBM report stats for all subjects and applies a
-    quality control.
-
-    The following quuality metrics are considered:
-
-    - Image Correlation Ratio (ICR) - Measures how well the subject's image
-      aligns with a reference template. High ICR suggests good
-      registration quality.
-    - Noise to Contrast Ratio (NCR) - Assesses image clarity by comparing
-      noise levels to tissue contrast. Lower NCR may indicate poor image
-      quality.
-    - Image Quality Rating (IQR) - A composite score summarizing overall
-      scan quality. Combines multiple metrics like noise, resolution,
-      and bias field. Higher IQR = better quality.
-
-    Parameters
-    ----------
-    output_dir : Directory
-        Working directory containing the outputs.
-    fd_mean_threshold : float
-        Quality control threshold on the Mean Framewise Displacement (mm).
-        Default 0.2.
-    dvars_std_threshold : float
-        Quality control threshold on the Standardized DVARS.
-        Default 1.5.
-    dryrun : bool
-        If True, skip actual computation and file writing. Default False.
-
-    Returns
-    -------
-    group_stats_file : File
-        A TSV file containing quality metrics with the following columns:
-
-        - ``participant_id`` : subject identifier
-        - ``fd_mean`` : mean framewise displacement
-        - ``dvars_std`` : mean standardized DVARS
-        - ``qc`` : quality check output
-
-    Notes
-    -----
-    Missing metrics (e.g., ``snr`` or ``aor``) are filled with ``NaN``.
-    """
-    group_stats_file = output_dir / "group_stats.tsv"
-
-    if not dryrun:
-
-        report_files = glob.glob(str(
-            output_dir.parent / "subjects" / "sub-*" / "ses-*" / "func" /
-            "*desc-confounds_timeseries.tsv"
-        ))
-        entities = [
-            parse_bids_keys(Path(path))
-            for path in report_files
-        ]
-
-        def safe_mean(df, col):
-            if col not in df:
-                return np.nan
-            return (
-                df[col]
-                .replace("n/a", np.nan)
-                .astype(float)
-                .mean()
-            )
-
-        stats = []
-        for info, path in zip(entities, report_files, strict=True):
-            df = pd.read_csv(
-                path,
-                sep="\t",
-            )
-            stats.append(pd.DataFrame.from_dict(
-                {
-                    "participant_id": [info["sub"]],
-                    "session": [info["ses"]],
-                    "run": [info["run"]],
-                    "fd_mean": [safe_mean(df, "framewise_displacement")],
-                    "dvars_std": [safe_mean(df, "std_dvars")],
-                }
-            ))
-
-        df = pd.concat(stats)
-        df.sort_values(by=["participant_id"], inplace=True)
-
-        df["qc"] = (
-            (df["fd_mean"] < fd_mean_threshold) &
-            (df["dvars_std"] < dvars_std_threshold)
-        ).astype(int)
-
-        df.to_csv(
-            group_stats_file,
-            index=False,
-            sep="\t",
-        )
-
-    return (group_stats_file, )
