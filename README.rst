@@ -1,71 +1,64 @@
-.. |PythonVersion| image:: https://img.shields.io/badge/python-3.12-blue
+**Usage**
+
+.. image:: https://img.shields.io/badge/python-3.12-blue
     :target: https://img.shields.io/badge/python-3.12-blue
     :alt: Python Version
 
-.. |Coveralls| image:: https://coveralls.io/repos/neurospin-deepinsight/brainprep/badge.svg?branch=dev&service=github
-    :target: https://coveralls.io/github/neurospin-deepinsight/brainprep
-    :alt: Coveralls
-
-.. |Testing| image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/testing.yml/badge.svg?branch=dev
-    :target: https://github.com/neurospin-deepinsight/brainprep/actions
-    :alt: Testing Status
-
-.. |PyCodeStyle| image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/pycodestyle.yml/badge.svg?branch=dev
-    :target: https://github.com/neurospin-deepinsight/brainprep/actions
-    :alt: PyCodeStyle
-
-.. |Ruff| image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/ruff.yml/badge.svg?branch=dev
-    :target: https://github.com/neurospin-deepinsight/brainprep/actions
-    :alt: Ruff Linter
-
-.. |PyDocLint| image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/pydoclint.yml/badge.svg?branch=dev
-    :target: https://github.com/neurospin-deepinsight/brainprep/actions
-    :alt: PyDocLint
-
-.. |PyPi| image:: https://badge.fury.io/py/brainprep.svg
-    :target: https://pypi.org/project/brainprep
-    :alt: PyPI Version
-
-.. |Doc| image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/documentation.yml/badge.svg?branch=dev
-    :target: https://neurospin-deepinsight.github.io/brainprep
-    :alt: Documentation Status
-
-.. |License| image:: https://img.shields.io/badge/License-CeCILLB-blue.svg
+.. image:: https://img.shields.io/badge/License-CeCILLB-blue.svg
     :target: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
     :alt: License
 
-.. |PoweredBy| image:: https://img.shields.io/badge/Powered%20by-CEA%2FNeuroSpin-blue.svg
+.. image:: https://img.shields.io/badge/Powered%20by-CEA%2FNeuroSpin-blue.svg
     :target: https://joliot.cea.fr/drf/joliot/Pages/Entites_de_recherche/NeuroSpin.aspx
     :alt: Powered By CEA/NeuroSpin
 
-.. |DockerANAT| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-anat
-    :target: https://hub.docker.com/r/neurospin/brainprep-anat
-    :alt: Docker Pulls (ANAT)
-
-.. |DockerMRIQC| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-mriqc
-    :target: https://hub.docker.com/r/neurospin/brainprep-mriqc
-    :alt: Docker Pulls (MRIQC)
-
-.. |DockerFMRIPREP| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-fmriprep
-    :target: https://hub.docker.com/r/neurospin/brainprep-fmriprep
-    :alt: Docker Pulls (fMRIPrep)
-
-.. |DockerDMRIPREP| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-dmriprep
-    :target: https://hub.docker.com/r/neurospin/brainprep-dmriprep
-    :alt: Docker Pulls (dMRIPrep)
-
-**Usage**
-
-|PythonVersion| |License| |PoweredBy|
-
 **Development**
 
-|Coveralls| |Testing| |Ruff| |PyCodeStyle| |PyDocLint| |Doc|
+.. image:: https://coveralls.io/repos/neurospin-deepinsight/brainprep/badge.svg?branch=dev&service=github
+    :target: https://coveralls.io/github/neurospin-deepinsight/brainprep
+    :alt: Coveralls
+
+.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/testing.yml/badge.svg?branch=dev
+    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+    :alt: Testing Status
+
+.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/pycodestyle.yml/badge.svg?branch=dev
+    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+    :alt: PyCodeStyle
+
+.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/ruff.yml/badge.svg?branch=dev
+    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+    :alt: Ruff Linter
+
+.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/pydoclint.yml/badge.svg?branch=dev
+    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+    :alt: PyDocLint
+
+.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/documentation.yml/badge.svg?branch=dev
+    :target: https://neurospin-deepinsight.github.io/brainprep
+    :alt: Documentation Status
 
 **Release**
 
-|PyPi| |DockerANAT| |DockerMRIQC| |DockerFMRIPREP| |DockerDMRIPREP|
+.. image:: https://badge.fury.io/py/brainprep.svg
+    :target: https://pypi.org/project/brainprep
+    :alt: PyPI Version
 
+.. image:: https://img.shields.io/docker/pulls/neurospin/brainprep-anat
+    :target: https://hub.docker.com/r/neurospin/brainprep-anat
+    :alt: Docker Pulls (ANAT)
+
+.. image:: https://img.shields.io/docker/pulls/neurospin/brainprep-mriqc
+    :target: https://hub.docker.com/r/neurospin/brainprep-mriqc
+    :alt: Docker Pulls (MRIQC)
+
+.. image:: https://img.shields.io/docker/pulls/neurospin/brainprep-fmriprep
+    :target: https://hub.docker.com/r/neurospin/brainprep-fmriprep
+    :alt: Docker Pulls (fMRIPrep)
+
+.. image:: https://img.shields.io/docker/pulls/neurospin/brainprep-dmriprep
+    :target: https://hub.docker.com/r/neurospin/brainprep-dmriprep
+    :alt: Docker Pulls (dMRIPrep)
 
 brainprep
 =========
