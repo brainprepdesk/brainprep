@@ -1,7 +1,7 @@
 .. _sbm:
 
-Brain parcellation
-==================
+Surface-Based Morphometry Workflow
+==================================
 
 .. image:: ../images/preproc-cortex.png
    :width: 50%
@@ -68,11 +68,11 @@ Description
 
 **Quality Control**
 
-- **Euler score**  
-We use the Euler number as an image-quality metric and retain only those
-with values greater than −217, following the recommendation of
-:footcite:p:rosen2018. This filtering step ensures that images with
-insufficient topological stability or degradation are flagged as low‑quality.
+- **Euler score**
+  We use the Euler number as an image-quality metric and retain only those
+  with values greater than −217, following the recommendation of
+  :footcite:p:rosen2018. This filtering step ensures that images with
+  insufficient topological stability or degradation are flagged as low‑quality.
 
 Outputs
 -------
@@ -252,7 +252,7 @@ Featured examples
 .. grid::
 
   .. grid-item-card::
-    :link: ../auto_examples/plot_sbm.html
+    :link: ../auto_examples/workflows/plot_sbm.html
     :link-type: url
     :columns: 12 12 12 12
     :class-card: sd-shadow-sm
@@ -266,7 +266,7 @@ Featured examples
       .. grid-item::
         :columns: 12 4 4 4
 
-        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_sbm_thumb.png
+        .. image:: ../auto_examples/workflows/images/thumb/sphx_glr_plot_sbm_thumb.png
 
       .. grid-item::
         :columns: 12 8 8 8

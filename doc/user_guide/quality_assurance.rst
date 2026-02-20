@@ -1,7 +1,11 @@
 .. _quality_assurance:
 
-Quality Assurance
-=================
+Quality Assurance Workflow
+==========================
+
+.. image:: ../images/preproc-quality_assurance.png
+   :width: 100%
+   :align: center
 
 Introduction
 ------------
@@ -9,8 +13,8 @@ Introduction
 Quality Assurance (QA) in MRI refers to the systematic evaluation of
 data quality to ensure that the acquired images are suitable for
 reliable scientific analysis. Because MRI data are susceptible to a wide
-range of artifacts—such as motion, scanner drift, and physiological
-noise—implementing QA procedures is essential for identifying issues that
+range of artifacts, such as motion, scanner drift, and physiological
+noise, implementing QA procedures is essential for identifying issues that
 could compromise downstream results. 
 
 Requirements
@@ -123,7 +127,7 @@ Featured examples
 .. grid::
 
   .. grid-item-card::
-    :link: ../auto_examples/plot_quality_assurance.html
+    :link: ../auto_examples/workflows/plot_quality_assurance.html
     :link-type: url
     :columns: 12 12 12 12
     :class-card: sd-shadow-sm
@@ -137,7 +141,7 @@ Featured examples
       .. grid-item::
         :columns: 12 4 4 4
 
-        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_quality_assurance_thumb.png
+        .. image:: ../auto_examples/workflows/images/thumb/sphx_glr_plot_quality_assurance_thumb.png
 
       .. grid-item::
         :columns: 12 8 8 8

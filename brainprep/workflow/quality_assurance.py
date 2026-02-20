@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Quality assurance.
+Quality assurance workflow.
 """
 
 import shutil

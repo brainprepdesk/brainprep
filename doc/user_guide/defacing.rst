@@ -1,10 +1,10 @@
 .. _defacing:
 
-Defacing
-========
+Defacing Workflow
+=================
 
 .. image:: ../images/preproc-defacing.png
-   :width: 50%
+   :width: 70%
    :align: center
 
 Introduction
@@ -123,7 +123,7 @@ Featured examples
 .. grid::
 
   .. grid-item-card::
-    :link: ../auto_examples/plot_defacing.html
+    :link: ../auto_examples/workflows/plot_defacing.html
     :link-type: url
     :columns: 12 12 12 12
     :class-card: sd-shadow-sm
@@ -137,7 +137,7 @@ Featured examples
       .. grid-item::
         :columns: 12 4 4 4
 
-        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_defacing_thumb.png
+        .. image:: ../auto_examples/workflows/images/thumb/sphx_glr_plot_defacing_thumb.png
 
       .. grid-item::
         :columns: 12 8 8 8

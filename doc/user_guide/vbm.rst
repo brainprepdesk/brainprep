@@ -1,7 +1,7 @@
 .. _vbm:
 
-Voxel Based Morphometry
-=======================
+Voxel Based Morphometry Workflow
+================================
 
 .. image:: ../images/preproc-vbm.png
    :width: 50%
@@ -149,7 +149,7 @@ Featured examples
 .. grid::
 
   .. grid-item-card::
-    :link: ../auto_examples/plot_vbm.html
+    :link: ../auto_examples/workflows/plot_vbm.html
     :link-type: url
     :columns: 12 12 12 12
     :class-card: sd-shadow-sm
@@ -163,7 +163,7 @@ Featured examples
       .. grid-item::
         :columns: 12 4 4 4
 
-        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_vbm_thumb.png
+        .. image:: ../auto_examples/workflows/images/thumb/sphx_glr_plot_vbm_thumb.png
 
       .. grid-item::
         :columns: 12 8 8 8

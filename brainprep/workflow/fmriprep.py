@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Functional MRI pre-processing.
+Functional MRI pre-processing workflow.
 """
 
 import itertools
