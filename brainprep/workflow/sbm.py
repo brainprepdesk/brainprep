@@ -124,7 +124,7 @@ def brainprep_sbm(
     --------
     >>> from brainprep.config import Config
     >>> from brainprep.reporting import RSTReport
-    >>> from brainprep.workflow import brainprep_brainparc
+    >>> from brainprep.workflow import brainprep_sbm
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()
@@ -336,7 +336,7 @@ def brainprep_longitudinal_sbm(
     --------
     >>> from brainprep.config import Config
     >>> from brainprep.reporting import RSTReport
-    >>> from brainprep.workflow import brainprep_longitudinal_brainparc
+    >>> from brainprep.workflow import brainprep_longitudinal_sbm
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()
@@ -495,7 +495,7 @@ def brainprep_group_sbm(
     --------
     >>> from brainprep.config import Config
     >>> from brainprep.reporting import RSTReport
-    >>> from brainprep.workflow import brainprep_group_brainparc
+    >>> from brainprep.workflow import brainprep_group_sbm
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()

@@ -18,6 +18,7 @@ from the command line.
 
 import functools
 import inspect
+from collections.abc import Callable
 
 import fire
 
@@ -25,7 +26,9 @@ import brainprep.workflow as wf
 from brainprep.config import DEFAULT_OPTIONS
 
 
-def make_wrapped(fn, is_vbm=False):
+def make_wrapped(
+        fn: Callable,
+        is_vbm: bool = False) -> Callable:
     """
     Wrap a workflow function and extend its signature with global
     configuration parameters.
@@ -43,15 +46,9 @@ def make_wrapped(fn, is_vbm=False):
 
     Parameters
     ----------
-    fn : callable
+    fn : Callable
         The workflow function to wrap. Its signature is inspected and
         extended with additional keyword-only configuration parameters.
-
-    Returns
-    -------
-    method : callable
-        A wrapped version of ``fn`` whose signature includes both the
-        original parameters and the global configuration parameters.
     is_vbm : bool
        Whether the wrapped function corresponds to a VBM workflow.
        If ``False`` (default), VBM-specific configuration parameters
@@ -59,6 +56,12 @@ def make_wrapped(fn, is_vbm=False):
        ``tpm_file``, and ``darteltpm_file`` are excluded from the
        generated signature. If ``True``, all configuration parameters
        are included. Default False.
+
+    Returns
+    -------
+    method : Callable
+        A wrapped version of ``fn`` whose signature includes both the
+        original parameters and the global configuration parameters.
 
     Notes
     -----

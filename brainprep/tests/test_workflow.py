@@ -18,35 +18,67 @@ class TestGalleryExamples(unittest.TestCase):
         self.examples_dir = Path(__file__).parent.parent.parent / "examples"
 
     def test_html_reporting(self):
-        script_path = self.examples_dir / "plot_html_reporting.py"
+        script_path = (
+            self.examples_dir /
+            "tools" /
+            "plot_html_reporting.py"
+        )
         runpy.run_path(str(script_path))
 
     def test_rst_reporting(self):
-        script_path = self.examples_dir / "plot_rst_reporting.py"
+        script_path = (
+            self.examples_dir /
+            "tools" /
+            "plot_rst_reporting.py"
+        )
         runpy.run_path(str(script_path))
 
     def test_quality_assurance(self):
-        script_path = self.examples_dir / "plot_quality_assurance.py"
+        script_path = (
+            self.examples_dir /
+            "workflows" /
+            "plot_quality_assurance.py"
+        )
         runpy.run_path(str(script_path))
 
     def test_defacing(self):
-        script_path = self.examples_dir / "plot_defacing.py"
+        script_path = (
+            self.examples_dir /
+            "workflows" /
+            "plot_defacing.py"
+        )
         runpy.run_path(str(script_path))
 
     def test_quasiraw(self):
-        script_path = self.examples_dir / "plot_quasiraw.py"
+        script_path = (
+            self.examples_dir /
+            "workflows" /
+            "plot_quasiraw.py"
+        )
         runpy.run_path(str(script_path))
 
-    def test_brain_parcellation(self):
-        script_path = self.examples_dir / "plot_brain_parcellation.py"
+    def test_sbm(self):
+        script_path = (
+            self.examples_dir /
+            "workflows" /
+            "plot_sbm.py"
+        )
         runpy.run_path(str(script_path))
 
     def test_vbm(self):
-        script_path = self.examples_dir / "plot_vbm.py"
+        script_path = (
+            self.examples_dir /
+            "workflows" /
+            "plot_vbm.py"
+        )
         runpy.run_path(str(script_path))
 
     def test_fmriprep(self):
-        script_path = self.examples_dir / "plot_fmriprep.py"
+        script_path = (
+            self.examples_dir /
+            "workflows" /
+            "plot_fmriprep.py"
+        )
         runpy.run_path(str(script_path))
 
 
