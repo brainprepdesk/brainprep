@@ -97,6 +97,11 @@ def fmriprep_wf(
     - Creates BIDS subject specific working directory using copy in
       'rawdata'.
     - Store intermediate pre-processing outputs in 'work'.
+
+    Raises
+    ------
+    ValueError
+        If the 'FREESURFER_HOME' environment variable is not defined.
     """
     rawdata_dir = workspace_dir / "rawdata"
     anat_dir = rawdata_dir / "anat"
@@ -105,7 +110,12 @@ def fmriprep_wf(
     for path in (anat_dir, func_dir, work_dir):
         path.mkdir(parents=True, exist_ok=True)
     subject, session = entities["sub"], entities["ses"]
-    fshome_dir = Path(os.getenv("FREESURFER_HOME"))
+    fshome_dir = os.getenv("FREESURFER_HOME")
+    if fshome_dir is None:
+        raise ValueError(
+            "You must define the 'FREESURFER_HOME' environment variable."
+        )
+    fshome_dir = Path(fshome_dir)
 
     for source_file, target_dir in zip(
             [t1_file, *func_files],
