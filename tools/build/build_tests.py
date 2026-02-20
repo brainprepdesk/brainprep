@@ -29,6 +29,7 @@ def main(
         hopla_dir,
         partition,
         freesurfer_license_file,
+        project_id=None,
         image_parameters=None,
         root_template=None,
         save_template=None,
@@ -47,8 +48,7 @@ def main(
     examples_dir : str or Path
         Directory containing example Python scripts.
     infra : str
-        Infrastructure identifier. Must match one of the available
-        ``*_default_config.toml`` templates in the local ``resources`` folder.
+        Infrastructure identifier.
     image_template : str
         Path to the container or image file referenced in the generated config
         where `{workflow}` acts as a placeholder. The calling code replaces
@@ -58,9 +58,11 @@ def main(
     hopla_dir: str or Path
         Path to the hopla working directory.
     partition : str
-        Name of the partition to use: <name> or <project>:<name>.
+        Name of the partition to use.
     freesurfer_license_file : str or Path
         Path to the FreesurFer license file.
+    project_id : str
+        Name of the project identifier. Default None.
     image_parameters: str
         Additional parameters passed to the container execution command.
         Default None.
@@ -78,8 +80,7 @@ def main(
     ------
     ValueError
         If the provided ``infra`` does not match any available configuration
-        template in the ``resources`` directory or if the ``save_template``
-        varaible is used in a partial build.
+        template in the ``resources`` directory.
     KeyError
         If a script does not define the expected ``datadir`` or ``outdir``
         variables.
@@ -94,17 +95,11 @@ def main(
     # Get configuration templates
     cw_dir = Path(__file__).parent.resolve()
     config_dir = cw_dir / "resources"
-    template_paths = config_dir.glob("*_default_config.toml")
-    config_files = {
-        path.name.split("_")[0]: path
-        for path in template_paths
-    }
-    if infra not in config_files:
-        raise ValueError(f"Unsupported infrastructure: {infra}.")
-    config_template = config_files[infra].read_text()
+    config_file = config_dir / "hopla_config.toml"
+    config_template = config_file.read_text()
     workflow_resource_file = config_dir / "workflows_config.toml"
     with workflow_resource_file.open("rb") as of:
-         workflow_resource = tomllib.load(of)
+        workflow_resource = tomllib.load(of)
     image_parameters = image_parameters or ""
 
     # Scan example scripts
@@ -152,8 +147,10 @@ def main(
         else:
             datadir = Path(env["datadir"])
             outdir = Path(env["outdir"])
+        outdir.mkdir(parents=True, exist_ok=True)
         for idx, step_commands in enumerate(commands, start=1):
             config_path = outdir / f"config_step{idx}.toml"
+            image_parameters_ = image_parameters
 
             # Format commands
             step_commands = [
@@ -175,27 +172,38 @@ def main(
             image_file = str(image_template).format(
                 workflow=name.replace("plot_", ""),
             )
-            if confs["default"].get("use_freesurfer", False):
-                image_parameters += (
-                    f"--bind {freesurfer_license_file}:"
-                    "/opt/freesurfer/license.txt "
-                )
+            worflow_type = step_commands[0][1].split("-")[0]
+            selected_conf = confs.get(worflow_type, confs["default"])
+            if selected_conf.get("freesurfer", False):
+                if infra == "ccc":
+                    image_parameters_ += (
+                        f"-v {freesurfer_license_file}:"
+                        "/opt/freesurfer/license.txt "
+                    )
+                else:
+                    image_parameters_ += (
+                        f"--bind {freesurfer_license_file}:"
+                        "/opt/freesurfer/license.txt "
+                    )
             config_str = config_template.format(
                 name=f"{script_file.stem}-step{idx}",
                 operator="deamon",
                 date=str(datetime.now().date()),
                 commands=step_commands_str,
-                parameters=image_parameters,
+                parameters=image_parameters_,
+                cluster=infra,
                 partition=partition,
-                n_cpus=confs["default"]["n_cpus"],
-                memory=confs["default"]["memory"],
+                n_cpus=selected_conf["n_cpus"],
+                memory=selected_conf["memory"],
                 image_file=image_file,
+                project_id=project_id,
+                backend=selected_conf.get("backend", "flux"),
                 hopla_dir=hopla_dir,
             )
 
             # Write config file
-            with config_path.open("w") as f:
-                f.write(config_str)
+            with config_path.open("w") as of:
+                of.write(config_str)
 
             # Execute hoplacli command
             hopla_cmd = [
@@ -214,10 +222,7 @@ def main(
                 )
             )
             if not save_file.is_file():
-                raise ValueError(
-                    "Only use the ``save_template`` varaible in a complete "
-                    "build."
-                )
+                save_file.touch()
             with save_file.open("a") as of:
                 of.write(
                     "\n".join(

@@ -1,13 +1,15 @@
 [sbm.default]
 n_cpus = 1
 memory = 16
-use_freesurfer = true
+freesurfer = true
 
 [sbm.nextflow]
 memory = 64
 
 [sbm.group]
+n_cpus = 1
 memory = 5
+freesurfer = true
 
 [defacing.default]
 n_cpus = 1
@@ -16,7 +18,7 @@ memory = 5
 [fmriprep.default]
 n_cpus = 1
 memory = 10
-use_freesurfer = true
+freesurfer = true
 
 [fmriprep.group]
 n_cpus = 1
@@ -33,8 +35,14 @@ memory = 5
 [quasiraw.default]
 n_cpus = 1
 memory = 5
-use_freesurfer = true
+freesurfer = true
 
 [vbm.default]
 n_cpus = 1
 memory = 5
+backend = "oneshot"
+
+[vbm.group]
+n_cpus = 1
+memory = 5
+

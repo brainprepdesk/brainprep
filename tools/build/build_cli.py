@@ -12,15 +12,14 @@
 import sys
 from pathlib import Path
 
-import fire
-
-from brainprep import __version__ as version
-
 cw_dir = Path(__file__).parent.resolve()
 sys.path.append(str(cw_dir))
 
+import fire
 from build_images import main as build_images_main
 from build_tests import main as build_tests_main
+
+from brainprep import __version__ as version
 
 
 def build(
@@ -31,51 +30,75 @@ def build(
         dev=False,
     ):
     """
-    Parse available Docker files and generate associated build (creation and
-    test) instructions.
+    Parse available Docker files and generate the associated build instructions
+    (creation and test steps).
+
+    Two infrastructures are supported: ``ccc`` and ``slurm``.
+    To select one, use either ``<name>`` or ``<project>:<name>`` as the value
+    of the ``partition`` parameter.
 
     Parameters
     ----------
     working_dir : str or Path
-        Directory where the instructions will be generated.
+        Directory where the generated instructions will be written.
     bind_dir : str or Path
-        Directory where the data are available.
+        Directory containing the data to be bound into the Docker environment.
     partition : str
-        Name of the partition to use: <name> or <project>:<name>.
-    freesurfer_license_file : str or Path
-        Path to the FreesurFer license file.
+        Name of the partition to use. Can be provided as ``<name>`` or
+        ``<project>:<name>`` depending on the infrastructure.
+    freesurfer_license_file : str | Path
+        Path to the FreeSurfer license file required for container execution.
     dev : bool
-        Overwrite the brainprep module in the container image. Default False.
+        If True, overwrite the ``brainprep`` module inside the container image.
+        Default is False.
     """
     cw_dir = Path(__file__).parent.resolve()
     working_dir = Path(working_dir)
-    hopla_dir = working_dir / "hopla"
-    home_dir = working_dir / "home"
-    history_file = home_dir / "history"
+    hopla_dir = working_dir / f"v{version}" / "hopla"
+    home_dir = working_dir / f"v{version}" / "home"
     examples_dir = cw_dir.parent.parent / "examples"
-    for _dir in (hopla_dir, home_dir):
-        _dir.mkdir(parents=True, exist_ok=True)
-    history_file.touch()
+    for dir_ in (hopla_dir, home_dir):
+        dir_.mkdir(parents=True, exist_ok=True)
 
-    build_images_main(
-        working_dir,
-    )
+    if ":" in partition:
+        infra = "ccc"
+        project_id, partition = partition.split(":")
+        image_extension = "sif"
+    else:
+        infra = "slurm"
+        project_id = None
+        image_extension = "tar"
+
+    if infra == "slurm":
+        build_images_main(
+            working_dir,
+        )
     placeholder = "{workflow}"
-    image_parameters = f"--cleanenv --home {home_dir} --bind {bind_dir} "
-    if dev:
-        image_parameters += (
-            f"--bind {cw_dir.parent.parent / 'brainprep'}:"
+    if infra == "slurm":
+        image_parameters = f"--cleanenv --home {home_dir} --bind {bind_dir} "
+        if dev:
+            image_parameters += (
+                f"--bind {cw_dir.parent.parent / 'brainprep'}:"
+                "/opt/brainprep/.pixi/envs/default/lib/python3.12/site-packages/"
+                "brainprep "
+            )
+    elif infra == "ccc" and dev:
+        image_parameters = (
+            f"-v {cw_dir.parent.parent / 'brainprep'}:"
             "/opt/brainprep/.pixi/envs/default/lib/python3.12/site-packages/"
             "brainprep "
         )
+    else:
+        image_parameters = ""
+
     build_tests_main(
         examples_dir,
-        infra="slurm",
+        infra=infra,
         image_template=(
             working_dir /
             f"v{version}" /
             placeholder /
-            f"brainprep-{placeholder}-v{version}.sif"
+            f"brainprep-{placeholder}-v{version}.{image_extension}"
         ),
         save_template=(
             working_dir /
@@ -92,6 +115,7 @@ def build(
         hopla_dir=hopla_dir,
         partition=partition,
         freesurfer_license_file=freesurfer_license_file,
+        project_id=project_id,
     )
 
 
