@@ -136,8 +136,8 @@ Now let's generate the RST report.
           val: 1
         )
         runtime: Bunch(
-          start: '2026-02-20 13:12:11.212447'
-          end: '2026-02-20 13:12:11.212447'
+          start: '2026-02-20 14:33:18.889888'
+          end: '2026-02-20 14:33:18.889888'
           execution_time: 1.6666666666666667e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
@@ -170,9 +170,9 @@ Now let's generate the RST report.
           val: 4
         )
         runtime: Bunch(
-          start: '2026-02-20 13:12:11.220089'
-          end: '2026-02-20 13:12:11.220089'
-          execution_time: 8.902777777777778e-07
+          start: '2026-02-20 14:33:18.897048'
+          end: '2026-02-20 14:33:18.897048'
+          execution_time: 9.172222222222222e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmwffz4'
@@ -198,8 +198,8 @@ Now let's generate the RST report.
           val2: 4
         )
         runtime: Bunch(
-          start: '2026-02-20 13:12:11.223259'
-          end: '2026-02-20 13:12:11.223259'
+          start: '2026-02-20 14:33:18.900315'
+          end: '2026-02-20 14:33:18.900315'
           execution_time: 1.6666666666666667e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39'
@@ -224,7 +224,7 @@ Now let's generate the RST report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.384 seconds)
+   **Total running time of the script:** (0 minutes 0.367 seconds)
 
 **Estimated memory usage:**  108 MB
 
