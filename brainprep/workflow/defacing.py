@@ -75,7 +75,7 @@ def brainprep_defacing(
         - mask_file : File - path to the defacing mask.
         - mosaic_file : File - path to defacing snapshots.
         - summary_file : File - a TSV file containing voxel counts and
-          physical volumes (in mm³) for the brain/defacing masks mask and
+          physical volumes (in mm³) for the brain/defacing masks and
           their intersection.
 
     Raises
