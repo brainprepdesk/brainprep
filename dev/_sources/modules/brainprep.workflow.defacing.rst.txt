@@ -1,5 +1,5 @@
-:mod:`brainprep.workflow.defacing`: Brain imaging defacing.
-===========================================================
+:mod:`brainprep.workflow.defacing`: Brain image defacing workflow.
+==================================================================
 
 .. automodule:: brainprep.workflow.defacing
    :no-members:
@@ -19,6 +19,7 @@ Functions
    :template: function.rst
 
     brainprep_defacing
+    brainprep_group_defacing
 
 
 

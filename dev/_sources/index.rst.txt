@@ -15,7 +15,8 @@ Core Principles
 BrainPrep is built to be understandable. Every step in the preprocessing
 workflow is explicitly defined, documented, and inspectable. Users can trace
 how data is transformed, which parameters are applied, and which tools are
-invoked—without needing to dig through opaque scripts or hidden configurations.
+invoked without needing to dig through opaque scripts or hidden
+configurations.
 
 **Traceability**
 
@@ -31,10 +32,10 @@ intuitive, its wrappers are consistent, and its workflows are modular.
 Whether you're a novice or an expert, BrainPrep aims to reduce the cognitive
 load of preprocessing so you can focus on your science.
 
-**Portability with Docker**
+**Portability**
 
 To ensure consistent execution across different systems, BrainPrep is
-distributed and executed using **Docker**. This containerized approach
+distributed and executed using Docker or Apptainer. This containerized approach
 guarantees that all dependencies, tools, and configurations are bundled
 together, eliminating environment-specific issues and simplifying deployment.
 
@@ -61,7 +62,7 @@ which wrap either:
 - **Python functions**: These wrappers return only a tuple of generated output
   paths, encapsulating logic written directly in Python.
 
-This architecture promotes modularity, reusability, and clarity—making it
+This architecture promotes modularity, reusability, and clarity, making it
 easy to build, inspect, and extend workflows.
 
 
@@ -111,108 +112,108 @@ Featured works
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform quality analysis…">
+    <div class="sphx-glr-thumbcontainer" tooltip="How to perform quality assurance…">
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_quality_assurance_thumb.png
-    :alt: Basic brainprep example
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_quality_assurance_thumb.png
+    :alt: Basic example
 
-  :ref:`sphx_glr_auto_examples_plot_quality_assurance.py`
+  :ref:`sphx_glr_auto_examples_workflows_plot_quality_assurance.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+      <div class="sphx-glr-thumbnail-title">Basic example</div>
     </div>
 
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform defacing…">
+    <div class="sphx-glr-thumbcontainer" tooltip="How to perform defacing…">
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_defacing_thumb.png
-    :alt: Basic brainprep example
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_defacing_thumb.png
+    :alt: Basic example
 
-  :ref:`sphx_glr_auto_examples_plot_defacing.py`
+  :ref:`sphx_glr_auto_examples_workflows_plot_defacing.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+      <div class="sphx-glr-thumbnail-title">Basic example</div>
     </div>
 
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform brain parcellation…">
+    <div class="sphx-glr-thumbcontainer" tooltip="How to perform SBM…">
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_brain_parcellation_thumb.png
-    :alt: Basic brainprep example
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_sbm_thumb.png
+    :alt: Basic example
 
-  :ref:`sphx_glr_auto_examples_plot_brain_parcellation.py`
+  :ref:`sphx_glr_auto_examples_workflows_plot_sbm.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+      <div class="sphx-glr-thumbnail-title">Basic example</div>
     </div>
 
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform VBM…">
+    <div class="sphx-glr-thumbcontainer" tooltip="How to perform VBM…">
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_vbm_thumb.png
-    :alt: Basic brainprep example
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_vbm_thumb.png
+    :alt: Basic example
 
-  :ref:`sphx_glr_auto_examples_plot_vbm.py`
+  :ref:`sphx_glr_auto_examples_workflows_plot_vbm.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+      <div class="sphx-glr-thumbnail-title">Basic example</div>
     </div>
 
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform Quasi Raw…">
+    <div class="sphx-glr-thumbcontainer" tooltip="How to perform QuasiRaw…">
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_quasiraw_thumb.png
-    :alt: Basic brainprep example
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_quasiraw_thumb.png
+    :alt: Basic example
 
-  :ref:`sphx_glr_auto_examples_plot_quasiraw.py`
+  :ref:`sphx_glr_auto_examples_workflows_plot_quasiraw.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+      <div class="sphx-glr-thumbnail-title">Basic example</div>
     </div>
 
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A simple example showing how to perform fMRI preprocessing…">
+    <div class="sphx-glr-thumbcontainer" tooltip="How to perform fMRI preprocessing…">
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_fmriprep_thumb.png
-    :alt: Basic brainprep example
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_fmriprep_thumb.png
+    :alt: Basic example
 
-  :ref:`sphx_glr_auto_examples_plot_fmriprep.py`
+  :ref:`sphx_glr_auto_examples_workflows_plot_fmriprep.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Basic brainprep example</div>
+      <div class="sphx-glr-thumbnail-title">Basic example</div>
     </div>
 
 

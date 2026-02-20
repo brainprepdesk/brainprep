@@ -1,5 +1,5 @@
-:mod:`brainprep.workflow.quality_assurance`: Quality assurance.
-===============================================================
+:mod:`brainprep.workflow.quality_assurance`: Quality assurance workflow.
+========================================================================
 
 .. automodule:: brainprep.workflow.quality_assurance
    :no-members:

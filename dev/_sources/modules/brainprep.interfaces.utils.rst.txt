@@ -1,5 +1,5 @@
-:mod:`brainprep.interfaces.utils`: Tools.
-=========================================
+:mod:`brainprep.interfaces.utils`: Utils functions.
+===================================================
 
 .. automodule:: brainprep.interfaces.utils
    :no-members:
@@ -19,9 +19,7 @@ Functions
    :template: function.rst
 
     copyfiles
-    incremental_pca
-    mask_diff
-    mean_correlation
+    maskdiff
     movedir
     ungzfile
 

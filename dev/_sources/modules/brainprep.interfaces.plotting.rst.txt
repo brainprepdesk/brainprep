@@ -21,6 +21,7 @@ Functions
     plot_brainparc
     plot_defacing_mosaic
     plot_histogram
+    plot_network
     plot_pca
 
 

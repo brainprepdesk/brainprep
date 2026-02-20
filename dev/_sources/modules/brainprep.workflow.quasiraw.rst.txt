@@ -1,5 +1,5 @@
-:mod:`brainprep.workflow.quasiraw`: Quasi-RAW pre-processing.
-=============================================================
+:mod:`brainprep.workflow.quasiraw`: Quasi-RAW workflow.
+=======================================================
 
 .. automodule:: brainprep.workflow.quasiraw
    :no-members:

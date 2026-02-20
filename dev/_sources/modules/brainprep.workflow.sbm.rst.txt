@@ -1,0 +1,27 @@
+:mod:`brainprep.workflow.sbm`: Surface-based morphometry (SBM) workflow.
+========================================================================
+
+.. automodule:: brainprep.workflow.sbm
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.sbm
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_group_sbm
+    brainprep_longitudinal_sbm
+    brainprep_sbm
+
+
+
+

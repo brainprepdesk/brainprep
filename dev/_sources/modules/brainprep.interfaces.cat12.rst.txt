@@ -19,7 +19,6 @@ Functions
    :template: function.rst
 
     cat12vbm_morphometry
-    cat12vbm_stats
     cat12vbm_wf
     write_catbatch
 

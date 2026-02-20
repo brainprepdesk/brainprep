@@ -1,4 +1,6 @@
 .. _reporting:
 
-Reporting
-=========
+Reporting Workflow
+==================
+
+...

@@ -1,5 +1,5 @@
-:mod:`brainprep.workflow.fmriprep`: Functional MRI pre-processing.
-==================================================================
+:mod:`brainprep.workflow.fmriprep`: Functional MRI pre-processing workflow.
+===========================================================================
 
 .. automodule:: brainprep.workflow.fmriprep
    :no-members:

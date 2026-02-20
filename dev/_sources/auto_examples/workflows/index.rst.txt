@@ -1,0 +1,135 @@
+
+
+.. _sphx_glr_auto_examples_workflows:
+
+=========
+Workflows
+=========
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_defacing_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_workflows_plot_defacing.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Defacing</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_quality_assurance_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_workflows_plot_quality_assurance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Quality Assurance</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_quasiraw_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_workflows_plot_quasiraw.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Quasi-RAW pre-processing</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_sbm_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_workflows_plot_sbm.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SBM</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_vbm_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_workflows_plot_vbm.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">VBM</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_fmriprep_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_workflows_plot_fmriprep.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">fMRI Pre-Processings</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/workflows/plot_defacing
+   /auto_examples/workflows/plot_quality_assurance
+   /auto_examples/workflows/plot_quasiraw
+   /auto_examples/workflows/plot_sbm
+   /auto_examples/workflows/plot_vbm
+   /auto_examples/workflows/plot_fmriprep
+

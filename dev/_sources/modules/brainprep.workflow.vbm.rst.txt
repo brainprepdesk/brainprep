@@ -1,5 +1,5 @@
-:mod:`brainprep.workflow.vbm`: Diffusion MRI pre-processing.
-============================================================
+:mod:`brainprep.workflow.vbm`: Voxel-based morphometry (VBM) workflow.
+======================================================================
 
 .. automodule:: brainprep.workflow.vbm
    :no-members:

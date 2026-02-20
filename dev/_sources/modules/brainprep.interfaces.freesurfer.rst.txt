@@ -22,7 +22,6 @@ Functions
     asegstats2table
     brainmask
     freesurfer_command_status
-    freesurfer_euler_numbers
     freesurfer_features_summary
     freesurfer_tissues
     fsaveragesym_projection

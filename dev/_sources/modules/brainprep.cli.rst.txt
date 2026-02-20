@@ -1,5 +1,5 @@
-:mod:`brainprep.cli`:  Provide a command line interface.
-========================================================
+:mod:`brainprep.cli`:  Command-line interface (CLI) utilities for BrainPrep workflows.
+======================================================================================
 
 .. automodule:: brainprep.cli
    :no-members:
@@ -19,6 +19,7 @@ Functions
    :template: function.rst
 
     main
+    make_wrapped
 
 
 
