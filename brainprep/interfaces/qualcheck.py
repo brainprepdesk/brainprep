@@ -712,7 +712,7 @@ def fmriprep_metrics(
     -----
     Missing metrics (e.g., ``snr`` or ``aor``) are filled with ``NaN``.
     """
-    group_stats_file = output_dir / "group_stats.tsv"
+    group_stats_file = output_dir / "motion_confounds.tsv"
 
     if dryrun:
         return (group_stats_file, )
