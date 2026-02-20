@@ -1,16 +1,3 @@
-**Usage**
-
-|PythonVersion| |License| |PoweredBy|
-
-**Development**
-
-|Coveralls| |Testing| |Ruff| |PyCodeStyle| |PyDocLint| |Doc|
-
-**Release**
-
-|PyPi| |DockerANAT| |DockerMRIQC| |DockerFMRIPREP| |DockerDMRIPREP|
-
-
 .. |PythonVersion| image:: https://img.shields.io/badge/python-3.12-blue
     :target: https://img.shields.io/badge/python-3.12-blue
     :alt: Python Version
@@ -66,6 +53,19 @@
 .. |DockerDMRIPREP| image:: https://img.shields.io/docker/pulls/neurospin/brainprep-dmriprep
     :target: https://hub.docker.com/r/neurospin/brainprep-dmriprep
     :alt: Docker Pulls (dMRIPrep)
+
+**Usage**
+
+|PythonVersion| |License| |PoweredBy|
+
+**Development**
+
+|Coveralls| |Testing| |Ruff| |PyCodeStyle| |PyDocLint| |Doc|
+
+**Release**
+
+|PyPi| |DockerANAT| |DockerMRIQC| |DockerFMRIPREP| |DockerDMRIPREP|
+
 
 brainprep
 =========
