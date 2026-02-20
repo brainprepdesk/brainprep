@@ -6,37 +6,116 @@ Quality Assurance
 Introduction
 ------------
 
-QA stands for Quality Assurance, and in the context of MRI, it refers to the
-process of evaluating and maintaining the quality of MRI data.
-Using QA in MRI data is a powerful way to ensure your neuroimaging dataset is
-clean, reliable, and ready for analysis.
-QA helps standardize datasets, making it easier to replicate findings and
-share data with confidence.
+Quality Assurance (QA) in MRI refers to the systematic evaluation of
+data quality to ensure that the acquired images are suitable for
+reliable scientific analysis. Because MRI data are susceptible to a wide
+range of artifacts—such as motion, scanner drift, and physiological
+noise—implementing QA procedures is essential for identifying issues that
+could compromise downstream results. 
 
 Requirements
 ------------
 
 Running the workflow requires:
 
-- **20 GB of RAM**
++------------+--------------+
+| CPU        | RAM          |
++============+==============+
+| 1          | 20 GB        |
++------------+--------------+
 
 Description
 -----------
 
-**Steps**: MRIQC :footcite:p:`esteban2017mriqc` is used to automatically
-extracts image quality metrics (IQMs)
-from structural (T1w, T2w), functional (BOLD), and diffusion (EPI) MRI scans.
-The objective is to detect artifacts, inconsistencies, and outliers without
-manually inspecting every image. MRIQC computes dozens of metrics like
-signal-to-noise ratio (SNR), contrast-to-noise ratio (CNR), entropy focus
-criterion (EFC), and motion parameters. These metrics help identify scans
-with poor quality due to motion, scanner issues, or acquisition errors.
-It generates HTML reports with side-by-side visualizations of each scan,
-making it easy to spot problems like ghosting, blurring, or head motion.
-Group-level reports help compare quality across subjects and sites.
+**Processing Steps**
 
-**Quality control**: We exclude data that MRIQC flags as deviating significantly
-from the group.
+- **Image-quality metrics**
+  MRIQC :footcite:p:`esteban2017mriqc` is used to automatically extract
+  image-quality metrics (IQMs) from structural (T1w, T2w), functional
+  (BOLD), and diffusion (EPI) MRI scans. Its purpose is to detect artifacts,
+  inconsistencies, and outliers without requiring manual inspection of every
+  image.
+
+- **Feature selection**
+  MRIQC computes a wide range of metrics, including signal-to-noise ratio (SNR),
+  contrast-to-noise ratio (CNR), entropy focus criterion (EFC), and
+  motion-related parameters, that help identify scans affected by motion,
+  scanner instability, or acquisition errors.
+  ... 
+
+**Quality Control**
+
+- **Manual inspection**  
+  Group‑level quality‑control HTML reports are reviewed manually to ensure
+  that preprocessing outcomes are consistent across participants and that no
+  systematic artifacts remain.
+
+
+Outputs
+-------
+
+The ``quality_assurance`` directory contains subject-level results,
+group-level results, logs, and quality-control outputs.
+The structure is organized following the :ref:`brainprep ontology <ontology>`.
+
+.. code-block:: text
+
+    quality_assurance/
+    ├── dataset_description.json
+    ├── group_bold.html
+    ├── group_bold.tsv
+    ├── group_dwi.html
+    ├── group_dwi.tsv
+    ├── group_T1w.html
+    ├── group_T1w.tsv
+    ├── logs
+    │   └── report_<timestamp>.rst
+    ├── sub-01
+    │   └── ses-00
+    │       ├── anat
+    │       │   └── sub-01_ses-00_T1w.json
+    │       ├── dwi
+    │       │   └── sub-01_ses-00_dwi.json
+    │       ├── func
+    │       │   ├── sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json
+    │       │   ├── sub-01_ses-00_task-ArchiStandard_dir-pa_timeseries.json
+    │       │   └── sub-01_ses-00_task-ArchiStandard_dir-pa_timeseries.tsv
+    │       └── log
+    │           └── report_<timestamp>.rst
+    ├── sub-01_ses-00_dwi.html
+    ├── sub-01_ses-00_T1w.html
+    ├── sub-01_ses-00_task-ArchiStandard_dir-pa_bold.html
+    ├── sub-02
+    │   └── ses-00
+    │       ├── anat
+    │       │   └── sub-02_ses-00_T1w.json
+    │       ├── dwi
+    │       │   └── sub-02_ses-00_dwi.json
+    │       ├── func
+    │       │   ├── sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json
+    │       │   ├── sub-02_ses-00_task-ArchiStandard_dir-pa_timeseries.json
+    │       │   └── sub-02_ses-00_task-ArchiStandard_dir-pa_timeseries.tsv
+    │       └── log
+    │           └── report_<timestamp>.rst
+    ├── sub-02_ses-00_dwi.html
+    ├── sub-02_ses-00_T1w.html
+    └── sub-02_ses-00_task-ArchiStandard_dir-pa_bold.html
+
+**Description of contents**:
+
+- ``dataset_description.json``  
+  Metadata describing the process, including versioning and processing
+  information.
+- ``group_*_<modality>.tsv``  
+  Table with IQMs for each subject/session/run across all modalities.
+- ``group_*_<modality>.html``  
+  Standard MRIQC group-level report.
+- ``log/report_<timestamp>.rst``  
+  Contains group-level workflow steps and parameters.
+- ``sub-<id>/ses-<id>``
+  Standard MRIQC folder structure.
+- ``sub-<id>_ses<id>_*_<modality>.html``  
+  Standard MRIQC subject-level report.
 
 Featured examples
 -----------------
@@ -67,7 +146,7 @@ Featured examples
 
           Quality Assurance
 
-        Explore how to perform this analysis with a container.
+        Explore how to perform this analysis.
 
 References
 ----------

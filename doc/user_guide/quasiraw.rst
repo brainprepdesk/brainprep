@@ -40,8 +40,7 @@ Description
 
 - **Bias field correction**  
   Intensity non-uniformities are corrected using the ANTs N4 algorithm
-  :footcite:p:`avants2009ants`, improving image homogeneity and preparing the
-  data for downstream analysis.
+  :footcite:p:`avants2009ants`, improving image homogeneity.
 
 - **Affine registration to MNI space**  
   Spatial alignment is carried out using FSL FLIRT
@@ -51,46 +50,45 @@ Description
 
 **Quality Control**
 
-- **Correlation-based sorting**  
-   For each image, we compute its correlation with the mean of all other
-   images in the dataset. Images are then sorted in ascending order of this
-   correlation score, allowing potential outliers to be easily identified.
+- **Correlation score**  
+  For each image, we compute its correlation with the MNI template. Images
+  are then sorted in ascending order of this score, allowing potential
+  outliers to be easily identified.
 
 - **Manual inspection**  
-   Following the correlation-based ranking, images at the lower end of the
-   distribution are manually reviewed in-house. A preliminary threshold is
-   applied to remove the most obvious outliers.
+  Following the correlation-based ranking, generated ``T1w`` images at the
+  lower end of the distribution are manually reviewed in-house. This step is
+  performed using a PCA‑based reduction technique to detect the most obvious
+  outliers, which are then removed.
 
 - **Thresholding**  
-   For the remaining images, we compute the average pairwise correlation after
-   registration, using Fisher’s z-transform to stabilize variance. Only images
-   with an average correlation greater than 0.5 are retained for further
-   processing.
+  The correlation score is thresholded at 0.5, meaning that if an image is not
+  roughly registered to the template, the preprocessing is considered invalid.
+  Images with a correlation lower than 0.5 are flagged as low‑quality.
 
 Outputs
 -------
 
-The ``quasiraw`` directory contains the minimally processed T1-weighted (T1w)
-MRI data, along with logs, quality-control outputs, and subject-level results.
-The structure is organized to ensure transparency, reproducibility, and easy
-navigation across subjects and sessions.
+The ``quasiraw`` directory contains subject-level results, logs, and
+quality-control outputs.
+The structure is organized following the :ref:`brainprep ontology <ontology>`.
 
 .. code-block:: text
 
-    quasiraw
+    quasiraw/
     ├── dataset_description.json
-    ├── logs
-    │   └── report_<timestamp>.rst
     ├── figures
-    │   ├── histogram_mean_correlation.png
-    │   └── pca.png
-    ├── qc
+    │   ├── histogram_mean_correlation.png
+    │   └── pca.png
+    ├── log
+    │   └── report_<timestamp>.rst
+    ├── quality_check
     │   ├── mean_correlations.tsv
     │   └── pca.tsv
     └── subjects
        └── sub-01
            └── ses-01
-               ├── logs
+               ├── log
                │   └── report_<timestamp>.rst
                ├── sub-01_ses-01_run-01_mod-T1w_affine.txt
                ├── sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz
@@ -99,29 +97,27 @@ navigation across subjects and sessions.
 **Description of contents**:
 
 - ``dataset_description.json``  
-  Metadata describing the defacing dataset, including versioning and
-  processing information.
+  Metadata describing the process, including versioning and processing
+  information.
+- ``figures/histogram_mean_correlation.png``  
+  Image correlation-to-template distribution and applied threshold.
+- ``figures/pca.png``  
+  Display of the first two PCA components of the generated images.
 - ``logs/report_<timestamp>.rst``  
   Contains group-level workflow steps and parameters.
-- ``histogram_mean_correlation.png`` 
-  Histogram of mean inter-image correlations used to detect outliers.
-- ``pca.png``  
-  PCA projection of images for visual inspection.
-- ``mean_correlations.tsv`` 
-  Tabulated mean correlation values (after Fisher z-transform), used to
-  identify low-quality images. A QC column is included to flag which images
-  pass the sanity check, allowing quick identification of valid and invalid
-  entries.
-- ``pca.tsv`` 
-  Numerical PCA components corresponding to the ``pca.png`` visualization.
-- ``/sub-01/ses-01/logs/report_<timestamp>.rst``  
+- ``quality_check/mask_overlap.tsv``  
+  Table containing the correlation score for each subject/session/run. The
+  table includes a binary ``qc`` column indicating the quality control result.
+- ``quality_check/pca.tsv``  
+  Table containing information on the first two PCA components.
+- ``subjects/sub-<id>/ses-<id>/logs/report_<timestamp>.rst``  
   Contains subject-level workflow steps and parameters.
-- ``sub-01_ses-01_run-01_mod-T1w_affine.txt`` 
+- ``subjects/sub-<id>/ses-<id>/sub-01_ses-01_run-01_mod-T1w_affine.txt`` 
   Affine transformation parameters (9 DOF) used to align the T1w image to
   the MNI template.
-- ``sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz``
+- ``subjects/sub-<id>/ses-<id>/sub-01_ses-01_run-01_mod-T1w_brainmask.nii.gz``
   Brain mask generated during skull stripping (e.g., via SynthStrip).
-- ``sub-01_ses-01_run-01_T1w.nii.gz``
+- ``subjects/sub-<id>/ses-<id>/sub-01_ses-01_run-01_T1w.nii.gz``
   The minimally preprocessed T1w image, including skull stripping, bias
   correction, and affine alignment.
 
@@ -154,7 +150,7 @@ Featured examples
 
           Quasi RAW
 
-        Explore how to perform this analysis with a container.
+        Explore how to perform this analysis.
 
 References
 ----------

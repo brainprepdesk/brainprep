@@ -10,21 +10,14 @@ Brain parcellation
 Introduction
 ------------
 
-The brain parcellation process takes raw T1‑weighted MRI scans as input and
-produces segmented brain volumes, cortical surface models, parcellation
-maps, and a wide range of quantitative metrics (e.g., cortical thickness,
-surface area, etc.).
-
-The workflow supports both cross‑sectional preprocessing and longitudinal
-refinement of brain MRI data. In the cross‑sectional setting, each timepoint
-is processed independently, ensuring consistent treatment of individual
-scans. For longitudinal studies, the workflow provides dedicated routines
-that refine results across multiple timepoints from the same subject. By
-leveraging temporal consistency, it improves segmentation accuracy, reduces
-measurement variability, and enhances the reliability of derived metrics
-such as cortical thickness or volume change. This approach is particularly
-valuable for investigating brain development, aging trajectories, and disease
-progression.
+Surface-based morphometry (SBM) is a structural MRI analysis framework that
+focuses on the geometry of the cerebral cortex rather than on voxelwise tissue
+properties. Using T1w images, SBM reconstructs the white matter and pial
+surfaces, enabling precise measurement of cortical features such as thickness,
+surface area, curvature, and folding patterns. SBM provides offers improved
+sensitivity to subtle cortical differences relative to traditional
+voxel-based approaches. This makes SBM a widely used tool for studying
+neurodevelopment, aging, and disease‑related cortical alterations.
 
 Requirements
 ------------
@@ -32,8 +25,11 @@ Requirements
 +------------+--------------+
 | CPU        | RAM          |
 +============+==============+
-| 1          | 16 GB, 64 GB |
+| 1          | 16 GB        |
 +------------+--------------+
+
+Using Nextflow requires 64 GB of memory and is therefore packaged separately
+within the subject‑level workflow.
 
 Running the workflow requires a CPU with **AVX** or **AVX2** support  
 You can check this with::
@@ -50,122 +46,75 @@ Description
   :footcite:p:`fischl2012freesurfer`. The analysis
   stream includes intensity normalization, skull stripping, segmentation of
   GM (pial) and WM, hemispheric-based tessellations, topology corrections and
-  inflation, and registration to the *fsaverage* template.
+  inflation, and registration to the ``fsaverage`` template.
 
 - **ROI-based morphological measures**
   ROI-based morphological measures are extracted on both the Desikan
   :footcite:p:`desikan2006automated` and Destrieux
   :footcite:p:`fischl2004automatically` parcellations, including seven
-  ROI‑based features: mean and standard deviation of cortical thickness,
+  ROI-based features: mean and standard deviation of cortical thickness,
   gray‑matter volume, surface area, integrated mean and Gaussian curvatures,
-  and the intrinsic curvature index.
+  and the intrinsic curvature index. Volumetric subcortical brain structure
+  features are also extracted.
 
 - **Vertex-wise morphological measures**
-  Vertex‑wise features - cortical thickness, curvature, and average convexity
-  - are computed on the high‑resolution seventh‑order icosahedral mesh,
+  Vertex‑wise features (cortical thickness, curvature, and average convexity)
+  are computed on the high‑resolution seventh-order icosahedral mesh,
   providing fine‑grained surface information :footcite:p:`fischl1999cortical`.
-  To support inter‑hemispheric surface‑based analyses, right‑hemisphere
+  To support inter‑hemispheric surface-based analyses, right-hemisphere
   features are mapped onto the left hemisphere using the symmetric
-  fsaverage_sym template and the xhemi routines :footcite:p:`greve2013surface`.
+  ``fsaverage_sym`` template and the ``xhemi`` routines
+  :footcite:p:`greve2013surface`.
 
 **Quality Control**
 
-We first perform a visual inspection of the images ranked according to their
-correlation score. In addition, we use the Euler number as an image‑quality
-metric and retain only those with a value greater than −217, following the
-recommendation of :footcite:p:`rosen2018`.
+- **Euler score**  
+We use the Euler number as an image-quality metric and retain only those
+with values greater than −217, following the recommendation of
+:footcite:p:rosen2018. This filtering step ensures that images with
+insufficient topological stability or degradation are flagged as low‑quality.
 
 Outputs
 -------
 
-The ``brain_parcellation`` directory contains the minimally processed T1-weighted (T1w)
-MRI data, along with logs, quality-control outputs, and subject-level results.
-The structure is organized to ensure transparency, reproducibility, and easy
-navigation across subjects and sessions.
+The ``sbm`` directory contains subject-level results, longitudinal results,
+group-level results, logs, and quality-control outputs.
+The structure is organized following the :ref:`brainprep ontology <ontology>`.
 
 .. code-block:: text
 
-    brain_parcellation
+    sbm/
     ├── dataset_description.json
     ├── figures
     │   └── histogram_euler_number.png
-    ├── logs
+    ├── log
     │   └── report_<timestamp>.rst
     ├── longitudinal
-    │   ├── figures
+    │   ├── figure
     │   │   └── histogram_euler_number.png
     │   ├── morphometry
-    │   │   ├── aparc2009s_ses-study1_hemi-lh_meas-area_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-lh_meas-curvind_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-lh_meas-foldind_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-lh_meas-gauscurv_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-lh_meas-meancurv_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-lh_meas-thickness_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-lh_meas-thicknessstd_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-lh_meas-volume_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-rh_meas-area_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-rh_meas-curvind_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-rh_meas-foldind_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-rh_meas-gauscurv_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-rh_meas-meancurv_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-rh_meas-thickness_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-rh_meas-thicknessstd_stats.csv
-    │   │   ├── aparc2009s_ses-study1_hemi-rh_meas-volume_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-lh_meas-area_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-lh_meas-curvind_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-lh_meas-foldind_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-lh_meas-gauscurv_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-lh_meas-meancurv_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-lh_meas-thickness_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-lh_meas-thicknessstd_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-lh_meas-volume_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-rh_meas-area_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-rh_meas-curvind_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-rh_meas-foldind_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-rh_meas-gauscurv_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-rh_meas-meancurv_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-rh_meas-thickness_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-rh_meas-thicknessstd_stats.csv
-    │   │   ├── aparc2009s_ses-study2_hemi-rh_meas-volume_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-lh_meas-area_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-lh_meas-curvind_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-lh_meas-foldind_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-lh_meas-gauscurv_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-lh_meas-meancurv_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-lh_meas-thickness_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-lh_meas-thicknessstd_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-lh_meas-volume_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-rh_meas-area_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-rh_meas-curvind_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-rh_meas-foldind_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-rh_meas-gauscurv_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-rh_meas-meancurv_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-rh_meas-thickness_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-rh_meas-thicknessstd_stats.csv
-    │   │   ├── aparc_ses-study1_hemi-rh_meas-volume_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-lh_meas-area_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-lh_meas-curvind_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-lh_meas-foldind_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-lh_meas-gauscurv_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-lh_meas-meancurv_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-lh_meas-thickness_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-lh_meas-thicknessstd_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-lh_meas-volume_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-rh_meas-area_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-rh_meas-curvind_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-rh_meas-foldind_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-rh_meas-gauscurv_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-rh_meas-meancurv_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-rh_meas-thickness_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-rh_meas-thicknessstd_stats.csv
-    │   │   ├── aparc_ses-study2_hemi-rh_meas-volume_stats.csv
-    │   │   ├── aseg_ses-study1_stats.csv
-    │   │   └── aseg_ses-study2_stats.csv
-    │   ├── qc
+    │   │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-area_stats.csv
+    │   │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-curvind_stats.csv
+    │   │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-foldind_stats.csv
+    │   │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-gauscurv_stats.csv
+    │   │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-meancurv_stats.csv
+    │   │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-thickness_stats.csv
+    │   │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_hemi-lh_meas-thicknessstd_stats.csv
+    │   │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-volume_stats.csv
+    │   │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-area_stats.csv
+    │   │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-curvind_stats.csv
+    │   │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-foldind_stats.csv
+    │   │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-gauscurv_stats.csv
+    │   │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-meancurv_stats.csv
+    │   │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-thickness_stats.csv
+    │   │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-thicknessstd_stats.csv
+    │   │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-volume_stats.csv
+    │   │   └── aseg_ses-<study1|study2>_stats.csv
+    │   ├── quality_check
     │   │   └── euler_numbers.tsv
     │   └── subjects
     │       └── sub-02
-    │           ├── logs
+    │           ├── log
     │           │   └── report_<timestamp>.rst
     │           ├── ses-study1
     │           │   └── run-01
@@ -198,80 +147,31 @@ navigation across subjects and sessions.
     │               ├── touch
     │               └── trash
     ├── morphometry
-    │   ├── aparc2009s_ses-study1_hemi-lh_meas-area_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-lh_meas-curvind_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-lh_meas-foldind_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-lh_meas-gauscurv_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-lh_meas-meancurv_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-lh_meas-thickness_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-lh_meas-thicknessstd_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-lh_meas-volume_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-rh_meas-area_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-rh_meas-curvind_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-rh_meas-foldind_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-rh_meas-gauscurv_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-rh_meas-meancurv_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-rh_meas-thickness_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-rh_meas-thicknessstd_stats.csv
-    │   ├── aparc2009s_ses-study1_hemi-rh_meas-volume_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-lh_meas-area_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-lh_meas-curvind_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-lh_meas-foldind_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-lh_meas-gauscurv_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-lh_meas-meancurv_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-lh_meas-thickness_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-lh_meas-thicknessstd_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-lh_meas-volume_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-rh_meas-area_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-rh_meas-curvind_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-rh_meas-foldind_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-rh_meas-gauscurv_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-rh_meas-meancurv_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-rh_meas-thickness_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-rh_meas-thicknessstd_stats.csv
-    │   ├── aparc2009s_ses-study2_hemi-rh_meas-volume_stats.csv
-    │   ├── aparc_ses-study1_hemi-lh_meas-area_stats.csv
-    │   ├── aparc_ses-study1_hemi-lh_meas-curvind_stats.csv
-    │   ├── aparc_ses-study1_hemi-lh_meas-foldind_stats.csv
-    │   ├── aparc_ses-study1_hemi-lh_meas-gauscurv_stats.csv
-    │   ├── aparc_ses-study1_hemi-lh_meas-meancurv_stats.csv
-    │   ├── aparc_ses-study1_hemi-lh_meas-thickness_stats.csv
-    │   ├── aparc_ses-study1_hemi-lh_meas-thicknessstd_stats.csv
-    │   ├── aparc_ses-study1_hemi-lh_meas-volume_stats.csv
-    │   ├── aparc_ses-study1_hemi-rh_meas-area_stats.csv
-    │   ├── aparc_ses-study1_hemi-rh_meas-curvind_stats.csv
-    │   ├── aparc_ses-study1_hemi-rh_meas-foldind_stats.csv
-    │   ├── aparc_ses-study1_hemi-rh_meas-gauscurv_stats.csv
-    │   ├── aparc_ses-study1_hemi-rh_meas-meancurv_stats.csv
-    │   ├── aparc_ses-study1_hemi-rh_meas-thickness_stats.csv
-    │   ├── aparc_ses-study1_hemi-rh_meas-thicknessstd_stats.csv
-    │   ├── aparc_ses-study1_hemi-rh_meas-volume_stats.csv
-    │   ├── aparc_ses-study2_hemi-lh_meas-area_stats.csv
-    │   ├── aparc_ses-study2_hemi-lh_meas-curvind_stats.csv
-    │   ├── aparc_ses-study2_hemi-lh_meas-foldind_stats.csv
-    │   ├── aparc_ses-study2_hemi-lh_meas-gauscurv_stats.csv
-    │   ├── aparc_ses-study2_hemi-lh_meas-meancurv_stats.csv
-    │   ├── aparc_ses-study2_hemi-lh_meas-thickness_stats.csv
-    │   ├── aparc_ses-study2_hemi-lh_meas-thicknessstd_stats.csv
-    │   ├── aparc_ses-study2_hemi-lh_meas-volume_stats.csv
-    │   ├── aparc_ses-study2_hemi-rh_meas-area_stats.csv
-    │   ├── aparc_ses-study2_hemi-rh_meas-curvind_stats.csv
-    │   ├── aparc_ses-study2_hemi-rh_meas-foldind_stats.csv
-    │   ├── aparc_ses-study2_hemi-rh_meas-gauscurv_stats.csv
-    │   ├── aparc_ses-study2_hemi-rh_meas-meancurv_stats.csv
-    │   ├── aparc_ses-study2_hemi-rh_meas-thickness_stats.csv
-    │   ├── aparc_ses-study2_hemi-rh_meas-thicknessstd_stats.csv
-    │   ├── aparc_ses-study2_hemi-rh_meas-volume_stats.csv
-    │   ├── aseg_ses-study1_stats.csv
-    │   └── aseg_ses-study2_stats.csv
-    ├── qc
+    │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-area_stats.csv
+    │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-curvind_stats.csv
+    │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-foldind_stats.csv
+    │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-gauscurv_stats.csv
+    │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-meancurv_stats.csv
+    │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-thickness_stats.csv
+    │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_hemi-lh_meas-thicknessstd_stats.csv
+    │   ├── aparc2009s_ses-<study1|study2>_hemi-<lh|rh>_meas-volume_stats.csv
+    │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-area_stats.csv
+    │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-curvind_stats.csv
+    │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-foldind_stats.csv
+    │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-gauscurv_stats.csv
+    │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-meancurv_stats.csv
+    │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-thickness_stats.csv
+    │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-thicknessstd_stats.csv
+    │   ├── aparc_ses-<study1|study2>_hemi-<lh|rh>_meas-volume_stats.csv
+    │   └── aseg_ses-<study1|study2>_stats.csv
+    ├── quality_check
     │   └── euler_numbers.tsv
     └── subjects
         └── sub-01
             ├── ses-study1
             │   ├── figures
             │   │   └── sub-01_ses-study1_run-01_brainparc.png
-            │   ├── logs
+            │   ├── log
             │   │   ├── report_<timestamp>.rst
             │   ├── run-01
             │   │   ├── label
@@ -287,7 +187,7 @@ navigation across subjects and sessions.
             └── ses-study2
                 ├── figures
                 │   └── sub-01_ses-study2_run-01_brainparc.png
-                ├── logs
+                ├── log
                 │   └── report_<timestamp>.rst
                 └── run-01
                     ├── label
@@ -305,38 +205,46 @@ navigation across subjects and sessions.
 **Description of contents**:
 
 - ``dataset_description.json``  
-  Metadata describing the defacing dataset, including versioning and
-  processing information.
+  Metadata describing the process, including versioning and processing
+  information.
 - ``figures/histogram_euler_number.png``
-  Histogram of Euler numbers across subjects, used to detect surface
-  reconstruction failures or topological defects.
-- ``logs/report_<timestamp>.rst``  
+  Histogram of Euler numbers across subjects and applied threshold, used to
+  detect surface reconstruction failures or topological defects.
+- ``log/report_<timestamp>.rst``  
   Contains group-level workflow steps and parameters.
 - ``longitudinal/figures/histogram_euler_number.png``
-  Euler number histogram computed specifically for longitudinal sessions.
+  Histogram of Euler numbers across subjects and applied threshold, used to
+  detect surface reconstruction failures or topological defects.
 - ``longitudinal/morphometry``
   Contains regional morphometric statistics derived from FreeSurfer
   parcellations. Each CSV file corresponds to a specific parcellation
-  scheme (e.g., ``aparc``, ``aparc2009s``), hemisphere (``hemi-lh`` or
-  ``hemi-rh``), session (``ses-study1``, ``ses-study2``), and measurement type
+  scheme (e.g., ``aparc``, ``aparc2009s``), hemisphere (``lh`` or
+  ``rh``), session (``study1``, ``study2``), and measurement type
   (cortical area, curvature indices, cortical thickness, cortical volume).
   Additionally, contains volumetric segmentation statistics for subcortical
   structures (``aseg_ses-study1_stats.csv``, ``aseg_ses-study2_stats.csv``).
-- ``longitudinal/qc/euler_numbers.tsv``  
+- ``longitudinal/quality_check/euler_numbers.tsv``  
   Tabulated Euler numbers for each subject and session, used to identify
-  surface reconstruction issues.
-- ``longitudinal/subjects/sub-<id>/logs/report_<timestamp>.rst``
-  Subject-level workflow report.
+  surface reconstruction issues. The table includes a binary ``qc`` column
+  indicating the quality control result.
+- ``longitudinal/subjects/sub-<id>/log/report_<timestamp>.rst``
+  Contains longitudinal workflow steps and parameters.
 - ``longitudinal/subjects/sub-<id>/ses-<id>/run-<id>``
-  Standard FreeSurfer folder structure.
-- ``longitudinal/subjects/sub-02/template/``
+  Standard FreeSurfer folder structure. An additional ``run-<id>`` hierarchy
+  level is introduced to prevent filename collisions in datasets containing
+  multiple T1w images, as FreeSurfer's internal directory structure does not
+  support this scenario by default.
+- ``longitudinal/subjects/sub-<id>/template``
   The ``template`` directory contains the longitudinal FreeSurfer template
   built across sessions.
-- ``qc/euler_numbers.tsv``  
-  Tabulated Euler numbers for each subject and session, used to identify
-  surface reconstruction issues.
+- ``quality_check/euler_numbers.tsv``  
+  Tabulated Euler numbers for each subject and session and applied threshold,
+  used to identify surface reconstruction issues.
 - ``subjects/sub-<id>/ses-<id>/run-<id>``
-  Standard FreeSurfer folder structure.
+  Standard FreeSurfer folder structure. An additional ``run-<id>`` hierarchy
+  level is introduced to prevent filename collisions in datasets containing
+  multiple T1w images, as FreeSurfer's internal directory structure does not
+  support this scenario by default.
 
 Featured examples
 -----------------
@@ -344,7 +252,7 @@ Featured examples
 .. grid::
 
   .. grid-item-card::
-    :link: ../auto_examples/plot_brain_parcellation.html
+    :link: ../auto_examples/plot_sbm.html
     :link-type: url
     :columns: 12 12 12 12
     :class-card: sd-shadow-sm
@@ -358,7 +266,7 @@ Featured examples
       .. grid-item::
         :columns: 12 4 4 4
 
-        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_brain_parcellation_thumb.png
+        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_sbm_thumb.png
 
       .. grid-item::
         :columns: 12 8 8 8
@@ -367,7 +275,7 @@ Featured examples
 
           Brain Parcellation
 
-        Explore how to perform this analysis with a container.
+        Explore how to perform this analysis.
 
 References
 ----------
