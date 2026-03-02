@@ -316,7 +316,7 @@ def cat12vbm_morphometry(
             df.insert(2, "run", info["run"])
             data.append(df)
         df = pd.concat(data)
-        df.sort_values(by=["participant_id","session","run"], inplace=True)
+        df.sort_values(by=["participant_id", "session", "run"], inplace=True)
         df.to_csv(
             output_file,
             index=False,
@@ -351,15 +351,15 @@ def cat12vbm_morphometry(
             csf_vol, gm_vol, wm_vol = map(
                 float, cat["vol_abs_CGW"][7][1:-1].split()
             )
-        except Exception as e:
+        except Exception as exc:
             raise ValueError(
                 f"Impossible to retrieve TIV: {xml_file}"
-            )
+            ) from exc
         df.loc[len(df)] = [
             info["sub"], info["ses"], info["run"],
-            tiv, csf, gm, wm,
+            tiv, csf_vol, gm_vol, wm_vol,
         ]
-    df.sort_values(["participant_id","session","run"], inplace=True)
+    df.sort_values(["participant_id", "session", "run"], inplace=True)
     volume_file = output_dir / "cat12_vbm_total_volumes.tsv"
     df.to_csv(
         volume_file,

@@ -385,7 +385,7 @@ def parse_bids_keys(
     When the `ses` entity is absent, it defaults to "01". This provides ensures
     consistent downstream file handling.
 
-    When the `run` entity is absent, a deterministic 5‑digit identifier is
+    When the `run` entity is absent, a deterministic 5-digit identifier is
     generated from the filename using UUID. This produces a short, stable
     hash so that the same filename always yields the same default run value.
 
@@ -448,7 +448,7 @@ def parse_bids_keys(
 def make_run_id(
         filename: str) -> tuple[str, str]:
     """
-    Generate a deterministic identifier and a 5‑digit short code from a
+    Generate a deterministic identifier and a 5-digit short code from a
     filename.
 
     This function computes a UUIDv5 using the URL namespace and the provided
