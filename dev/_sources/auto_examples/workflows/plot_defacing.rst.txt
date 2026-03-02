@@ -128,7 +128,7 @@ to actually run each step and generate results on disk.
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.defacing.brainprep_defacing'
-        description: '\n    Defacing pre-processing workflow for anatomical T1-weighted images.\n\n    Applies FSL\'s `fsl_deface` tool :footcite:p:`almagro2018deface` with\n    default settings to remove facial features (face and ears) from the input\n    image. This includes:\n\n    1) Reorient the T1w image to standard MNI152 template space.\n    2) Deface the T1w image.\n    3) Generate a mosaic image of the defaced T1w image.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w anatomical image file.\n    output_dir : Directory\n        Directory where the defaced image and related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (e.g., reoriented image); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - deface_t1_file : File - path to the defaced image.\n        - mask_file : File - path to the defacing mask.\n        - mosaic_file : File - path to defacing snapshots.\n        - summary_file : File - a TSV file containing voxel counts and\n          physical volumes (in mm³) for the brain/defacing masks and\n          their intersection.\n\n    Raises\n    ------\n    ValueError\n        If the T1w file do not follow BIDS convention.\n\n    Notes\n    -----\n    This workflow assumes the input image is a valid T1-weighted anatomical\n    scan.\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_defacing\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_defacing(\n    ...         t1_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n      deface_t1_file: PosixPath(\'...\')\n      mask_file: PosixPath(\'...\')\n      mosaic_file: PosixPath(\'...\')\n      summary_file: PosixPath(\'...\')\n    )\n\n    References\n    ----------\n\n    .. footbibliography::\n    '
+        description: '\n    Defacing pre-processing workflow for anatomical T1-weighted images.\n\n    Applies FSL\'s `fsl_deface` tool :footcite:p:`almagro2018deface` with\n    default settings to remove facial features (face and ears) from the input\n    image. This includes:\n\n    1) Reorient the T1w image to standard MNI152 template space.\n    2) Deface the T1w image.\n    3) Generate a mosaic image of the defaced T1w image.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w anatomical image file.\n    output_dir : Directory\n        Directory where the defaced image and related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (e.g., reoriented image); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - deface_t1_file : File - path to the defaced image.\n        - mask_file : File - path to the defacing mask.\n        - mosaic_file : File - path to defacing snapshots.\n        - summary_file : File - a TSV file containing voxel counts and\n          physical volumes (in mm³) for the brain/defacing masks and\n          their intersection.\n\n    Raises\n    ------\n    ValueError\n        If the T1w file do not follow BIDS convention.\n\n    Notes\n    -----\n    This workflow assumes the input image is a valid T1-weighted anatomical\n    scan.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_defacing\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_defacing(\n    ...         t1_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n      deface_t1_file: PosixPath(\'...\')\n      mask_file: PosixPath(\'...\')\n      mosaic_file: PosixPath(\'...\')\n      summary_file: PosixPath(\'...\')\n    )\n    '
         inputs: Bunch(
           t1_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01')
@@ -141,9 +141,9 @@ to actually run each step and generate results on disk.
           summary_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:34:36.108093'
-          end: '2026-03-02 14:34:36.108093'
-          execution_time: 5.228888888888889e-06
+          start: '2026-03-02 14:53:32.202511'
+          end: '2026-03-02 14:53:32.202511'
+          execution_time: 5.580000000000001e-06
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -172,9 +172,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:34:36.112077'
-          end: '2026-03-02 14:34:36.112077'
-          execution_time: 8.583333333333333e-08
+          start: '2026-03-02 14:53:32.207419'
+          end: '2026-03-02 14:53:32.207419'
+          execution_time: 9.027777777777777e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -203,9 +203,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:34:36.115366'
-          end: '2026-03-02 14:34:36.115366'
-          execution_time: 7.777777777777777e-08
+          start: '2026-03-02 14:53:32.210888'
+          end: '2026-03-02 14:53:32.210888'
+          execution_time: 7.722222222222222e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -234,9 +234,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz'), PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:34:36.118471'
-          end: '2026-03-02 14:34:36.118471'
-          execution_time: 1.0388888888888888e-07
+          start: '2026-03-02 14:53:32.214284'
+          end: '2026-03-02 14:53:32.214284'
+          execution_time: 1.0583333333333333e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -267,9 +267,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-01_ses-01_run-34706_mod-T1w_defacemosaic.png')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:34:36.121854'
-          end: '2026-03-02 14:34:36.121854'
-          execution_time: 6.111111111111111e-08
+          start: '2026-03-02 14:53:32.217935'
+          end: '2026-03-02 14:53:32.217935'
+          execution_time: 6.38888888888889e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -302,9 +302,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:34:36.125783'
-          end: '2026-03-02 14:34:36.125783'
-          execution_time: 8.083333333333334e-08
+          start: '2026-03-02 14:53:32.221389'
+          end: '2026-03-02 14:53:32.221389'
+          execution_time: 6.5e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -408,9 +408,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.952 seconds)
+   **Total running time of the script:** (0 minutes 0.679 seconds)
 
-**Estimated memory usage:**  137 MB
+**Estimated memory usage:**  117 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_defacing.py:
