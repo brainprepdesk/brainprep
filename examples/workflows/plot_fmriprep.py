@@ -49,7 +49,6 @@ with Config(dryrun=True, verbose=True):
     brainprep_fmriprep(
         t1_file=data.anat,
         func_files=[data.func],
-        dataset_description_file=data.description,
         freesurfer_dir="/my/freesurfer/directory",
         output_dir=outdir,
         keep_intermediate=True,
@@ -74,7 +73,6 @@ commands.append(
             "brainprep", "subject-level-fmriprep",
             "--t1-file", str(data.anat),
             "--func-files", f"{data.func}",
-            "--dataset-description-file", str(data.description),
             "--freesurfer-dir", "../freesurfer",
             "--output-dir", str(outdir),
             "--keep-intermediate",

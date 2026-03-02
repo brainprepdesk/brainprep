@@ -44,7 +44,6 @@ from ..utils import (
 def brainprep_fmriprep(
         t1_file: File,
         func_files: list[File],
-        dataset_description_file: File,
         freesurfer_dir: Directory,
         output_dir: Directory,
         keep_intermediate: bool = False) -> Bunch:
@@ -97,8 +96,6 @@ def brainprep_fmriprep(
         Path to the input T1w image file.
     func_files : list[File]
         Path to the input functional image files of one subject.
-    dataset_description_file : File
-        Path to the BIDS dataset description file.
     freesurfer_dir : Directory
         Path to an existing FreeSurfer subjects directory in which the
         recon-all commands have already been executed.
@@ -144,9 +141,6 @@ def brainprep_fmriprep(
     ...             "/tmp/dataset/rawdata/sub-01/ses-01/func/"
     ...             "sub-01_ses-01_task-rest_run-01_bold.nii.gz",
     ...         ],
-    ...         dataset_description_file=(
-    ...             "/tmp/dataset/rawdata/dataset_description.json"
-    ...         ),
     ...         freesurfer_dir=(
     ...             "/tmp/dataset/derivatives/brain_parcellation/subjects"
     ...         ),
@@ -173,6 +167,15 @@ def brainprep_fmriprep(
     workspace_dir = output_dir / "workspace"
     workspace_dir.mkdir(parents=True, exist_ok=True)
     print_info(f"setting workspace directory: {workspace_dir}")
+
+    dataset_description_file = (
+        t1_file.parent.parent.parent.parent /
+        "dataset_description.json"
+    )
+    if not dataset_description_file.is_file():
+        raise ValueError(
+            "A description file must be included in rawdata directory."
+        )
 
     entities = parse_bids_keys(t1_file)
     if len(entities) == 0:
