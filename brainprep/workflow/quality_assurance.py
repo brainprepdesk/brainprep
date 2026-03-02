@@ -189,7 +189,7 @@ def brainprep_group_quality_assurance(
     ...     )
     >>> outputs
     Bunch(
-        iqm_file: [PosixPath('...')]
+        iqm_files: [PosixPath('...')]
     )
 
     References
@@ -197,11 +197,11 @@ def brainprep_group_quality_assurance(
 
     .. footbibliography::
     """
-    iqm_file = interfaces.group_level_qa(
+    iqm_files = interfaces.group_level_qa(
         modalities,
         output_dir,
     )
 
     return Bunch(
-        iqm_file=iqm_file,
+        iqm_files=iqm_files,
     )
