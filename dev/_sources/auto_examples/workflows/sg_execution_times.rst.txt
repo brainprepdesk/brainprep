@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:14.061** total execution time for 6 files **from auto_examples/workflows**:
+**00:15.880** total execution time for 6 files **from auto_examples/workflows**:
 
 .. container::
 
@@ -33,20 +33,20 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_workflows_plot_quality_assurance.py` (``plot_quality_assurance.py``)
-     - 00:09.366
-     - 455.4
+     - 00:10.774
+     - 536.2
    * - :ref:`sphx_glr_auto_examples_workflows_plot_sbm.py` (``plot_sbm.py``)
-     - 00:01.960
-     - 108.4
+     - 00:02.446
+     - 107.9
    * - :ref:`sphx_glr_auto_examples_workflows_plot_quasiraw.py` (``plot_quasiraw.py``)
-     - 00:00.915
-     - 150.4
+     - 00:00.860
+     - 150.5
    * - :ref:`sphx_glr_auto_examples_workflows_plot_defacing.py` (``plot_defacing.py``)
-     - 00:00.772
-     - 118.8
+     - 00:00.806
+     - 116.7
    * - :ref:`sphx_glr_auto_examples_workflows_plot_fmriprep.py` (``plot_fmriprep.py``)
-     - 00:00.539
-     - 107.8
+     - 00:00.522
+     - 107.9
    * - :ref:`sphx_glr_auto_examples_workflows_plot_vbm.py` (``plot_vbm.py``)
-     - 00:00.508
-     - 107.8
+     - 00:00.471
+     - 107.9

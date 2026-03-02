@@ -372,6 +372,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.interfaces.utils.maskdiff.html">brainprep.interfaces.utils.maskdiff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.interfaces.utils.ungzfile.html">brainprep.interfaces.utils.ungzfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.interfaces.utils.write_uuid_mapping.html">brainprep.interfaces.utils.write_uuid_mapping</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../modules/brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -421,6 +422,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.utils.utils.make_run_id.html">brainprep.utils.utils.make_run_id</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.utils.utils.parse_bids_keys.html">brainprep.utils.utils.parse_bids_keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../modules/generated/brainprep.utils.utils.sidecar_from_file.html">brainprep.utils.utils.sidecar_from_file</a></li>
 </ul>
@@ -611,15 +613,15 @@ to actually run each step and generate results on disk.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[title] - Subject Level VBM...
 [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/sub-01_ses-study1_T1w.nii
-[info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-01.m
-[command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-01.m
+[info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-15456.m
+[command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-15456.m
 [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/mri/mwp1sub-01_ses-study1_T1w.nii
 [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/report/catreport_sub-01_ses-study1_T1w.nii
 [title] - Subject Level VBM done.
 [title] - Subject Level VBM...
 [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/sub-02_ses-study1_T1w.nii
-[info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-01.m
-[command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-01.m
+[info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-38141.m
+[command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-38141.m
 [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/mri/mwp1sub-02_ses-study1_T1w.nii
 [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/report/catreport_sub-02_ses-study1_T1w.nii
 [title] - Subject Level VBM done.
@@ -777,7 +779,7 @@ In practice, this means that once the CLI has produced the appropriate
 instructions, you can simply copy and run them inside the container to
 achieve the intended results. You can find the BrainPrep images on Docker
 Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.508 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.471 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  108 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflows-plot-vbm-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">

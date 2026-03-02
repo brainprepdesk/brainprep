@@ -370,6 +370,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.maskdiff.html">brainprep.interfaces.utils.maskdiff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.ungzfile.html">brainprep.interfaces.utils.ungzfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.write_uuid_mapping.html">brainprep.interfaces.utils.write_uuid_mapping</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -419,6 +420,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.make_run_id.html">brainprep.utils.utils.make_run_id</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.parse_bids_keys.html">brainprep.utils.utils.parse_bids_keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.sidecar_from_file.html">brainprep.utils.utils.sidecar_from_file</a></li>
 </ul>
@@ -529,8 +531,15 @@ function signature, and not how to use it. Please refer to the
 <h1>brainprep.interfaces.cat12.cat12vbm_morphometry<a class="headerlink" href="#brainprep-interfaces-cat12-cat12vbm-morphometry" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainprep.interfaces.cat12.cat12vbm_morphometry">
-<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.cat12.</span></span><span class="sig-name descname"><span class="pre">cat12vbm_morphometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/921bd62/brainprep/interfaces/cat12.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.cat12.cat12vbm_morphometry" title="Link to this definition">¶</a></dt>
-<dd><p>Parse the CAT12 VBM XML ROI stats for all subjects.</p>
+<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.cat12.</span></span><span class="sig-name descname"><span class="pre">cat12vbm_morphometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/1f415e4/brainprep/interfaces/cat12.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.cat12.cat12vbm_morphometry" title="Link to this definition">¶</a></dt>
+<dd><p>Extract ROI-based morphometry features and global tissue volumes from
+CAT12 VBM outputs.</p>
+<p>This function parses CAT12 <cite>.mat</cite> ROI statistics and <cite>.xml</cite> report files
+for all subjects in a BIDS-organized dataset. It generates one TSV file
+per atlas containing ROI-level gray matter (GM), white matter (WM), and
+cerebrospinal fluid (CSF) volumes. It also generates a TSV file
+containing total intracranial volume (TIV) and absolute tissue volumes
+(GM, WM, CSF).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -543,7 +552,17 @@ function signature, and not how to use it. Please refer to the
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>morphometry_files</strong><span class="classifier">list[File]</span></dt><dd><p>TSV files containing ROI-based GM, WM and CSF features for different
-atlases.</p>
+atlases.
+A list containing the paths to all generated TSV files. One TSV is
+produced per atlas for ROI-based morphometry, plus one TSV
+summarizing global tissue volumes.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If the XML structure does not contain the expected CAT12 fields, or
+if parsing fails for any subject.</p>
 </dd>
 </dl>
 </dd>

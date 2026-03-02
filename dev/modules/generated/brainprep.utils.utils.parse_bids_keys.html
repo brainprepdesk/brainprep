@@ -9,7 +9,7 @@
 <meta property="og:site_name" content="brainprep" />
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
-<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.utils.utils.sidecar_from_file" href="brainprep.utils.utils.sidecar_from_file.html" /><link rel="prev" title="brainprep.utils.utils.find_stack_level" href="brainprep.utils.utils.find_stack_level.html" />
+<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.utils.utils.sidecar_from_file" href="brainprep.utils.utils.sidecar_from_file.html" /><link rel="prev" title="brainprep.utils.utils.make_run_id" href="brainprep.utils.utils.make_run_id.html" />
         <link rel="prefetch" href="../../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
@@ -370,6 +370,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.maskdiff.html">brainprep.interfaces.utils.maskdiff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.ungzfile.html">brainprep.interfaces.utils.ungzfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.write_uuid_mapping.html">brainprep.interfaces.utils.write_uuid_mapping</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.reporting.html_reporting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.reporting.html_reporting</span></code>: Module that implements a HTML reporting tool.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.reporting.html_reporting: Module that implements a HTML reporting tool.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -419,6 +420,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.make_run_id.html">brainprep.utils.utils.make_run_id</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">brainprep.utils.utils.parse_bids_keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.sidecar_from_file.html">brainprep.utils.utils.sidecar_from_file</a></li>
 </ul>
@@ -529,24 +531,31 @@ function signature, and not how to use it. Please refer to the
 <h1>brainprep.utils.utils.parse_bids_keys<a class="headerlink" href="#brainprep-utils-utils-parse-bids-keys" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainprep.utils.utils.parse_bids_keys">
-<span class="sig-prename descclassname"><span class="pre">brainprep.utils.utils.</span></span><span class="sig-name descname"><span class="pre">parse_bids_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bids_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/921bd62/brainprep/utils/utils.py#L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.utils.utils.parse_bids_keys" title="Link to this definition">¶</a></dt>
-<dd><p>Parse BIDS keys and modality from a filename or path with validation.</p>
+<span class="sig-prename descclassname"><span class="pre">brainprep.utils.utils.</span></span><span class="sig-name descname"><span class="pre">parse_bids_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bids_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/1f415e4/brainprep/utils/utils.py#L375"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.utils.utils.parse_bids_keys" title="Link to this definition">¶</a></dt>
+<dd><p>Parse BIDS entities and modality from a filename or path with validation.</p>
 <p>This function extracts BIDS entities (e.g., subject, session, task,
-run) and determines the modality from the provided file or path. The
-input is validated to ensure it conforms to BIDS naming conventions.</p>
+run) from a BIDS-compliant filename or full path. It also identifies the
+modality and applies default values when certain entities are missing.</p>
+<p>When the <cite>ses</cite> entity is absent, it defaults to “01”. This provides ensures
+consistent downstream file handling.</p>
+<p>When the <cite>run</cite> entity is absent, a deterministic 5-digit identifier is
+generated from the filename using UUID. This produces a short, stable
+hash so that the same filename always yields the same default run value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>bids_path</strong><span class="classifier">File</span></dt><dd><p>The BIDS file to parse.</p>
 </dd>
-<dt><strong>full_path: bool</strong></dt><dd><p>If True, extract BIDS keys from the full input path rather than
+<dt><strong>full_path: bool</strong></dt><dd><p>If True, extract entities from the full input path rather than
 only the filename. Default is False.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>entities</strong><span class="classifier">dict[str]</span></dt><dd><p>A dictionary containing hthe parsed BIDS entities and modality.</p>
+<dt><strong>entities</strong><span class="classifier">dict[str]</span></dt><dd><p>A dictionary containing hthe parsed BIDS entities and the detected
+modality. Missing entities such as <cite>ses</cite> and <cite>run</cite> are filled with
+default values.</p>
 </dd>
 </dl>
 </dd>
@@ -569,14 +578,14 @@ only the filename. Default is False.</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="brainprep.utils.utils.find_stack_level.html">
+          <a class="prev-page" href="brainprep.utils.utils.make_run_id.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">brainprep.utils.utils.find_stack_level</div>
+                <div class="title">brainprep.utils.utils.make_run_id</div>
                 
               </div>
             </a>

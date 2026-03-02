@@ -158,585 +158,585 @@ to actually run each step and generate results on disk.
     [title] - Subject Level SBM...
     [info] - setting workspace directory: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace
     [deprecated] - You passed a white matter file as input. This behavior is deprecated and will be removed in version >1.
-    [command] - recon-all -all -subjid run-01 -i /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1 -noappend -no-isrunning
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/scripts/recon-all.log
-    [command] - recon-all -localGI -subjid run-01 -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1 -no-isrunning
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.pial_lgi
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.pial_lgi
-    [command] - xhemireg --s run-01
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/xhemi/xhemireg.lh.log
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/xhemi/xhemireg.rh.log
-    [command] - surfreg --s run-01 --lh --t fsaverage_sym --no-annot
-    [command] - surfreg --s run-01 --lh --t fsaverage_sym --no-annot --xhemi
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.thickness
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.thickness.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.thickness
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.thickness.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.curv
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.curv.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.curv
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.curv.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.area
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.area.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.area
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.area.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.pial_lgi
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.pial_lgi
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.sulc
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.sulc.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.sulc
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.sulc.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.thickness.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.thickness.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.curv.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.curv.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.area.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.area.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/lh.sulc.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/surf/rh.sulc.fsaverage_sym.mgh
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aparc+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aparc+aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aparc+aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aparc.a2009s+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aparc.a2009s+aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aparc.a2009s+aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/wm.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/wm.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/wm.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/ribbon.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/ribbon.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/ribbon.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/brain.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/brain.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-01/mri/brain.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace/wm_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace/gm_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace/csf_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace/brain_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/figures/sub-01_ses-study1_run-01_brainparc.png
+    [command] - recon-all -all -subjid run-15456 -i /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1 -noappend -no-isrunning
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/scripts/recon-all.log
+    [command] - recon-all -localGI -subjid run-15456 -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1 -no-isrunning
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.pial_lgi
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.pial_lgi
+    [command] - xhemireg --s run-15456
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/xhemireg.lh.log
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/xhemireg.rh.log
+    [command] - surfreg --s run-15456 --lh --t fsaverage_sym --no-annot
+    [command] - surfreg --s run-15456 --lh --t fsaverage_sym --no-annot --xhemi
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.fsaverage_sym.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/surf/lh.fsaverage_sym.sphere.reg
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.thickness
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.thickness.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.thickness
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.thickness.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.curv
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.curv.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.curv
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.curv.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.area
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.area.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.area
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.area.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.pial_lgi
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.pial_lgi.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.pial_lgi
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.pial_lgi.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.sulc
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.sulc.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.sulc
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.sulc.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.thickness.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.thickness.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.curv.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.curv.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.area.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.area.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.pial_lgi.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.pial_lgi.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.sulc.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.sulc.fsaverage_sym.mgh
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aparc+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aparc+aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aparc+aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aparc.a2009s+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aparc.a2009s+aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aparc.a2009s+aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/wm.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/wm.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/wm.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/ribbon.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/ribbon.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/ribbon.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/brain.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/brain.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/brain.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace/wm_run-15456.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace/gm_run-15456.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace/csf_run-15456.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/workspace/brain_run-15456.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/figures/sub-01_ses-study1_run-15456_brainparc.png
     [title] - Subject Level SBM done.
     [title] - Subject Level SBM...
     [info] - setting workspace directory: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace
     [deprecated] - You passed a white matter file as input. This behavior is deprecated and will be removed in version >1.
-    [command] - recon-all -all -subjid run-01 -i /tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2 -noappend -no-isrunning
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/scripts/recon-all.log
-    [command] - recon-all -localGI -subjid run-01 -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2 -no-isrunning
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.pial_lgi
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.pial_lgi
-    [command] - xhemireg --s run-01
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/xhemi/xhemireg.lh.log
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/xhemi/xhemireg.rh.log
-    [command] - surfreg --s run-01 --lh --t fsaverage_sym --no-annot
-    [command] - surfreg --s run-01 --lh --t fsaverage_sym --no-annot --xhemi
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.thickness
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.thickness.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.thickness
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.thickness.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.curv
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.curv.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.curv
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.curv.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.area
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.area.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.area
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.area.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.pial_lgi
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.pial_lgi
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.sulc
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.sulc.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.sulc
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.sulc.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.thickness.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.thickness.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.curv.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.curv.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.area.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.area.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/lh.sulc.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/surf/rh.sulc.fsaverage_sym.mgh
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aparc+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aparc+aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aparc+aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aparc.a2009s+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aparc.a2009s+aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aparc.a2009s+aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/wm.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/wm.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/wm.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/ribbon.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/ribbon.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/ribbon.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/brain.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/brain.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-01/mri/brain.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace/wm_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace/gm_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace/csf_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace/brain_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/figures/sub-01_ses-study2_run-01_brainparc.png
+    [command] - recon-all -all -subjid run-27245 -i /tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2 -noappend -no-isrunning
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/scripts/recon-all.log
+    [command] - recon-all -localGI -subjid run-27245 -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2 -no-isrunning
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.pial_lgi
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.pial_lgi
+    [command] - xhemireg --s run-27245
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/xhemireg.lh.log
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/xhemireg.rh.log
+    [command] - surfreg --s run-27245 --lh --t fsaverage_sym --no-annot
+    [command] - surfreg --s run-27245 --lh --t fsaverage_sym --no-annot --xhemi
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.fsaverage_sym.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/surf/lh.fsaverage_sym.sphere.reg
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.thickness
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.thickness.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.thickness
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.thickness.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.curv
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.curv.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.curv
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.curv.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.area
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.area.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.area
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.area.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.pial_lgi
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.pial_lgi.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.pial_lgi
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.pial_lgi.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.sulc
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.sulc.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.sulc
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.sulc.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.thickness.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.thickness.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.curv.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.curv.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.area.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.area.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.pial_lgi.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.pial_lgi.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.sulc.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.sulc.fsaverage_sym.mgh
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aparc+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aparc+aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aparc+aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aparc.a2009s+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aparc.a2009s+aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aparc.a2009s+aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/wm.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/wm.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/wm.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/ribbon.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/ribbon.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/ribbon.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/brain.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/brain.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/brain.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace/wm_run-27245.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace/gm_run-27245.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace/csf_run-27245.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/workspace/brain_run-27245.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/figures/sub-01_ses-study2_run-27245_brainparc.png
     [title] - Subject Level SBM done.
     [title] - Subject Level SBM...
     [info] - setting workspace directory: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace
     [deprecated] - You passed a white matter file as input. This behavior is deprecated and will be removed in version >1.
-    [command] - recon-all -all -subjid run-01 -i /tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1 -noappend -no-isrunning
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/scripts/recon-all.log
-    [command] - recon-all -localGI -subjid run-01 -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1 -no-isrunning
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.pial_lgi
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.pial_lgi
-    [command] - xhemireg --s run-01
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/xhemi/xhemireg.lh.log
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/xhemi/xhemireg.rh.log
-    [command] - surfreg --s run-01 --lh --t fsaverage_sym --no-annot
-    [command] - surfreg --s run-01 --lh --t fsaverage_sym --no-annot --xhemi
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.thickness
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.thickness.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.thickness
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.thickness.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.curv
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.curv.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.curv
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.curv.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.area
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.area.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.area
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.area.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.pial_lgi
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.pial_lgi
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.sulc
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.sulc.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.sulc
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.sulc.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.thickness.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.thickness.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.curv.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.curv.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.area.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.area.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/lh.sulc.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/surf/rh.sulc.fsaverage_sym.mgh
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aparc+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aparc+aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aparc+aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aparc.a2009s+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aparc.a2009s+aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aparc.a2009s+aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/wm.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/wm.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/wm.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/ribbon.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/ribbon.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/ribbon.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/brain.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/brain.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-01/mri/brain.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace/wm_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace/gm_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace/csf_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace/brain_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/figures/sub-02_ses-study1_run-01_brainparc.png
+    [command] - recon-all -all -subjid run-38141 -i /tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1 -noappend -no-isrunning
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/scripts/recon-all.log
+    [command] - recon-all -localGI -subjid run-38141 -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1 -no-isrunning
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.pial_lgi
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.pial_lgi
+    [command] - xhemireg --s run-38141
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/xhemireg.lh.log
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/xhemireg.rh.log
+    [command] - surfreg --s run-38141 --lh --t fsaverage_sym --no-annot
+    [command] - surfreg --s run-38141 --lh --t fsaverage_sym --no-annot --xhemi
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.fsaverage_sym.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/surf/lh.fsaverage_sym.sphere.reg
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.thickness
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.thickness.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.thickness
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.thickness.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.curv
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.curv.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.curv
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.curv.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.area
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.area.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.area
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.area.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.pial_lgi
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.pial_lgi.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.pial_lgi
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.pial_lgi.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.sulc
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.sulc.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.sulc
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.sulc.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.thickness.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.thickness.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.curv.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.curv.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.area.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.area.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.pial_lgi.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.pial_lgi.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.sulc.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.sulc.fsaverage_sym.mgh
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aparc+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aparc+aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aparc+aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aparc.a2009s+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aparc.a2009s+aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aparc.a2009s+aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/wm.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/wm.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/wm.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/ribbon.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/ribbon.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/ribbon.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/brain.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/brain.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/brain.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace/wm_run-38141.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace/gm_run-38141.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace/csf_run-38141.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/workspace/brain_run-38141.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/figures/sub-02_ses-study1_run-38141_brainparc.png
     [title] - Subject Level SBM done.
     [title] - Subject Level SBM...
     [info] - setting workspace directory: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace
     [deprecated] - You passed a white matter file as input. This behavior is deprecated and will be removed in version >1.
-    [command] - recon-all -all -subjid run-01 -i /tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_T1w.nii.gz -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2 -noappend -no-isrunning
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/scripts/recon-all.log
-    [command] - recon-all -localGI -subjid run-01 -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2 -no-isrunning
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.pial_lgi
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.pial_lgi
-    [command] - xhemireg --s run-01
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/xhemi/xhemireg.lh.log
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/xhemi/xhemireg.rh.log
-    [command] - surfreg --s run-01 --lh --t fsaverage_sym --no-annot
-    [command] - surfreg --s run-01 --lh --t fsaverage_sym --no-annot --xhemi
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.thickness
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.thickness.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.thickness
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.thickness.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.curv
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.curv.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.curv
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.curv.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.area
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.area.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.area
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.area.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.pial_lgi
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.pial_lgi
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.sulc
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.sulc.fsaverage_sym.mgh
-    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.sulc
-    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.sulc.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.thickness.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.thickness.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.curv.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.curv.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.area.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.area.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.pial_lgi.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.pial_lgi.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/lh.sulc.fsaverage_sym.mgh
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/surf/rh.sulc.fsaverage_sym.mgh
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aparc+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aparc+aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aparc+aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aparc.a2009s+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aparc.a2009s+aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aparc.a2009s+aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aseg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/aseg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/wm.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/wm.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/wm.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/ribbon.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/ribbon.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/ribbon.nii.gz
-    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/brain.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/brain.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-01/mri/brain.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace/wm_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace/gm_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace/csf_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace/brain_run-01.nii.gz
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/figures/sub-02_ses-study2_run-01_brainparc.png
+    [command] - recon-all -all -subjid run-13661 -i /tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_T1w.nii.gz -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2 -noappend -no-isrunning
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/scripts/recon-all.log
+    [command] - recon-all -localGI -subjid run-13661 -sd /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2 -no-isrunning
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.pial_lgi
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.pial_lgi
+    [command] - xhemireg --s run-13661
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/xhemireg.lh.log
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/xhemireg.rh.log
+    [command] - surfreg --s run-13661 --lh --t fsaverage_sym --no-annot
+    [command] - surfreg --s run-13661 --lh --t fsaverage_sym --no-annot --xhemi
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.fsaverage_sym.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/surf/lh.fsaverage_sym.sphere.reg
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.thickness
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.thickness.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.thickness
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.thickness --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.thickness.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.thickness.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.curv
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.curv.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.curv
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.curv --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.curv.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.curv.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.area
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.area.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.area
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.area --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.area.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.area.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.pial_lgi
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.pial_lgi.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.pial_lgi
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.pial_lgi --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.pial_lgi.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.pial_lgi.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.sulc
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.sulc.fsaverage_sym.mgh
+    [warn] - feature missing: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.sulc
+    [command] - mris_apply_reg --src /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.sulc --trg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.sulc.fsaverage_sym.mgh --streg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/surf/lh.fsaverage_sym.sphere.reg /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/fsaverage_sym/surf/lh.sphere.reg
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.sulc.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.thickness.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.thickness.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.curv.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.curv.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.area.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.area.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.pial_lgi.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.pial_lgi.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.sulc.fsaverage_sym.mgh
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.sulc.fsaverage_sym.mgh
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aparc+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aparc+aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aparc+aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aparc.a2009s+aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aparc.a2009s+aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aparc.a2009s+aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aseg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aseg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/aseg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/wm.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/wm.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/wm.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/ribbon.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/ribbon.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/ribbon.nii.gz
+    [command] - mri_convert --resample_type nearest --reslice_like /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/rawavg.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/brain.mgz /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/brain.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/brain.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace/wm_run-13661.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace/gm_run-13661.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace/csf_run-13661.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/workspace/brain_run-13661.nii.gz
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/figures/sub-02_ses-study2_run-13661_brainparc.png
     [title] - Subject Level SBM done.
     [title] - Group Level SBM...
     [info] - setting workspace directory: /tmp/brainprep-sbm/derivatives/sbm/workspace
-    [command] - aparcstats2table --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-area_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-area_stats.csv
-    [command] - aparcstats2table --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-volume_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-volume_stats.csv
-    [command] - aparcstats2table --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-thickness_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thickness_stats.csv
-    [command] - aparcstats2table --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-thicknessstd_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thicknessstd_stats.csv
-    [command] - aparcstats2table --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-meancurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-meancurv_stats.csv
-    [command] - aparcstats2table --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-gauscurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-gauscurv_stats.csv
-    [command] - aparcstats2table --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-foldind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-foldind_stats.csv
-    [command] - aparcstats2table --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-lh_meas-curvind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-lh_meas-curvind_stats.csv
-    [command] - aparcstats2table --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-area_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-area_stats.csv
-    [command] - aparcstats2table --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-volume_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-volume_stats.csv
-    [command] - aparcstats2table --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-thickness_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thickness_stats.csv
-    [command] - aparcstats2table --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-thicknessstd_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thicknessstd_stats.csv
-    [command] - aparcstats2table --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-meancurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-meancurv_stats.csv
-    [command] - aparcstats2table --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-gauscurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-gauscurv_stats.csv
-    [command] - aparcstats2table --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-foldind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-foldind_stats.csv
-    [command] - aparcstats2table --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study1_hemi-rh_meas-curvind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study1_hemi-rh_meas-curvind_stats.csv
-    [command] - asegstats2table --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study1_stats.csv --delimiter comma --subjects sub-02_run-01 sub-01_run-01
+    [command] - asegstats2table --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study1_stats.csv --delimiter comma --subjects sub-02_run-38141 sub-01_run-15456
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study1_stats.csv
-    [command] - aparcstats2table --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-area_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-area_stats.csv
-    [command] - aparcstats2table --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-volume_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-volume_stats.csv
-    [command] - aparcstats2table --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-thickness_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thickness_stats.csv
-    [command] - aparcstats2table --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-thicknessstd_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thicknessstd_stats.csv
-    [command] - aparcstats2table --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-meancurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-meancurv_stats.csv
-    [command] - aparcstats2table --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-gauscurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-gauscurv_stats.csv
-    [command] - aparcstats2table --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-foldind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-foldind_stats.csv
-    [command] - aparcstats2table --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-lh_meas-curvind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-lh_meas-curvind_stats.csv
-    [command] - aparcstats2table --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-area_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-area_stats.csv
-    [command] - aparcstats2table --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-volume_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-volume_stats.csv
-    [command] - aparcstats2table --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-thickness_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thickness_stats.csv
-    [command] - aparcstats2table --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-thicknessstd_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thicknessstd_stats.csv
-    [command] - aparcstats2table --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-meancurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-meancurv_stats.csv
-    [command] - aparcstats2table --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-gauscurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-gauscurv_stats.csv
-    [command] - aparcstats2table --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-foldind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-foldind_stats.csv
-    [command] - aparcstats2table --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01 sub-01_run-01
+    [command] - aparcstats2table --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc_ses-study2_hemi-rh_meas-curvind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aparc2009s_ses-study2_hemi-rh_meas-curvind_stats.csv
-    [command] - asegstats2table --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study2_stats.csv --delimiter comma --subjects sub-02_run-01 sub-01_run-01
+    [command] - asegstats2table --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study2_stats.csv --delimiter comma --subjects sub-02_run-13661 sub-01_run-27245
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study2_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/quality_check/euler_numbers.tsv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/figures/histogram_euler_number.png
     [title] - Group Level SBM done.
     [title] - Longitudinal SBM...
     [info] - setting workspace directory: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/workspace
-    [command] - recon-all -base sub-02_template_ses-study1:study2 -tp sub-02_ses-study1_run-01 -tp sub-02_ses-study2_run-01 -all -sd /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02
-    [command] - recon-all -long sub-02_ses-study1_run-01 sub-02_template_ses-study1:study2 -all -sd /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02
-    [command] - recon-all -long sub-02_ses-study2_run-01 sub-02_template_ses-study1:study2 -all -sd /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02
+    [command] - recon-all -base sub-02_template_ses-study1:study2 -tp sub-02_ses-study1_run-38141 -tp sub-02_ses-study2_run-13661 -all -sd /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02
+    [command] - recon-all -long sub-02_ses-study1_run-38141 sub-02_template_ses-study1:study2 -all -sd /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02
+    [command] - recon-all -long sub-02_ses-study2_run-13661 sub-02_template_ses-study1:study2 -all -sd /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/sub-02_template_ses-study1:study2/scripts/recon-all.log
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/sub-02_ses-study1_run-01.long.sub-02_template_ses-study1:study2/scripts/recon-all.log
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/sub-02_ses-study2_run-01.long.sub-02_template_ses-study1:study2/scripts/recon-all.log
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/ses-study1/run-01
-    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/ses-study2/run-01
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/sub-02_ses-study1_run-38141.long.sub-02_template_ses-study1:study2/scripts/recon-all.log
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/sub-02_ses-study2_run-13661.long.sub-02_template_ses-study1:study2/scripts/recon-all.log
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/ses-study1/run-38141
+    [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/ses-study2/run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/template
     [title] - Longitudinal SBM done.
     [title] - Group Level SBM...
     [info] - setting workspace directory: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/workspace
-    [command] - aparcstats2table --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-area_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-area_stats.csv
-    [command] - aparcstats2table --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-volume_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-volume_stats.csv
-    [command] - aparcstats2table --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-thickness_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thickness_stats.csv
-    [command] - aparcstats2table --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-thicknessstd_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-thicknessstd_stats.csv
-    [command] - aparcstats2table --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-meancurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-meancurv_stats.csv
-    [command] - aparcstats2table --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-gauscurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-gauscurv_stats.csv
-    [command] - aparcstats2table --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-foldind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-foldind_stats.csv
-    [command] - aparcstats2table --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-lh_meas-curvind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-lh_meas-curvind_stats.csv
-    [command] - aparcstats2table --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-area_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-area_stats.csv
-    [command] - aparcstats2table --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-volume_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-volume_stats.csv
-    [command] - aparcstats2table --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-thickness_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thickness_stats.csv
-    [command] - aparcstats2table --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-thicknessstd_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-thicknessstd_stats.csv
-    [command] - aparcstats2table --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-meancurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-meancurv_stats.csv
-    [command] - aparcstats2table --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-gauscurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-gauscurv_stats.csv
-    [command] - aparcstats2table --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-foldind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-foldind_stats.csv
-    [command] - aparcstats2table --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study1_hemi-rh_meas-curvind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study1_hemi-rh_meas-curvind_stats.csv
-    [command] - asegstats2table --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aseg_ses-study1_stats.csv --delimiter comma --subjects sub-02_run-01
+    [command] - asegstats2table --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aseg_ses-study1_stats.csv --delimiter comma --subjects sub-02_run-38141
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aseg_ses-study1_stats.csv
-    [command] - aparcstats2table --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-area_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-area_stats.csv
-    [command] - aparcstats2table --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-volume_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-volume_stats.csv
-    [command] - aparcstats2table --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-thickness_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thickness_stats.csv
-    [command] - aparcstats2table --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-thicknessstd_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-thicknessstd_stats.csv
-    [command] - aparcstats2table --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-meancurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-meancurv_stats.csv
-    [command] - aparcstats2table --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-gauscurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-gauscurv_stats.csv
-    [command] - aparcstats2table --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-foldind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-foldind_stats.csv
-    [command] - aparcstats2table --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi lh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-lh_meas-curvind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-lh_meas-curvind_stats.csv
-    [command] - aparcstats2table --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas area --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-area_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-area_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-area_stats.csv
-    [command] - aparcstats2table --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-volume_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-volume_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-volume_stats.csv
-    [command] - aparcstats2table --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thickness --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thickness_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-thickness_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thickness_stats.csv
-    [command] - aparcstats2table --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas thicknessstd --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thicknessstd_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-thicknessstd_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-thicknessstd_stats.csv
-    [command] - aparcstats2table --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas meancurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-meancurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-meancurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-meancurv_stats.csv
-    [command] - aparcstats2table --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas gauscurv --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-gauscurv_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-gauscurv_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-gauscurv_stats.csv
-    [command] - aparcstats2table --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas foldind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-foldind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-foldind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-foldind_stats.csv
-    [command] - aparcstats2table --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
-    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-01
+    [command] - aparcstats2table --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
+    [command] - aparcstats2table --parc aparc.a2009s --hemi rh --meas curvind --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-curvind_stats.csv --delimiter comma --parcid-only --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc_ses-study2_hemi-rh_meas-curvind_stats.csv
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aparc2009s_ses-study2_hemi-rh_meas-curvind_stats.csv
-    [command] - asegstats2table --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aseg_ses-study2_stats.csv --delimiter comma --subjects sub-02_run-01
+    [command] - asegstats2table --meas volume --tablefile /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aseg_ses-study2_stats.csv --delimiter comma --subjects sub-02_run-13661
     [info] - checking output: /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aseg_ses-study2_stats.csv
     [title] - Group Level SBM done.
 
@@ -937,7 +937,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.960 seconds)
+   **Total running time of the script:** (0 minutes 2.446 seconds)
 
 **Estimated memory usage:**  108 MB
 

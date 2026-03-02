@@ -140,15 +140,15 @@ to actually run each step and generate results on disk.
 
     [title] - Subject Level VBM...
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/sub-01_ses-study1_T1w.nii
-    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-01.m
-    [command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-01.m
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-15456.m
+    [command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-15456.m
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/mri/mwp1sub-01_ses-study1_T1w.nii
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/report/catreport_sub-01_ses-study1_T1w.nii
     [title] - Subject Level VBM done.
     [title] - Subject Level VBM...
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/sub-02_ses-study1_T1w.nii
-    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-01.m
-    [command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-01.m
+    [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-38141.m
+    [command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-38141.m
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/mri/mwp1sub-02_ses-study1_T1w.nii
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/report/catreport_sub-02_ses-study1_T1w.nii
     [title] - Subject Level VBM done.
@@ -332,7 +332,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.508 seconds)
+   **Total running time of the script:** (0 minutes 0.471 seconds)
 
 **Estimated memory usage:**  108 MB
 
