@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "wheel", "setuptools_scm"]
+requires = ["setuptools>=77.0.3", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
@@ -12,10 +12,12 @@ authors = [
     {name = "brainprep developers", email = "antoine.grigis@cea.fr"},
 ]
 license = "CECILL-B"
+license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Console",
-    "Operating System :: OS Independent",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
     "Programming Language :: Python",
     "Topic :: Scientific/Engineering",
 ]
@@ -59,11 +61,10 @@ doc = [
 
 [project.urls]
 Development = "https://github.com/AGrigis/pysphinxdoc"
-Tracker = "https://github.com/AGrigis/pysphinxdoc/issues"
-Homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
+issues = "https://github.com/AGrigis/pysphinxdoc/issues"
+homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
 
 [tool.setuptools]
-platforms = ["Linux", "OSX"]
 include-package-data = true
 
 [tool.setuptools.dynamic]
