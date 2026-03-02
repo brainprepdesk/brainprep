@@ -171,9 +171,9 @@ to actually run each step and generate results on disk.
           transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_affine.txt')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.966418'
-          end: '2026-03-02 14:53:50.966418'
-          execution_time: 1.2522222222222223e-05
+          start: '2026-03-02 14:56:48.470785'
+          end: '2026-03-02 14:56:48.470785'
+          execution_time: 1.1175277777777778e-05
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -202,9 +202,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.972217'
-          end: '2026-03-02 14:53:50.972217'
-          execution_time: 9e-08
+          start: '2026-03-02 14:56:48.475117'
+          end: '2026-03-02 14:56:48.475117'
+          execution_time: 7.63888888888889e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -233,9 +233,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.976781'
-          end: '2026-03-02 14:53:50.976781'
-          execution_time: 8.13888888888889e-08
+          start: '2026-03-02 14:56:48.478753'
+          end: '2026-03-02 14:56:48.478753'
+          execution_time: 7.88888888888889e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -265,9 +265,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.980744'
-          end: '2026-03-02 14:53:50.980744'
-          execution_time: 7.361111111111111e-08
+          start: '2026-03-02 14:56:48.482073'
+          end: '2026-03-02 14:56:48.482073'
+          execution_time: 7.583333333333334e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -297,9 +297,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.984341'
-          end: '2026-03-02 14:53:50.984341'
-          execution_time: 1.0444444444444444e-07
+          start: '2026-03-02 14:56:48.485366'
+          end: '2026-03-02 14:56:48.485366'
+          execution_time: 1.1583333333333333e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -329,9 +329,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.987921'
-          end: '2026-03-02 14:53:50.987921'
-          execution_time: 8.972222222222222e-08
+          start: '2026-03-02 14:56:48.488813'
+          end: '2026-03-02 14:56:48.488813'
+          execution_time: 9.583333333333332e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -361,9 +361,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.991665'
-          end: '2026-03-02 14:53:50.991665'
-          execution_time: 1.0083333333333333e-07
+          start: '2026-03-02 14:56:48.492330'
+          end: '2026-03-02 14:56:48.492330'
+          execution_time: 1.2055555555555555e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -393,9 +393,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.995380'
-          end: '2026-03-02 14:53:50.995380'
-          execution_time: 9.555555555555556e-08
+          start: '2026-03-02 14:56:48.495846'
+          end: '2026-03-02 14:56:48.495846'
+          execution_time: 1.0916666666666667e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -427,9 +427,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:50.999221'
-          end: '2026-03-02 14:53:50.999221'
-          execution_time: 6.916666666666666e-08
+          start: '2026-03-02 14:56:48.499356'
+          end: '2026-03-02 14:56:48.499356'
+          execution_time: 6.75e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -461,9 +461,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.002947'
-          end: '2026-03-02 14:53:51.002947'
-          execution_time: 7.138888888888889e-08
+          start: '2026-03-02 14:56:48.502801'
+          end: '2026-03-02 14:56:48.502801'
+          execution_time: 6.722222222222222e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -493,9 +493,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.006413'
-          end: '2026-03-02 14:53:51.006413'
-          execution_time: 6.416666666666667e-08
+          start: '2026-03-02 14:56:48.506087'
+          end: '2026-03-02 14:56:48.506087'
+          execution_time: 6.277777777777778e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -525,9 +525,9 @@ to actually run each step and generate results on disk.
           outputs: None
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.010284'
-          end: '2026-03-02 14:53:51.010284'
-          execution_time: 2.388888888888889e-08
+          start: '2026-03-02 14:56:48.509861'
+          end: '2026-03-02 14:56:48.509861'
+          execution_time: 2.277777777777778e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -587,9 +587,9 @@ to actually run each step and generate results on disk.
           transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_mod-T1w_affine.txt')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.031831'
-          end: '2026-03-02 14:53:51.031831'
-          execution_time: 1.289138888888889e-05
+          start: '2026-03-02 14:56:48.533848'
+          end: '2026-03-02 14:56:48.533848'
+          execution_time: 1.0383888888888888e-05
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -618,9 +618,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.038015'
-          end: '2026-03-02 14:53:51.038015'
-          execution_time: 7.75e-08
+          start: '2026-03-02 14:56:48.537186'
+          end: '2026-03-02 14:56:48.537186'
+          execution_time: 6.694444444444445e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -649,9 +649,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.043261'
-          end: '2026-03-02 14:53:51.043261'
-          execution_time: 7.166666666666666e-08
+          start: '2026-03-02 14:56:48.540340'
+          end: '2026-03-02 14:56:48.540340'
+          execution_time: 6.666666666666667e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -681,9 +681,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.048424'
-          end: '2026-03-02 14:53:51.048424'
-          execution_time: 7.694444444444445e-08
+          start: '2026-03-02 14:56:48.543554'
+          end: '2026-03-02 14:56:48.543554'
+          execution_time: 7.666666666666666e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -713,9 +713,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.052724'
-          end: '2026-03-02 14:53:51.052724'
-          execution_time: 9.111111111111112e-08
+          start: '2026-03-02 14:56:48.546809'
+          end: '2026-03-02 14:56:48.546809'
+          execution_time: 9.611111111111111e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -745,9 +745,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.056370'
-          end: '2026-03-02 14:53:51.056370'
-          execution_time: 9.611111111111111e-08
+          start: '2026-03-02 14:56:48.550212'
+          end: '2026-03-02 14:56:48.550212'
+          execution_time: 9.388888888888889e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -777,9 +777,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.059916'
-          end: '2026-03-02 14:53:51.059916'
-          execution_time: 9e-08
+          start: '2026-03-02 14:56:48.553509'
+          end: '2026-03-02 14:56:48.553509'
+          execution_time: 1.0416666666666667e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -809,9 +809,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.063476'
-          end: '2026-03-02 14:53:51.063476'
-          execution_time: 9.694444444444445e-08
+          start: '2026-03-02 14:56:48.556862'
+          end: '2026-03-02 14:56:48.556862'
+          execution_time: 9.777777777777778e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -843,9 +843,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.066965'
-          end: '2026-03-02 14:53:51.066965'
-          execution_time: 6.75e-08
+          start: '2026-03-02 14:56:48.560283'
+          end: '2026-03-02 14:56:48.560283'
+          execution_time: 6.972222222222221e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -877,9 +877,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.070480'
-          end: '2026-03-02 14:53:51.070480'
-          execution_time: 8.194444444444445e-08
+          start: '2026-03-02 14:56:48.563751'
+          end: '2026-03-02 14:56:48.563751'
+          execution_time: 6.694444444444445e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -909,9 +909,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.073776'
-          end: '2026-03-02 14:53:51.073776'
-          execution_time: 6.444444444444445e-08
+          start: '2026-03-02 14:56:48.566969'
+          end: '2026-03-02 14:56:48.566969'
+          execution_time: 6.722222222222222e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -941,9 +941,9 @@ to actually run each step and generate results on disk.
           outputs: None
         )
         runtime: Bunch(
-          start: '2026-03-02 14:53:51.077339'
-          end: '2026-03-02 14:53:51.077339'
-          execution_time: 1.888888888888889e-08
+          start: '2026-03-02 14:56:48.570434'
+          end: '2026-03-02 14:56:48.570434'
+          execution_time: 1.6111111111111112e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -1057,9 +1057,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.827 seconds)
+   **Total running time of the script:** (0 minutes 1.433 seconds)
 
-**Estimated memory usage:**  151 MB
+**Estimated memory usage:**  142 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_quasiraw.py:
