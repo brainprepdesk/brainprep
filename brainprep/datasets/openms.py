@@ -40,10 +40,10 @@ class OpenMSDataset:
     datadir : Directory
         Directory where data will be stored.
 
-    Attributes
+    References
     ----------
-    _url : str
-        Internal URL used to fetch data.
+
+    .. footbibliography::
 
     Examples
     --------
@@ -66,10 +66,10 @@ class OpenMSDataset:
       anat: PosixPath('...')
     )
 
-    References
+    Attributes
     ----------
-
-    .. footbibliography::
+    _url : str
+        Internal URL used to fetch data.
     """
 
     _url: str = (

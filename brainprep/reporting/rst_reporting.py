@@ -58,11 +58,6 @@ class SingletonReport(type):
         `reloadable` to control singleton reload behavior and `increment`
         to control if we need to increment the inner counter.
 
-    Attributes
-    ----------
-    _instance : Self | None
-        The singleton instance of the class.
-
     Returns
     -------
     Self
@@ -78,6 +73,11 @@ class SingletonReport(type):
     >>> r2 = Report()
     >>> r1 is r2
     True
+
+    Attributes
+    ----------
+    _instance : Self | None
+        The singleton instance of the class.
     """
 
     _instance: Self | None = None
@@ -148,13 +148,6 @@ class RSTReport(metaclass=SingletonReport):
         If False, the inner step counter is not incremented upon instantiation.
         Default False.
 
-    Attributes
-    ----------
-    _registry : Bunch
-        Internal storage for all registered report data.
-    _str_fields : tuple[str]
-        Allowed string fields.
-
     Notes
     -----
     Supported data types for registration include:
@@ -180,6 +173,13 @@ class RSTReport(metaclass=SingletonReport):
       )
     )
     >>> report.save_as_rst("report.rst")
+
+    Attributes
+    ----------
+    _registry : Bunch
+        Internal storage for all registered report data.
+    _str_fields : tuple[str]
+        Allowed string fields.
     """
 
     _registry: Bunch = Bunch()
@@ -418,6 +418,11 @@ def save_runtime(
     outputs : Any
         The output returned by the decorated function.
 
+    Raises
+    ------
+    ValueError
+        If the `output_dir` keyword argument is not defined.
+
     Examples
     --------
     >>> @log_runtime
@@ -426,11 +431,6 @@ def save_runtime(
     ...     '''Adds two numbers.'''
     ...     return a + b
     >>> result = add(3, 5)
-
-    Raises
-    ------
-    ValueError
-        If the `output_dir` keyword argument is not defined.
     """
     inputs = inspect.getcallargs(func, *args, **kw)
     if "output_dir" not in inputs:

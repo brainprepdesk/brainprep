@@ -85,9 +85,19 @@ def brainprep_quasiraw(
         - transform_file : File - path to the 9 dof affine transformation - a
           text file with the suffix "_mod-T1w_affine".
 
+    Raises
+    ------
+    ValueError
+        If the input anatomical file is not BIDS-compliant.
+
     Notes
     -----
     This workflow assumes the anatomical image is organized in BIDS.
+
+    References
+    ----------
+
+    .. footbibliography::
 
     Examples
     --------
@@ -110,16 +120,6 @@ def brainprep_quasiraw(
       aligned_mask_file: PosixPath('...')
       transform_file: PosixPath('...')
     )
-
-    Raises
-    ------
-    ValueError
-        If the input anatomical file is not BIDS-compliant.
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     resource_dir = Path(interfaces.__file__).parent.parent / "resources"
     template_file = resource_dir / "MNI152_T1_1mm_brain.nii.gz"

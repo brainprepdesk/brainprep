@@ -120,9 +120,19 @@ def brainprep_fmriprep(
           connectivity matrix for each resting-state fMRI pre-processed
           image.
 
+    Raises
+    ------
+    ValueError
+        If the input T1w file is not BIDS-compliant.
+
     Notes
     -----
     This workflow assumes the T1w image is organized in BIDS.
+
+    References
+    ----------
+
+    .. footbibliography::
 
     Examples
     --------
@@ -153,16 +163,6 @@ def brainprep_fmriprep(
         qc_file=PosixPath('...'),
         connectivity_files=[PosixPath('...')],
     )
-
-    Raises
-    ------
-    ValueError
-        If the input T1w file is not BIDS-compliant.
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     workspace_dir = output_dir / "workspace"
     workspace_dir.mkdir(parents=True, exist_ok=True)

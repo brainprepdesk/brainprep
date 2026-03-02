@@ -101,11 +101,6 @@ class HTMLReport:
         """
         Get the document wrapped in an inline frame.
 
-        Notes
-        -----
-        Useful for inserting the document content in another HTML page,
-        i.e. in a Jupyter notebook.
-
         Parameters
         ----------
         width: int | None
@@ -117,6 +112,11 @@ class HTMLReport:
         -------
         wrapped: str
             Raw HTML code for the inline frame.
+
+        Notes
+        -----
+        Useful for inserting the document content in another HTML page,
+        i.e. in a Jupyter notebook.
         """
         if width is None:
             width = self.width

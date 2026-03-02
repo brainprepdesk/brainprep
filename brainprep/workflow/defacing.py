@@ -88,6 +88,11 @@ def brainprep_defacing(
     This workflow assumes the input image is a valid T1-weighted anatomical
     scan.
 
+    References
+    ----------
+
+    .. footbibliography::
+
     Examples
     --------
     >>> from brainprep.config import Config
@@ -110,11 +115,6 @@ def brainprep_defacing(
       mosaic_file: PosixPath('...')
       summary_file: PosixPath('...')
     )
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     workspace_dir = output_dir / "workspace"
     workspace_dir.mkdir(parents=True, exist_ok=True)

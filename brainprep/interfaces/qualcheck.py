@@ -270,17 +270,17 @@ def mean_correlation(
         ``mean_correlation``, as well as a binary ``qc`` column indicating
         the quality control result.
 
+    Raises
+    ------
+    ValueError
+        If the atlas and an image have incompatible shape or geometry.
+
     Notes
     -----
     A ``qc`` column is added to the output table. It contains a binary flag
     indicating whether the mean correlation score exceeds the threshold:
     ``qc = 1`` if ``mean_correlation > correlation_threshold``,
     otherwise ``qc = 0``.
-
-    Raises
-    ------
-    ValueError
-        If the atlas and an image have incompatible shape or geometry.
     """
     correlations_file = output_dir / "mean_correlations.tsv"
 
@@ -675,7 +675,7 @@ def fmriprep_metrics(
     """
     FMRIprep quality control.
 
-    The following quuality metrics are considered:
+    The following quality metrics are considered:
 
     - ``fd_mean`` : mean framewise displacement, a measure of head motion
       across the time series.
@@ -778,7 +778,7 @@ def fmriprep_metrics(
 def mriqc_metrics(
         iqm_files: list[File],
         output_dir: Directory,
-        dryrun: bool = False) -> tuple(list[File]):
+        dryrun: bool = False) -> list[File]:
     """
     Filter MRIQC group-level metrics according to modality-specific defaults.
 

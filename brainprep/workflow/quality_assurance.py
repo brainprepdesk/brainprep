@@ -71,6 +71,11 @@ def brainprep_quality_assurance(
     -----
     This workflow assumes the input images are organized in BIDS.
 
+    References
+    ----------
+
+    .. footbibliography::
+
     Examples
     --------
     >>> from brainprep.config import Config
@@ -92,11 +97,6 @@ def brainprep_quality_assurance(
     Bunch(
         iqm_files: [PosixPath('...'), PosixPath('...')]
     )
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     workspace_dir = output_dir / "workspace"
     workspace_dir.mkdir(parents=True, exist_ok=True)
@@ -175,6 +175,11 @@ def brainprep_group_quality_assurance(
     The associated PNG histograms help verify that the chosen thresholds
     are neither too restrictive nor too permissive.
 
+    References
+    ----------
+
+    .. footbibliography::
+
     Examples
     --------
     >>> from brainprep.config import Config
@@ -191,11 +196,6 @@ def brainprep_group_quality_assurance(
     Bunch(
         iqm_files: [PosixPath('...')]
     )
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     iqm_files = interfaces.group_level_qa(
         modalities,

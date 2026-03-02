@@ -275,6 +275,11 @@ def brainprep_group_vbm(
     The associated PNG histograms help verify that the chosen thresholds
     are neither too restrictive nor too permissive.
 
+    References
+    ----------
+
+    .. footbibliography::
+
     Examples
     --------
     >>> from brainprep.config import Config
@@ -293,11 +298,6 @@ def brainprep_group_vbm(
         group_stats_file=PosixPath('...')
         histogram_files=[PosixPath('...'),...,PosixPath('...')]
     )
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     if longitudinal:
         output_dir /= "longitudinal"

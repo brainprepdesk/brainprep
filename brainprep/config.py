@@ -69,6 +69,13 @@ class Config:
         - tpm_file : File - path to the SPM TPM file.
         - darteltpm_file : File - path to the CAT12 template file.
 
+    Notes
+    -----
+    - The context variable `brainprep_options` holds the current
+      configuration.
+    - Options are scoped to the `with` block and automatically restored
+      afterward.
+
     Examples
     --------
     >>> from brainprep.config import Config
@@ -81,13 +88,6 @@ class Config:
     ...     )
     >>> target_directory
     PosixPath('/tmp/destination_dir/source_dir')
-
-    Notes
-    -----
-    - The context variable `brainprep_options` holds the current
-      configuration.
-    - Options are scoped to the `with` block and automatically restored
-      afterward.
     """
 
     def __init__(self, **options: dict):

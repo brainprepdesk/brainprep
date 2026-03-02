@@ -92,16 +92,16 @@ def fmriprep_wf(
         - confounds_file : File - File with calculated confounds.
         - qc_file : File - Visual report.
 
+    Raises
+    ------
+    ValueError
+        If the 'FREESURFER_HOME' environment variable is not defined.
+
     Notes
     -----
     - Creates BIDS subject specific working directory using copy in
       'rawdata'.
     - Store intermediate pre-processing outputs in 'work'.
-
-    Raises
-    ------
-    ValueError
-        If the 'FREESURFER_HOME' environment variable is not defined.
     """
     rawdata_dir = workspace_dir / "rawdata"
     anat_dir = rawdata_dir / "anat"

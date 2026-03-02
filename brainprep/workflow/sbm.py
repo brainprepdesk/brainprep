@@ -116,9 +116,19 @@ def brainprep_sbm(
         - left_seg_file : File - left hemisphere NextBrain atlas.
         - right_seg_file : File - right hemisphere NextBrain atlas.
 
+    Raises
+    ------
+    ValueError
+        If the input T1w file is not BIDS-compliant.
+
     Notes
     -----
     This workflow assumes the T1w image is organized in BIDS.
+
+    References
+    ----------
+
+    .. footbibliography::
 
     Examples
     --------
@@ -159,17 +169,6 @@ def brainprep_sbm(
       brain_file: PosixPath('...')
       brainparc_image_file: PosixPath('...')
     )
-
-
-    Raises
-    ------
-    ValueError
-        If the input T1w file is not BIDS-compliant.
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     workspace_dir = output_dir / "workspace"
     workspace_dir.mkdir(parents=True, exist_ok=True)
@@ -334,9 +333,19 @@ def brainprep_longitudinal_sbm(
 
         - subject_dirs: list[Directory] - the FreeSurfer subject directories.
 
+    Raises
+    ------
+    ValueError
+        If the input T1w files are not BIDS-compliant.
+
     Notes
     -----
     This workflow assumes the T1w images are organized in BIDS.
+
+    References
+    ----------
+
+    .. footbibliography::
 
     Examples
     --------
@@ -359,16 +368,6 @@ def brainprep_longitudinal_sbm(
     Bunch(
       subject_dirs: [PosixPath('...'), PosixPath('...')]
     )
-
-    Raises
-    ------
-    ValueError
-        If the input T1w files are not BIDS-compliant.
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     workspace_dir = (
         output_dir.parent /
@@ -497,6 +496,11 @@ def brainprep_group_sbm(
     The associated PNG histograms help verify that the chosen thresholds
     are neither too restrictive nor too permissive.
 
+    References
+    ----------
+
+    .. footbibliography::
+
     Examples
     --------
     >>> from brainprep.config import Config
@@ -514,11 +518,6 @@ def brainprep_group_sbm(
         euler_numbers_file=PosixPath('...')
         euler_numbers_histogram_file=PosixPath('...')
     )
-
-    References
-    ----------
-
-    .. footbibliography::
     """
     if longitudinal:
         output_dir /= "longitudinal"
