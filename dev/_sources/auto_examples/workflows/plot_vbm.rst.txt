@@ -332,7 +332,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.442 seconds)
+   **Total running time of the script:** (0 minutes 0.506 seconds)
 
 **Estimated memory usage:**  108 MB
 

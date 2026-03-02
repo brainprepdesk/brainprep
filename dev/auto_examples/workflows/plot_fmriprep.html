@@ -575,7 +575,6 @@ to actually run each step and generate results on disk.</p>
     <span class="n">brainprep_fmriprep</span><span class="p">(</span>
         <span class="n">t1_file</span><span class="o">=</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">anat</span></a><span class="p">,</span>
         <span class="n">func_files</span><span class="o">=</span><span class="p">[</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">func</span></a><span class="p">],</span>
-        <span class="n">dataset_description_file</span><span class="o">=</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">description</span></a><span class="p">,</span>
         <span class="n">freesurfer_dir</span><span class="o">=</span><span class="s2">&quot;/my/freesurfer/directory&quot;</span><span class="p">,</span>
         <span class="n">output_dir</span><span class="o">=</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">,</span>
         <span class="n">keep_intermediate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -600,11 +599,10 @@ to actually run each step and generate results on disk.</p>
 Bunch(
   step1: Bunch(
     module: &#39;brainprep.workflow.fmriprep.brainprep_fmriprep&#39;
-    description: &#39;\n    Subject level functional MRI pre-processing.\n\n    Applies fmriprep tool :footcite:p:`esteban2019fmriprep` with the following\n    setting:\n\n    1) T1-weighted volume was corrected for INU (intensity non-uniformity)\n       using N4BiasFieldCorrection and skull-stripped using\n       antsBrainExtraction.sh (using the OASIS template).\n    2) Brain mask estimated previously was refined with a custom variation of\n       the method to reconcile ANTs-derived and FreeSurfer-derived\n       segmentations of the cortical gray-matter of Mindboggle.\n    3) Spatial normalization to the ICBM 152 Nonlinear Asymmetrical template\n       version 2009c was performed through nonlinear registration with the\n       antsRegistration tool of ANTs, using brain-extracted versions of both\n       T1w volume and template.\n    4) Brain tissue segmentation of cerebrospinal fluid (CSF), white-matter\n       (WM) and gray-matter (GM) was performed on the brain-extracted T1w\n       using FSL fast.\n    5) Functional data was motion corrected using FSL mcflirt.\n    6) This was followed by co-registration to the corresponding T1w using\n       boundary-based registration with six degrees of freedom, using\n       FreeSurfer bbregister.\n    7) Motion correcting transformations, BOLD-to-T1w transformation and\n       T1w-to-template (MNI) warp were concatenated and applied in a single\n       step using ANTs antsApplyTransforms using Lanczos interpolation.\n    8) Physiological noise regressors were extracted applying CompCor.\n       Principal components were estimated for the two CompCor variants:\n       temporal (tCompCor) and anatomical (aCompCor).A mask to exclude signal\n       with cortical origin was obtained by eroding the brain mask, ensuring\n       it only contained subcortical structures. Six tCompCor components were\n       then calculated including only the top 5% variable voxels within that\n       subcortical mask. For aCompCor, six components were calculated within\n       the intersection of the subcortical mask and the union of CSF and WM\n       masks calculated in T1w space, after their projection to the native\n       space of each functional run.\n    9) Frame-wise displacement was calculated for each functional run using\n       Nipype.\n\n    Then, compute functional ROI-based functional connectivity from\n    pre-processed volumetric fMRI data based on the Schaefer 200 ROI atlas.\n    Connectivity is computed using Pearson correlation.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    func_files : list[File]\n        Path to the input functional image files of one subject.\n    dataset_description_file : File\n        Path to the BIDS dataset description file.\n    freesurfer_dir : Directory\n        Path to an existing FreeSurfer subjects directory in which the\n        recon-all commands have already been executed.\n    output_dir : Directory\n        Directory where the prep-processing related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - fmri_rest_image_files: list[File] - pre-processed rfMRI NIFTI\n          volumes: 2mm MNI152NLin6Asym and MNI152NLin2009cAsym.\n        - fmri_rest_surf_files: File - pre-processed rfMRI CIFTI surfaces:\n          fsLR23k.\n        - qc_file: File - the HTML visual report for the subject\&#39;s data.\n        - connectivity_files: list[File] - TSV files containing the ROI-to-ROI\n          connectivity matrix for each resting-state fMRI pre-processed\n          image.\n\n    Notes\n    -----\n    This workflow assumes the T1w image is organized in BIDS.\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_fmriprep\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_fmriprep(\n    ...         t1_file=(\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;\n    ...         ),\n    ...         func_files=[\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/func/&quot;\n    ...             &quot;sub-01_ses-01_task-rest_run-01_bold.nii.gz&quot;,\n    ...         ],\n    ...         dataset_description_file=(\n    ...             &quot;/tmp/dataset/rawdata/dataset_description.json&quot;\n    ...         ),\n    ...         freesurfer_dir=(\n    ...             &quot;/tmp/dataset/derivatives/brain_parcellation/subjects&quot;\n    ...         ),\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     ) # doctest: +SKIP\n    &gt;&gt;&gt; outputs # doctest: +SKIP\n    Bunch(\n        fmri_rest_image_files=[PosixPath(\&#39;...\&#39;)],\n        fmri_rest_surf_files=[PosixPath(\&#39;...\&#39;)],\n        qc_file=PosixPath(\&#39;...\&#39;),\n        connectivity_files=[PosixPath(\&#39;...\&#39;)],\n    )\n\n    Raises\n    ------\n    ValueError\n        If the input T1w file is not BIDS-compliant.\n\n    References\n    ----------\n\n    .. footbibliography::\n    &#39;
+    description: &#39;\n    Subject level functional MRI pre-processing.\n\n    Applies fmriprep tool :footcite:p:`esteban2019fmriprep` with the following\n    setting:\n\n    1) T1-weighted volume was corrected for INU (intensity non-uniformity)\n       using N4BiasFieldCorrection and skull-stripped using\n       antsBrainExtraction.sh (using the OASIS template).\n    2) Brain mask estimated previously was refined with a custom variation of\n       the method to reconcile ANTs-derived and FreeSurfer-derived\n       segmentations of the cortical gray-matter of Mindboggle.\n    3) Spatial normalization to the ICBM 152 Nonlinear Asymmetrical template\n       version 2009c was performed through nonlinear registration with the\n       antsRegistration tool of ANTs, using brain-extracted versions of both\n       T1w volume and template.\n    4) Brain tissue segmentation of cerebrospinal fluid (CSF), white-matter\n       (WM) and gray-matter (GM) was performed on the brain-extracted T1w\n       using FSL fast.\n    5) Functional data was motion corrected using FSL mcflirt.\n    6) This was followed by co-registration to the corresponding T1w using\n       boundary-based registration with six degrees of freedom, using\n       FreeSurfer bbregister.\n    7) Motion correcting transformations, BOLD-to-T1w transformation and\n       T1w-to-template (MNI) warp were concatenated and applied in a single\n       step using ANTs antsApplyTransforms using Lanczos interpolation.\n    8) Physiological noise regressors were extracted applying CompCor.\n       Principal components were estimated for the two CompCor variants:\n       temporal (tCompCor) and anatomical (aCompCor).A mask to exclude signal\n       with cortical origin was obtained by eroding the brain mask, ensuring\n       it only contained subcortical structures. Six tCompCor components were\n       then calculated including only the top 5% variable voxels within that\n       subcortical mask. For aCompCor, six components were calculated within\n       the intersection of the subcortical mask and the union of CSF and WM\n       masks calculated in T1w space, after their projection to the native\n       space of each functional run.\n    9) Frame-wise displacement was calculated for each functional run using\n       Nipype.\n\n    Then, compute functional ROI-based functional connectivity from\n    pre-processed volumetric fMRI data based on the Schaefer 200 ROI atlas.\n    Connectivity is computed using Pearson correlation.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    func_files : list[File]\n        Path to the input functional image files of one subject.\n    freesurfer_dir : Directory\n        Path to an existing FreeSurfer subjects directory in which the\n        recon-all commands have already been executed.\n    output_dir : Directory\n        Directory where the prep-processing related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - fmri_rest_image_files: list[File] - pre-processed rfMRI NIFTI\n          volumes: 2mm MNI152NLin6Asym and MNI152NLin2009cAsym.\n        - fmri_rest_surf_files: File - pre-processed rfMRI CIFTI surfaces:\n          fsLR23k.\n        - qc_file: File - the HTML visual report for the subject\&#39;s data.\n        - connectivity_files: list[File] - TSV files containing the ROI-to-ROI\n          connectivity matrix for each resting-state fMRI pre-processed\n          image.\n\n    Notes\n    -----\n    This workflow assumes the T1w image is organized in BIDS.\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_fmriprep\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_fmriprep(\n    ...         t1_file=(\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;\n    ...         ),\n    ...         func_files=[\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/func/&quot;\n    ...             &quot;sub-01_ses-01_task-rest_run-01_bold.nii.gz&quot;,\n    ...         ],\n    ...         freesurfer_dir=(\n    ...             &quot;/tmp/dataset/derivatives/brain_parcellation/subjects&quot;\n    ...         ),\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     ) # doctest: +SKIP\n    &gt;&gt;&gt; outputs # doctest: +SKIP\n    Bunch(\n        fmri_rest_image_files=[PosixPath(\&#39;...\&#39;)],\n        fmri_rest_surf_files=[PosixPath(\&#39;...\&#39;)],\n        qc_file=PosixPath(\&#39;...\&#39;),\n        connectivity_files=[PosixPath(\&#39;...\&#39;)],\n    )\n\n    Raises\n    ------\n    ValueError\n        If the input T1w file is not BIDS-compliant.\n\n    References\n    ----------\n\n    .. footbibliography::\n    &#39;
     inputs: Bunch(
       t1_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz&#39;)
       func_files: [PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz&#39;)]
-      dataset_description_file: PosixPath(&#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;)
       freesurfer_dir: PosixPath(&#39;/my/freesurfer/directory&#39;)
       output_dir: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00&#39;)
       keep_intermediate: True
@@ -616,12 +614,12 @@ Bunch(
       connectivity_files: [PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-02-20 14:33:44.645136&#39;
-      end: &#39;2026-02-20 14:33:44.645136&#39;
-      execution_time: 5.561972222222222e-05
+      start: &#39;2026-03-02 07:58:52.556796&#39;
+      end: &#39;2026-03-02 07:58:52.556796&#39;
+      execution_time: 5.502888888888889e-05
       brainprep_version: &#39;2.0.0&#39;
-      platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmwffz4&#39;
+      platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
+      hostname: &#39;runnervmnay03&#39;
     )
     config: Bunch(
       verbose: True
@@ -651,12 +649,12 @@ Bunch(
       outputs: ([[[PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-brain_mask.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz&#39;)], [PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-preproc_bold.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&#39;)], [(PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsnative_den-91k_bold.dtseries.nii&#39;),), (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsLR_den-91k_bold.dtseries.nii&#39;),)], PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_desc-confounds_timeseries.tsv&#39;)]], PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01.html&#39;))
     )
     runtime: Bunch(
-      start: &#39;2026-02-20 14:33:44.649310&#39;
-      end: &#39;2026-02-20 14:33:44.649310&#39;
-      execution_time: 5.171805555555555e-05
+      start: &#39;2026-03-02 07:58:52.562054&#39;
+      end: &#39;2026-03-02 07:58:52.562054&#39;
+      execution_time: 5.056611111111111e-05
       brainprep_version: &#39;2.0.0&#39;
-      platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmwffz4&#39;
+      platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
+      hostname: &#39;runnervmnay03&#39;
     )
     config: Bunch(
       verbose: True
@@ -695,12 +693,12 @@ Bunch(
       outputs: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;)
     )
     runtime: Bunch(
-      start: &#39;2026-02-20 14:33:44.840373&#39;
-      end: &#39;2026-02-20 14:33:44.840373&#39;
-      execution_time: 6.75e-08
+      start: &#39;2026-03-02 07:58:52.749563&#39;
+      end: &#39;2026-03-02 07:58:52.749563&#39;
+      execution_time: 7.777777777777777e-08
       brainprep_version: &#39;2.0.0&#39;
-      platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmwffz4&#39;
+      platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
+      hostname: &#39;runnervmnay03&#39;
     )
     config: Bunch(
       verbose: True
@@ -727,12 +725,12 @@ Bunch(
       outputs: PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-01_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.png&#39;)
     )
     runtime: Bunch(
-      start: &#39;2026-02-20 14:33:44.844231&#39;
-      end: &#39;2026-02-20 14:33:44.844231&#39;
-      execution_time: 5.916666666666667e-08
+      start: &#39;2026-03-02 07:58:52.753310&#39;
+      end: &#39;2026-03-02 07:58:52.753310&#39;
+      execution_time: 6.888888888888889e-08
       brainprep_version: &#39;2.0.0&#39;
-      platform: &#39;Linux-6.11.0-1018-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervmwffz4&#39;
+      platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
+      hostname: &#39;runnervmnay03&#39;
     )
     config: Bunch(
       verbose: True
@@ -763,7 +761,6 @@ See <a class="reference internal" href="../../user_guide/cli.html#cli"><span cla
             <span class="s2">&quot;brainprep&quot;</span><span class="p">,</span> <span class="s2">&quot;subject-level-fmriprep&quot;</span><span class="p">,</span>
             <span class="s2">&quot;--t1-file&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">anat</span></a><span class="p">),</span>
             <span class="s2">&quot;--func-files&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">func</span></a><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;--dataset-description-file&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">description</span></a><span class="p">),</span>
             <span class="s2">&quot;--freesurfer-dir&quot;</span><span class="p">,</span> <span class="s2">&quot;../freesurfer&quot;</span><span class="p">,</span>
             <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">outdir</span></a><span class="p">),</span>
             <span class="s2">&quot;--keep-intermediate&quot;</span><span class="p">,</span>
@@ -779,8 +776,6 @@ See <a class="reference internal" href="../../user_guide/cli.html#cli"><span cla
    &#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz&#39;,
    &#39;--func-files&#39;,
    &#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz&#39;,
-   &#39;--dataset-description-file&#39;,
-   &#39;/tmp/brainprep-data/rawdata/dataset_description.json&#39;,
    &#39;--freesurfer-dir&#39;,
    &#39;../freesurfer&#39;,
    &#39;--output-dir&#39;,
@@ -800,7 +795,7 @@ In practice, this means that once the CLI has produced the appropriate
 instructions, you can simply copy and run them inside the container to
 achieve the intended results. You can find the BrainPrep images on Docker
 Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.503 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.579 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  108 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflows-plot-fmriprep-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
