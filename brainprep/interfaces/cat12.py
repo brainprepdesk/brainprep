@@ -175,11 +175,6 @@ def write_catbatch(
             "resources" /
             "cat12vbm_matlabbatch.m"
         )
-    template_batch = (
-        Path(__file__).parent.parent /
-        "resources" /
-        "cat12vbm_matlabbatch.m"
-    )
     output_dirs = [
         output_dir / f"ses-{info['ses']}"
         for info in entities
@@ -303,11 +298,65 @@ def cat12vbm_morphometry(
                 df.insert(2, "run", info["run"])
                 data.append(df)
             df = pd.concat(data)
-            df.sort_values(by=["participant_id"], inplace=True)
+            df.sort_values(by=["participant_id","session","run"], inplace=True)
             df.to_csv(
                 output_file,
                 index=False,
                 sep="\t",
             )
+        # getting global volumes
+        xml_files = coerce_to_path(
+                glob.glob(str(
+                    output_dir.parent /
+                    "subjects" /
+                    "sub-*" /
+                    "ses-*" /
+                    "report" /
+                    "cat_*T1w.xml"
+                )),
+                expected_type=list[File]
+        )
+        entities = [
+            parse_bids_keys(path)
+            for path in xml_files
+        ]
+        total_volumes = {
+            "participant_id": [],
+            "session": [],
+            "run": [],
+            "tiv": [],
+            "CSF_Vol": [],
+            "GM_Vol": [],
+            "WM_Vol": [],
+        }
+        for info, xml_file in zip(entities, xml_files, strict=True):
+            cat = pd.read_xml(xml_file)
+            try:
+                # read the global volumes
+                tiv = cat["vol_TIV"][7]
+                vol_abs_cgw = cat["vol_abs_CGW"][7][1:-1].split()
+                vol_abs_cgw = [float(volume) for volume in vol_abs_cgw]
+            except Exception as e:
+                print("Parsing error for %s" %
+                      (xml_file))
+            else:
+                # put these volumes in a dataframe
+                total_volumes["participant_id"].append(info["sub"])
+                total_volumes["session"].append(info["ses"])
+                total_volumes["run"].append(info["run"])
+                total_volumes["tiv"].append(float(tiv))
+                total_volumes["CSF_Vol"].append(vol_abs_cgw[0])
+                total_volumes["GM_Vol"].append(vol_abs_cgw[1])
+                total_volumes["WM_Vol"].append(vol_abs_cgw[2])
+        
+        df = pd.DataFrame(total_volumes)
+        df = df.sort_values(["participant_id","session","run"])
+        total_volumes_path = output_dir / "total_volumes.tsv"
+        df.to_csv(
+            total_volumes_path,
+            sep="\t",
+            index=False
+        )
+        morphometry_files.append(total_volumes_path)
 
     return (morphometry_files, )
