@@ -68,6 +68,7 @@ from .utils import (
     maskdiff,
     movedir,
     ungzfile,
+    filter_metrics,
     write_uuid_mapping,
 )
 
