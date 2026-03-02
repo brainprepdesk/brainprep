@@ -358,6 +358,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.incremental_pca.html">brainprep.interfaces.qualcheck.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.mask_overlap.html">brainprep.interfaces.qualcheck.mask_overlap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.mean_correlation.html">brainprep.interfaces.qualcheck.mean_correlation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.mriqc_metrics.html">brainprep.interfaces.qualcheck.mriqc_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.network_entropy.html">brainprep.interfaces.qualcheck.network_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.vbm_metrics.html">brainprep.interfaces.qualcheck.vbm_metrics</a></li>
 </ul>
@@ -546,10 +547,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.mean_correlation.html#brainprep.interfaces.qualcheck.mean_correlation" title="brainprep.interfaces.qualcheck.mean_correlation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean_correlation</span></code></a>(image_files_regex, ...[, ...])</p></td>
 <td><p>Compute the mean Pearson correlation between a reference image and a list of other images.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.network_entropy.html#brainprep.interfaces.qualcheck.network_entropy" title="brainprep.interfaces.qualcheck.network_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">network_entropy</span></code></a>(network_files_regex, output_dir)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.mriqc_metrics.html#brainprep.interfaces.qualcheck.mriqc_metrics" title="brainprep.interfaces.qualcheck.mriqc_metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mriqc_metrics</span></code></a>(iqm_files, output_dir[, dryrun])</p></td>
+<td><p>Filter MRIQC group-level metrics according to modality-specific defaults.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.network_entropy.html#brainprep.interfaces.qualcheck.network_entropy" title="brainprep.interfaces.qualcheck.network_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">network_entropy</span></code></a>(network_files_regex, output_dir)</p></td>
 <td><p>Comput enetwork entropy - &quot;structure vs randomness&quot; metric.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.vbm_metrics.html#brainprep.interfaces.qualcheck.vbm_metrics" title="brainprep.interfaces.qualcheck.vbm_metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vbm_metrics</span></code></a>(output_dir[, ncr_threshold, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.interfaces.qualcheck.vbm_metrics.html#brainprep.interfaces.qualcheck.vbm_metrics" title="brainprep.interfaces.qualcheck.vbm_metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vbm_metrics</span></code></a>(output_dir[, ncr_threshold, ...])</p></td>
 <td><p>CAT12 VBM quality control.</p></td>
 </tr>
 </tbody>

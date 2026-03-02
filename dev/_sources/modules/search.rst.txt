@@ -69,6 +69,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.interfaces.qualcheck.incremental_pca.html'>brainprep.interfaces.qualcheck.incremental_pca</a></li>
       <li><a href='generated/brainprep.interfaces.qualcheck.mask_overlap.html'>brainprep.interfaces.qualcheck.mask_overlap</a></li>
       <li><a href='generated/brainprep.interfaces.qualcheck.mean_correlation.html'>brainprep.interfaces.qualcheck.mean_correlation</a></li>
+      <li><a href='generated/brainprep.interfaces.qualcheck.mriqc_metrics.html'>brainprep.interfaces.qualcheck.mriqc_metrics</a></li>
       <li><a href='generated/brainprep.interfaces.qualcheck.network_entropy.html'>brainprep.interfaces.qualcheck.network_entropy</a></li>
       <li><a href='generated/brainprep.interfaces.qualcheck.vbm_metrics.html'>brainprep.interfaces.qualcheck.vbm_metrics</a></li>
       <li><a href='generated/brainprep.interfaces.reorient.html'>brainprep.interfaces.reorient</a></li>

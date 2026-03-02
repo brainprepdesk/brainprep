@@ -9,7 +9,7 @@
 <meta property="og:site_name" content="brainprep" />
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
-<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.interfaces.qualcheck.vbm_metrics" href="brainprep.interfaces.qualcheck.vbm_metrics.html" /><link rel="prev" title="brainprep.interfaces.qualcheck.mean_correlation" href="brainprep.interfaces.qualcheck.mean_correlation.html" />
+<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.interfaces.qualcheck.vbm_metrics" href="brainprep.interfaces.qualcheck.vbm_metrics.html" /><link rel="prev" title="brainprep.interfaces.qualcheck.mriqc_metrics" href="brainprep.interfaces.qualcheck.mriqc_metrics.html" />
         <link rel="prefetch" href="../../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
@@ -356,6 +356,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.incremental_pca.html">brainprep.interfaces.qualcheck.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.mask_overlap.html">brainprep.interfaces.qualcheck.mask_overlap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.mean_correlation.html">brainprep.interfaces.qualcheck.mean_correlation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.mriqc_metrics.html">brainprep.interfaces.qualcheck.mriqc_metrics</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">brainprep.interfaces.qualcheck.network_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.vbm_metrics.html">brainprep.interfaces.qualcheck.vbm_metrics</a></li>
 </ul>
@@ -531,7 +532,7 @@ function signature, and not how to use it. Please refer to the
 <h1>brainprep.interfaces.qualcheck.network_entropy<a class="headerlink" href="#brainprep-interfaces-qualcheck-network-entropy" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainprep.interfaces.qualcheck.network_entropy">
-<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.qualcheck.</span></span><span class="sig-name descname"><span class="pre">network_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_files_regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/1f415e4/brainprep/interfaces/qualcheck.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.qualcheck.network_entropy" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.qualcheck.</span></span><span class="sig-name descname"><span class="pre">network_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_files_regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/c437511/brainprep/interfaces/qualcheck.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.qualcheck.network_entropy" title="Link to this definition">¶</a></dt>
 <dd><p>Comput enetwork entropy - “structure vs randomness” metric.</p>
 <p>A commonly used metric to assess whether a connectivity matrix exhibits
 meaningful structure is the matrix entropy. Low entropy indicates a
@@ -585,14 +586,14 @@ indicating whether the entropy score do not exceeds the threshold:
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="brainprep.interfaces.qualcheck.mean_correlation.html">
+          <a class="prev-page" href="brainprep.interfaces.qualcheck.mriqc_metrics.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">brainprep.interfaces.qualcheck.mean_correlation</div>
+                <div class="title">brainprep.interfaces.qualcheck.mriqc_metrics</div>
                 
               </div>
             </a>

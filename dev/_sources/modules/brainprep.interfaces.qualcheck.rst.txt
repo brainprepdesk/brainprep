@@ -23,6 +23,7 @@ Functions
     incremental_pca
     mask_overlap
     mean_correlation
+    mriqc_metrics
     network_entropy
     vbm_metrics
 

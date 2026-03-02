@@ -9,7 +9,7 @@
 <meta property="og:site_name" content="brainprep" />
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
-<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.interfaces.qualcheck.network_entropy" href="brainprep.interfaces.qualcheck.network_entropy.html" /><link rel="prev" title="brainprep.interfaces.qualcheck.mask_overlap" href="brainprep.interfaces.qualcheck.mask_overlap.html" />
+<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.interfaces.qualcheck.mriqc_metrics" href="brainprep.interfaces.qualcheck.mriqc_metrics.html" /><link rel="prev" title="brainprep.interfaces.qualcheck.mask_overlap" href="brainprep.interfaces.qualcheck.mask_overlap.html" />
         <link rel="prefetch" href="../../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
@@ -356,6 +356,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.incremental_pca.html">brainprep.interfaces.qualcheck.incremental_pca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.mask_overlap.html">brainprep.interfaces.qualcheck.mask_overlap</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">brainprep.interfaces.qualcheck.mean_correlation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.mriqc_metrics.html">brainprep.interfaces.qualcheck.mriqc_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.network_entropy.html">brainprep.interfaces.qualcheck.network_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.qualcheck.vbm_metrics.html">brainprep.interfaces.qualcheck.vbm_metrics</a></li>
 </ul>
@@ -531,7 +532,7 @@ function signature, and not how to use it. Please refer to the
 <h1>brainprep.interfaces.qualcheck.mean_correlation<a class="headerlink" href="#brainprep-interfaces-qualcheck-mean-correlation" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainprep.interfaces.qualcheck.mean_correlation">
-<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.qualcheck.</span></span><span class="sig-name descname"><span class="pre">mean_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_files_regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atlas_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/1f415e4/brainprep/interfaces/qualcheck.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.qualcheck.mean_correlation" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.qualcheck.</span></span><span class="sig-name descname"><span class="pre">mean_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_files_regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atlas_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/c437511/brainprep/interfaces/qualcheck.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.qualcheck.mean_correlation" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the mean Pearson correlation between a reference image and a list
 of other images.</p>
 <dl class="field-list simple">
@@ -582,12 +583,12 @@ otherwise <code class="docutils literal notranslate"><span class="pre">qc</span>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="brainprep.interfaces.qualcheck.network_entropy.html">
+          <a class="next-page" href="brainprep.interfaces.qualcheck.mriqc_metrics.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">brainprep.interfaces.qualcheck.network_entropy</div>
+                <div class="title">brainprep.interfaces.qualcheck.mriqc_metrics</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
