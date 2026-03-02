@@ -253,7 +253,9 @@ def brainprep_group_vbm(
         A dictionary-like object containing:
 
         - morphometry_files : list[File] - a TSV file containing ROI-based
-          GM, WM and CSF features for different atlases.
+          GM, WM and CSF features for different atlases, as well as a TSV file
+          containing total intracranial volume (TIV) and absolute tissue
+          volumes (GM, WM, CSF).
         - correlations_file : File - a TSV file containing mean correlation
           of each input image to the atlas image quality check (QC) data.
         - group_stats_file : File - a TSV file containing quality check (QC)

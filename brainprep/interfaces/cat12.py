@@ -217,7 +217,15 @@ def cat12vbm_morphometry(
         output_dir: Directory,
         dryrun: bool = False) -> list[File]:
     """
-    Parse the CAT12 VBM XML ROI stats for all subjects.
+    Extract ROI-based morphometry features and global tissue volumes from
+    CAT12 VBM outputs.
+
+    This function parses CAT12 `.mat` ROI statistics and `.xml` report files
+    for all subjects in a BIDS-organized dataset. It generates one TSV file
+    per atlas containing ROI-level gray matter (GM), white matter (WM), and
+    cerebrospinal fluid (CSF) volumes. It also generates a TSV file
+    containing total intracranial volume (TIV) and absolute tissue volumes
+    (GM, WM, CSF).
 
     Parameters
     ----------
@@ -231,6 +239,15 @@ def cat12vbm_morphometry(
     morphometry_files : list[File]
         TSV files containing ROI-based GM, WM and CSF features for different
         atlases.
+        A list containing the paths to all generated TSV files. One TSV is
+        produced per atlas for ROI-based morphometry, plus one TSV
+        summarizing global tissue volumes.
+
+    Raises
+    ------
+    ValueError
+        If the XML structure does not contain the expected CAT12 fields, or
+        if parsing fails for any subject.
     """
     atlases = {
         "Schaefer2018_100Parcels_17Networks_order": ["Vgm", "Vwm"],
@@ -254,109 +271,101 @@ def cat12vbm_morphometry(
         for atlas in atlases
     ]
 
-    if not dryrun:
+    if dryrun:
+        return (morphometry_files, )
 
-        mat_files = coerce_to_path(
+    mat_files = coerce_to_path(
+        glob.glob(str(
+            output_dir.parent /
+            "subjects" /
+            "sub-*" /
+            "ses-*" /
+            "label" /
+            "catROI_*T1w.mat"
+        )),
+        expected_type=list[File]
+    )
+    entities = [
+        parse_bids_keys(path)
+        for path in mat_files
+    ]
+    for atlas, output_file in zip(atlases, morphometry_files, strict=True):
+        atlas_tissues = atlases[atlas]
+        data = []
+        for info, path in zip(entities, mat_files, strict=True):
+            data_ = loadmat(path, simplify_cells=True)
+            ids = data_["S"][atlas]["ids"]
+            names = data_["S"][atlas]["names"]
+            features = []
+            for tissue in atlas_tissues:
+                values = data_["S"][atlas]["data"][tissue]
+                df = pd.DataFrame({
+                    "ID": [int(val) for val in ids],
+                    "Name": names,
+                    tissue: [float(val) for val in values]
+                }).T
+                df.columns = [
+                    f"{tissue}_{col}" for col in df.loc["Name"]
+                ]
+                df = df[2:]
+                df = df.reset_index(drop=True)
+                features.append(df)
+            df = pd.concat(features, axis=1)
+            df.insert(0, "participant_id", info["sub"])
+            df.insert(1, "session", info["ses"])
+            df.insert(2, "run", info["run"])
+            data.append(df)
+        df = pd.concat(data)
+        df.sort_values(by=["participant_id","session","run"], inplace=True)
+        df.to_csv(
+            output_file,
+            index=False,
+            sep="\t",
+        )
+
+    xml_files = coerce_to_path(
             glob.glob(str(
                 output_dir.parent /
                 "subjects" /
                 "sub-*" /
                 "ses-*" /
-                "label" /
-                "catROI_*T1w.mat"
+                "report" /
+                "cat_*T1w.xml"
             )),
             expected_type=list[File]
-        )
-        entities = [
-            parse_bids_keys(path)
-            for path in mat_files
+    )
+    entities = [
+        parse_bids_keys(path)
+        for path in xml_files
+    ]
+    df = pd.DataFrame(
+        columns=[
+            "participant_id", "session", "run",
+            "TIV", "CSF_Vol", "GM_Vol", "WM_Vol",
         ]
-        for atlas, output_file in zip(
-                atlases, morphometry_files, strict=True):
-            data = []
-            for info, path in zip(entities, mat_files, strict=True):
-                data_ = loadmat(path, simplify_cells=True)
-                ids = data_["S"][atlas]["ids"]
-                names = data_["S"][atlas]["names"]
-                features = []
-                for brain_tissue in atlases[atlas]:
-                    values = data_["S"][atlas]["data"][brain_tissue]
-                    df = pd.DataFrame({
-                        "ID": [int(val) for val in ids],
-                        "Name": names,
-                        brain_tissue: [float(val) for val in values]
-                    }).T
-                    df.columns = [
-                        f"{brain_tissue}_{col}" for col in df.loc["Name"]
-                    ]
-                    df = df[2:]
-                    df = df.reset_index(drop=True)
-                    features.append(df)
-                df = pd.concat(features, axis=1)
-                df.insert(0, "participant_id", info["sub"])
-                df.insert(1, "session", info["ses"])
-                df.insert(2, "run", info["run"])
-                data.append(df)
-            df = pd.concat(data)
-            df.sort_values(by=["participant_id","session","run"], inplace=True)
-            df.to_csv(
-                output_file,
-                index=False,
-                sep="\t",
+    )
+    for info, xml_file in zip(entities, xml_files, strict=True):
+        cat = pd.read_xml(xml_file)
+        try:
+            tiv = float(cat["vol_TIV"][7])
+            csf_vol, gm_vol, wm_vol = map(
+                float, cat["vol_abs_CGW"][7][1:-1].split()
             )
-        # getting global volumes
-        xml_files = coerce_to_path(
-                glob.glob(str(
-                    output_dir.parent /
-                    "subjects" /
-                    "sub-*" /
-                    "ses-*" /
-                    "report" /
-                    "cat_*T1w.xml"
-                )),
-                expected_type=list[File]
-        )
-        entities = [
-            parse_bids_keys(path)
-            for path in xml_files
+        except Exception as e:
+            raise ValueError(
+                f"Impossible to retrieve TIV: {xml_file}"
+            )
+        df.loc[len(df)] = [
+            info["sub"], info["ses"], info["run"],
+            tiv, csf, gm, wm,
         ]
-        total_volumes = {
-            "participant_id": [],
-            "session": [],
-            "run": [],
-            "tiv": [],
-            "CSF_Vol": [],
-            "GM_Vol": [],
-            "WM_Vol": [],
-        }
-        for info, xml_file in zip(entities, xml_files, strict=True):
-            cat = pd.read_xml(xml_file)
-            try:
-                # read the global volumes
-                tiv = cat["vol_TIV"][7]
-                vol_abs_cgw = cat["vol_abs_CGW"][7][1:-1].split()
-                vol_abs_cgw = [float(volume) for volume in vol_abs_cgw]
-            except Exception as e:
-                print("Parsing error for %s" %
-                      (xml_file))
-            else:
-                # put these volumes in a dataframe
-                total_volumes["participant_id"].append(info["sub"])
-                total_volumes["session"].append(info["ses"])
-                total_volumes["run"].append(info["run"])
-                total_volumes["tiv"].append(float(tiv))
-                total_volumes["CSF_Vol"].append(vol_abs_cgw[0])
-                total_volumes["GM_Vol"].append(vol_abs_cgw[1])
-                total_volumes["WM_Vol"].append(vol_abs_cgw[2])
-        
-        df = pd.DataFrame(total_volumes)
-        df = df.sort_values(["participant_id","session","run"])
-        total_volumes_path = output_dir / "total_volumes.tsv"
-        df.to_csv(
-            total_volumes_path,
-            sep="\t",
-            index=False
-        )
-        morphometry_files.append(total_volumes_path)
+    df.sort_values(["participant_id","session","run"], inplace=True)
+    volume_file = output_dir / "cat12_vbm_total_volumes.tsv"
+    df.to_csv(
+        volume_file,
+        sep="\t",
+        index=False
+    )
+    morphometry_files.append(volume_file)
 
     return (morphometry_files, )
