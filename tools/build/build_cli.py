@@ -23,12 +23,12 @@ from brainprep import __version__ as version
 
 
 def build(
-        working_dir,
-        bind_dir,
-        partition,
-        freesurfer_license_file,
-        dev=False,
-    ):
+        working_dir: str | Path,
+        bind_dir: str | Path,
+        partition: str,
+        freesurfer_license_file: str | Path,
+        dev: bool = False,
+    ) -> None:
     """
     Parse available Docker files and generate the associated build instructions
     (creation and test steps).
@@ -39,9 +39,9 @@ def build(
 
     Parameters
     ----------
-    working_dir : str or Path
+    working_dir : str | Path
         Directory where the generated instructions will be written.
-    bind_dir : str or Path
+    bind_dir : str | Path
         Directory containing the data to be bound into the Docker environment.
     partition : str
         Name of the partition to use. Can be provided as ``<name>`` or

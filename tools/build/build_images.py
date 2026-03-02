@@ -19,15 +19,15 @@ from brainprep import __version__ as version
 
 
 def main(
-        working_dir
-    ):
+        working_dir: str | Path,
+    ) -> None:
     """
     Parse available Docker files and generate associated build (creation and
     test) instructions.
 
     Parameters
     ----------
-    working_dir : str or Path
+    working_dir : str | Path
         Directory where the instructions will be generated.
     """
     banner = r"""

@@ -23,17 +23,17 @@ from pathlib import Path
 
 
 def main(
-        examples_dir,
-        infra,
-        image_template,
-        hopla_dir,
-        partition,
-        freesurfer_license_file,
-        project_id=None,
-        image_parameters=None,
-        root_template=None,
-        save_template=None,
-    ):
+        examples_dir: str | Path,
+        infra: str,
+        image_template: str,
+        hopla_dir: str | Path,
+        partition: str,
+        freesurfer_license_file: str | Path,
+        project_id: str | None = None,
+        image_parameters: str | None = None,
+        root_template: str | None = None,
+        save_template: str | None = None,
+    ) -> None:
     """
     Execute examples scripts using ``hoplacli``.
 
@@ -45,7 +45,7 @@ def main(
 
     Parameters
     ----------
-    examples_dir : str or Path
+    examples_dir : str | Path
         Directory containing example Python scripts.
     infra : str
         Infrastructure identifier.
@@ -55,23 +55,23 @@ def main(
         `{workflow}` with the name of the image being processed. Using a
         template allows the script to dynamically generate commands for
         different images without duplicating code.
-    hopla_dir: str or Path
+    hopla_dir: str | Path
         Path to the hopla working directory.
     partition : str
         Name of the partition to use.
-    freesurfer_license_file : str or Path
+    freesurfer_license_file : str | Path
         Path to the FreesurFer license file.
-    project_id : str
+    project_id : str | None
         Name of the project identifier. Default None.
-    image_parameters: str
+    image_parameters: str | None
         Additional parameters passed to the container execution command.
         Default None.
-    root_template : str
+    root_template : str | None
         Path to the working directory where `{workflow}` acts as a placeholder.
         The calling code replaces `{workflow}` with the name of the image
         being processed. Defaults are directly defined in the
         examples: ``datadir`` and ``outdir``. Default None.
-    save_template: str
+    save_template: str | None
         Path to the file where the testing commands are saved where
         `{workflow}` acts as a placeholder. The calling code replaces
         `{workflow}` with the name of the image being processed. Default None.
@@ -94,7 +94,7 @@ def main(
 
     # Get configuration templates
     cw_dir = Path(__file__).parent.resolve()
-    config_dir = cw_dir / "resources"
+    config_dir = cw_dir.parent / "resources"
     config_file = config_dir / "hopla_config.toml"
     config_template = config_file.read_text()
     workflow_resource_file = config_dir / "workflows_config.toml"
@@ -104,7 +104,7 @@ def main(
 
     # Scan example scripts
     examples_dir = Path(examples_dir)
-    script_paths = examples_dir.glob("*.py")
+    script_paths = examples_dir.glob("*/*.py")
     hoplacli_commands = []
     start = 0
     for script_file in script_paths:
@@ -252,7 +252,10 @@ def main(
     )
 
 
-def merge(defaults: dict, overrides: dict) -> dict:
+def merge(
+        defaults: dict,
+        overrides: dict
+    ) -> dict:
     """
     Recursively merge two dictionaries, applying overrides to defaults.
 
