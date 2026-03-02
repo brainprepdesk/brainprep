@@ -13,6 +13,7 @@ Module that contains some utility functions.
 import inspect
 import json
 import re
+import uuid
 from collections.abc import Callable, Iterable
 from pathlib import Path
 from typing import (
@@ -375,24 +376,33 @@ def parse_bids_keys(
         bids_path: File,
         full_path: bool = False) -> dict[str]:
     """
-    Parse BIDS keys and modality from a filename or path with validation.
+    Parse BIDS entities and modality from a filename or path with validation.
 
     This function extracts BIDS entities (e.g., subject, session, task,
-    run) and determines the modality from the provided file or path. The
-    input is validated to ensure it conforms to BIDS naming conventions.
+    run) from a BIDS-compliant filename or full path. It also identifies the
+    modality and applies default values when certain entities are missing.
+
+    When the `ses` entity is absent, it defaults to "01". This provides ensures
+    consistent downstream file handling.
+
+    When the `run` entity is absent, a deterministic 5‑digit identifier is
+    generated from the filename using UUID. This produces a short, stable
+    hash so that the same filename always yields the same default run value.
 
     Parameters
     ----------
     bids_path : File
         The BIDS file to parse.
     full_path: bool
-        If True, extract BIDS keys from the full input path rather than
+        If True, extract entities from the full input path rather than
         only the filename. Default is False.
 
     Returns
     -------
     entities : dict[str]
-        A dictionary containing hthe parsed BIDS entities and modality.
+        A dictionary containing hthe parsed BIDS entities and the detected
+        modality. Missing entities such as `ses` and `run` are filled with
+        default values.
     """
     # Extract the filename from the path id necessary
     filename = str(bids_path) if full_path else bids_path.name
@@ -425,7 +435,7 @@ def parse_bids_keys(
     # Define default values for missing entities
     defaults = {
         "ses": "01",
-        "run": "01",
+        "run": make_run_id(filename)[1],
     }
 
     # Fill in missing entities with defaults
@@ -433,6 +443,34 @@ def parse_bids_keys(
         entities.setdefault(key, default)
 
     return entities
+
+
+def make_run_id(
+        filename: str) -> tuple[str, str]:
+    """
+    Generate a deterministic identifier and a 5‑digit short code from a
+    filename.
+
+    This function computes a UUIDv5 using the URL namespace and the provided
+    filename, converts the UUID to its integer representation, and returns both
+    the full integer-based code and its first five digits. The result is stable
+    and reproducible: the same filename always produces the same values.
+
+    Parameters
+    ----------
+    filename : str
+        The filename used as the seed for generating the identifiers.
+
+    Returns
+    -------
+    code : str
+        The full integer representation of the UUIDv5 derived from the
+        filename.
+    short_code : str
+        The first five digits of the UUID-derived code, used as a compact ID.
+    """
+    code = str(uuid.uuid5(uuid.NAMESPACE_URL, filename).int)
+    return code, code[:5]
 
 
 def sidecar_from_file(

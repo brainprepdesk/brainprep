@@ -190,6 +190,12 @@ def brainprep_sbm(
             f"Unexpected analysis type: '{analysis_type}'."
         )
 
+    interfaces.write_uuid_mapping(
+        t1_file,
+        output_dir,
+        entities,
+    )
+
     if analysis_type == "nextbrain":
         left_seg_file, right_seg_file = interfaces.nextbrain(
             t1_file,

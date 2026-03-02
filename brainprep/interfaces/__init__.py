@@ -68,6 +68,7 @@ from .utils import (
     maskdiff,
     movedir,
     ungzfile,
+    write_uuid_mapping,
 )
 
 __all__ = [

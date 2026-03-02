@@ -24,6 +24,7 @@ from ..typing import (
 )
 from ..utils import (
     coerceparams,
+    make_run_id,
     outputdir,
 )
 from ..wrappers import pywrapper
@@ -253,3 +254,58 @@ def ungzfile(
             output_file.write_bytes(gzfobj.read())
 
     return (output_file, )
+
+
+@coerceparams
+@outputdir
+@log_runtime(
+    bunched=False)
+def write_uuid_mapping(
+        input_file: File,
+        output_dir: Directory,
+        entities: dict,
+        name: str = "uuid_mapping.tsv",
+        full_path: bool = False) -> File:
+    """
+    Create a TSV file that records a deterministic  UUID-based mapping.
+
+    Each row contains:
+    - filename: relative path within the BIDS dataset.
+    - run_default: 5-digit deterministic run ID derived from the filename.
+    - uuid: full UUIDv5 for traceability.
+
+    Parameters
+    ----------
+    input_file : File
+        Path to the file to map.
+    output_dir : Directory
+        Directory where the TSV file is created.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
+    name : str
+        Name of the TSV file to write. Default is "uuid_mapping.tsv".
+    full_path: bool
+        If True, extract entities from the full input path rather than
+        only the filename. Default is False.
+
+    Returns
+    -------
+    output_file : File
+        Path to the written TSV file.
+    """
+    outut_file = output_dir / f"run-{entities['run']}" / name
+    filename = str(input_file) if full_path else input_file.name
+    code, short_code = make_run_id(filename)
+
+    if short_code == entities["run"]:
+        outut_file.parent.mkdir(parents=True, exist_ok=True)
+        df = pd.DataFrame.from_dict({
+            "filename": [filename],
+            "run": [short_code],
+            "uuid": [code],
+        })
+        df.to_csv(outut_file, sep="\t", index=False)
+    else:
+        outut_file = None
+
+    return (outut_file, )

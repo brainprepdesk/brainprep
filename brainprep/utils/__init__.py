@@ -26,6 +26,7 @@ from .utils import (
     coerce_to_path,
     coerceparams,
     find_stack_level,
+    make_run_id,
     outputdir,
     parse_bids_keys,
     sidecar_from_file,
