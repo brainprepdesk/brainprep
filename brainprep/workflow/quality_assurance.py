@@ -202,11 +202,10 @@ def brainprep_group_quality_assurance(
         output_dir,
     )
 
-    iqm_file = interfaces.filter_metrics(
-        iqm_file,
-        modalities,
-        output_dir
-        )
+    iqm_metrics = interfaces.mriqc_metrics(
+        iqm_files,
+        output_dir,
+    )
 
     return Bunch(
         iqm_files=iqm_files,

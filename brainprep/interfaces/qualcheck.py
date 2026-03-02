@@ -767,3 +767,92 @@ def fmriprep_metrics(
     )
 
     return (group_stats_file, )
+
+
+@coerceparams
+@outputdir(
+    quality_check=True)
+@log_runtime(
+    bunched=False)
+@pywrapper
+def mriqc_metrics(
+        iqm_files: list[File],
+        output_dir: Directory,
+        dryrun: bool = False) -> tuple(list[File]):
+    """
+    Filter MRIQC group-level metrics according to modality-specific defaults.
+
+    Each input file must follow the MRIQC group naming convention
+    ``group_<modality>.tsv``. The function selects a predefined subset of
+    Image Quality Metrics (IQMs) depending on the modality (T1w, bold, dwi)
+    and writes a filtered TSV file into the output directory.
+
+    Parameters
+    ----------
+    iqm_files : list[File]
+        Paths to MRIQC group-level metrics files.
+    output_dir : Directory
+        Directory where the filtered metrics will be written.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
+
+    Returns
+    -------
+    filter_iqm_files : list[File]
+        Paths to the filter group-level IQMs.
+
+    Raises
+    ------
+    ValueError
+        If modality extracted from the filename is unsupported
+        If the filename does not follow the expected pattern
+        ``group_<modality>.tsv``.
+    """
+    filter_iqm_files = [
+        output_dir / f"filter_{path.name}"
+        for path in iqm_files
+    ]
+
+    if dryrun:
+        return (iqm_files, )
+
+    selected_metrics = {
+        "T1w": [
+            "cjv", "cnr", "efc", "fber", "wm2max", "inu_med", "qi_1", "qi_2",
+            "icvs_wm", "fwhm_avg", "rpvs_wm", "snr_wm", "snrd_wm", "wm2max",
+            "bids_name",
+        ],
+        "bold": [
+            "aor", "aqi", "dummy_trs", "dvars_vstd", "efc", "fber",
+            "fd_mean", "fwhm_avg", "gcor", "gsr_x", "gsr_y", "snr", "tsnr",
+            "bids_name",
+        ],
+        "dwi": [
+            "bdiffs_max", "bdiffs_median", "efc_shell01", "efc_shell02",
+            "fber_shell01", "fber_shell02", "fd_mean", "ndc", "sigma_pca",
+            "sigma_piesno", "snr_cc_shell0", "snr_cc_shell1_best",
+            "snr_cc_shell1_worst", "spikes_global", "bids_name",
+        ]
+    }
+    for input_file, output_file in zip(
+            iqm_files, filter_iqm_files, strict=True):
+
+        if not input_file.stem.startswith("group_"):
+            raise ValueError(
+                f"Invalid filename '{input_file.name}': expected "
+                "'group_<modality>.tsv'."
+            )
+
+        df = pd.read_csv(input_file, sep="\t")
+
+        modality = input_file.stem.replace("group_", "")
+        if modality not in selected_metrics:
+            raise ValueError(
+                f"Unsupported modality '{modality}'. "
+                f"Expected one of: {', '.join(selected_metrics)}."
+            )
+
+        df = df[selected_metrics[modality]]
+        df.to_csv(output_file, sep="\t", index=False)
+
+    return (filter_iqm_files, )

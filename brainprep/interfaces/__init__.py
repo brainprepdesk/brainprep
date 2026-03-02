@@ -60,6 +60,7 @@ from .qualcheck import (
     incremental_pca,
     mask_overlap,
     mean_correlation,
+    mriqc_metrics,
     network_entropy,
     vbm_metrics,
 )
@@ -68,7 +69,6 @@ from .utils import (
     maskdiff,
     movedir,
     ungzfile,
-    filter_metrics,
     write_uuid_mapping,
 )
 
