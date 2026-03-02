@@ -103,10 +103,3 @@ Then, generate the new recipies (one per workflow type):
 .. note::
 
     Generated recipes are manually fine‑tuned afterward.
-
-  
-Creation
---------
-
-The **build/build_cli.py build** configuration script generates a tree
-structure and aggregates the creation/test instructions in a **commands** file.

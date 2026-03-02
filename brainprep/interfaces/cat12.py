@@ -27,6 +27,7 @@ from ..typing import (
     File,
 )
 from ..utils import (
+    coerce_to_path,
     coerceparams,
     outputdir,
     parse_bids_keys,
@@ -153,17 +154,27 @@ def write_catbatch(
             output_dir /
             "cat12vbm_matlabbatch.m"
         )
+        template_batch = (
+            Path(__file__).parent.parent /
+            "resources" /
+            "cat12vbm_matlabbatch_longitudinal.m"
+        )
     else:
+        unique_id = "_".join([
+            f"{key}-{value}"
+            for key, value in entities[0].items()
+            if key not in ["sub", "ses", "mod", "modality"]
+        ])
         batch_file = (
             output_dir /
             f"ses-{entities[0]['ses']}" /
+            f"cat12vbm_matlabbatch_{unique_id}.m"
+        )
+        template_batch = (
+            Path(__file__).parent.parent /
+            "resources" /
             "cat12vbm_matlabbatch.m"
         )
-    template_batch = (
-        Path(__file__).parent.parent /
-        "resources" /
-        "cat12vbm_matlabbatch.m"
-    )
     output_dirs = [
         output_dir / f"ses-{info['ses']}"
         for info in entities
@@ -197,7 +208,8 @@ def write_catbatch(
 
 
 @coerceparams
-@outputdir
+@outputdir(
+    morphometry=True)
 @log_runtime(
     bunched=False)
 @pywrapper
@@ -205,7 +217,15 @@ def cat12vbm_morphometry(
         output_dir: Directory,
         dryrun: bool = False) -> list[File]:
     """
-    Parse the CAT12 VBM XML ROI stats for all subjects.
+    Extract ROI-based morphometry features and global tissue volumes from
+    CAT12 VBM outputs.
+
+    This function parses CAT12 `.mat` ROI statistics and `.xml` report files
+    for all subjects in a BIDS-organized dataset. It generates one TSV file
+    per atlas containing ROI-level gray matter (GM), white matter (WM), and
+    cerebrospinal fluid (CSF) volumes. It also generates a TSV file
+    containing total intracranial volume (TIV) and absolute tissue volumes
+    (GM, WM, CSF).
 
     Parameters
     ----------
@@ -219,140 +239,133 @@ def cat12vbm_morphometry(
     morphometry_files : list[File]
         TSV files containing ROI-based GM, WM and CSF features for different
         atlases.
+        A list containing the paths to all generated TSV files. One TSV is
+        produced per atlas for ROI-based morphometry, plus one TSV
+        summarizing global tissue volumes.
+
+    Raises
+    ------
+    ValueError
+        If the XML structure does not contain the expected CAT12 fields, or
+        if parsing fails for any subject.
     """
-    iterparse = {
-        "neuromorphometrics": ["Vgm", "Vcsf", "Vwm"],
+    atlases = {
+        "Schaefer2018_100Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_200Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_400Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "Schaefer2018_600Parcels_17Networks_order": ["Vgm", "Vwm"],
+        "aal3": ["Vgm"],
+        "cobra": ["Vgm", "Vwm"],
+        "hammers": ["Vgm", "Vwm", "Vcsf"],
+        "ibsr": ["Vgm", "Vwm", "Vcsf"],
+        "julichbrain": ["Vgm", "Vwm"],
+        "lpba40": ["Vgm", "Vwm"],
+        "mori": ["Vgm", "Vwm"],
+        "neuromorphometrics": ["Vgm", "Vwm", "Vcsf"],
         "suit": ["Vgm", "Vwm"],
         "thalamic_nuclei": ["Vgm"],
         "thalamus": ["Vgm"],
     }
     morphometry_files = [
-        output_dir / f"{key}_cat12_vbm_roi.tsv"
-        for key in iterparse
+        output_dir / f"{atlas}_cat12_vbm_roi.tsv"
+        for atlas in atlases
     ]
 
-    if not dryrun:
+    if dryrun:
+        return (morphometry_files, )
 
-        mat_files = glob.glob(
-            output_dir.prent / "subjects" / "sub-*" / "ses-*" / "label" /
+    mat_files = coerce_to_path(
+        glob.glob(str(
+            output_dir.parent /
+            "subjects" /
+            "sub-*" /
+            "ses-*" /
+            "label" /
             "catROI_*T1w.mat"
-        )
-        entities = [
-            parse_bids_keys(path)
-            for path in mat_files
-        ]
-
-        for name, output_file in zip(
-                iterparse, morphometry_files, strict=True):
-            data = []
-            for info, path in zip(entities, mat_files, strict=True):
-                data_ = loadmat(path, simplify_cells=True)
-                ids = data_["S"][name]["ids"]
-                names = data_["S"][name]["names"]
-                features = []
-                for dtype in iterparse[name]:
-                    values = data_["S"][name]["data"][dtype]
-                    df = pd.DataFrame({
-                        "ID": [int(val) for val in ids],
-                        "Name": names,
-                        dtype: [float(val) for val in values]
-                    }).T
-                    df.columns = [f"{dtype}_{col}" for col in df.loc["Name"]]
-                    df = df[2:]
-                    features.append(df)
-                df = pd.concat(features, axis=1)
-                df.insert(0, "participant_id", info["sub"])
-                df.insert(1, "session", info["ses"])
-                df.insert(2, "run", info["run"])
-                data.append(df)
-            df = pd.concat(data)
-            df.sort_values(by=["participant_id"], inplace=True)
-            df.to_csv(
-                output_file,
-                index=False,
-                sep="\t",
-            )
-
-    return (morphometry_files, )
-
-
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
-def cat12vbm_stats(
-        output_dir: Directory,
-        ncr_threshold: float = 4.5,
-        iqr_threshold: float = 4.5,
-        dryrun: bool = False) -> tuple[File]:
-    """
-    Parse the CAT12 VBM report stats for all subjects and applies a
-    quality control.
-
-    The following quuality metrics are considered:
-
-    - Image Correlation Ratio (ICR) - Measures how well the subject's image
-      aligns with a reference template. High ICR suggests good
-      registration quality.
-    - Noise to Contrast Ratio (NCR) - Assesses image clarity by comparing
-      noise levels to tissue contrast. Lower NCR may indicate poor image
-      quality.
-    - Image Quality Rating (IQR) - A composite score summarizing overall
-      scan quality. Combines multiple metrics like noise, resolution,
-      and bias field. Higher IQR = better quality.
-
-    Parameters
-    ----------
-    output_dir : Directory
-        Working directory containing the outputs.
-    ncr_threshold : float
-         Quality control threshold on the NCR scores. Default 4.5.
-    iqr_threshold : float
-         Quality control threshold on the IQR scores. Default 4.5.
-    dryrun : bool
-        If True, skip actual computation and file writing. Default False.
-
-    Returns
-    -------
-    group_stats_file : File
-        A TSV file containing quality metrics.
-    """
-    group_stats_file = output_dir / "group_stats.tsv"
-
-    if not dryrun:
-
-        report_files = glob.glob(
-            output_dir.parent / "subjects" / "sub-*" / "ses-*" / "report" /
-            "cat_*T1w.xml"
-        )
-        entities = [
-            parse_bids_keys(path)
-            for path in report_files
-        ]
-
-        stats = []
-        for info, path in zip(entities, report_files, strict=True):
-            df = pd.read_xml(
-                path,
-                iterparse={"qualityratings": ["ICR", "NCR", "IQR"]},
-            )
+        )),
+        expected_type=list[File]
+    )
+    entities = [
+        parse_bids_keys(path)
+        for path in mat_files
+    ]
+    for atlas, output_file in zip(atlases, morphometry_files, strict=True):
+        atlas_tissues = atlases[atlas]
+        data = []
+        for info, path in zip(entities, mat_files, strict=True):
+            data_ = loadmat(path, simplify_cells=True)
+            ids = data_["S"][atlas]["ids"]
+            names = data_["S"][atlas]["names"]
+            features = []
+            for tissue in atlas_tissues:
+                values = data_["S"][atlas]["data"][tissue]
+                df = pd.DataFrame({
+                    "ID": [int(val) for val in ids],
+                    "Name": names,
+                    tissue: [float(val) for val in values]
+                }).T
+                df.columns = [
+                    f"{tissue}_{col}" for col in df.loc["Name"]
+                ]
+                df = df[2:]
+                df = df.reset_index(drop=True)
+                features.append(df)
+            df = pd.concat(features, axis=1)
             df.insert(0, "participant_id", info["sub"])
             df.insert(1, "session", info["ses"])
             df.insert(2, "run", info["run"])
-            stats.append(df)
-        df = pd.concat(stats)
-        df.sort_values(by=["participant_id"], inplace=True)
-
-        df["qc"] = (
-            (df["NCR"] < ncr_threshold) &
-            (df["IQR"] < iqr_threshold)
-        ).astype(int)
-
+            data.append(df)
+        df = pd.concat(data)
+        df.sort_values(by=["participant_id", "session", "run"], inplace=True)
         df.to_csv(
-            group_stats_file,
+            output_file,
             index=False,
             sep="\t",
         )
 
-    return (group_stats_file, )
+    xml_files = coerce_to_path(
+            glob.glob(str(
+                output_dir.parent /
+                "subjects" /
+                "sub-*" /
+                "ses-*" /
+                "report" /
+                "cat_*T1w.xml"
+            )),
+            expected_type=list[File]
+    )
+    entities = [
+        parse_bids_keys(path)
+        for path in xml_files
+    ]
+    df = pd.DataFrame(
+        columns=[
+            "participant_id", "session", "run",
+            "TIV", "CSF_Vol", "GM_Vol", "WM_Vol",
+        ]
+    )
+    for info, xml_file in zip(entities, xml_files, strict=True):
+        cat = pd.read_xml(xml_file)
+        try:
+            tiv = float(cat["vol_TIV"][7])
+            csf_vol, gm_vol, wm_vol = map(
+                float, cat["vol_abs_CGW"][7][1:-1].split()
+            )
+        except Exception as exc:
+            raise ValueError(
+                f"Impossible to retrieve TIV: {xml_file}"
+            ) from exc
+        df.loc[len(df)] = [
+            info["sub"], info["ses"], info["run"],
+            tiv, csf_vol, gm_vol, wm_vol,
+        ]
+    df.sort_values(["participant_id", "session", "run"], inplace=True)
+    volume_file = output_dir / "cat12_vbm_total_volumes.tsv"
+    df.to_csv(
+        volume_file,
+        sep="\t",
+        index=False
+    )
+    morphometry_files.append(volume_file)
+
+    return (morphometry_files, )

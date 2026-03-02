@@ -1,7 +1,7 @@
 .. _vbm:
 
-Voxel Based Morphometry
-=======================
+Voxel Based Morphometry Workflow
+================================
 
 .. image:: ../images/preproc-vbm.png
    :width: 50%
@@ -10,14 +10,14 @@ Voxel Based Morphometry
 Introduction
 ------------
 
-Voxel‑Based Morphometry (VBM) is a widely used neuroimaging technique for
+Voxel-Based Morphometry (VBM) is a widely used neuroimaging technique for
 assessing structural differences in brain anatomy across individuals or
 groups. It provides an automated, whole‑brain approach to quantifying
 regional gray matter (GM), white matter (WM), and cerebrospinal fluid (CSF)
-volumes from high‑resolution T1‑weighted MRI scans. Unlike manual or
+volumes from T1-weighted MRI scans. Unlike manual or
 region‑of‑interest methods, VBM does not require predefined anatomical
 boundaries, making it particularly well suited for exploratory analyses and
-large‑scale studies.
+large-scale studies.
 
 Requirements
 ------------
@@ -33,7 +33,7 @@ Description
 
 **Processing Steps**
 
-- **Preprocessing**
+- **Initial Image Preparation**
   CAT12 :footcite:p:`gaser2024cat12vbm` applies several preparatory steps to
   improve image quality and prepare the data for segmentation: bias-field
   correction, affine registration to MNI space, and noise and intensity
@@ -68,11 +68,12 @@ Description
   COBRA, Schaefer 100/200/400/600 parcels, Mori white‑matter atlas,
   Anatomy toolbox. For each atlas, CAT12 computes regional volumes.
 
-- **Longitudinal Processing Steps**
+**Longitudinal Processing Steps**
 
 - **Intra‑subject realignment**
   All time points for a participant are rigidly aligned to each other to
-  remove differences caused by head position rather than true anatomical change.
+  remove differences caused by head position rather than true anatomical
+  change.
 
 - **Creation of an unbiased within‑subject template**
   CAT12 builds a subject‑specific anatomical template by averaging all time
@@ -103,15 +104,14 @@ Description
 
 **Quality Control**:
 
-- **Correlation-based sorting**  
-   For each image, we compute its correlation with the mean of all other
-   images in the dataset. Images are then sorted in ascending order of this
-   correlation score, allowing potential outliers to be easily identified.
+- **Correlation score**  
+  For each image, we compute its correlation with the DARTEL template. Images
+  are then sorted in ascending order of this score, allowing potential
+  outliers to be easily identified.
 
 - **Manual inspection**  
-   Following the correlation-based ranking, images at the lower end of the
-   distribution are manually reviewed in-house. A preliminary threshold is
-   applied to remove the most obvious outliers.
+  Following the correlation-based ranking, ``T1w`` images at the
+  lower end of the distribution are manually reviewed in-house.
 
 - **Thresholding**  
   Both Noise Contrast Ratio (NCR) and Image Quality Rating (IQR) are
@@ -121,27 +121,27 @@ Description
 Outputs
 -------
 
-The ``vbm`` directory contains the processed T1-weighted (T1w)
-MRI data, along with logs, quality-control outputs, subject-level,
-longitudinal and group level results.
-The structure is organized to ensure transparency, reproducibility, and easy
-navigation across subjects and sessions.
+The ``vbm`` directory contains subject-level results, longitudinal results,
+group-level results, logs, and quality-control outputs.
+The structure is organized following the :ref:`brainprep ontology <ontology>`.
 
 .. code-block:: text
 
-    vbm
+    vbm/
     ├── dataset_description.json
     ├── logs
     │   └── report_<timestamp>.rst
+    ...
 
 
 **Description of contents**:
 
 - ``dataset_description.json``  
-  Metadata describing the defacing dataset, including versioning and
-  processing information.
-- ``logs/report_<timestamp>.rst``  
+  Metadata describing the process, including versioning and processing
+  information.
+- ``log/report_<timestamp>.rst``  
   Contains group-level workflow steps and parameters.
+- ...
 
 Featured examples
 -----------------
@@ -149,7 +149,7 @@ Featured examples
 .. grid::
 
   .. grid-item-card::
-    :link: ../auto_examples/plot_vbm.html
+    :link: ../auto_examples/workflows/plot_vbm.html
     :link-type: url
     :columns: 12 12 12 12
     :class-card: sd-shadow-sm
@@ -163,7 +163,7 @@ Featured examples
       .. grid-item::
         :columns: 12 4 4 4
 
-        .. image:: ../auto_examples/images/thumb/sphx_glr_plot_vbm_thumb.png
+        .. image:: ../auto_examples/workflows/images/thumb/sphx_glr_plot_vbm_thumb.png
 
       .. grid-item::
         :columns: 12 8 8 8
@@ -172,7 +172,7 @@ Featured examples
 
           VBM
 
-        Explore how to perform this analysis with a container.
+        Explore how to perform this analysis.
 
 References
 ----------

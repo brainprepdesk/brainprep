@@ -693,7 +693,7 @@ def print_color(category: str, text: str) -> None:
     """
     opts = brainprep_options.get()
     verbose = opts.get("verbose", DEFAULT_OPTIONS["verbose"])
-    with_color = opts.get("with_color", DEFAULT_OPTIONS["with_color"])
+    with_color = not opts.get("no_color", DEFAULT_OPTIONS["no_color"])
     if category != "deprecated" and not verbose:
         return
 

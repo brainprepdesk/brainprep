@@ -8,7 +8,7 @@
 
 
 """
-Diffusion MRI pre-processing.
+Voxel-based morphometry (VBM) workflow.
 """
 
 import brainprep.interfaces as interfaces
@@ -40,14 +40,14 @@ from ..utils import (
     add_subjects=True,
     container="neurospin/brainprep-vbm")
 @log_runtime(
-    title="Subject Level VBM Pre-Processing")
+    title="Subject Level VBM")
 @save_runtime
 def brainprep_vbm(
         t1_file: File,
         output_dir: Directory,
         keep_intermediate: bool = False) -> Bunch:
     """
-    Voxel based morphometry (VBM) pre-processing.
+    Voxel-based morphometry (VBM) pre-processing.
 
     Applies the VBM pre-processing described in
     :footcite:p:`dufumier2022openbhb`.
@@ -115,7 +115,7 @@ def brainprep_vbm(
     longitudinal=True,
     container="neurospin/brainprep-vbm")
 @log_runtime(
-    title="Longitudinal VBM Pre-Processing")
+    title="Longitudinal VBM")
 @save_runtime(
     parent=True)
 def brainprep_longitudinal_vbm(
@@ -175,6 +175,7 @@ def brainprep_longitudinal_vbm(
         t1_files,
         output_dir.parent,
         entities,
+        model_long=model,
     )
     gm_files, qc_files = interfaces.cat12vbm_wf(
         t1_files,
@@ -195,7 +196,7 @@ def brainprep_longitudinal_vbm(
     process="vbm",
     container="neurospin/brainprep-vbm")
 @log_runtime(
-    title="Group Level VBM Pre-Processing")
+    title="Group Level VBM")
 @save_runtime
 def brainprep_group_vbm(
         output_dir: Directory,
@@ -205,18 +206,20 @@ def brainprep_group_vbm(
         longitudinal: bool = False,
         keep_intermediate: bool = False) -> Bunch:
     """
-    Group-level voxel based morphometry (VBM) pre-processing.
+    Group-level VBM pre-processing.
 
     Summarizes the generated ROI-based features and applies the quality
     control described in :footcite:p:`dufumier2022openbhb`. This includes:
 
-    1) Generate TSV tables of CAT12 VBM GM, WM and CSF features for different
+    1) Generate TSV tables of VBM GM, WM and CSF features for different
        atlases.
-    2) Apply quality checks on the quality metrics described below.
-    3) Generate a histogram showing the distribution of the selected
-       quality metrics.
+    2) Generate a TSV file containing the mean correlation of each image to
+       the template.
+    3) Generate a TSV file containing the quality metrics described below.
+    4) Apply threshold-based quality checks on the selected quality metrics.
+    5) Generate a histogram showing the distribution of these quality metrics.
 
-    The following quuality metrics are considered:
+    The following quality metrics are considered:
 
     - Image Correlation Ratio (ICR) - Measures how well the subject's image
       aligns with a reference template. High ICR suggests good
@@ -250,17 +253,51 @@ def brainprep_group_vbm(
         A dictionary-like object containing:
 
         - morphometry_files : list[File] - a TSV file containing ROI-based
-          GM, WM and CSF features for different atlases.
+          GM, WM and CSF features for different atlases, as well as a TSV file
+          containing total intracranial volume (TIV) and absolute tissue
+          volumes (GM, WM, CSF).
         - correlations_file : File - a TSV file containing mean correlation
-          of each input image to the atlas image.
-        - group_stats_file : File - a TSV file containing quality metrics.
+          of each input image to the atlas image quality check (QC) data.
+        - group_stats_file : File - a TSV file containing quality check (QC)
+          metrics.
         - histogram_files : list[File] - PNG files containing histograms of
           selected important information.
 
     Notes
     -----
-    - This workflow can either be used on cross-sectional or longitudinal
-      data.
+    This workflow assumes the subject-level or longitudinal analyses have
+    already been performed.
+
+    A ``qc`` column is added to the TSV QC output table. It contains a
+    binary flag indicating whether the produced results should be kept:
+    ``qc = 1`` if the result passes the thresholds, otherwise ``qc = 0``.
+
+    The associated PNG histograms help verify that the chosen thresholds
+    are neither too restrictive nor too permissive.
+
+    Examples
+    --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
+    >>> from brainprep.workflow import brainprep_group_vbm
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_group_vbm(
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     ) # doctest: +SKIP
+    >>> outputs # doctest: +SKIP
+    Bunch(
+        morphometry_files=[PosixPath('...'),...,PosixPath('...')]
+        correlations_file=PosixPath('...')
+        group_stats_file=PosixPath('...')
+        histogram_files=[PosixPath('...'),...,PosixPath('...')]
+    )
+
+    References
+    ----------
+
+    .. footbibliography::
     """
     if longitudinal:
         output_dir /= "longitudinal"
@@ -270,17 +307,17 @@ def brainprep_group_vbm(
     )
 
     morphometry_files = interfaces.cat12vbm_morphometry(
-        output_dir / "morphometry",
+        output_dir,
     )
 
     correlations_file = interfaces.mean_correlation(
         output_dir / "subjects" / "sub-*" / "ses-*" / "mri" / "wm*_T1w.nii",
         darteltpm_file,
-        output_dir / "qc",
+        output_dir,
         correlation_threshold,
     )
-    group_stats_file = interfaces.cat12vbm_stats(
-        output_dir / "qc",
+    group_stats_file = interfaces.vbm_metrics(
+        output_dir,
         ncr_threshold,
         iqr_threshold,
     )
@@ -288,19 +325,19 @@ def brainprep_group_vbm(
         interfaces.plot_histogram(
             correlations_file,
             "mean_correlation",
-            output_dir / "qc",
+            output_dir,
             bar_coords=[correlation_threshold],
         ),
         interfaces.plot_histogram(
             group_stats_file,
             "NCR",
-            output_dir / "qc",
+            output_dir,
             bar_coords=[ncr_threshold],
         ),
         interfaces.plot_histogram(
             group_stats_file,
             "IQR",
-            output_dir / "qc",
+            output_dir,
             bar_coords=[iqr_threshold],
         ),
     ]

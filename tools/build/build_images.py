@@ -19,15 +19,15 @@ from brainprep import __version__ as version
 
 
 def main(
-        working_dir
-    ):
+        working_dir: str | Path,
+    ) -> None:
     """
     Parse available Docker files and generate associated build (creation and
     test) instructions.
 
     Parameters
     ----------
-    working_dir : str or Path
+    working_dir : str | Path
         Directory where the instructions will be generated.
     """
     banner = r"""
@@ -39,7 +39,7 @@ def main(
 
     working_dir = Path(working_dir).resolve()
     cw_dir = Path(__file__).parent.resolve()
-    image_dir = cw_dir.parent.resolve()
+    image_dir = cw_dir.parent.parent / "containers"
 
     print(
         "⚠️  WARNING: Don't use Docker default storage directory "
@@ -81,8 +81,8 @@ def main(
         dest_dir = working_dir / f"v{version}" / name
         tmp_dir = dest_dir / "tmp"
         cache_dir = dest_dir / "cache"
-        for _dir in (dest_dir, tmp_dir, cache_dir):
-            _dir.mkdir(parents=True, exist_ok=True)
+        for dir_ in (dest_dir, tmp_dir, cache_dir):
+            dir_.mkdir(parents=True, exist_ok=True)
 
         # Copy Dockerfile
         shutil.copy(recipe_file, dest_dir / "Dockerfile")
@@ -94,24 +94,23 @@ def main(
                 shutil.copy(src, dest_dir / src.name)
 
         # Build command script
-        cmds = []
-        cmds.extend([
+        cmds = [
             f"cd {dest_dir}",
             f"sudo docker build --no-cache --tag brainprep-{name}:{version} .",
-        ])
-        cmds.extend([
             "sudo docker images",
-            f"sudo docker save -o brainprep-{name}-v{version}.tar "
-            f"brainprep-{name}:{version}",
-            f"sudo chmod 755 brainprep-{name}-v{version}.tar"
-        ])
-        cmds.append(
-            f"sudo SINGULARITY_TMPDIR={tmp_dir} "
-            f"SINGULARITY_CACHEDIR={cache_dir} "
-            f"singularity build brainprep-{name}-v{version}.sif "
-            f"docker-archive://brainprep-{name}-v{version}.tar"
-        )
-        cmds.append(f"singularity inspect brainprep-{name}-v{version}.sif")
+            (
+                f"sudo docker save -o brainprep-{name}-v{version}.tar "
+                f"brainprep-{name}:{version}"
+            ),
+            f"sudo chmod 755 brainprep-{name}-v{version}.tar",
+            (
+                f"sudo SINGULARITY_TMPDIR={tmp_dir} "
+                f"SINGULARITY_CACHEDIR={cache_dir} "
+                f"singularity build brainprep-{name}-v{version}.sif "
+                f"docker-archive://brainprep-{name}-v{version}.tar"
+            ),
+            f"singularity inspect brainprep-{name}-v{version}.sif",
+        ]
 
         # Write commands file
         cmds_file = dest_dir / "commands"

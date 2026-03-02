@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Quasi-RAW pre-processing.
+Quasi-RAW workflow.
 """
 
 import shutil
@@ -236,11 +236,13 @@ def brainprep_group_quasiraw(
     Applies the quality control described in :footcite:p:`dufumier2022openbhb`.
     This includes:
 
-    1) Generate a TSV table containing the mean correlation of each image to
+    1) Generate a TSV file containing the mean correlation of each image to
        the template.
-    2) Apply quality checks on the quality metrics described below.
-    3) Generate a histogram showing the distribution of the selected
-       quality metrics.
+    2) Apply threshold-based quality checks on the selected quality metrics.
+    3) Generate a histogram showing the distribution of these quality metrics.
+    4) Computing a PCA embedding of the images.
+    5) Generating a scatter plot of the first two PCA components with BIDS
+       annotations for visual inspection.
 
     Parameters
     ----------
@@ -258,15 +260,46 @@ def brainprep_group_quasiraw(
         A dictionary-like object containing:
 
         - correlations_file : File - a TSV file containing mean correlation
-          of each input image to the atlas image.
+          of each input image to the atlas image quality check (QC) data.
         - correlation_histogram_file : File - PNG file containing the
           histogram of the computed mean correlations.
         - pca_file : File - a TSV file containing PCA two first components as
           two columns named ``pc1`` and ``pc2``, as well as BIDS
           ``participant_id``, ``session``, and ``run``.
-        - pca_image_file : File - PNNG file containing the two first PCA
+        - pca_image_file : File - PNG file containing the two first PCA
           components with ``participant_id``, ``session``, and ``run``
           annotations.
+
+    Notes
+    -----
+    This workflow assumes the subject-level analyses have already been
+    performed.
+
+    A ``qc`` column is added to the TSV QC output table. It contains a
+    binary flag indicating whether the produced results should be kept:
+    ``qc = 1`` if the result passes the thresholds, otherwise ``qc = 0``.
+
+    The associated PNG histograms help verify that the chosen thresholds
+    are neither too restrictive nor too permissive.
+
+    Examples
+    --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
+    >>> from brainprep.workflow import brainprep_group_quasiraw
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_group_quasiraw(
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     )
+    >>> outputs
+    Bunch(
+        correlations_file: PosixPath('...')
+        correlation_histogram_file: PosixPath('...')
+        pca_file: PosixPath('...')
+        pca_image_file: PosixPath('...')
+    )
     """
     resource_dir = Path(interfaces.__file__).parent.parent / "resources"
     template_file = resource_dir / "MNI152_T1_1mm_brain.nii.gz"
@@ -275,7 +308,7 @@ def brainprep_group_quasiraw(
     correlations_file = interfaces.mean_correlation(
         output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
         template_file,
-        output_dir / "qc",
+        output_dir,
         correlation_threshold,
     )
     correlation_histogram_file = interfaces.plot_histogram(
@@ -287,7 +320,7 @@ def brainprep_group_quasiraw(
 
     pca_file = interfaces.incremental_pca(
         output_dir / "subjects" / "sub-*" / "ses-*" / "*_T1w.nii.gz",
-        output_dir / "qc",
+        output_dir,
         batch_size=50,
     )
     pca_image_file = interfaces.plot_pca(

@@ -162,10 +162,10 @@ RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainpr
 COPY entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh
 ENTRYPOINT ["/opt/entrypoint.sh"]
-ENV DEFAULT_ARGS="subject-level-brainparc group-level-brainparc longitudinal-brainparc"
+ENV DEFAULT_ARGS="subject-level-sbm group-level-sbm longitudinal-sbm"
 
-LABEL org.opencontainers.image.title="BrainPrep brain parcellation MRI preprocessings" \
-      org.opencontainers.image.description="Container for BrainPrep brainparc using FREESURFER" \
+LABEL org.opencontainers.image.title="BrainPrep SBM" \
+      org.opencontainers.image.description="Container for BrainPrep SBM using FreeSurfer" \
       org.opencontainers.image.version="v2" \
       org.opencontainers.image.licenses="CeCILL-B" \
       org.opencontainers.image.authors="CEA/NeuroSpin/GAIA" \

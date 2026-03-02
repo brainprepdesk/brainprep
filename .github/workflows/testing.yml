@@ -7,7 +7,7 @@
 #   $ nosetests --with-coverage --cover-package=brainprep --verbosity=2
 #     --with-doctest --doctest-options='+ELLIPSIS,+NORMALIZE_WHITESPACE'
 ###
-name: "TESTING"
+name: "testing[nosetests]"
 
 on:
   push:
@@ -29,6 +29,8 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version: [3.12]
+    env:
+      FREESURFER_HOME: "/freesurfer/home"
 
     steps:
     - name: Checkout repository

@@ -19,7 +19,8 @@ Core Principles
 BrainPrep is built to be understandable. Every step in the preprocessing
 workflow is explicitly defined, documented, and inspectable. Users can trace
 how data is transformed, which parameters are applied, and which tools are
-invoked—without needing to dig through opaque scripts or hidden configurations.
+invoked without needing to dig through opaque scripts or hidden
+configurations.
 
 **Traceability**
 
@@ -35,10 +36,10 @@ intuitive, its wrappers are consistent, and its workflows are modular.
 Whether you're a novice or an expert, BrainPrep aims to reduce the cognitive
 load of preprocessing so you can focus on your science.
 
-**Portability with Docker**
+**Portability**
 
 To ensure consistent execution across different systems, BrainPrep is
-distributed and executed using **Docker**. This containerized approach
+distributed and executed using Docker or Apptainer. This containerized approach
 guarantees that all dependencies, tools, and configurations are bundled
 together, eliminating environment-specific issues and simplifying deployment.
 
@@ -65,7 +66,7 @@ which wrap either:
 - **Python functions**: These wrappers return only a tuple of generated output
   paths, encapsulating logic written directly in Python.
 
-This architecture promotes modularity, reusability, and clarity—making it
+This architecture promotes modularity, reusability, and clarity, making it
 easy to build, inspect, and extend workflows.
 """
 

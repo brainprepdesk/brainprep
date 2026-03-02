@@ -1,28 +1,27 @@
 """
-Defacing
-========
+fMRI Pre-Processings
+====================
 
 Simple example.
 
-Example on how to run the defacing pre-processing using BrainPrep.
-See :ref:`user guide <defacing>` for details.
+Example on how to run the fMRI pre-processing using BrainPrep.
+See :ref:`user guide <fmriprep>` for details.
 
 Data
 ----
 
-Let's first get some anatomical data.
+Let's first get some anatomical/functional data.
 """
 
 from pathlib import Path
-from brainprep.datasets import OpenMSDataset
+from brainprep.datasets import IBCDataset
 
 datadir = Path("/tmp/brainprep-data")
 datadir.mkdir(parents=True, exist_ok=True)
-dataset = OpenMSDataset(datadir)
+dataset = IBCDataset(datadir)
 data = dataset.fetch(
     subject="01",
-    modality="T1w",
-    dtype="cross_sectional",
+    modality="func",
 )
 print(data)
 
@@ -31,26 +30,30 @@ print(data)
 # Analysis
 # --------
 # 
-# Let's now perform preprocessing using the BrainPrep.
+# Let's now perform the preprocessing using BrainPrep.
 # As with many tutorials, we won't execute the code directly here.
 # However, feel free to set the 'dryrun' configuration to False
 # to actually run each step and generate results on disk.
 
 
-from brainprep.workflow import brainprep_defacing
+from brainprep.workflow import (
+    brainprep_fmriprep,
+)
 from brainprep.config import Config
 from brainprep.reporting import RSTReport
 
-outdir = Path("/tmp/brainprep-defacing")
+outdir = Path("/tmp/brainprep-fmriprep")
 outdir.mkdir(parents=True, exist_ok=True)
-report = RSTReport()
 with Config(dryrun=True, verbose=True):
-    brainprep_defacing(
+    report = RSTReport()
+    brainprep_fmriprep(
         t1_file=data.anat,
+        func_files=[data.func],
+        freesurfer_dir="/my/freesurfer/directory",
         output_dir=outdir,
         keep_intermediate=True,
     )
-print(report)
+    print(report)
 
 
 # %%
@@ -67,8 +70,10 @@ commands = []
 commands.append(
     [
         [
-            "brainprep", "subject-level-defacing",
-            "--t1_file", str(data.anat),
+            "brainprep", "subject-level-fmriprep",
+            "--t1-file", str(data.anat),
+            "--func-files", f"{data.func}",
+            "--freesurfer-dir", "../freesurfer",
             "--output-dir", str(outdir),
             "--keep-intermediate",
         ]
@@ -90,4 +95,3 @@ pprint(commands)
 # instructions, you can simply copy and run them inside the container to
 # achieve the intended results. You can find the BrainPrep images on Docker
 # Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
-

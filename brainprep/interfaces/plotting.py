@@ -11,13 +11,21 @@ Plotting functions.
 """
 
 import itertools
+import warnings
 
 import matplotlib.pyplot as plt
 import nibabel
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from nilearn import plotting
+
+with warnings.catch_warnings():
+    warnings.filterwarnings(
+        "ignore",
+        message=".*'agg' matplotlib backend.*",
+        category=UserWarning
+    )
+    from nilearn import plotting
 
 from ..reporting import log_runtime
 from ..typing import (
@@ -29,6 +37,60 @@ from ..utils import (
     outputdir,
 )
 from ..wrappers import pywrapper
+
+
+@coerceparams
+@outputdir(
+    plotting=True)
+@log_runtime(
+    bunched=False)
+@pywrapper
+def plot_network(
+        network_file: File,
+        output_dir: Directory,
+        entities: dict,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Plot the given network using nilearn.
+
+    The generated image will have the same name as the input network file.
+
+    Parameters
+    ----------
+    network_file : File
+        Path to a TSV file containing a square connectivity matrix.
+        The first column and the first row are interpreted as labels and are
+        used to annotate the plotted matrix.
+    output_dir : Directory
+        Directory where the image will be saved.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
+
+    Returns
+    -------
+    network_image_file : File
+        Path to the saved network image.
+    """
+    basename = network_file.stem
+    network_image_file = output_dir / f"{basename}.png"
+
+    if dryrun:
+        return (network_image_file, )
+
+    df = pd.read_csv(network_file, sep="\t", index_col=0)
+    labels = df.index.tolist()
+
+    display = plotting.plot_matrix(
+        df.values,
+        figure=(10, 8),
+        labels=labels,
+        reorder=True,
+    )
+    display.figure.savefig(network_image_file)
+
+    return (network_image_file, )
 
 
 @coerceparams
@@ -69,25 +131,27 @@ def plot_defacing_mosaic(
         **entities)
     mosaic_file = output_dir / f"{basename}mosaic.png"
 
-    if not dryrun:
-        plotting.plot_roi(
-            mask_file,
-            bg_img=im_file,
-            display_mode="z",
-            cut_coords=25,
-            black_bg=True,
-            alpha=0.6,
-            colorbar=False,
-            output_file=mosaic_file
-        )
-        arr = plt.imread(mosaic_file)
-        cut = int(arr.shape[1] / 5)
-        plt.figure()
-        arr = np.concatenate(
-            [arr[:, idx * cut: (idx + 1) * cut] for idx in range(5)], axis=0)
-        plt.imshow(arr)
-        plt.axis("off")
-        plt.savefig(mosaic_file)
+    if dryrun:
+        return (mosaic_file, )
+
+    plotting.plot_roi(
+        mask_file,
+        bg_img=im_file,
+        display_mode="z",
+        cut_coords=25,
+        black_bg=True,
+        alpha=0.6,
+        colorbar=False,
+        output_file=mosaic_file
+    )
+    arr = plt.imread(mosaic_file)
+    cut = int(arr.shape[1] / 5)
+    plt.figure()
+    arr = np.concatenate(
+        [arr[:, idx * cut: (idx + 1) * cut] for idx in range(5)], axis=0)
+    plt.imshow(arr)
+    plt.axis("off")
+    plt.savefig(mosaic_file)
 
     return (mosaic_file, )
 
@@ -127,33 +191,34 @@ def plot_histogram(
     """
     histogram_file = output_dir / f"histogram_{col_name}.png"
 
-    if not dryrun:
+    if dryrun:
+        return (histogram_file, )
 
-        data = pd.read_csv(
-            table_file,
-            sep="\t",
-        )
-        arr = data[col_name].astype(float)
-        arr = arr[~np.isnan(arr)]
-        arr = arr[~np.isinf(arr)]
+    data = pd.read_csv(
+        table_file,
+        sep="\t",
+    )
+    arr = data[col_name].astype(float)
+    arr = arr[~np.isnan(arr)]
+    arr = arr[~np.isinf(arr)]
 
-        _, ax = plt.subplots()
-        sns.histplot(
-            arr,
-            color="gray",
-            alpha=0.6,
-            ax=ax,
-            kde=True,
-            stat="density",
-            label=col_name,
-        )
-        for x_coord in bar_coords or []:
-            ax.axvline(x=x_coord, color="red")
-        ax.spines["right"].set_visible(False)
-        ax.spines["top"].set_visible(False)
-        ax.legend()
+    _, ax = plt.subplots()
+    sns.histplot(
+        arr,
+        color="gray",
+        alpha=0.6,
+        ax=ax,
+        kde=True,
+        stat="density",
+        label=col_name,
+    )
+    for x_coord in bar_coords or []:
+        ax.axvline(x=x_coord, color="red")
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    ax.legend()
 
-        plt.savefig(histogram_file)
+    plt.savefig(histogram_file)
 
     return (histogram_file, )
 
@@ -200,47 +265,48 @@ def plot_brainparc(
         **entities)
     brainparc_image_file = output_dir / f"{basename}.png"
 
-    if not dryrun:
+    if dryrun:
+        return (brainparc_image_file, )
 
-        subject = f"run-{entities['run']}"
-        anat_file = output_dir.parent / subject / "mri" / "norm.mgz"
+    subject = f"run-{entities['run']}"
+    anat_file = output_dir.parent / subject / "mri" / "norm.mgz"
 
-        fig, axs = plt.subplots(2)
-        plotting.plot_roi(
-            roi_img=gm_mask_file,
-            bg_img=anat_file,
-            alpha=0.3,
-            figure=fig,
-            axes=axs[0],
+    fig, axs = plt.subplots(2)
+    plotting.plot_roi(
+        roi_img=gm_mask_file,
+        bg_img=anat_file,
+        alpha=0.3,
+        figure=fig,
+        axes=axs[0],
+    )
+
+    anat_arr = nibabel.load(anat_file).get_fdata()
+    mask_arr = nibabel.load(brain_mask_file).get_fdata()
+    bins = np.histogram_bin_edges(
+        anat_arr[mask_arr.astype(bool)],
+        bins="auto",
+    )
+    palette = itertools.cycle(sns.color_palette("Set1"))
+    for name, path in [("WM", wm_mask_file),
+                       ("GM", gm_mask_file),
+                       ("CSF", csf_mask_file)]:
+        mask = nibabel.load(path).get_fdata()
+        sns.histplot(
+            anat_arr[mask.astype(bool)],
+            bins=bins,
+            color=next(palette),
+            alpha=0.6,
+            ax=axs[1],
+            kde=True,
+            stat="density",
+            label=name,
         )
+    axs[1].spines["right"].set_visible(False)
+    axs[1].spines["top"].set_visible(False)
+    axs[1].legend()
 
-        anat_arr = nibabel.load(anat_file).get_fdata()
-        mask_arr = nibabel.load(brain_mask_file).get_fdata()
-        bins = np.histogram_bin_edges(
-            anat_arr[mask_arr.astype(bool)],
-            bins="auto",
-        )
-        palette = itertools.cycle(sns.color_palette("Set1"))
-        for name, path in [("WM", wm_mask_file),
-                           ("GM", gm_mask_file),
-                           ("CSF", csf_mask_file)]:
-            mask = nibabel.load(path).get_fdata()
-            sns.histplot(
-                anat_arr[mask.astype(bool)],
-                bins=bins,
-                color=next(palette),
-                alpha=0.6,
-                ax=axs[1],
-                kde=True,
-                stat="density",
-                label=name,
-            )
-        axs[1].spines["right"].set_visible(False)
-        axs[1].spines["top"].set_visible(False)
-        axs[1].legend()
-
-        plt.subplots_adjust(wspace=0, hspace=0, top=0.9, bottom=0.1)
-        plt.savefig(brainparc_image_file)
+    plt.subplots_adjust(wspace=0, hspace=0, top=0.9, bottom=0.1)
+    plt.savefig(brainparc_image_file)
 
     return (brainparc_image_file, )
 
@@ -276,26 +342,27 @@ def plot_pca(
     """
     pca_image_file = output_dir / f"pca.png"
 
-    if not dryrun:
+    if dryrun:
+        return (pca_image_file, )
 
-        df = pd.read_csv(pca_file, sep="\t")
+    df = pd.read_csv(pca_file, sep="\t")
 
-        fig, ax = plt.subplots(figsize=(20, 10))
-        ax.scatter(df.pc1, df.pc2)
-        for idx in range(len(df)):
-            ax.annotate(
-                f"{df.participant_id[idx]}-{df.session[idx]}-{df.run[idx]}",
-                xy=(df.pc1[idx], df.pc2[idx]),
-                xytext=(4, 4),
-                textcoords="offset pixels"
-            )
-        plt.xlabel(f"PC1 (var={df.explained_variance_ratio_pc1[0]:.2f})")
-        plt.ylabel(f"PC2 (var={df.explained_variance_ratio_pc2[1]:.2f})")
-        plt.axis("equal")
-        ax.spines["right"].set_visible(False)
-        ax.spines["top"].set_visible(False)
-        plt.tight_layout()
-        plt.savefig(pca_image_file)
-        plt.close(fig)
+    fig, ax = plt.subplots(figsize=(20, 10))
+    ax.scatter(df.pc1, df.pc2)
+    for idx in range(len(df)):
+        ax.annotate(
+            f"{df.participant_id[idx]}-{df.session[idx]}-{df.run[idx]}",
+            xy=(df.pc1[idx], df.pc2[idx]),
+            xytext=(4, 4),
+            textcoords="offset pixels"
+        )
+    plt.xlabel(f"PC1 (var={df.explained_variance_ratio_pc1[0]:.2f})")
+    plt.ylabel(f"PC2 (var={df.explained_variance_ratio_pc2[1]:.2f})")
+    plt.axis("equal")
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    plt.tight_layout()
+    plt.savefig(pca_image_file)
+    plt.close(fig)
 
     return (pca_image_file, )

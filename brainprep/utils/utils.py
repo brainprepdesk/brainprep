@@ -13,6 +13,7 @@ Module that contains some utility functions.
 import inspect
 import json
 import re
+import uuid
 from collections.abc import Callable, Iterable
 from pathlib import Path
 from typing import (
@@ -158,34 +159,46 @@ def bids(
 def outputdir(
         func: Callable,
         plotting: bool = False,
+        quality_check: bool = False,
+        morphometry: bool = False,
         *args: Any,
         **kw: Any) -> Callable:
     """
-    Output directory creation.
+    Create the output directory for the decorated function.
 
-    Decorator that create the output directory.
+    This decorator ensures that the output directory exists before the
+    wrapped function is executed. Optional subdirectories can also be
+    created, such as a ``figures`` directory for plots or a ``quality_check``
+    directory for quality check outputs or ``morphometry`` directory
+    for morphometry outputs.
 
     Parameters
     ----------
     func : Callable
         The function to be decorated.
     plotting : bool
-        If True, add a 'figures' upper level directory in the output
+        If True, add a ``figures`` upper level directory in the output
+        directory. Default False.
+    quality_check : bool
+        If True, add a ``quality_check`` upper level directory in the output
+        directory. Default False.
+    morphometry : bool
+        If True, add a ``morphometry`` upper level directory in the output
         directory. Default False.
     *args : Any
-        Positional arguments passed to `func`.
+        Positional arguments passed to ``func``.
     **kw : Any
-        Keyword arguments passed to `func`.
+        Keyword arguments passed to ``func``.
 
     Returns
     -------
     wrapper : Callable
-        A wrapped function with the 'output_dir' created on disk.
+        A wrapped function with the ``output_dir`` created on disk.
 
     Raises
     ------
     ValueError
-        If the decorated function has no 'output_dir' argument.
+        If the decorated function has no ``output_dir`` argument.
     """
     inputs = inspect.getcallargs(func, *args, **kw)
 
@@ -199,6 +212,16 @@ def outputdir(
             Path(inputs["output_dir"]) /
             "figures"
         )
+    if quality_check:
+        inputs["output_dir"] = (
+            Path(inputs["output_dir"]) /
+            "quality_check"
+        )
+    if morphometry:
+        inputs["output_dir"] = (
+            Path(inputs["output_dir"]) /
+            "morphometry"
+        )
 
     Path(inputs["output_dir"]).mkdir(parents=True, exist_ok=True)
 
@@ -211,27 +234,36 @@ def coerceparams(
         *args: Any,
         **kw: Any) -> Callable:
     """
-    Converts arguments typed as `File` or `Directory` to `pathlib.Path`.
+    Convert annotated arguments before calling the decorated function.
+
+    This decorator inspects the type annotations of the wrapped function
+    and performs two automatic conversions:
+
+    - Arguments annotated as ``File`` or ``Directory`` are converted into
+      ``pathlib.Path`` instances.
+    - Arguments annotated as list types are parsed from comma-separated
+      strings into Python lists.
 
     Parameters
     ----------
     func : Callable
         The function to be decorated.
     *args : Any
-        Positional arguments passed to `func`.
+        Positional arguments passed to ``func``.
     **kw : Any
-        Keyword arguments passed to `func`.
+        Keyword arguments passed to ``func``.
 
     Returns
     -------
-    wrapper : Callable
-        A wrapped function with the 'File' and 'Directory' arguments properly
-        typed.
+    Callable
+        A wrapped function in which arguments annotated as ``File`` or
+        ``Directory`` are converted to ``pathlib.Path`` objects, and list-typed
+        arguments are coerced from comma-separated strings into lists.
 
     Raises
     ------
     ValueError
-        If the decorated function have untyped arguments.
+        If the decorated function contains arguments without type annotations.
     """
     inputs = inspect.getcallargs(func, *args, **kw)
     sig = inspect.signature(func)
@@ -241,9 +273,56 @@ def coerceparams(
             raise ValueError(
                 "The decorated function must only have typed arguments."
             )
-        inputs[name] = coerce_to_path(inputs[name], param.annotation)
+        inputs[name] = coerce_to_path(
+            coerce_to_list(
+                inputs[name],
+                param.annotation,
+            ),
+            param.annotation,
+        )
 
     return func(**inputs)
+
+
+def coerce_to_list(
+        value: Any,
+        expected_type: type) -> Any:
+    """
+    Coerce a value into a list when the expected type annotation indicates
+    a list or tuple.
+
+    Parameters
+    ----------
+    value : Any
+        The input value to be coerced.
+    expected_type : type
+        The expected type annotation (e.g., `File`, `List[File]`,
+        `Dict[str, Directory]`, `Union[str, Directory]`).
+
+    Returns
+    -------
+    typed_value : Any
+        The coerced value, with `list` converted to `list`.
+
+    Notes
+    -----
+    - Comma-separated strings (e.g., ``"a,b,c"``) are split into lists.
+    - Single non-list values are wrapped into a list.
+    - Existing lists or tuples are returned as lists.
+    """
+    if value is None:
+        return value
+
+    origin = get_origin(expected_type)
+
+    if origin in {list, tuple}:
+        if isinstance(value, str) and "," in value:
+            return value.split(",")
+        if not isinstance(value, (list, tuple)):
+            return [value]
+        return list(value)
+
+    return value
 
 
 def coerce_to_path(
@@ -297,19 +376,33 @@ def parse_bids_keys(
         bids_path: File,
         full_path: bool = False) -> dict[str]:
     """
-    Parses BIDS keys and modality from a filename or path with validation.
+    Parse BIDS entities and modality from a filename or path with validation.
+
+    This function extracts BIDS entities (e.g., subject, session, task,
+    run) from a BIDS-compliant filename or full path. It also identifies the
+    modality and applies default values when certain entities are missing.
+
+    When the `ses` entity is absent, it defaults to "01". This provides ensures
+    consistent downstream file handling.
+
+    When the `run` entity is absent, a deterministic 5-digit identifier is
+    generated from the filename using UUID. This produces a short, stable
+    hash so that the same filename always yields the same default run value.
 
     Parameters
     ----------
     bids_path : File
-        The BIDS file.
+        The BIDS file to parse.
     full_path: bool
-        Find the BIDS keys frol the full input path. Default False.
+        If True, extract entities from the full input path rather than
+        only the filename. Default is False.
 
     Returns
     -------
     entities : dict[str]
-        A dictionary of parsed BIDS entities including modality.
+        A dictionary containing hthe parsed BIDS entities and the detected
+        modality. Missing entities such as `ses` and `run` are filled with
+        default values.
     """
     # Extract the filename from the path id necessary
     filename = str(bids_path) if full_path else bids_path.name
@@ -342,7 +435,7 @@ def parse_bids_keys(
     # Define default values for missing entities
     defaults = {
         "ses": "01",
-        "run": "01",
+        "run": make_run_id(filename)[1],
     }
 
     # Fill in missing entities with defaults
@@ -352,19 +445,47 @@ def parse_bids_keys(
     return entities
 
 
+def make_run_id(
+        filename: str) -> tuple[str, str]:
+    """
+    Generate a deterministic identifier and a 5-digit short code from a
+    filename.
+
+    This function computes a UUIDv5 using the URL namespace and the provided
+    filename, converts the UUID to its integer representation, and returns both
+    the full integer-based code and its first five digits. The result is stable
+    and reproducible: the same filename always produces the same values.
+
+    Parameters
+    ----------
+    filename : str
+        The filename used as the seed for generating the identifiers.
+
+    Returns
+    -------
+    code : str
+        The full integer representation of the UUIDv5 derived from the
+        filename.
+    short_code : str
+        The first five digits of the UUID-derived code, used as a compact ID.
+    """
+    code = str(uuid.uuid5(uuid.NAMESPACE_URL, filename).int)
+    return code, code[:5]
+
+
 def sidecar_from_file(
         image_file: File) -> File:
     """
     Infers the corresponding JSON sidecar file for a given NIfTI image file.
 
-    This function checks that the input file has a `.nii.gz` extension and
-    attempts to locate a sidecar `.json` file with the same base name. If
+    This function checks that the input file has a ``.nii.gz`` extension and
+    attempts to locate a sidecar ``.json`` file with the same base name. If
     either condition fails, it raises a ValueError.
 
     Parameters
     ----------
     image_file : File
-        Path to the NIfTI image file with `.nii.gz` extension.
+        The NIfTI image file for which to infer the JSON sidecar.
 
     Returns
     -------
@@ -403,8 +524,36 @@ def sidecar_from_file(
 
 def find_stack_level() -> int:
     """
-    Find the first place in the stack that is not inside brainprep.
-    Taken from the pandas codebase.
+    Return the index of the first stack frame outside the ``brainprep``
+    package.
+
+    This function walks backward through the current call stack and finds the
+    first frame whose file path does not belong to the ``brainprep`` package
+    directory. Test files (i.e., files whose names start with ``test_``) are
+    always treated as external. This is useful for producing cleaner warnings
+    and error messages by pointing to user code rather than internal library
+    frames.
+
+    Returns
+    -------
+    int
+        The number of internal frames to skip before reaching user code.
+
+    Notes
+    -----
+    Adapted from the pandas codebase.
+
+    Examples
+    --------
+    >>> import warnings
+    >>> from brainprep.utils import find_stack_level
+    >>>
+    >>> def load_data(path):
+    ...     if not path.exists():
+    ...         warnings.warn(
+    ...             "The provided path does not exist.",
+    ...             stacklevel=find_stack_level()
+    ...         )
     """
     import brainprep
 

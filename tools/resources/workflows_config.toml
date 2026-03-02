@@ -1,0 +1,96 @@
+[brainprep.workflow]
+subject-level-qa = "--image-files {!T1ws},{!T2ws},{!FLAIRs},{!dwis},{!bolds} --output-dir {outdir}"
+group-level-qa = "--modalities T1w,T1w,FLAIR,dwi,bold --output-dir {outdir}"
+subject-level-defacing = "--t1_file {T1w} --output-dir {outdir}"
+group-level-defacing = "--output-dir {outdir}"
+subject-level-quasiraw = "--anatomical_file {T1w} --output-dir {outdir}"
+group-level-quasiraw = "--output-dir {outdir}"
+subject-level-sbm = "--t1_file {T1w} --output-dir {outdir}"
+longitudinal-sbm = "--t1_files {T1ws} --model 1 --output-dir {outdir}"
+group-level-sbm = "--output-dir {outdir}"
+subject-level-vbm = "--t1_file {T1w} --output-dir {outdir}"
+longitudinal-vbm = "--t1_files {T1ws} --model 1 --output-dir {outdir}"
+group-level-vbm = "--output-dir {outdir}"
+subject-level-fmriprep = "--t1-file {T1w} --func-files {bolds} --freesurfer-dir {fsdir} --output-dir {outdir}"
+group-level-fmriprep = "--output-dir {outdir}"
+
+[brainprep.mapping]
+T1w = [
+    "subject-level-qa",
+    "group-level-qa",
+    "subject-level-defacing",
+    "group-level-defacing",
+    "subject-level-quasiraw",
+    "group-level-quasiraw",
+    "subject-level-sbm",
+    "longitudinal-sbm",
+    "group-level-sbm",
+    "subject-level-vbm",
+    "longitudinal-vbm",
+    "group-level-vbm"]
+T2w = [
+    "subject-level-qa",
+    "group-level-qa",
+    "subject-level-quasiraw",
+    "group-level-quasiraw",
+]
+FLAIR = [
+    "subject-level-qa",
+    "group-level-qa",
+    "subject-level-quasiraw",
+    "group-level-quasiraw",
+]
+bold = [
+    "subject-level-qa",
+    "group-level-qa",
+    "subject-level-fmriprep",
+    "group-level-fmriprep",
+]
+
+[sbm.default]
+n_cpus = 1
+memory = 16
+freesurfer = true
+
+[sbm.nextflow]
+memory = 64
+
+[sbm.group]
+n_cpus = 1
+memory = 5
+freesurfer = true
+
+[defacing.default]
+n_cpus = 1
+memory = 5
+
+[fmriprep.default]
+n_cpus = 1
+memory = 10
+freesurfer = true
+
+[fmriprep.group]
+n_cpus = 1
+memory = 5
+
+[quality_assurance.default]
+n_cpus = 1
+memory = 20
+
+[quality_assurance.group]
+n_cpus = 1
+memory = 5
+
+[quasiraw.default]
+n_cpus = 1
+memory = 5
+freesurfer = true
+
+[vbm.default]
+n_cpus = 1
+memory = 5
+backend = "oneshot"
+
+[vbm.group]
+n_cpus = 1
+memory = 5

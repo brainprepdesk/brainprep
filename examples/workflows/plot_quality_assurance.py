@@ -89,8 +89,7 @@ commands.append(
         [
             "brainprep", "subject-level-qa",
             "--image-files",
-            f"\"['{subject_data.anat}', '{subject_data.func}', "
-            f"'{subject_data.dwi}']\"",
+            f"{subject_data.anat},{subject_data.func},{subject_data.dwi}",
             "--output-dir", str(outdir),
             "--keep-intermediate",
         ] for subject_data in data.values()
@@ -100,7 +99,7 @@ commands.append(
     [
         [
             "brainprep", "group-level-qa",
-            "--modalities", f"\"['T1w', 'bold', 'dwi']\"",
+            "--modalities", f"T1w,bold,dwi",
             "--output-dir", str(outdir),
         ]
     ]

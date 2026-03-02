@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Brain parcellation pre-processing.
+Surface-based morphometry (SBM) workflow.
 """
 
 import os
@@ -35,14 +35,14 @@ from ..utils import (
 
 @coerceparams
 @bids(
-    process="brain_parcellation",
+    process="sbm",
     bids_file="t1_file",
     add_subjects=True,
-    container="neurospin/brainprep-brain_parcellation")
+    container="neurospin/brainprep-sbm")
 @log_runtime(
-    title="Subject Level Brain Parcellation")
+    title="Subject Level SBM")
 @save_runtime
-def brainprep_brainparc(
+def brainprep_sbm(
         t1_file: File,
         output_dir: Directory,
         analysis_type: str = "sbm",
@@ -50,7 +50,7 @@ def brainprep_brainparc(
         wm_file: File | None = None,
         keep_intermediate: bool = False) -> Bunch:
     """
-    Brain parcellation pre-processing.
+    SBM pre-processing.
 
     Applies the brain parcellation pre-processing described in
     :footcite:p:`dufumier2022openbhb`. This includes:
@@ -124,11 +124,11 @@ def brainprep_brainparc(
     --------
     >>> from brainprep.config import Config
     >>> from brainprep.reporting import RSTReport
-    >>> from brainprep.workflow import brainprep_brainparc
+    >>> from brainprep.workflow import brainprep_sbm
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()
-    ...     outputs = brainprep_brainparc(
+    ...     outputs = brainprep_sbm(
     ...         t1_file=(
     ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
     ...             "sub-01_ses-01_run-01_T1w.nii.gz"
@@ -185,10 +185,16 @@ def brainprep_brainparc(
             "You passed a white matter file as input. This behavior is "
             "deprecated and will be removed in version >1."
         )
-    if analysis_type not in ("vbm", "nextbrain"):
+    if analysis_type not in ("sbm", "nextbrain"):
         raise ValueError(
-            f"Unexpected analysis type: {analysis_type}."
+            f"Unexpected analysis type: '{analysis_type}'."
         )
+
+    interfaces.write_uuid_mapping(
+        t1_file,
+        output_dir,
+        entities,
+    )
 
     if analysis_type == "nextbrain":
         left_seg_file, right_seg_file = interfaces.nextbrain(
@@ -289,21 +295,21 @@ def brainprep_brainparc(
 
 @coerceparams
 @bids(
-    process="brain_parcellation",
+    process="sbm",
     bids_file="t1_files",
     add_subjects=True,
     longitudinal=True,
-    container="neurospin/brainprep-brain_parcellation")
+    container="neurospin/brainprep-sbm")
 @log_runtime(
-    title="Longitudinal Brain Parcellation")
+    title="Longitudinal SBM")
 @save_runtime(
     parent=True)
-def brainprep_longitudinal_brainparc(
+def brainprep_longitudinal_sbm(
         t1_files: list[File],
         output_dir: Directory,
         keep_intermediate: bool = False) -> Bunch:
     """
-    Longitudinal brain parcellation preprocessing.
+    Longitudinal SBM preprocessing.
 
     Applies the longitudinal brain parcellation pre-processing described in
     :footcite:p:`reuter2012freesurferlong`. This includes:
@@ -336,11 +342,11 @@ def brainprep_longitudinal_brainparc(
     --------
     >>> from brainprep.config import Config
     >>> from brainprep.reporting import RSTReport
-    >>> from brainprep.workflow import brainprep_longitudinal_brainparc
+    >>> from brainprep.workflow import brainprep_longitudinal_sbm
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()
-    ...     outputs = brainprep_longitudinal_brainparc(
+    ...     outputs = brainprep_longitudinal_sbm(
     ...         t1_files=[
     ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
     ...             "sub-01_ses-01_run-01_T1w.nii.gz",
@@ -407,7 +413,7 @@ def brainprep_longitudinal_brainparc(
             )
         )
     interfaces.movedir(
-        source_dir=log_tempalte_file.parent.parent,
+        source_dir=log_template_file.parent.parent,
         output_dir=output_dir.parent / "template",
         content=True,
     )
@@ -427,18 +433,18 @@ def brainprep_longitudinal_brainparc(
 
 @coerceparams
 @bids(
-    process="brain_parcellation",
-    container="neurospin/brainprep-brain_parcellation")
+    process="sbm",
+    container="neurospin/brainprep-sbm")
 @log_runtime(
-    title="Group Level Brain Parcellation")
+    title="Group Level SBM")
 @save_runtime
-def brainprep_group_brainparc(
+def brainprep_group_sbm(
         output_dir: Directory,
         euler_threshold: int = -217,
         longitudinal: bool = False,
         keep_intermediate: bool = False) -> Bunch:
     """
-    Group level brain parcellation pre-processing.
+    Group level SBM pre-processing.
 
     Summarizes the generated FreeSurfer features and applies the quality
     control described in :footcite:p:`rosen2018euler`. This includes:
@@ -446,10 +452,11 @@ def brainprep_group_brainparc(
     1) Generate text/ascii tables of FreeSurfer parcellation stats data
        '?h.aparc.stats' for both templates (Desikan & Destrieux) and
        volumetric data for subcortical brain structures 'aseg.stats'.
-    2) Apply the FreeSurfer's Euler number, which summarizes the topological
-       complexity of the reconstructed cortical surface as a quality
-       control.
-    3) Generate a histogram showing the distribution of Euler numbers.
+    2) Generate a TSV file containing the FreeSurfer's Euler number, which
+       summarizes the topological complexity of the reconstructed cortical
+       surfaces.
+    3) Apply threshold-based quality checks on the selected quality metrics.
+    4) Generate a histogram showing the distribution of these quality metrics.
 
     Parameters
     ----------
@@ -473,27 +480,38 @@ def brainprep_group_brainparc(
           Desikan cortical feautes, 'aparc2009s_*_stats' for Destrieux cortical
           features, and 'aseg_*_stats' for volumetric subcortical brain
           structure features.
+        - euler_numbers_file : File - a TSV file containing Euler number
+          of each input image quality check (QC) data.
+        - euler_numbers_histogram_file : File - PNG file containing the
+          histogram of the Euler numbers.
 
     Notes
     -----
-    - This workflow can either be used on cross-sectional or longitudinal
-      data.
+    This workflow assumes the subject-level or longitudinal analyses have
+    already been performed.
+
+    A ``qc`` column is added to the TSV QC output table. It contains a
+    binary flag indicating whether the produced results should be kept:
+    ``qc = 1`` if the result passes the thresholds, otherwise ``qc = 0``.
+
+    The associated PNG histograms help verify that the chosen thresholds
+    are neither too restrictive nor too permissive.
 
     Examples
     --------
     >>> from brainprep.config import Config
     >>> from brainprep.reporting import RSTReport
-    >>> from brainprep.workflow import brainprep_group_brainparc
+    >>> from brainprep.workflow import brainprep_group_sbm
     >>>
     >>> with Config(dryrun=True, verbose=False):
     ...     report = RSTReport()
-    ...     outputs = brainprep_group_brainparc(
+    ...     outputs = brainprep_group_sbm(
     ...         output_dir="/tmp/dataset/derivatives",
     ...     ) # doctest: +SKIP
     >>> outputs # doctest: +SKIP
     Bunch(
-        summary_files=[PosixPath('...'),...,PosixPath('...')],
-        euler_numbers_file=PosixPath('...'),
+        summary_files=[PosixPath('...'),...,PosixPath('...')]
+        euler_numbers_file=PosixPath('...')
         euler_numbers_histogram_file=PosixPath('...')
     )
 
@@ -513,7 +531,7 @@ def brainprep_group_brainparc(
         output_dir,
     )
     if not longitudinal:
-        euler_numbers_file = interfaces.freesurfer_euler_numbers(
+        euler_numbers_file = interfaces.euler_numbers(
             output_dir,
         )
         euler_numbers_histogram_file = interfaces.plot_histogram(

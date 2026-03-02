@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Brain imaging defacing.
+Brain image defacing workflow.
 """
 
 import shutil
@@ -71,9 +71,12 @@ def brainprep_defacing(
     Bunch
         A dictionary-like object containing:
 
-        - deface_t1_file : File — path to the defaced image.
-        - mask_file : File — path to the defacing mask.
-        - mosaic_file : File — path to defacing snapshots.
+        - deface_t1_file : File - path to the defaced image.
+        - mask_file : File - path to the defacing mask.
+        - mosaic_file : File - path to defacing snapshots.
+        - summary_file : File - a TSV file containing voxel counts and
+          physical volumes (in mm³) for the brain/defacing masks and
+          their intersection.
 
     Raises
     ------
@@ -105,8 +108,8 @@ def brainprep_defacing(
       deface_t1_file: PosixPath('...')
       mask_file: PosixPath('...')
       mosaic_file: PosixPath('...')
+      summary_file: PosixPath('...')
     )
-
 
     References
     ----------
@@ -128,6 +131,11 @@ def brainprep_defacing(
         workspace_dir,
         entities,
     )
+    brainmask_file = interfaces.brainmask(
+        reoriented_t1_file,
+        workspace_dir,
+        entities,
+    )
     deface_t1_file, mask_file = interfaces.deface(
         reoriented_t1_file,
         output_dir,
@@ -139,6 +147,13 @@ def brainprep_defacing(
         output_dir,
         entities,
     )
+    summary_file = interfaces.maskdiff(
+        brainmask_file,
+        mask_file,
+        output_dir,
+        entities,
+        inv_mask2=True,
+    )
 
     if not keep_intermediate:
         print_info(f"cleaning workspace directory: {workspace_dir}")
@@ -148,4 +163,98 @@ def brainprep_defacing(
         deface_t1_file=deface_t1_file,
         mask_file=mask_file,
         mosaic_file=mosaic_file,
+        summary_file=summary_file,
+    )
+
+
+@coerceparams
+@bids(
+    process="defacing",
+    container="neurospin/brainprep-deface")
+@log_runtime(
+    title="Group Level Defacing")
+@save_runtime
+def brainprep_group_defacing(
+        output_dir: Directory,
+        overlap_threshold: float = 0.05,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Group level defacing pre-processing.
+
+    Applies the following quality control procedure:
+
+    1) Generate a TSV table containing the intersection between the brain and
+       defacing masks.
+    2) Apply threshold-based quality checks on the selected quality metrics.
+    3) Generate a histogram showing the distribution of these quality metrics.
+
+    Parameters
+    ----------
+    output_dir : Directory
+        Directory where the quality assurance related outputs will be saved
+        (i.e., the root of your dataset).
+    overlap_threshold : float
+        Quality control threshold on the overalp score. Default 0.05.
+    keep_intermediate : bool
+        If True, retains intermediate results (no effect on this workflow).
+        Default False.
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+
+        - overalp_file : File - a TSV file containing brain/defacing masks
+          intersection quality check (QC) data.
+        - overalp_histogram_file : File - PNG file containing the
+          histogram of the computed overlaps.
+
+    Notes
+    -----
+    This workflow assumes the subject-level analyses have already been
+    performed.
+
+    A ``qc`` column is added to the TSV QC output table. It contains a
+    binary flag indicating whether the produced results should be kept:
+    ``qc = 1`` if the result passes the thresholds, otherwise ``qc = 0``.
+
+    The associated PNG histograms help verify that the chosen thresholds
+    are neither too restrictive nor too permissive.
+
+    Examples
+    --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
+    >>> from brainprep.workflow import brainprep_group_defacing
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_group_defacing(
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     )
+    >>> outputs
+    Bunch(
+        overlap_file: PosixPath('...')
+        overalp_histogram_file: PosixPath('...')
+    )
+    """
+    overlap_file = interfaces.mask_overlap(
+        (
+            output_dir /
+            "subjects" / "sub-*" / "ses-*" /
+            "*mod-T1w_defacemask.tsv"
+        ),
+        output_dir,
+        overlap_threshold,
+    )
+    overalp_histogram_file = interfaces.plot_histogram(
+        overlap_file,
+        "overlap",
+        output_dir,
+        bar_coords=[overlap_threshold],
+    )
+
+    return Bunch(
+        overlap_file=overlap_file,
+        overalp_histogram_file=overalp_histogram_file,
     )

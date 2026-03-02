@@ -16,7 +16,7 @@ from pathlib import Path
 DEFAULT_OPTIONS = {
     "verbose": True,
     "dryrun": False,
-    "with_color": True,
+    "no_color": False,
     "cat12_file": Path(
         "/opt/cat12/standalone/cat_standalone.sh"
     ),
@@ -31,7 +31,7 @@ DEFAULT_OPTIONS = {
     ),
     "darteltpm_file": Path(
         "/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/"
-        "cat12/templates_volumes/Template_1_IXI555_MNI152.nii"
+        "cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii"
     ),
 }
 
