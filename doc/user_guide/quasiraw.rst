@@ -103,14 +103,14 @@ The structure is organized following the :ref:`brainprep ontology <ontology>`.
   Image correlation-to-template distribution and applied threshold.
 - ``figures/pca.png``  
   Display of the first two PCA components of the generated images.
-- ``logs/report_<timestamp>.rst``  
+- ``log/report_<timestamp>.rst``  
   Contains group-level workflow steps and parameters.
 - ``quality_check/mask_overlap.tsv``  
   Table containing the correlation score for each subject/session/run. The
   table includes a binary ``qc`` column indicating the quality control result.
 - ``quality_check/pca.tsv``  
   Table containing information on the first two PCA components.
-- ``subjects/sub-<id>/ses-<id>/logs/report_<timestamp>.rst``  
+- ``subjects/sub-<id>/ses-<id>/log/report_<timestamp>.rst``  
   Contains subject-level workflow steps and parameters.
 - ``subjects/sub-<id>/ses-<id>/sub-01_ses-01_run-01_mod-T1w_affine.txt`` 
   Affine transformation parameters (9 DOF) used to align the T1w image to
