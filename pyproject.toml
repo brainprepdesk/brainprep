@@ -58,7 +58,7 @@ ci = [
     "seaborn",
 ]
 doc = [
-    "distutils",
+    "setuptools",
     "pysphinxdoc @ git+https://github.com/AGrigis/pysphinxdoc.git@dev",
 ]
 
