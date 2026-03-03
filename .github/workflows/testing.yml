@@ -45,8 +45,7 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pynose coverage coveralls
-        python -m pip install --progress-bar off .
+        python -m pip install --progress-bar off ".[ci]"
     - name: Run unit tests
       run: |
         nosetests --with-coverage --cover-package=brainprep --verbosity=2 --with-doctest --doctest-options='+ELLIPSIS,+NORMALIZE_WHITESPACE'

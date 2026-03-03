@@ -160,20 +160,13 @@ def brainprep_group_quality_assurance(
     Bunch
         A dictionary-like object containing:
 
-        - iqm_files : list[File] — paths to the group level Image Quality
-          Metrics (IQMs).
+        - iqm_files : list[File] — paths to the selected set o group-level
+          uncorrelated Image Quality Metrics (IQMs).
 
     Notes
     -----
     This workflow assumes the subject-level analyses have already been
     performed.
-
-    A ``qc`` column is added to the TSV QC output table. It contains a
-    binary flag indicating whether the produced results should be kept:
-    ``qc = 1`` if the result passes the thresholds, otherwise ``qc = 0``.
-
-    The associated PNG histograms help verify that the chosen thresholds
-    are neither too restrictive nor too permissive.
 
     References
     ----------
@@ -208,5 +201,5 @@ def brainprep_group_quality_assurance(
     )
 
     return Bunch(
-        iqm_files=iqm_files,
+        iqm_files=iqm_metrics,
     )

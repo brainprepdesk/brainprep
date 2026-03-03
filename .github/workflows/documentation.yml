@@ -66,9 +66,7 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools matplotlib
-        pip install git+https://github.com/AGrigis/pysphinxdoc.git@dev
-        pip install --progress-bar off .
+        python -m pip install --progress-bar off ".[ci,doc]"
     - name: Install apt packages
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:

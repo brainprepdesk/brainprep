@@ -53,9 +53,11 @@ ci = [
     "pynose",
     "coverage",
     "coveralls",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
 ]
 doc = [
-    "matplotlib",
     "pysphinxdoc @ git+https://github.com/AGrigis/pysphinxdoc.git@dev",
 ]
 

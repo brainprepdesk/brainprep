@@ -782,10 +782,11 @@ def mriqc_metrics(
     """
     Filter MRIQC group-level metrics according to modality-specific defaults.
 
-    Each input file must follow the MRIQC group naming convention
-    ``group_<modality>.tsv``. The function selects a predefined subset of
-    Image Quality Metrics (IQMs) depending on the modality (T1w, bold, dwi)
-    and writes a filtered TSV file into the output directory.
+    Each input file must follow the naming pattern ``group_<modality>.tsv``.
+    Based on the modality extracted from the filename (e.g., T1w, bold, dwi),
+    a predefined set of uncorrelated Image Quality Metrics (IQMs) is selected.
+    The function then writes a filtered TSV file containing only those metrics
+    to the specified output directory.
 
     Parameters
     ----------
@@ -799,7 +800,7 @@ def mriqc_metrics(
     Returns
     -------
     filter_iqm_files : list[File]
-        Paths to the filter group-level IQMs.
+        Paths to the selected set of uncorrelated group-level IQMs.
 
     Raises
     ------
@@ -819,19 +820,17 @@ def mriqc_metrics(
     selected_metrics = {
         "T1w": [
             "cjv", "cnr", "efc", "fber", "wm2max", "inu_med", "qi_1", "qi_2",
-            "icvs_wm", "fwhm_avg", "rpvs_wm", "snr_wm", "snrd_wm", "wm2max",
-            "bids_name",
+            "icvs_wm", "fwhm_avg", "rpve_wm", "snr_wm", "snrd_wm", "wm2max",
         ],
         "bold": [
             "aor", "aqi", "dummy_trs", "dvars_vstd", "efc", "fber",
             "fd_mean", "fwhm_avg", "gcor", "gsr_x", "gsr_y", "snr", "tsnr",
-            "bids_name",
         ],
         "dwi": [
             "bdiffs_max", "bdiffs_median", "efc_shell01", "efc_shell02",
             "fber_shell01", "fber_shell02", "fd_mean", "ndc", "sigma_pca",
             "sigma_piesno", "snr_cc_shell0", "snr_cc_shell1_best",
-            "snr_cc_shell1_worst", "spikes_global", "bids_name",
+            "snr_cc_shell1_worst", "spikes_global",
         ]
     }
     for input_file, output_file in zip(
@@ -852,7 +851,7 @@ def mriqc_metrics(
                 f"Expected one of: {', '.join(selected_metrics)}."
             )
 
-        df = df[selected_metrics[modality]]
+        df = df[["bids_name", *selected_metrics[modality]]]
         df.to_csv(output_file, sep="\t", index=False)
 
     return (filter_iqm_files, )
