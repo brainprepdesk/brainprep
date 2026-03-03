@@ -141,9 +141,9 @@ to actually run each step and generate results on disk.
           summary_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv')
         )
         runtime: Bunch(
-          start: '2026-03-03 10:08:43.813153'
-          end: '2026-03-03 10:08:43.813153'
-          execution_time: 6.11111111111111e-06
+          start: '2026-03-03 13:12:11.262492'
+          end: '2026-03-03 13:12:11.262492'
+          execution_time: 5.33e-06
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -172,9 +172,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-03 10:08:43.818039'
-          end: '2026-03-03 10:08:43.818039'
-          execution_time: 9.25e-08
+          start: '2026-03-03 13:12:11.266718'
+          end: '2026-03-03 13:12:11.266718'
+          execution_time: 8.694444444444444e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -203,9 +203,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-03 10:08:43.822308'
-          end: '2026-03-03 10:08:43.822308'
-          execution_time: 1.0333333333333333e-07
+          start: '2026-03-03 13:12:11.270206'
+          end: '2026-03-03 13:12:11.270206'
+          execution_time: 7.527777777777777e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -234,9 +234,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz'), PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz'))
         )
         runtime: Bunch(
-          start: '2026-03-03 10:08:43.826546'
-          end: '2026-03-03 10:08:43.826546'
-          execution_time: 1.0500000000000001e-07
+          start: '2026-03-03 13:12:11.273351'
+          end: '2026-03-03 13:12:11.273351'
+          execution_time: 1.125e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -267,9 +267,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-01_ses-01_run-34706_mod-T1w_defacemosaic.png')
         )
         runtime: Bunch(
-          start: '2026-03-03 10:08:43.830353'
-          end: '2026-03-03 10:08:43.830353'
-          execution_time: 5.361111111111111e-08
+          start: '2026-03-03 13:12:11.276972'
+          end: '2026-03-03 13:12:11.276972'
+          execution_time: 7.027777777777779e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -302,9 +302,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv')
         )
         runtime: Bunch(
-          start: '2026-03-03 10:08:43.833852'
-          end: '2026-03-03 10:08:43.833852'
-          execution_time: 6.027777777777778e-08
+          start: '2026-03-03 13:12:11.280497'
+          end: '2026-03-03 13:12:11.280497'
+          execution_time: 6.055555555555556e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -408,9 +408,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.158 seconds)
+   **Total running time of the script:** (0 minutes 0.879 seconds)
 
-**Estimated memory usage:**  120 MB
+**Estimated memory usage:**  129 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_defacing.py:

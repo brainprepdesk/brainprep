@@ -11,7 +11,7 @@
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
 <meta name="description" content="Module that contains some utility functions. Functions:" />
-<link rel="search" title="Search" href="../search.html" /><link rel="next" title="brainprep.utils.utils.coerce_to_list" href="generated/brainprep.utils.utils.coerce_to_list.html" /><link rel="prev" title="brainprep.utils.color.stylize" href="generated/brainprep.utils.color.stylize.html" />
+<link rel="search" title="Search" href="../search.html" /><link rel="next" title="brainprep.utils.utils.check_run" href="generated/brainprep.utils.utils.check_run.html" /><link rel="prev" title="brainprep.utils.color.stylize" href="generated/brainprep.utils.color.stylize.html" />
         <link rel="prefetch" href="../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
@@ -423,6 +423,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.check_run.html">brainprep.utils.utils.check_run</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
@@ -535,22 +536,25 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_list.html#brainprep.utils.utils.coerce_to_list" title="brainprep.utils.utils.coerce_to_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coerce_to_list</span></code></a>(value, expected_type)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.check_run.html#brainprep.utils.utils.check_run" title="brainprep.utils.utils.check_run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_run</span></code></a>(bids_path, entities[, full_path])</p></td>
+<td><p>Scan the folder containing a BIDS file and verify that the run entity associated with the file appears exactly once among all matching files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_list.html#brainprep.utils.utils.coerce_to_list" title="brainprep.utils.utils.coerce_to_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coerce_to_list</span></code></a>(value, expected_type)</p></td>
 <td><p>Coerce a value into a list when the expected type annotation indicates a list or tuple.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_path.html#brainprep.utils.utils.coerce_to_path" title="brainprep.utils.utils.coerce_to_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coerce_to_path</span></code></a>(value, expected_type)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_path.html#brainprep.utils.utils.coerce_to_path" title="brainprep.utils.utils.coerce_to_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coerce_to_path</span></code></a>(value, expected_type)</p></td>
 <td><p>Recursively convert values to <cite>pathlib.Path</cite> based on expected type annotations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.find_stack_level.html#brainprep.utils.utils.find_stack_level" title="brainprep.utils.utils.find_stack_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_stack_level</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.find_stack_level.html#brainprep.utils.utils.find_stack_level" title="brainprep.utils.utils.find_stack_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_stack_level</span></code></a>()</p></td>
 <td><p>Return the index of the first stack frame outside the <code class="docutils literal notranslate"><span class="pre">brainprep</span></code> package.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.make_run_id.html#brainprep.utils.utils.make_run_id" title="brainprep.utils.utils.make_run_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_run_id</span></code></a>(filename)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.make_run_id.html#brainprep.utils.utils.make_run_id" title="brainprep.utils.utils.make_run_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_run_id</span></code></a>(filename)</p></td>
 <td><p>Generate a deterministic identifier and a 5-digit short code from a filename.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.parse_bids_keys.html#brainprep.utils.utils.parse_bids_keys" title="brainprep.utils.utils.parse_bids_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_bids_keys</span></code></a>(bids_path[, full_path])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.parse_bids_keys.html#brainprep.utils.utils.parse_bids_keys" title="brainprep.utils.utils.parse_bids_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_bids_keys</span></code></a>(bids_path[, full_path])</p></td>
 <td><p>Parse BIDS entities and modality from a filename or path with validation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.sidecar_from_file.html#brainprep.utils.utils.sidecar_from_file" title="brainprep.utils.utils.sidecar_from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sidecar_from_file</span></code></a>(image_file)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.sidecar_from_file.html#brainprep.utils.utils.sidecar_from_file" title="brainprep.utils.utils.sidecar_from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sidecar_from_file</span></code></a>(image_file)</p></td>
 <td><p>Infers the corresponding JSON sidecar file for a given NIfTI image file.</p></td>
 </tr>
 </tbody>
@@ -564,12 +568,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="generated/brainprep.utils.utils.coerce_to_list.html">
+          <a class="next-page" href="generated/brainprep.utils.utils.check_run.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">brainprep.utils.utils.coerce_to_list</div>
+                <div class="title">brainprep.utils.utils.check_run</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

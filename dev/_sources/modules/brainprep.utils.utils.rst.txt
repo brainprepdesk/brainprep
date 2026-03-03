@@ -18,6 +18,7 @@ Functions
    :toctree: generated/
    :template: function.rst
 
+    check_run
     coerce_to_list
     coerce_to_path
     find_stack_level
