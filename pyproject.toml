@@ -35,6 +35,7 @@ dependencies = [
     "Jinja2",
     "fire",
     "lxml",
+    "rich",
 ]
 dynamic = ["version"]
 
@@ -123,7 +124,7 @@ ignore = [
     "D105",     # Missing docstring in magic method
     "RUF001",   # String contains ambiguous `ℹ` (INFORMATION SOURCE)
     "FURB189",  # `dict` can be error prone, use `collections.UserDict`
-
+    "RUF067",   # `__init__` module should only contain docstrings and re-exports
 ]
 select = ["D"]   # enable pycodestyle and docstring rules
 

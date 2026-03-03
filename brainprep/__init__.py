@@ -70,4 +70,8 @@ This architecture promotes modularity, reusability, and clarity, making it
 easy to build, inspect, and extend workflows.
 """
 
+from rich.traceback import install
+
 from ._version import __version__
+
+install(show_locals=False)
