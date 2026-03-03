@@ -143,9 +143,9 @@ to actually run each step and generate results on disk.
           connectivity_files: [PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv')]
         )
         runtime: Bunch(
-          start: '2026-03-02 14:56:52.049811'
-          end: '2026-03-02 14:56:52.049811'
-          execution_time: 5.461861111111111e-05
+          start: '2026-03-03 10:09:05.458823'
+          end: '2026-03-03 10:09:05.458823'
+          execution_time: 5.409694444444444e-05
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -178,9 +178,9 @@ to actually run each step and generate results on disk.
           outputs: ([[[PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-brain_mask.nii.gz'), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz')], [PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-preproc_bold.nii.gz'), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz')], [(PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsnative_den-91k_bold.dtseries.nii'),), (PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsLR_den-91k_bold.dtseries.nii'),)], PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_desc-confounds_timeseries.tsv')]], PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01.html'))
         )
         runtime: Bunch(
-          start: '2026-03-02 14:56:52.054390'
-          end: '2026-03-02 14:56:52.054390'
-          execution_time: 5.0493888888888886e-05
+          start: '2026-03-03 10:09:05.463191'
+          end: '2026-03-03 10:09:05.463191'
+          execution_time: 5.0236111111111114e-05
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -222,9 +222,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:56:52.241645'
-          end: '2026-03-02 14:56:52.241645'
-          execution_time: 7.666666666666666e-08
+          start: '2026-03-03 10:09:05.648877'
+          end: '2026-03-03 10:09:05.648877'
+          execution_time: 7.63888888888889e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -254,9 +254,9 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.png')
         )
         runtime: Bunch(
-          start: '2026-03-02 14:56:52.244989'
-          end: '2026-03-02 14:56:52.244989'
-          execution_time: 5.833333333333333e-08
+          start: '2026-03-03 10:09:05.652210'
+          end: '2026-03-03 10:09:05.652210'
+          execution_time: 6.38888888888889e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmnay03'
@@ -350,7 +350,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.539 seconds)
+   **Total running time of the script:** (0 minutes 0.549 seconds)
 
 **Estimated memory usage:**  108 MB
 

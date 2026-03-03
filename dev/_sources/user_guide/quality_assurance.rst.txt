@@ -72,8 +72,12 @@ The structure is organized following the :ref:`brainprep ontology <ontology>`.
     ├── group_dwi.tsv
     ├── group_T1w.html
     ├── group_T1w.tsv
-    ├── logs
+    ├── log
     │   └── report_<timestamp>.rst
+    ├── quality_check
+    │   ├── filter_group_bold.tsv
+    │   ├── filter_group_dwi.tsv
+    │   └── filter_group_T1w.tsv
     ├── sub-01
     │   └── ses-00
     │       ├── anat
@@ -116,6 +120,9 @@ The structure is organized following the :ref:`brainprep ontology <ontology>`.
   Standard MRIQC group-level report.
 - ``log/report_<timestamp>.rst``  
   Contains group-level workflow steps and parameters.
+- ``quality_check/filter_group_*_<modality>.tsv``  
+  Table with a set of uncorrelated with IQMs for each subject/session/run
+  across all modalities.
 - ``sub-<id>/ses-<id>``
   Standard MRIQC folder structure.
 - ``sub-<id>_ses<id>_*_<modality>.html``  
@@ -151,6 +158,32 @@ Featured examples
           Quality Assurance
 
         Explore how to perform this analysis.
+
+  .. grid-item-card::
+    :link: ../auto_examples/tutorials/plot_iqms.html
+    :link-type: url
+    :columns: 12 12 12 12
+    :class-card: sd-shadow-sm
+    :margin: 2 2 auto auto
+
+    .. grid::
+      :gutter: 3
+      :margin: 0
+      :padding: 0
+
+      .. grid-item::
+        :columns: 12 4 4 4
+
+        .. image:: ../auto_examples/tutorials/images/thumb/sphx_glr_plot_iqms_thumb.png
+
+      .. grid-item::
+        :columns: 12 8 8 8
+
+        .. div:: sd-font-weight-bold
+
+          IQMs
+
+        Explore how to select IQMs.
 
 References
 ----------
