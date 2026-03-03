@@ -30,6 +30,10 @@ from ..typing import (
     Directory,
     File,
 )
+from .color import (
+    print_info,
+    print_warn,
+)
 
 
 @decorator
@@ -400,9 +404,16 @@ def parse_bids_keys(
     Returns
     -------
     entities : dict[str]
-        A dictionary containing hthe parsed BIDS entities and the detected
+        A dictionary containing the parsed BIDS entities and the detected
         modality. Missing entities such as `ses` and `run` are filled with
         default values.
+
+    Notes
+    -----
+    This procedure ensures that each BIDS file has a unique run identifier
+    within its folder. It checks whether the current run value appears more
+    than once, assigns a UUID-style fallback if needed, and warns if even
+    that fallback is not unique.
     """
     # Extract the filename from the path id necessary
     filename = str(bids_path) if full_path else bids_path.name
@@ -439,10 +450,81 @@ def parse_bids_keys(
     }
 
     # Fill in missing entities with defaults
+    run_in_entities = "run" in entities
     for key, default in defaults.items():
         entities.setdefault(key, default)
 
+    # Check integrity
+    status = check_run(bids_path, entities, full_path)
+    if run_in_entities and not status:
+        print_info(
+            "Multiple files with same run ID detected, using UUID instead."
+        )
+        entities["run"] = defaults["run"]
+        status = check_run(bids_path, entities, full_path)
+    if not status:
+        print_warn(
+            f"The generated UUID is not unique: {bids_path}"
+        )
+
     return entities
+
+
+def check_run(
+        bids_path: File,
+        entities: dict[str],
+        full_path: bool = False) -> bool:
+    """
+    Scan the folder containing a BIDS file and verify that the run entity
+    associated with the file appears exactly once among all matching files.
+
+    Parameters
+    ----------
+    bids_path : File
+        A BIDS file.
+    entities : dict[str]
+        Dictionary of parsed BIDS entities for the file, including the
+        modality.
+    full_path : bool
+        If True, extract entities from the full path instead of only the
+        filename. Default False.
+
+    Returns
+    -------
+    bool
+        True if the run identifier occurs exactly once among all matching
+        files in the folder, False otherwise.
+    """
+    filename = str(bids_path) if full_path else bids_path.name
+    ext = "".join(bids_path.suffixes)
+    entity_pattern = (
+        r"(?P<entity>(run))"
+        r"-(?P<value>[^_/]+)"
+    )
+    pattern = f"sub-*{entities['modality']}*{ext}"
+
+    all_entities = []
+    for bids_path_ in bids_path.parent.glob(pattern):
+        filename_ = str(bids_path_) if full_path else bids_path_.name
+        entities_ = {"filename": filename_}
+
+        # Extract run entity if present
+        for match in re.finditer(entity_pattern, str(bids_path_)):
+            entity = match.group("entity")
+            value = match.group("value")
+            entities_[entity] = value
+
+        # If run is missing, generate one
+        if "run" not in entities_:
+            entities_["run"] = make_run_id(filename)[1]
+
+        all_entities.append(entities_)
+
+    # Count how many times the current file's run appears
+    all_run_ids = [item["run"] for item in all_entities]
+    count = all_run_ids.count(entities["run"])
+
+    return count == 1
 
 
 def make_run_id(
