@@ -349,7 +349,7 @@ def cat12vbm_morphometry(
         try:
             tiv = float(cat["vol_TIV"][7])
             csf_vol, gm_vol, wm_vol = map(
-                float, cat["vol_abs_CGW"][7][1:-1].split()
+                float, cat["vol_abs_CGW"][7][1:-1].split()[:3]
             )
         except Exception as exc:
             raise ValueError(
