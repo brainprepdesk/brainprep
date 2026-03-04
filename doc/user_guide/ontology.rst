@@ -88,3 +88,12 @@ The overall structure can be visualized as:
     │   └── report.rst
     └── dataset_description.json
 
+In a tool that relies on a non-typed ontology, multiple runs of the same
+modality may occur within a single session, which can lead to naming
+conflicts. In such cases, an additional ``run-<ID>`` subdirectory is created.
+When the run identifier is missing from the filename, or when several images
+of the same modality share the same run identifier, a deterministic five-digit
+identifier is generated from the filename using a UUID.
+This ensures stable and reproducible naming.
+To guarantee uniqueness of run identifiers within the session folder, we
+check for duplicates and issues a warning if a conflict is detected.
