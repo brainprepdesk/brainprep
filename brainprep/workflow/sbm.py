@@ -27,6 +27,7 @@ from ..utils import (
     Bunch,
     bids,
     coerceparams,
+    find_first_occurrence,
     parse_bids_keys,
     print_deprecated,
     print_info,
@@ -258,6 +259,22 @@ def brainprep_sbm(
         entities,
     )
 
+    subject_dir = output_dir / f"run-{entities['run']}"
+    mapping = {
+        str(find_first_occurrence(t1_file, "rawdata")): "RAWDATA",
+        str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
+    }
+    for log_file in [
+                *list(subject_dir.glob("scripts/recon-all.*")),
+                subject_dir / "scripts" / "seg2cc.log",
+                subject_dir / "scripts" / "unknown-args.txt",
+            ]:
+        if log_file.is_file():
+            interfaces.anonfile(
+                log_file,
+                mapping,
+            )
+
     for name in ("fsaverage", "fsaverage_sym"):
         template_dir = output_dir / name
         if template_dir.is_symlink():
@@ -268,7 +285,7 @@ def brainprep_sbm(
         shutil.rmtree(workspace_dir)
 
     return Bunch(
-        subject_dir=output_dir / f"run-{entities['run']}",
+        subject_dir=subject_dir,
         left_reg_file=left_reg_file,
         right_reg_file=right_reg_file,
         lh_thickness_file=lh_thickness_file,
@@ -416,6 +433,25 @@ def brainprep_longitudinal_sbm(
         output_dir=output_dir.parent / "template",
         content=True,
     )
+
+    mapping = {
+        str(find_first_occurrence(t1_files[0], "rawdata")): "RAWDATA",
+        str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
+    }
+    for source_dir in [
+                output_dir.parent / "template",
+                *subject_dirs,
+            ]:
+        for log_file in [
+                    *list(source_dir.glob("scripts/recon-all.*")),
+                    source_dir / "scripts" / "seg2cc.log",
+                    source_dir / "scripts" / "unknown-args.txt",
+                ]:
+            if log_file.is_file():
+                interfaces.anonfile(
+                    log_file,
+                    mapping,
+                )
 
     for target_dir in output_dir.parent.iterdir():
         if target_dir.is_symlink():

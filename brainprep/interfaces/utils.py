@@ -1,5 +1,5 @@
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2021 - 2025
+# NSAp - Copyright (C) CEA, 2021 - 2026
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -10,8 +10,11 @@
 Utils functions.
 """
 
+import getpass
 import gzip
+import socket
 import shutil
+from collections import OrderedDict
 
 import nibabel
 import numpy as np
@@ -27,7 +30,10 @@ from ..utils import (
     make_run_id,
     outputdir,
 )
-from ..wrappers import pywrapper
+from ..wrappers import (
+    cmdwrapper,
+    pywrapper,
+)
 
 
 @coerceparams
@@ -309,3 +315,56 @@ def write_uuid_mapping(
         outut_file = None
 
     return (outut_file, )
+
+
+@coerceparams
+@log_runtime(
+    bunched=False)
+@cmdwrapper
+def anonfile(
+        input_file: File,
+        mapping: dict[str, str]) -> tuple[list[str], File]:
+    """
+    Anonymize a text file using sed.
+
+    The function constructs a list of sed substitution expressions based on
+    the user-provided mapping and additional system-derived identifiers
+    (hostname, IP address, username). The resulting command performs
+    in-place anonymization of the input file.
+
+    Parameters
+    ----------
+    input_file : File
+        Path to the file to anonymize.
+    mapping : dict[str, str]
+        Patterns to replace (keys) and their replacements (values).
+
+    Returns
+    -------
+    command : list[str]
+        The sed command-line used for anonization.
+    output_file : File
+        Path to the anonymized file.
+    """
+    mapping = OrderedDict(mapping)
+    hostname = socket.gethostname()
+    mapping.update(
+        OrderedDict({
+            hostname: "HOSTNAME",
+            socket.gethostbyname(hostname): "X.X.X.X",
+            getpass.getuser(): "USER",
+        })
+    )
+
+    patterns = []
+    for old, new in mapping.items():
+        old_esc = old.replace("/", r"\/")
+        new_esc = new.replace("/", r"\/")
+        patterns.extend(["-e", f"'s/{old_esc}/{new_esc}/g'"])
+    command = [
+        "sed",
+        *patterns,
+        "-i", str(input_file)
+    ]
+
+    return command, (input_file, )

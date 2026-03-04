@@ -658,3 +658,35 @@ def find_stack_level() -> int:
         # https://docs.python.org/3/library/inspect.html#inspect.Traceback
         del frame
     return n
+
+
+def find_first_occurrence(
+        input_file: Path,
+        target: str) -> Path:
+    """
+    Return the closest parent directory whose name matches `target`.
+
+    Parameters
+    ----------
+    input_file : Path
+        Starting path (file or directory).
+    target : str
+        Name of the directory to search for.
+
+    Returns
+    -------
+    Path
+        The first parent directory named `target`.
+
+    Raises
+    ------
+    ValueError
+        If no parent directory with the given name is found.
+    """
+    for parent in input_file.parents:
+        if parent.name == target:
+            return parent
+
+    raise ValueError(
+        f"Unable to find target '{target}' in parents of {input_file}"
+    )

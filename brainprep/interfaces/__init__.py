@@ -65,6 +65,7 @@ from .qualcheck import (
     vbm_metrics,
 )
 from .utils import (
+    anonfile,
     copyfiles,
     maskdiff,
     movedir,

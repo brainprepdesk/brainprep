@@ -29,6 +29,7 @@ from ..utils import (
     Bunch,
     bids,
     coerceparams,
+    find_first_occurrence,
     parse_bids_keys,
 )
 
@@ -98,6 +99,15 @@ def brainprep_vbm(
         batch_file,
         output_dir.parent,
         [entities],
+    )
+
+    mapping = {
+        str(find_first_occurrence(t1_file, "rawdata")): "RAWDATA",
+        str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
+    }
+    interfaces.anonfile(
+        batch_file,
+        mapping,
     )
 
     return Bunch(
@@ -182,6 +192,15 @@ def brainprep_longitudinal_vbm(
         batch_file,
         output_dir.parent,
         entities,
+    )
+
+    mapping = {
+        str(find_first_occurrence(t1_files[0], "rawdata")): "RAWDATA",
+        str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
+    }
+    interfaces.anonfile(
+        batch_file,
+        mapping,
     )
 
     return Bunch(
