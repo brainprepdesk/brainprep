@@ -73,6 +73,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.interfaces.qualcheck.network_entropy.html'>brainprep.interfaces.qualcheck.network_entropy</a></li>
       <li><a href='generated/brainprep.interfaces.qualcheck.vbm_metrics.html'>brainprep.interfaces.qualcheck.vbm_metrics</a></li>
       <li><a href='generated/brainprep.interfaces.reorient.html'>brainprep.interfaces.reorient</a></li>
+      <li><a href='generated/brainprep.interfaces.utils.anonfile.html'>brainprep.interfaces.utils.anonfile</a></li>
       <li><a href='generated/brainprep.interfaces.utils.copyfiles.html'>brainprep.interfaces.utils.copyfiles</a></li>
       <li><a href='generated/brainprep.interfaces.utils.maskdiff.html'>brainprep.interfaces.utils.maskdiff</a></li>
       <li><a href='generated/brainprep.interfaces.utils.movedir.html'>brainprep.interfaces.utils.movedir</a></li>
@@ -106,6 +107,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.utils.utils.check_run.html'>brainprep.utils.utils.check_run</a></li>
       <li><a href='generated/brainprep.utils.utils.coerce_to_list.html'>brainprep.utils.utils.coerce_to_list</a></li>
       <li><a href='generated/brainprep.utils.utils.coerce_to_path.html'>brainprep.utils.utils.coerce_to_path</a></li>
+      <li><a href='generated/brainprep.utils.utils.find_first_occurrence.html'>brainprep.utils.utils.find_first_occurrence</a></li>
       <li><a href='generated/brainprep.utils.utils.find_stack_level.html'>brainprep.utils.utils.find_stack_level</a></li>
       <li><a href='generated/brainprep.utils.utils.make_run_id.html'>brainprep.utils.utils.make_run_id</a></li>
       <li><a href='generated/brainprep.utils.utils.parse_bids_keys.html'>brainprep.utils.utils.parse_bids_keys</a></li>

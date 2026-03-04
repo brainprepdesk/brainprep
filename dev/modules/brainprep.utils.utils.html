@@ -372,6 +372,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Utils functions.</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Utils functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.anonfile.html">brainprep.interfaces.utils.anonfile</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.copyfiles.html">brainprep.interfaces.utils.copyfiles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.maskdiff.html">brainprep.interfaces.utils.maskdiff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
@@ -426,6 +427,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.check_run.html">brainprep.utils.utils.check_run</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.find_first_occurrence.html">brainprep.utils.utils.find_first_occurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.make_run_id.html">brainprep.utils.utils.make_run_id</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/brainprep.utils.utils.parse_bids_keys.html">brainprep.utils.utils.parse_bids_keys</a></li>
@@ -545,16 +547,19 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.coerce_to_path.html#brainprep.utils.utils.coerce_to_path" title="brainprep.utils.utils.coerce_to_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coerce_to_path</span></code></a>(value, expected_type)</p></td>
 <td><p>Recursively convert values to <cite>pathlib.Path</cite> based on expected type annotations.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.find_stack_level.html#brainprep.utils.utils.find_stack_level" title="brainprep.utils.utils.find_stack_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_stack_level</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.find_first_occurrence.html#brainprep.utils.utils.find_first_occurrence" title="brainprep.utils.utils.find_first_occurrence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_first_occurrence</span></code></a>(input_file, target)</p></td>
+<td><p>Return the closest parent directory whose name matches <cite>target</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.find_stack_level.html#brainprep.utils.utils.find_stack_level" title="brainprep.utils.utils.find_stack_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_stack_level</span></code></a>()</p></td>
 <td><p>Return the index of the first stack frame outside the <code class="docutils literal notranslate"><span class="pre">brainprep</span></code> package.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.make_run_id.html#brainprep.utils.utils.make_run_id" title="brainprep.utils.utils.make_run_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_run_id</span></code></a>(filename)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.make_run_id.html#brainprep.utils.utils.make_run_id" title="brainprep.utils.utils.make_run_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_run_id</span></code></a>(filename)</p></td>
 <td><p>Generate a deterministic identifier and a 5-digit short code from a filename.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.parse_bids_keys.html#brainprep.utils.utils.parse_bids_keys" title="brainprep.utils.utils.parse_bids_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_bids_keys</span></code></a>(bids_path[, full_path])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.parse_bids_keys.html#brainprep.utils.utils.parse_bids_keys" title="brainprep.utils.utils.parse_bids_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_bids_keys</span></code></a>(bids_path[, full_path])</p></td>
 <td><p>Parse BIDS entities and modality from a filename or path with validation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.sidecar_from_file.html#brainprep.utils.utils.sidecar_from_file" title="brainprep.utils.utils.sidecar_from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sidecar_from_file</span></code></a>(image_file)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainprep.utils.utils.sidecar_from_file.html#brainprep.utils.utils.sidecar_from_file" title="brainprep.utils.utils.sidecar_from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sidecar_from_file</span></code></a>(image_file)</p></td>
 <td><p>Infers the corresponding JSON sidecar file for a given NIfTI image file.</p></td>
 </tr>
 </tbody>

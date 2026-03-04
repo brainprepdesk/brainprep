@@ -9,7 +9,7 @@
 <meta property="og:site_name" content="brainprep" />
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
-<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.interfaces.utils.maskdiff" href="brainprep.interfaces.utils.maskdiff.html" /><link rel="prev" title="brainprep.interfaces.utils: Utils functions." href="../brainprep.interfaces.utils.html" />
+<link rel="search" title="Search" href="../../search.html" /><link rel="next" title="brainprep.interfaces.utils.maskdiff" href="brainprep.interfaces.utils.maskdiff.html" /><link rel="prev" title="brainprep.interfaces.utils.anonfile" href="brainprep.interfaces.utils.anonfile.html" />
         <link rel="prefetch" href="../../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
@@ -370,6 +370,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../brainprep.interfaces.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Utils functions.</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of brainprep.interfaces.utils: Utils functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.anonfile.html">brainprep.interfaces.utils.anonfile</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">brainprep.interfaces.utils.copyfiles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.maskdiff.html">brainprep.interfaces.utils.maskdiff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.interfaces.utils.movedir.html">brainprep.interfaces.utils.movedir</a></li>
@@ -424,6 +425,7 @@
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.check_run.html">brainprep.utils.utils.check_run</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.find_first_occurrence.html">brainprep.utils.utils.find_first_occurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.find_stack_level.html">brainprep.utils.utils.find_stack_level</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.make_run_id.html">brainprep.utils.utils.make_run_id</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.parse_bids_keys.html">brainprep.utils.utils.parse_bids_keys</a></li>
@@ -536,7 +538,7 @@ function signature, and not how to use it. Please refer to the
 <h1>brainprep.interfaces.utils.copyfiles<a class="headerlink" href="#brainprep-interfaces-utils-copyfiles" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainprep.interfaces.utils.copyfiles">
-<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.utils.</span></span><span class="sig-name descname"><span class="pre">copyfiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_image_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_image_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/17d9aa0/brainprep/interfaces/utils.py#L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.utils.copyfiles" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">brainprep.interfaces.utils.</span></span><span class="sig-name descname"><span class="pre">copyfiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_image_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_image_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/9e1ac07/brainprep/interfaces/utils.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.interfaces.utils.copyfiles" title="Link to this definition">¶</a></dt>
 <dd><p>Copy input image files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -570,14 +572,14 @@ function signature, and not how to use it. Please refer to the
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../brainprep.interfaces.utils.html">
+          <a class="prev-page" href="brainprep.interfaces.utils.anonfile.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.interfaces.utils</span></code>: Utils functions.</div>
+                <div class="title">brainprep.interfaces.utils.anonfile</div>
                 
               </div>
             </a>

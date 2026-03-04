@@ -18,6 +18,7 @@ Functions
    :toctree: generated/
    :template: function.rst
 
+    anonfile
     copyfiles
     maskdiff
     movedir

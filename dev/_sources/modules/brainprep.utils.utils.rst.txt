@@ -21,6 +21,7 @@ Functions
     check_run
     coerce_to_list
     coerce_to_path
+    find_first_occurrence
     find_stack_level
     make_run_id
     parse_bids_keys
