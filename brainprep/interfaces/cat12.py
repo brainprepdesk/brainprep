@@ -159,7 +159,7 @@ def write_catbatch(
             "resources" /
             "cat12vbm_matlabbatch_longitudinal.m"
         )
-    else: 
+    else:
         batch_file = (
             output_dir /
             f"ses-{entities[0]['ses']}" /

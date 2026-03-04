@@ -12,8 +12,8 @@ Utils functions.
 
 import getpass
 import gzip
-import socket
 import shutil
+import socket
 from collections import OrderedDict
 
 import nibabel
