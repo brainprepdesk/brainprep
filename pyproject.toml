@@ -8,9 +8,7 @@ build-backend = "setuptools.build_meta"
 name = "brainprep"
 readme = "README.rst"
 requires-python = ">=3.12"
-authors = [
-    {name = "brainprep developers", email = "antoine.grigis@cea.fr"},
-]
+authors = [{name = "brainprep developers"}]
 license = "CECILL-B"
 license-files = ["LICENSE"]
 classifiers = [
