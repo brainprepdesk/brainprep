@@ -433,7 +433,7 @@ def parse_bids_keys(
     # Extract modality (suffix before extension)
     suffix_pattern = (
         r"_(?P<modality>[a-zA-Z0-9]+)(?=\.(nii|nii\.gz|json|tsv|edf|vhdr"
-        r"|eeg|bvec|bval|csv))"
+        r"|eeg|bvec|bval|csv|mat|xml))"
     )
     modality_match = re.search(suffix_pattern, filename)
     if modality_match:
