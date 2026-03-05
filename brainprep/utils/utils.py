@@ -501,7 +501,7 @@ def check_run(
         r"(?P<entity>(run))"
         r"-(?P<value>[^_/]+)"
     )
-    pattern = f"sub-*{entities['modality']}*{ext}"
+    pattern = f"*sub-*{entities['modality']}*{ext}"
 
     all_entities = []
     for bids_path_ in bids_path.parent.glob(pattern):
@@ -524,7 +524,7 @@ def check_run(
     all_run_ids = [item["run"] for item in all_entities]
     count = all_run_ids.count(entities["run"])
 
-    return count == 1
+    return count > 1
 
 
 def make_run_id(
