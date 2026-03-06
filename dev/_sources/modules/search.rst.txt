@@ -104,7 +104,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.utils.color.print_title.html'>brainprep.utils.color.print_title</a></li>
       <li><a href='generated/brainprep.utils.color.print_warn.html'>brainprep.utils.color.print_warn</a></li>
       <li><a href='generated/brainprep.utils.color.stylize.html'>brainprep.utils.color.stylize</a></li>
-      <li><a href='generated/brainprep.utils.utils.check_run.html'>brainprep.utils.utils.check_run</a></li>
+      <li><a href='generated/brainprep.utils.utils.check_run_fn.html'>brainprep.utils.utils.check_run_fn</a></li>
       <li><a href='generated/brainprep.utils.utils.coerce_to_list.html'>brainprep.utils.utils.coerce_to_list</a></li>
       <li><a href='generated/brainprep.utils.utils.coerce_to_path.html'>brainprep.utils.utils.coerce_to_path</a></li>
       <li><a href='generated/brainprep.utils.utils.find_first_occurrence.html'>brainprep.utils.utils.find_first_occurrence</a></li>

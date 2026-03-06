@@ -3,9 +3,9 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="brainprep.utils.utils.check_run" />
+<meta property="og:title" content="brainprep.utils.utils.check_run_fn" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https:///github.com.github.io/modules/generated/brainprep.utils.utils.check_run.html" />
+<meta property="og:url" content="https:///github.com.github.io/modules/generated/brainprep.utils.utils.check_run_fn.html" />
 <meta property="og:site_name" content="brainprep" />
 <meta property="og:image" content="https:/github.com.github.io/neurospin-deepinsight/_static/brainprep-logo.png" />
 <meta property="og:image:alt" content="brainprep" />
@@ -13,7 +13,7 @@
         <link rel="prefetch" href="../../_static/brainprep-transparent.png" as="image" />
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2025.07.19 -->
-        <title>brainprep.utils.utils.check_run - brainprep 2.0.0 documentation</title>
+        <title>brainprep.utils.utils.check_run_fn - brainprep 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=2da93098" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -422,7 +422,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">brainprep.utils.utils.check_run</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">brainprep.utils.utils.check_run_fn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.find_first_occurrence.html">brainprep.utils.utils.find_first_occurrence</a></li>
@@ -504,12 +504,12 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="https://github.com/neurospin-deepinsight/brainprep/blob/main/doc/modules/generated/brainprep.utils.utils.check_run.rst?plain=true" title="View this page">
+  <a class="muted-link" href="https://github.com/neurospin-deepinsight/brainprep/blob/main/doc/modules/generated/brainprep.utils.utils.check_run_fn.rst?plain=true" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
 </div><div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/neurospin-deepinsight/brainprep/edit/main/doc/modules/generated/brainprep.utils.utils.check_run.rst" rel="edit" title="Edit this page">
+  <a class="muted-link" href="https://github.com/neurospin-deepinsight/brainprep/edit/main/doc/modules/generated/brainprep.utils.utils.check_run_fn.rst" rel="edit" title="Edit this page">
     <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
@@ -534,11 +534,11 @@
 function signature, and not how to use it. Please refer to the
 <a class="reference internal" href="../../user_guide/index.html#user-guide"><span class="std std-ref">user guide</span></a> for the big picture.</p>
 </div>
-<section id="brainprep-utils-utils-check-run">
-<h1>brainprep.utils.utils.check_run<a class="headerlink" href="#brainprep-utils-utils-check-run" title="Link to this heading">¶</a></h1>
+<section id="brainprep-utils-utils-check-run-fn">
+<h1>brainprep.utils.utils.check_run_fn<a class="headerlink" href="#brainprep-utils-utils-check-run-fn" title="Link to this heading">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="brainprep.utils.utils.check_run">
-<span class="sig-prename descclassname"><span class="pre">brainprep.utils.utils.</span></span><span class="sig-name descname"><span class="pre">check_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bids_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/9e1ac07/brainprep/utils/utils.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.utils.utils.check_run" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="brainprep.utils.utils.check_run_fn">
+<span class="sig-prename descclassname"><span class="pre">brainprep.utils.utils.</span></span><span class="sig-name descname"><span class="pre">check_run_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bids_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/faa3209/brainprep/utils/utils.py#L483"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.utils.utils.check_run_fn" title="Link to this definition">¶</a></dt>
 <dd><p>Scan the folder containing a BIDS file and verify that the run entity
 associated with the file appears exactly once among all matching files.</p>
 <dl class="field-list simple">
@@ -624,8 +624,8 @@ files in the folder, False otherwise.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">brainprep.utils.utils.check_run</a><ul>
-<li><a class="reference internal" href="#brainprep.utils.utils.check_run"><code class="docutils literal notranslate"><span class="pre">check_run</span></code></a></li>
+<li><a class="reference internal" href="#">brainprep.utils.utils.check_run_fn</a><ul>
+<li><a class="reference internal" href="#brainprep.utils.utils.check_run_fn"><code class="docutils literal notranslate"><span class="pre">check_run_fn</span></code></a></li>
 </ul>
 </li>
 </ul>

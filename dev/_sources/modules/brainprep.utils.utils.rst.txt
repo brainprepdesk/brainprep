@@ -18,7 +18,7 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    check_run
+    check_run_fn
     coerce_to_list
     coerce_to_path
     find_first_occurrence

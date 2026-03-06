@@ -422,7 +422,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.check_run.html">brainprep.utils.utils.check_run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.check_run_fn.html">brainprep.utils.utils.check_run_fn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.find_first_occurrence.html">brainprep.utils.utils.find_first_occurrence</a></li>
@@ -538,7 +538,7 @@ function signature, and not how to use it. Please refer to the
 <h1>brainprep.utils.utils.parse_bids_keys<a class="headerlink" href="#brainprep-utils-utils-parse-bids-keys" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainprep.utils.utils.parse_bids_keys">
-<span class="sig-prename descclassname"><span class="pre">brainprep.utils.utils.</span></span><span class="sig-name descname"><span class="pre">parse_bids_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bids_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/9e1ac07/brainprep/utils/utils.py#L379"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.utils.utils.parse_bids_keys" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">brainprep.utils.utils.</span></span><span class="sig-name descname"><span class="pre">parse_bids_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bids_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/faa3209/brainprep/utils/utils.py#L391"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.utils.utils.parse_bids_keys" title="Link to this definition">¶</a></dt>
 <dd><p>Parse BIDS entities and modality from a filename or path with validation.</p>
 <p>This function extracts BIDS entities (e.g., subject, session, task,
 run) from a BIDS-compliant filename or full path. It also identifies the
@@ -556,6 +556,10 @@ hash so that the same filename always yields the same default run value.</p>
 <dt><strong>full_path: bool</strong></dt><dd><p>If True, extract entities from the full input path rather than
 only the filename. Default is False.</p>
 </dd>
+<dt><strong>check_run: bool</strong></dt><dd><p>If True, checks whether the current run value appears more
+than once, assigns a UUID-style fallback if needed, and warns if even
+that fallback is not unique. Default is False.</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -567,11 +571,6 @@ default values.</p>
 </dl>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>This procedure ensures that each BIDS file has a unique run identifier
-within its folder. It checks whether the current run value appears more
-than once, assigns a UUID-style fallback if needed, and warns if even
-that fallback is not unique.</p>
 </dd></dl>
 
 <div style='clear:both'></div></section>

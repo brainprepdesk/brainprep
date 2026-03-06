@@ -422,7 +422,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../brainprep.utils.utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainprep.utils.utils</span></code>: Module that contains some utility functions.</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of brainprep.utils.utils: Module that contains some utility functions.</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.check_run.html">brainprep.utils.utils.check_run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.check_run_fn.html">brainprep.utils.utils.check_run_fn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_list.html">brainprep.utils.utils.coerce_to_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.coerce_to_path.html">brainprep.utils.utils.coerce_to_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="brainprep.utils.utils.find_first_occurrence.html">brainprep.utils.utils.find_first_occurrence</a></li>
@@ -538,7 +538,7 @@ function signature, and not how to use it. Please refer to the
 <h1>brainprep.workflow.sbm.brainprep_sbm<a class="headerlink" href="#brainprep-workflow-sbm-brainprep-sbm" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainprep.workflow.sbm.brainprep_sbm">
-<span class="sig-prename descclassname"><span class="pre">brainprep.workflow.sbm.</span></span><span class="sig-name descname"><span class="pre">brainprep_sbm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sbm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_lgi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wm_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/9e1ac07/brainprep/workflow/sbm.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.workflow.sbm.brainprep_sbm" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">brainprep.workflow.sbm.</span></span><span class="sig-name descname"><span class="pre">brainprep_sbm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sbm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_lgi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wm_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/neurospin-deepinsight/brainprep/blob/faa3209/brainprep/workflow/sbm.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainprep.workflow.sbm.brainprep_sbm" title="Link to this definition">¶</a></dt>
 <dd><p>SBM pre-processing.</p>
 <p>Applies the brain parcellation pre-processing described in
 <a class="footnote-reference brackets" href="#footcite-dufumier2022openbhb" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. This includes:</p>
@@ -582,6 +582,11 @@ studies. This parameter has no effect!</p>
 </dd>
 <dt><strong>keep_intermediate</strong><span class="classifier">bool</span></dt><dd><p>If True, retains intermediate results (i.e., the workspace); useful
 for debugging. Default False.</p>
+</dd>
+<dt><strong>kwargs</strong><span class="classifier">dict</span></dt><dd><dl class="simple">
+<dt>entities: dict</dt><dd><p>Dictionary of parsed BIDS entities.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd>

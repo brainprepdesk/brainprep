@@ -159,11 +159,12 @@ to actually run each step and generate results on disk.
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
-        description: '\n    Quasi-RAW pre-processing.\n\n    Applies the Quasi-RAW pre-processing described in\n    :footcite:p:`dufumier2022openbhb`. This includes:\n\n    1) Reorient the anatomical image to standard MNI152 template space.\n    2) Compute a brain mask using a skull-stripping tool.\n    3) Apply the brain mask to the anatomical image.\n    4) Resample the anatomical image to 1mm isotropic voxel size.\n    5) Resample the brain mask image to 1mm isotropic voxel size.\n    6) Perform N4 bias field correction.\n    7) Linearly (9 dof) register the image to the MNI152 1mm template space.\n    8) Apply the registration to the antomical image.\n    9) Apply the registration to the brain mask image.\n    10) Apply the brain mask to the registered anatomical image.\n\n    Parameters\n    ----------\n    anatomical_file: File\n        Path to the input image file.\n    output_dir: Directory\n        Directory where the outputs will be saved (i.e., the root of your\n        dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - aligned_anatomical_file : File - path to the aligned anatomical\n          image - a Nifti file with the suffix "_T1w".\n        - aligned_mask_file : File - path to the aligned mask image - a\n          Nifti file with the suffix "_mod-T1w_brainmask".\n        - transform_file : File - path to the 9 dof affine transformation - a\n          text file with the suffix "_mod-T1w_affine".\n\n    Raises\n    ------\n    ValueError\n        If the input anatomical file is not BIDS-compliant.\n\n    Notes\n    -----\n    This workflow assumes the anatomical image is organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_quasiraw\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quasiraw(\n    ...         anatomical_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n      aligned_anatomical_file: PosixPath(\'...\')\n      aligned_mask_file: PosixPath(\'...\')\n      transform_file: PosixPath(\'...\')\n    )\n    '
+        description: '\n    Quasi-RAW pre-processing.\n\n    Applies the Quasi-RAW pre-processing described in\n    :footcite:p:`dufumier2022openbhb`. This includes:\n\n    1) Reorient the anatomical image to standard MNI152 template space.\n    2) Compute a brain mask using a skull-stripping tool.\n    3) Apply the brain mask to the anatomical image.\n    4) Resample the anatomical image to 1mm isotropic voxel size.\n    5) Resample the brain mask image to 1mm isotropic voxel size.\n    6) Perform N4 bias field correction.\n    7) Linearly (9 dof) register the image to the MNI152 1mm template space.\n    8) Apply the registration to the antomical image.\n    9) Apply the registration to the brain mask image.\n    10) Apply the brain mask to the registered anatomical image.\n\n    Parameters\n    ----------\n    anatomical_file: File\n        Path to the input image file.\n    output_dir: Directory\n        Directory where the outputs will be saved (i.e., the root of your\n        dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n    kwargs : dict\n        entities: dict\n            Dictionary of parsed BIDS entities.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - aligned_anatomical_file : File - path to the aligned anatomical\n          image - a Nifti file with the suffix "_T1w".\n        - aligned_mask_file : File - path to the aligned mask image - a\n          Nifti file with the suffix "_mod-T1w_brainmask".\n        - transform_file : File - path to the 9 dof affine transformation - a\n          text file with the suffix "_mod-T1w_affine".\n\n    Raises\n    ------\n    ValueError\n        If the input anatomical file is not BIDS-compliant.\n\n    Notes\n    -----\n    This workflow assumes the anatomical image is organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_quasiraw\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quasiraw(\n    ...         anatomical_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n      aligned_anatomical_file: PosixPath(\'...\')\n      aligned_mask_file: PosixPath(\'...\')\n      transform_file: PosixPath(\'...\')\n    )\n    '
         inputs: Bunch(
           anatomical_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01')
           keep_intermediate: True
+          kwargs: {'kwargs': {'kwargs': {}}, 'entities': {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}}
         )
         outputs: Bunch(
           aligned_anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_T1w.nii.gz')
@@ -171,12 +172,12 @@ to actually run each step and generate results on disk.
           transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_affine.txt')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.921907'
-          end: '2026-03-04 13:05:37.921907'
-          execution_time: 1.17975e-05
+          start: '2026-03-06 13:31:57.786714'
+          end: '2026-03-06 13:31:57.786714'
+          execution_time: 1.1516944444444444e-05
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -202,12 +203,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.926727'
-          end: '2026-03-04 13:05:37.926727'
-          execution_time: 8.333333333333333e-08
+          start: '2026-03-06 13:31:57.791090'
+          end: '2026-03-06 13:31:57.791090'
+          execution_time: 8.11111111111111e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -233,12 +234,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.930492'
-          end: '2026-03-04 13:05:37.930492'
-          execution_time: 7.111111111111111e-08
+          start: '2026-03-06 13:31:57.794778'
+          end: '2026-03-06 13:31:57.794778'
+          execution_time: 8.277777777777777e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -265,12 +266,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.933964'
-          end: '2026-03-04 13:05:37.933964'
-          execution_time: 7.361111111111111e-08
+          start: '2026-03-06 13:31:57.798288'
+          end: '2026-03-06 13:31:57.798288'
+          execution_time: 7.805555555555555e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -297,12 +298,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.937430'
-          end: '2026-03-04 13:05:37.937430'
-          execution_time: 1.0138888888888888e-07
+          start: '2026-03-06 13:31:57.801814'
+          end: '2026-03-06 13:31:57.801814'
+          execution_time: 1.1611111111111111e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -329,12 +330,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.941162'
-          end: '2026-03-04 13:05:37.941162'
-          execution_time: 1.0000000000000001e-07
+          start: '2026-03-06 13:31:57.805585'
+          end: '2026-03-06 13:31:57.805585'
+          execution_time: 9.083333333333333e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -361,12 +362,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz'))
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.945045'
-          end: '2026-03-04 13:05:37.945045'
-          execution_time: 1.0611111111111112e-07
+          start: '2026-03-06 13:31:57.809469'
+          end: '2026-03-06 13:31:57.809469'
+          execution_time: 1.175e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -393,12 +394,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.948799'
-          end: '2026-03-04 13:05:37.948799'
-          execution_time: 1.0000000000000001e-07
+          start: '2026-03-06 13:31:57.812909'
+          end: '2026-03-06 13:31:57.812909'
+          execution_time: 1.125e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -427,12 +428,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.952443'
-          end: '2026-03-04 13:05:37.952443'
-          execution_time: 7.472222222222221e-08
+          start: '2026-03-06 13:31:57.816401'
+          end: '2026-03-06 13:31:57.816401'
+          execution_time: 8.083333333333334e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -461,12 +462,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.955864'
-          end: '2026-03-04 13:05:37.955864'
-          execution_time: 6.972222222222221e-08
+          start: '2026-03-06 13:31:57.819910'
+          end: '2026-03-06 13:31:57.819910'
+          execution_time: 7.805555555555555e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -493,12 +494,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.959255'
-          end: '2026-03-04 13:05:37.959255'
-          execution_time: 6.305555555555555e-08
+          start: '2026-03-06 13:31:57.823265'
+          end: '2026-03-06 13:31:57.823265'
+          execution_time: 6.666666666666667e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -525,12 +526,12 @@ to actually run each step and generate results on disk.
           outputs: None
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.963153'
-          end: '2026-03-04 13:05:37.963153'
-          execution_time: 2.5555555555555557e-08
+          start: '2026-03-06 13:31:57.827061'
+          end: '2026-03-06 13:31:57.827061'
+          execution_time: 2.083333333333333e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -575,11 +576,12 @@ to actually run each step and generate results on disk.
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
-        description: '\n    Quasi-RAW pre-processing.\n\n    Applies the Quasi-RAW pre-processing described in\n    :footcite:p:`dufumier2022openbhb`. This includes:\n\n    1) Reorient the anatomical image to standard MNI152 template space.\n    2) Compute a brain mask using a skull-stripping tool.\n    3) Apply the brain mask to the anatomical image.\n    4) Resample the anatomical image to 1mm isotropic voxel size.\n    5) Resample the brain mask image to 1mm isotropic voxel size.\n    6) Perform N4 bias field correction.\n    7) Linearly (9 dof) register the image to the MNI152 1mm template space.\n    8) Apply the registration to the antomical image.\n    9) Apply the registration to the brain mask image.\n    10) Apply the brain mask to the registered anatomical image.\n\n    Parameters\n    ----------\n    anatomical_file: File\n        Path to the input image file.\n    output_dir: Directory\n        Directory where the outputs will be saved (i.e., the root of your\n        dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - aligned_anatomical_file : File - path to the aligned anatomical\n          image - a Nifti file with the suffix "_T1w".\n        - aligned_mask_file : File - path to the aligned mask image - a\n          Nifti file with the suffix "_mod-T1w_brainmask".\n        - transform_file : File - path to the 9 dof affine transformation - a\n          text file with the suffix "_mod-T1w_affine".\n\n    Raises\n    ------\n    ValueError\n        If the input anatomical file is not BIDS-compliant.\n\n    Notes\n    -----\n    This workflow assumes the anatomical image is organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_quasiraw\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quasiraw(\n    ...         anatomical_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n      aligned_anatomical_file: PosixPath(\'...\')\n      aligned_mask_file: PosixPath(\'...\')\n      transform_file: PosixPath(\'...\')\n    )\n    '
+        description: '\n    Quasi-RAW pre-processing.\n\n    Applies the Quasi-RAW pre-processing described in\n    :footcite:p:`dufumier2022openbhb`. This includes:\n\n    1) Reorient the anatomical image to standard MNI152 template space.\n    2) Compute a brain mask using a skull-stripping tool.\n    3) Apply the brain mask to the anatomical image.\n    4) Resample the anatomical image to 1mm isotropic voxel size.\n    5) Resample the brain mask image to 1mm isotropic voxel size.\n    6) Perform N4 bias field correction.\n    7) Linearly (9 dof) register the image to the MNI152 1mm template space.\n    8) Apply the registration to the antomical image.\n    9) Apply the registration to the brain mask image.\n    10) Apply the brain mask to the registered anatomical image.\n\n    Parameters\n    ----------\n    anatomical_file: File\n        Path to the input image file.\n    output_dir: Directory\n        Directory where the outputs will be saved (i.e., the root of your\n        dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n    kwargs : dict\n        entities: dict\n            Dictionary of parsed BIDS entities.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - aligned_anatomical_file : File - path to the aligned anatomical\n          image - a Nifti file with the suffix "_T1w".\n        - aligned_mask_file : File - path to the aligned mask image - a\n          Nifti file with the suffix "_mod-T1w_brainmask".\n        - transform_file : File - path to the 9 dof affine transformation - a\n          text file with the suffix "_mod-T1w_affine".\n\n    Raises\n    ------\n    ValueError\n        If the input anatomical file is not BIDS-compliant.\n\n    Notes\n    -----\n    This workflow assumes the anatomical image is organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_quasiraw\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quasiraw(\n    ...         anatomical_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n      aligned_anatomical_file: PosixPath(\'...\')\n      aligned_mask_file: PosixPath(\'...\')\n      transform_file: PosixPath(\'...\')\n    )\n    '
         inputs: Bunch(
           anatomical_file: PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01')
           keep_intermediate: True
+          kwargs: {'kwargs': {'kwargs': {}}, 'entities': {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}}
         )
         outputs: Bunch(
           aligned_anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_T1w.nii.gz')
@@ -587,12 +589,12 @@ to actually run each step and generate results on disk.
           transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_mod-T1w_affine.txt')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.983743'
-          end: '2026-03-04 13:05:37.983743'
-          execution_time: 1.2716666666666666e-05
+          start: '2026-03-06 13:31:57.855113'
+          end: '2026-03-06 13:31:57.855113'
+          execution_time: 1.0448055555555555e-05
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -618,12 +620,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.988979'
-          end: '2026-03-04 13:05:37.988979'
-          execution_time: 6.611111111111112e-08
+          start: '2026-03-06 13:31:57.858491'
+          end: '2026-03-06 13:31:57.858491'
+          execution_time: 6.638888888888889e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -649,12 +651,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.993736'
-          end: '2026-03-04 13:05:37.993736'
-          execution_time: 7.694444444444445e-08
+          start: '2026-03-06 13:31:57.861700'
+          end: '2026-03-06 13:31:57.861700'
+          execution_time: 7e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -681,12 +683,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:37.998642'
-          end: '2026-03-04 13:05:37.998642'
-          execution_time: 7.361111111111111e-08
+          start: '2026-03-06 13:31:57.865133'
+          end: '2026-03-06 13:31:57.865133'
+          execution_time: 6.777777777777777e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -713,12 +715,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:38.003613'
-          end: '2026-03-04 13:05:38.003613'
-          execution_time: 1.0472222222222222e-07
+          start: '2026-03-06 13:31:57.868387'
+          end: '2026-03-06 13:31:57.868387'
+          execution_time: 1.0027777777777778e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -745,12 +747,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:38.007407'
-          end: '2026-03-04 13:05:38.007407'
-          execution_time: 8.194444444444445e-08
+          start: '2026-03-06 13:31:57.871630'
+          end: '2026-03-06 13:31:57.871630'
+          execution_time: 1.0222222222222223e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -777,12 +779,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz'))
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:38.011015'
-          end: '2026-03-04 13:05:38.011015'
-          execution_time: 9.083333333333333e-08
+          start: '2026-03-06 13:31:57.874984'
+          end: '2026-03-06 13:31:57.874984'
+          execution_time: 1.0083333333333333e-07
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -809,12 +811,12 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt'))
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:38.014692'
-          end: '2026-03-04 13:05:38.014692'
-          execution_time: 9.472222222222222e-08
+          start: '2026-03-06 13:31:57.878306'
+          end: '2026-03-06 13:31:57.878306'
+          execution_time: 9.916666666666666e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -843,12 +845,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:38.018441'
-          end: '2026-03-04 13:05:38.018441'
-          execution_time: 6.111111111111111e-08
+          start: '2026-03-06 13:31:57.881794'
+          end: '2026-03-06 13:31:57.881794'
+          execution_time: 8.083333333333334e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -877,12 +879,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:38.021930'
-          end: '2026-03-04 13:05:38.021930'
-          execution_time: 5.611111111111111e-08
+          start: '2026-03-06 13:31:57.885266'
+          end: '2026-03-06 13:31:57.885266'
+          execution_time: 6.583333333333333e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -909,12 +911,12 @@ to actually run each step and generate results on disk.
           outputs: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz')
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:38.025151'
-          end: '2026-03-04 13:05:38.025151'
-          execution_time: 5.416666666666667e-08
+          start: '2026-03-06 13:31:57.888456'
+          end: '2026-03-06 13:31:57.888456'
+          execution_time: 6.38888888888889e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -941,12 +943,12 @@ to actually run each step and generate results on disk.
           outputs: None
         )
         runtime: Bunch(
-          start: '2026-03-04 13:05:38.028654'
-          end: '2026-03-04 13:05:38.028654'
-          execution_time: 2.0555555555555555e-08
+          start: '2026-03-06 13:31:57.891902'
+          end: '2026-03-06 13:31:57.891902'
+          execution_time: 1.5833333333333333e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmnay03'
+          hostname: 'runnervm0kj6c'
         )
         config: Bunch(
           verbose: True
@@ -1057,7 +1059,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.878 seconds)
+   **Total running time of the script:** (0 minutes 1.190 seconds)
 
 **Estimated memory usage:**  138 MB
 

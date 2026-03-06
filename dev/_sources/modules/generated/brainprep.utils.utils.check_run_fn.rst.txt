@@ -7,14 +7,14 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.utils.utils.check_run
-===============================
+brainprep.utils.utils.check_run_fn
+==================================
 
 .. currentmodule:: brainprep.utils.utils
 
-.. autofunction:: check_run
+.. autofunction:: check_run_fn
 
-.. include:: brainprep.utils.utils.check_run.examples
+.. include:: brainprep.utils.utils.check_run_fn.examples
 
 .. raw:: html
 
