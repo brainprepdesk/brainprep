@@ -39,6 +39,11 @@ class IBCDataset:
     datadir : Directory
         Directory where data will be stored.
 
+    Attributes
+    ----------
+    _url : str
+        Internal URL used to fetch data.
+
     References
     ----------
 
@@ -63,11 +68,6 @@ class IBCDataset:
       description: PosixPath('...')
       anat: PosixPath('...')
     )
-
-    Attributes
-    ----------
-    _url : str
-        Internal URL used to fetch data.
     """
 
     _url: str = (
