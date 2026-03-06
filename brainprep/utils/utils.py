@@ -524,7 +524,7 @@ def check_run(
     all_run_ids = [item["run"] for item in all_entities]
     count = all_run_ids.count(entities["run"])
 
-    return count > 1
+    return count <= 1
 
 
 def make_run_id(
