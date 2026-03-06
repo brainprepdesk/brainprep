@@ -198,12 +198,22 @@ def brainprep_fmriprep(
     )
 
     connectivity_files = []
-    for mask_files, fmri_image_files, _, confounds_file in rfmri_outputs:
+    func_entities = [
+        parse_bids_keys(
+            path,
+            check_run=True,
+        )
+        for path in func_files
+    ]
+    for outputs, entities_ in zip(rfmri_outputs, func_entities, strict=True):
+        mask_files, fmri_image_files, _, confounds_file = outputs
         for mask_file, fmri_image_file in zip(
                 mask_files, fmri_image_files, strict=True):
             if "space-T1w" in str(fmri_image_file):
                 continue
             entities = parse_bids_keys(fmri_image_file)
+            if "run" not in entities:
+                entities["run"] = entities_["run"]
             connectivity_files.append(
                 interfaces.func_vol_connectivity(
                     fmri_image_file,

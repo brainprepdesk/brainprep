@@ -424,6 +424,11 @@ def parse_bids_keys(
         A dictionary containing the parsed BIDS entities and the detected
         modality. Missing entities such as `ses` and `run` are filled with
         default values.
+
+    Notes
+    -----
+    If the BIDS file name does not contain the `run` key a warn message is
+    displayed.
     """
     # Extract the filename from the path id necessary
     filename = str(bids_path) if full_path else bids_path.name
@@ -465,16 +470,21 @@ def parse_bids_keys(
         entities.setdefault(key, default)
 
     # Check integrity
-    status = check_run_fn(bids_path, entities, full_path)
-    if run_in_entities and not status:
-        print_info(
-            "Multiple files with same run ID detected, using UUID instead."
-        )
-        entities["run"] = defaults["run"]
+    if check_run:
         status = check_run_fn(bids_path, entities, full_path)
-    if not status:
+        if run_in_entities and not status:
+            print_info(
+                "Multiple files with same run ID detected, using UUID instead."
+            )
+            entities["run"] = defaults["run"]
+            status = check_run_fn(bids_path, entities, full_path)
+        if not status:
+            print_warn(
+                f"The generated UUID is not unique: {bids_path}"
+            )
+    elif not run_in_entities:
         print_warn(
-            f"The generated UUID is not unique: {bids_path}"
+            f"BIDS file name does not contain run key: {filename}"
         )
 
     return entities
