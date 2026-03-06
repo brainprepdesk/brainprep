@@ -46,7 +46,8 @@ from ..utils import (
 def brainprep_vbm(
         t1_file: File,
         output_dir: Directory,
-        keep_intermediate: bool = False) -> Bunch:
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
     """
     Voxel-based morphometry (VBM) pre-processing.
 
@@ -62,6 +63,9 @@ def brainprep_vbm(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
+    kwargs : dict
+        entities: dict
+            Dictionary of parsed BIDS entities.
 
     Returns
     -------
@@ -83,7 +87,7 @@ def brainprep_vbm(
 
     .. footbibliography::
     """
-    entities = parse_bids_keys(t1_file)
+    entities = kwargs.get("entities", {})
     if len(entities) == 0:
         raise ValueError(
             f"The T1w file '{t1_file}' is not BIDS-compliant."
@@ -132,7 +136,8 @@ def brainprep_longitudinal_vbm(
         t1_files: list[File],
         model: int,
         output_dir: Directory,
-        keep_intermediate: bool = False) -> Bunch:
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
     """
     Longitudinal voxel based morphometry (VBM) pre-processing.
 
@@ -151,6 +156,9 @@ def brainprep_longitudinal_vbm(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
+    kwargs : dict
+        entities: list[dict]
+            Dictionaries of parsed BIDS entities.
 
     Returns
     -------
@@ -172,9 +180,7 @@ def brainprep_longitudinal_vbm(
 
     .. footbibliography::
     """
-    entities = [
-        parse_bids_keys(path) for path in t1_files
-    ]
+    entities = kwargs.get("entities", {})
     for info, path in zip(entities, t1_files, strict=True):
         if len(info) == 0:
             raise ValueError(

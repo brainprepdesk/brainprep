@@ -44,7 +44,8 @@ from ..utils import (
 def brainprep_quasiraw(
         anatomical_file: File,
         output_dir: Directory,
-        keep_intermediate: bool = False) -> Bunch:
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
     """
     Quasi-RAW pre-processing.
 
@@ -72,6 +73,9 @@ def brainprep_quasiraw(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
+    kwargs : dict
+        entities: dict
+            Dictionary of parsed BIDS entities.
 
     Returns
     -------
@@ -128,7 +132,7 @@ def brainprep_quasiraw(
     workspace_dir.mkdir(parents=True, exist_ok=True)
     print_info(f"setting workspace directory: {workspace_dir}")
 
-    entities = parse_bids_keys(anatomical_file)
+    entities = kwargs.get("entities", {})
     if len(entities) == 0:
         raise ValueError(
             f"The anatomical file '{anatomical_file}' is not BIDS-compliant."

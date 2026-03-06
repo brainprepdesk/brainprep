@@ -41,7 +41,8 @@ from ..utils import (
 def brainprep_quality_assurance(
         image_files: list[File],
         output_dir: Directory,
-        keep_intermediate: bool = False) -> Bunch:
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
     """
     Subject level quality assurance pre-processing workflow for MRI images.
 
@@ -58,6 +59,10 @@ def brainprep_quality_assurance(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
+    kwargs : dict
+        entities: lsit[dict]
+            Dictionaries of parsed BIDS entities.
+
 
     Returns
     -------

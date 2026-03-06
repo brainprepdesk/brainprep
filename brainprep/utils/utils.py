@@ -49,11 +49,11 @@ def bids(
     """
     BIDS specification.
 
-    Decorator that computes a BIDS-compliant output directory path
-    based on the input BIDS file and injects it into the function.
-
-    Decorator that ensures BIDS-compliant metadata is written to the output
-    directory.
+    Decorator that i) computes a BIDS-compliant output directory path
+    based on the input BIDS file and injects it into the function, ii) ensures
+    BIDS-compliant metadata is written to the output directory, and iii)
+    injects the `entities` parameter to the function when a `bids_file`
+    is provided.
 
     Parameters
     ----------
@@ -112,14 +112,26 @@ def bids(
                     f"The 'bids' decorator needs a '{key}' function argument."
                 )
         if isinstance(inputs[bids_file], (list, tuple)):
-            entities = parse_bids_keys(inputs[bids_file][0])
+            entities = [
+                parse_bids_keys(
+                    path,
+                    check_run=True,
+                )
+                for path in inputs[bids_file]
+            ]
+            entities_ = entities[0]
         else:
-            entities = parse_bids_keys(inputs[bids_file])
+            entities_ = entities = parse_bids_keys(
+                inputs[bids_file],
+                check_run=True,
+            )
         output_dir = (
             output_dir /
-            f"sub-{entities['sub']}" /
-            f"ses-{entities['ses']}"
+            f"sub-{entities_['sub']}" /
+            f"ses-{entities_['ses']}"
         )
+        if "kwargs" in inputs:
+            inputs["entities"] = entities
     metadata_file = (
         Path(inputs["output_dir"]) /
         "derivatives" /
@@ -378,7 +390,8 @@ def coerce_to_path(
 
 def parse_bids_keys(
         bids_path: File,
-        full_path: bool = False) -> dict[str]:
+        full_path: bool = False,
+        check_run: bool = False) -> dict[str]:
     """
     Parse BIDS entities and modality from a filename or path with validation.
 
@@ -400,6 +413,10 @@ def parse_bids_keys(
     full_path: bool
         If True, extract entities from the full input path rather than
         only the filename. Default is False.
+    check_run: bool
+        If True, checks whether the current run value appears more
+        than once, assigns a UUID-style fallback if needed, and warns if even
+        that fallback is not unique. Default is False.
 
     Returns
     -------
@@ -407,13 +424,6 @@ def parse_bids_keys(
         A dictionary containing the parsed BIDS entities and the detected
         modality. Missing entities such as `ses` and `run` are filled with
         default values.
-
-    Notes
-    -----
-    This procedure ensures that each BIDS file has a unique run identifier
-    within its folder. It checks whether the current run value appears more
-    than once, assigns a UUID-style fallback if needed, and warns if even
-    that fallback is not unique.
     """
     # Extract the filename from the path id necessary
     filename = str(bids_path) if full_path else bids_path.name
@@ -433,7 +443,7 @@ def parse_bids_keys(
     # Extract modality (suffix before extension)
     suffix_pattern = (
         r"_(?P<modality>[a-zA-Z0-9]+)(?=\.(nii|nii\.gz|json|tsv|edf|vhdr"
-        r"|eeg|bvec|bval|csv))"
+        r"|eeg|bvec|bval|csv|mat|xml))"
     )
     modality_match = re.search(suffix_pattern, filename)
     if modality_match:
@@ -455,13 +465,13 @@ def parse_bids_keys(
         entities.setdefault(key, default)
 
     # Check integrity
-    status = check_run(bids_path, entities, full_path)
+    status = check_run_fn(bids_path, entities, full_path)
     if run_in_entities and not status:
         print_info(
             "Multiple files with same run ID detected, using UUID instead."
         )
         entities["run"] = defaults["run"]
-        status = check_run(bids_path, entities, full_path)
+        status = check_run_fn(bids_path, entities, full_path)
     if not status:
         print_warn(
             f"The generated UUID is not unique: {bids_path}"
@@ -470,7 +480,7 @@ def parse_bids_keys(
     return entities
 
 
-def check_run(
+def check_run_fn(
         bids_path: File,
         entities: dict[str],
         full_path: bool = False) -> bool:
@@ -501,7 +511,7 @@ def check_run(
         r"(?P<entity>(run))"
         r"-(?P<value>[^_/]+)"
     )
-    pattern = f"sub-*{entities['modality']}*{ext}"
+    pattern = f"*sub-*{entities['modality']}*{ext}"
 
     all_entities = []
     for bids_path_ in bids_path.parent.glob(pattern):

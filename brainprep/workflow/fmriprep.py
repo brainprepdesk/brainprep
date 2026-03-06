@@ -46,7 +46,8 @@ def brainprep_fmriprep(
         func_files: list[File],
         freesurfer_dir: Directory,
         output_dir: Directory,
-        keep_intermediate: bool = False) -> Bunch:
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
     """
     Subject level functional MRI pre-processing.
 
@@ -105,6 +106,9 @@ def brainprep_fmriprep(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
+    kwargs : dict
+        entities: dict
+            Dictionary of parsed BIDS entities.
 
     Returns
     -------
@@ -177,7 +181,7 @@ def brainprep_fmriprep(
             "A description file must be included in rawdata directory."
         )
 
-    entities = parse_bids_keys(t1_file)
+    entities = kwargs.get("entities", {})
     if len(entities) == 0:
         raise ValueError(
             f"The T1w file '{t1_file}' is not BIDS-compliant."

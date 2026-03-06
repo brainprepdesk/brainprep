@@ -49,7 +49,8 @@ def brainprep_sbm(
         analysis_type: str = "sbm",
         do_lgi: bool = False,
         wm_file: File | None = None,
-        keep_intermediate: bool = False) -> Bunch:
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
     """
     SBM pre-processing.
 
@@ -95,6 +96,9 @@ def brainprep_sbm(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
+    kwargs : dict
+        entities: dict
+            Dictionary of parsed BIDS entities.
 
     Returns
     -------
@@ -175,7 +179,7 @@ def brainprep_sbm(
     workspace_dir.mkdir(parents=True, exist_ok=True)
     print_info(f"setting workspace directory: {workspace_dir}")
 
-    entities = parse_bids_keys(t1_file)
+    entities = kwargs.get("entities", {})
     if len(entities) == 0:
         raise ValueError(
             f"The T1w file '{t1_file}' is not BIDS-compliant."
@@ -323,7 +327,8 @@ def brainprep_sbm(
 def brainprep_longitudinal_sbm(
         t1_files: list[File],
         output_dir: Directory,
-        keep_intermediate: bool = False) -> Bunch:
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
     """
     Longitudinal SBM preprocessing.
 
@@ -342,6 +347,9 @@ def brainprep_longitudinal_sbm(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
+    kwargs : dict
+        entities: list[dict]
+            Dictionaries of parsed BIDS entities.
 
     Returns
     -------
@@ -393,9 +401,7 @@ def brainprep_longitudinal_sbm(
     workspace_dir.mkdir(parents=True, exist_ok=True)
     print_info(f"setting workspace directory: {workspace_dir}")
 
-    entities = [
-        parse_bids_keys(path) for path in t1_files
-    ]
+    entities = kwargs.get("entities", {})
     for info, path in zip(entities, t1_files, strict=True):
         if len(info) == 0:
             raise ValueError(

@@ -43,7 +43,8 @@ from ..utils import (
 def brainprep_defacing(
         t1_file: File,
         output_dir: Directory,
-        keep_intermediate: bool = False) -> Bunch:
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
     """
     Defacing pre-processing workflow for anatomical T1-weighted images.
 
@@ -65,6 +66,9 @@ def brainprep_defacing(
     keep_intermediate : bool
         If True, retains intermediate results (e.g., reoriented image); useful
         for debugging. Default False.
+    kwargs : dict
+        entities: dict
+            Dictionary of parsed BIDS entities.
 
     Returns
     -------
@@ -120,7 +124,7 @@ def brainprep_defacing(
     workspace_dir.mkdir(parents=True, exist_ok=True)
     print_info(f"setting workspace directory: {workspace_dir}")
 
-    entities = parse_bids_keys(t1_file)
+    entities = kwargs.get("entities", {})
     if len(entities) == 0:
         raise ValueError(
             f"The T1w file '{t1_file}' is not BIDS-compliant."
