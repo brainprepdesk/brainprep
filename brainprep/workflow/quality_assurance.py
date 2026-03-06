@@ -59,7 +59,7 @@ def brainprep_quality_assurance(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
-    kwargs : dict
+    **kwargs : dict
         entities: lsit[dict]
             Dictionaries of parsed BIDS entities.
 

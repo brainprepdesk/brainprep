@@ -106,7 +106,7 @@ def brainprep_fmriprep(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
-    kwargs : dict
+    **kwargs : dict
         entities: dict
             Dictionary of parsed BIDS entities.
 

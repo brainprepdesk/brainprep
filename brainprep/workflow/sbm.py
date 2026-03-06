@@ -96,7 +96,7 @@ def brainprep_sbm(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
-    kwargs : dict
+    **kwargs : dict
         entities: dict
             Dictionary of parsed BIDS entities.
 
@@ -347,7 +347,7 @@ def brainprep_longitudinal_sbm(
     keep_intermediate : bool
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
-    kwargs : dict
+    **kwargs : dict
         entities: list[dict]
             Dictionaries of parsed BIDS entities.
 
