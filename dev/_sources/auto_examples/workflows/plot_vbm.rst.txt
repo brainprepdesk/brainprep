@@ -144,7 +144,7 @@ to actually run each step and generate results on disk.
     [command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-15456.m
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/mri/mwp1sub-01_ses-study1_T1w.nii
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/report/catreport_sub-01_ses-study1_T1w.nii
-    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 's/runnervm0kj6c/HOSTNAME/g' -e 's/10.1.0.98/X.X.X.X/g' -e 's/runner/USER/g' -i /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-15456.m
+    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 's/runnervm0kj6c/HOSTNAME/g' -e 's/10.1.0.181/X.X.X.X/g' -e 's/runner/USER/g' -i /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-15456.m
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbatch_run-15456.m
     [title] - Subject Level VBM done.
     [title] - Subject Level VBM...
@@ -153,7 +153,7 @@ to actually run each step and generate results on disk.
     [command] - /opt/cat12/standalone/cat_standalone.sh -s /opt/cat12 -m /opt/MCR-2017b/v93 -b /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-38141.m
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/mri/mwp1sub-02_ses-study1_T1w.nii
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/report/catreport_sub-02_ses-study1_T1w.nii
-    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 's/runnervm0kj6c/HOSTNAME/g' -e 's/10.1.0.98/X.X.X.X/g' -e 's/runner/USER/g' -i /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-38141.m
+    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 's/runnervm0kj6c/HOSTNAME/g' -e 's/10.1.0.181/X.X.X.X/g' -e 's/runner/USER/g' -i /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-38141.m
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbatch_run-38141.m
     [title] - Subject Level VBM done.
     [title] - Longitudinal VBM...
@@ -165,7 +165,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2/mri/mwp1sub-01_ses-study2_T1w.nii
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study1/report/catreport_sub-01_ses-study1_T1w.nii
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2/report/catreport_sub-01_ses-study2_T1w.nii
-    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 's/runnervm0kj6c/HOSTNAME/g' -e 's/10.1.0.98/X.X.X.X/g' -e 's/runner/USER/g' -i /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabbatch.m
+    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 's/runnervm0kj6c/HOSTNAME/g' -e 's/10.1.0.181/X.X.X.X/g' -e 's/runner/USER/g' -i /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabbatch.m
     [info] - checking output: /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabbatch.m
     [title] - Longitudinal VBM done.
     [title] - Group Level VBM...
@@ -338,7 +338,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.508 seconds)
+   **Total running time of the script:** (0 minutes 0.580 seconds)
 
 **Estimated memory usage:**  111 MB
 

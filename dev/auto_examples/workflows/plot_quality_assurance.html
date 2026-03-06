@@ -656,7 +656,7 @@ to actually run each step and generate results on disk.</p>
 Bunch(
   step1: Bunch(
     module: &#39;brainprep.workflow.quality_assurance.brainprep_quality_assurance&#39;
-    description: &#39;\n    Subject level quality assurance pre-processing workflow for MRI images.\n\n    Applies MRIQC tool :footcite:p:`esteban2017mriqc` with subject level\n    default settings.\n\n    Parameters\n    ----------\n    image_files : list[File]\n        Path to the input image files of one subject.\n    output_dir : Directory\n        Directory where the quality assurance related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n    kwargs : dict\n        entities: lsit[dict]\n            Dictionaries of parsed BIDS entities.\n\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - iqm_files : list[File] — paths to the subject level Image Quality\n          Metrics (IQMs).\n\n    Notes\n    -----\n    This workflow assumes the input images are organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_quality_assurance\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quality_assurance(\n    ...         image_files=[\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;,\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/dwi/&quot;\n    ...             &quot;sub-01_ses-01_run-01_dwi.nii.gz&quot;,\n    ...         ],\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     )\n    &gt;&gt;&gt; outputs\n    Bunch(\n        iqm_files: [PosixPath(\&#39;...\&#39;), PosixPath(\&#39;...\&#39;)]\n    )\n    &#39;
+    description: &#39;\n    Subject level quality assurance pre-processing workflow for MRI images.\n\n    Applies MRIQC tool :footcite:p:`esteban2017mriqc` with subject level\n    default settings.\n\n    Parameters\n    ----------\n    image_files : list[File]\n        Path to the input image files of one subject.\n    output_dir : Directory\n        Directory where the quality assurance related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n    **kwargs : dict\n        entities: lsit[dict]\n            Dictionaries of parsed BIDS entities.\n\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - iqm_files : list[File] — paths to the subject level Image Quality\n          Metrics (IQMs).\n\n    Notes\n    -----\n    This workflow assumes the input images are organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_quality_assurance\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quality_assurance(\n    ...         image_files=[\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;,\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/dwi/&quot;\n    ...             &quot;sub-01_ses-01_run-01_dwi.nii.gz&quot;,\n    ...         ],\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     )\n    &gt;&gt;&gt; outputs\n    Bunch(\n        iqm_files: [PosixPath(\&#39;...\&#39;), PosixPath(\&#39;...\&#39;)]\n    )\n    &#39;
     inputs: Bunch(
       image_files: [PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/dwi/sub-01_ses-00_dwi.nii.gz&#39;)]
       output_dir: PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00&#39;)
@@ -667,9 +667,9 @@ Bunch(
       iqm_files: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00_T1w.json&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_dwi.json&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-03-06 13:44:46.733189&#39;
-      end: &#39;2026-03-06 13:44:46.733189&#39;
-      execution_time: 1.4991666666666666e-06
+      start: &#39;2026-03-06 13:52:55.540142&#39;
+      end: &#39;2026-03-06 13:52:55.540142&#39;
+      execution_time: 1.8980555555555555e-06
       brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
       hostname: &#39;runnervm0kj6c&#39;
@@ -698,9 +698,9 @@ Bunch(
       outputs: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00_T1w.json&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_dwi.json&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-03-06 13:44:46.737161&#39;
-      end: &#39;2026-03-06 13:44:46.737161&#39;
-      execution_time: 1.5916666666666667e-07
+      start: &#39;2026-03-06 13:52:55.545681&#39;
+      end: &#39;2026-03-06 13:52:55.545681&#39;
+      execution_time: 1.7472222222222222e-07
       brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
       hostname: &#39;runnervm0kj6c&#39;
@@ -727,7 +727,7 @@ Bunch(
 Bunch(
   step1: Bunch(
     module: &#39;brainprep.workflow.quality_assurance.brainprep_quality_assurance&#39;
-    description: &#39;\n    Subject level quality assurance pre-processing workflow for MRI images.\n\n    Applies MRIQC tool :footcite:p:`esteban2017mriqc` with subject level\n    default settings.\n\n    Parameters\n    ----------\n    image_files : list[File]\n        Path to the input image files of one subject.\n    output_dir : Directory\n        Directory where the quality assurance related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n    kwargs : dict\n        entities: lsit[dict]\n            Dictionaries of parsed BIDS entities.\n\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - iqm_files : list[File] — paths to the subject level Image Quality\n          Metrics (IQMs).\n\n    Notes\n    -----\n    This workflow assumes the input images are organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_quality_assurance\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quality_assurance(\n    ...         image_files=[\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;,\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/dwi/&quot;\n    ...             &quot;sub-01_ses-01_run-01_dwi.nii.gz&quot;,\n    ...         ],\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     )\n    &gt;&gt;&gt; outputs\n    Bunch(\n        iqm_files: [PosixPath(\&#39;...\&#39;), PosixPath(\&#39;...\&#39;)]\n    )\n    &#39;
+    description: &#39;\n    Subject level quality assurance pre-processing workflow for MRI images.\n\n    Applies MRIQC tool :footcite:p:`esteban2017mriqc` with subject level\n    default settings.\n\n    Parameters\n    ----------\n    image_files : list[File]\n        Path to the input image files of one subject.\n    output_dir : Directory\n        Directory where the quality assurance related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n    **kwargs : dict\n        entities: lsit[dict]\n            Dictionaries of parsed BIDS entities.\n\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - iqm_files : list[File] — paths to the subject level Image Quality\n          Metrics (IQMs).\n\n    Notes\n    -----\n    This workflow assumes the input images are organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    &gt;&gt;&gt; from brainprep.config import Config\n    &gt;&gt;&gt; from brainprep.reporting import RSTReport\n    &gt;&gt;&gt; from brainprep.workflow import brainprep_quality_assurance\n    &gt;&gt;&gt;\n    &gt;&gt;&gt; with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_quality_assurance(\n    ...         image_files=[\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/anat/&quot;\n    ...             &quot;sub-01_ses-01_run-01_T1w.nii.gz&quot;,\n    ...             &quot;/tmp/dataset/rawdata/sub-01/ses-01/dwi/&quot;\n    ...             &quot;sub-01_ses-01_run-01_dwi.nii.gz&quot;,\n    ...         ],\n    ...         output_dir=&quot;/tmp/dataset/derivatives&quot;,\n    ...     )\n    &gt;&gt;&gt; outputs\n    Bunch(\n        iqm_files: [PosixPath(\&#39;...\&#39;), PosixPath(\&#39;...\&#39;)]\n    )\n    &#39;
     inputs: Bunch(
       image_files: [PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-00/anat/sub-02_ses-00_T1w.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-00/dwi/sub-02_ses-00_dwi.nii.gz&#39;)]
       output_dir: PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00&#39;)
@@ -738,9 +738,9 @@ Bunch(
       iqm_files: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00_T1w.json&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_dwi.json&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-03-06 13:44:46.745620&#39;
-      end: &#39;2026-03-06 13:44:46.745620&#39;
-      execution_time: 1.2099999999999998e-06
+      start: &#39;2026-03-06 13:52:55.555597&#39;
+      end: &#39;2026-03-06 13:52:55.555597&#39;
+      execution_time: 1.4099999999999998e-06
       brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
       hostname: &#39;runnervm0kj6c&#39;
@@ -769,9 +769,9 @@ Bunch(
       outputs: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00_T1w.json&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_dwi.json&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-03-06 13:44:46.749022&#39;
-      end: &#39;2026-03-06 13:44:46.749022&#39;
-      execution_time: 1.2166666666666668e-07
+      start: &#39;2026-03-06 13:52:55.559737&#39;
+      end: &#39;2026-03-06 13:52:55.559737&#39;
+      execution_time: 1.4361111111111112e-07
       brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
       hostname: &#39;runnervm0kj6c&#39;
@@ -810,9 +810,9 @@ Bunch(
       iqm_files: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-03-06 13:44:46.757699&#39;
-      end: &#39;2026-03-06 13:44:46.757699&#39;
-      execution_time: 2.0808333333333335e-06
+      start: &#39;2026-03-06 13:52:55.568543&#39;
+      end: &#39;2026-03-06 13:52:55.568543&#39;
+      execution_time: 2.211666666666667e-06
       brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
       hostname: &#39;runnervm0kj6c&#39;
@@ -840,9 +840,9 @@ Bunch(
       outputs: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-03-06 13:44:46.760830&#39;
-      end: &#39;2026-03-06 13:44:46.760830&#39;
-      execution_time: 1.225e-07
+      start: &#39;2026-03-06 13:52:55.571790&#39;
+      end: &#39;2026-03-06 13:52:55.571790&#39;
+      execution_time: 1.3916666666666668e-07
       brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
       hostname: &#39;runnervm0kj6c&#39;
@@ -871,9 +871,9 @@ Bunch(
       outputs: [PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv&#39;), PosixPath(&#39;/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-03-06 13:44:46.764301&#39;
-      end: &#39;2026-03-06 13:44:46.764301&#39;
-      execution_time: 9.583333333333332e-08
+      start: &#39;2026-03-06 13:52:55.575614&#39;
+      end: &#39;2026-03-06 13:52:55.575614&#39;
+      execution_time: 1.1638888888888888e-07
       brainprep_version: &#39;2.0.0&#39;
       platform: &#39;Linux-6.14.0-1017-azure-x86_64-with-glibc2.39&#39;
       hostname: &#39;runnervm0kj6c&#39;
@@ -958,8 +958,8 @@ In practice, this means that once the CLI has produced the appropriate
 instructions, you can simply copy and run them inside the container to
 achieve the intended results. You can find the BrainPrep images on Docker
 Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 23.895 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  622 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 9.018 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  674 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflows-plot-quality-assurance-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9ac6428d4ef34797b64caa815d028589/plot_quality_assurance.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_quality_assurance.ipynb</span></code></a></p>
