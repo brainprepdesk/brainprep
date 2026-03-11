@@ -87,7 +87,7 @@ def make_wrapped(
             return fn(*args, **kwargs)
 
     sig = inspect.signature(fn)
-    kwargs_in_keys = 'kwargs' in sig.parameters.keys()
+    kwargs_in_keys = 'kwargs' in sig.parameters
     params = list(sig.parameters.values())
     for key, val in DEFAULT_OPTIONS.items():
         if not is_vbm and key in (
