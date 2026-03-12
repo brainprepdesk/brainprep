@@ -1048,6 +1048,13 @@ def freesurfer_features_summary(
         )
         summary_files.append(volume_stat_file)
 
+    # sort by participant_id
+    for file in summary_files:
+        df = pd.read_csv(file)
+        first_col = df.columns[0]
+        df = df.sort_values(by=first_col)
+        df.to_csv(file, index=False)
+
     return summary_files
 
 
