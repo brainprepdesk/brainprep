@@ -54,7 +54,7 @@ jobs:
       run: |
         DIR=$(pwd)
         which python
-        sphinxdoc -v 2 -p $DIR -n hopla -o $DIR/doc
+        sphinxdoc -v 2 -p $DIR -n brainprep -o $DIR/doc
     - name: Compute documentation
       run: |
         DIR=$(pwd)
@@ -76,9 +76,9 @@ jobs:
       shell: python
       run: |
         import os
-        import hopla
+        import brainprep
         with open(os.environ["GITHUB_OUTPUT"], "a") as of:
-          of.write(f"VERSION={hopla.__version__}")
+          of.write(f"VERSION={brainprep.__version__}")
     - name: Deploy
       env:
         BRANCH: ${{ steps.extract-branch.outputs.BRANCH }}

@@ -62,8 +62,8 @@ doc = [
 ]
 
 [project.urls]
-Development = "https://github.com/AGrigis/pysphinxdoc"
-issues = "https://github.com/AGrigis/pysphinxdoc/issues"
+Development = "https://github.com/neurospin-deepinsight/brainprep"
+issues = "https://github.com/neurospin-deepinsight/brainprep/issues"
 homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
 
 [tool.setuptools]
