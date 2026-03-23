@@ -87,20 +87,23 @@ def make_wrapped(
             return fn(*args, **kwargs)
 
     sig = inspect.signature(fn)
+    kwargs_in_keys = 'kwargs' in sig.parameters
     params = list(sig.parameters.values())
     for key, val in DEFAULT_OPTIONS.items():
         if not is_vbm and key in (
                 "cat12_file", "spm12_dir", "matlab_dir", "tpm_file",
                 "darteltpm_file"):
             continue
-        params.append(
-            inspect.Parameter(
-                key,
-                inspect.Parameter.KEYWORD_ONLY,
-                annotation="Context Manager",
-                default=val,
-            )
+        param = inspect.Parameter(
+            key,
+            inspect.Parameter.KEYWORD_ONLY,
+            annotation="Context Manager",
+            default=val,
         )
+        if kwargs_in_keys:
+            params.insert(-1, param)
+        else:
+            params.append(param)
     wrapped_fn.__signature__ = sig.replace(parameters=params)
 
     return wrapped_fn
