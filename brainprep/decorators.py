@@ -133,7 +133,7 @@ class PythonWrapperHook(Hook):
             self,
             func: Callable,
             inputs: dict[str, Any],
-        ) -> File | tuple[File] | None:
+        ) -> dict[str, Any]:
         """
         Transform and inspect inputs before the function call.
 
@@ -219,11 +219,6 @@ class CommandLineWrapperHook(Hook):
     1. Execute command-line operations in normal (non-dry run) mode.
     2. Recursively validates all generated output files.
 
-    Raises
-    ------
-    ValueError
-        If invalid wrapper type is specified.
-
     Examples
     --------
     >>> from brainprep.decorators import step, CommandLineWrapperHook
@@ -265,6 +260,12 @@ class CommandLineWrapperHook(Hook):
         -------
         outputs : File | tuple[File] | None
             The validated output.
+
+        Raises
+        ------
+        ValueError
+            If the decorated function does not return a valid command
+            specification.
         """
         opts = brainprep_options.get()
         verbose = opts.get("verbose", DEFAULT_OPTIONS["verbose"])
@@ -284,7 +285,7 @@ class CommandLineWrapperHook(Hook):
         if not is_list_str(command) and not is_list_list_str(command):
             raise ValueError(
                 "Invalid command format: expected a list of strings or a "
-                "list of  list of string for multiple commands."
+                "list of list of string for multiple commands."
             )
         commands = [command] if is_list_str(command) else command
         for cmd in commands:
@@ -628,6 +629,7 @@ class OutputdirHook(Hook):
         output_dir: PosixPath('/tmp/figures')
     )
     """
+
     def __init__(
             self,
             plotting: bool = False,
@@ -907,6 +909,20 @@ class SaveRuntimeHook(Hook):
         """
         Transform and inspect inputs before the function call.
 
+        Parameters
+        ----------
+        func : Callable
+            The function to be decorated.
+        inputs : dict[str, Any]
+            Positional and keyword arguments passed to `func`. If a
+            `report_file` keyword argument is passed, the logged runtime metada
+            are saved in this file.
+
+        Returns
+        -------
+        inputs : dict[str, Any]
+            Positional and keyword arguments passed to `func` (unchanged).
+
         Raises
         ------
         ValueError
@@ -989,8 +1005,10 @@ def step(
         The function being decorated.
     hooks : Iterable[Hook] | None
         A sequence of hook objects.
-    *args, **kw :
-        Positional and keyword arguments passed to ``func``.
+    *args : Any
+        Positional arguments passed to ``func``.
+    **kw : Any
+        Keyword arguments passed to ``func``.
 
     Returns
     -------

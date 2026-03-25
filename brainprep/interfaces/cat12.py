@@ -176,6 +176,7 @@ def write_catbatch(
             f"ses-{entities[0]['ses']}" /
             f"cat12vbm_matlabbatch_run-{entities[0]['run']}.m"
         )
+        batch_file.parent.mkdir(parents=True, exist_ok=True)
         template_batch = (
             Path(__file__).parent.parent /
             "resources" /
