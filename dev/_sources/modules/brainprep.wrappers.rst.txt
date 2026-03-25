@@ -18,10 +18,11 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    _check_outputs
-    _is_list_list_str
-    _is_list_str
+    check_outputs
     is_command_installed
+    is_list_list_str
+    is_list_str
+    run_command
 
 
 

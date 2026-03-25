@@ -70,7 +70,7 @@ To run this check locally from the repository folder:
 
 .. code-block:: bash
 
-  $ pycodestyle brainprep --ignore="E121,E123,E126,E226,E24,E704,E402,E731,E722,E741,W503,W504,W605,E305"
+  $ pycodestyle brainprep --ignore="E121,E123,E126,E226,E24,E704,E402,E731,E722,E741,W503,W504,W605,E305,E125"
 
 
 pydoclint.yml

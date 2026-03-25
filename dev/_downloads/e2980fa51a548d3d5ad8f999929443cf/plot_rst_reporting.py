@@ -13,10 +13,16 @@ Functions
 Let's create some functions to monitor.
 """
 
-from brainprep.reporting import log_runtime
+from brainprep.decorators import (
+    LogRuntimeHook,
+    step,
+)
 from brainprep.utils import Bunch
 
-@log_runtime
+
+@step(
+    hooks=[LogRuntimeHook()]
+)
 def workflow(val1, val2=None):
     """
     This is the main workflow.
@@ -39,7 +45,9 @@ def workflow(val1, val2=None):
         return Bunch(val=val1)
 
 
-@log_runtime
+@step(
+    hooks=[LogRuntimeHook()]
+)
 def square(val):
     """
     Return the square of the input.

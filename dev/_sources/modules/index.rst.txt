@@ -16,6 +16,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
    brainprep.datasets.openms.rst
    brainprep.datasets.rst
    brainprep.datasets.utils.rst
+   brainprep.decorators.rst
    brainprep.interfaces.ants.rst
    brainprep.interfaces.cat12.rst
    brainprep.interfaces.fmriprep.rst

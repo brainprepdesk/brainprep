@@ -1,5 +1,5 @@
-:mod:`brainprep.reporting.rst_reporting`: Provides signature-preserving function decorators in decorator factories.
-===================================================================================================================
+:mod:`brainprep.reporting.rst_reporting`: Module that implements a RST reporting tool.
+======================================================================================
 
 .. automodule:: brainprep.reporting.rst_reporting
    :no-members:

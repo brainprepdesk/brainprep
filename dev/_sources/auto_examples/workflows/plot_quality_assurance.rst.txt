@@ -64,30 +64,74 @@ Let's first get some anatomical data.
 
  .. code-block:: none
 
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/dwi/sub-01_ses-00_dwi.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/dwi/sub-01_ses-00_dwi.bvec
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/dwi/sub-01_ses-00_dwi.bval
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/anat/sub-01_ses-00
+    _T1w.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/dwi/sub-01_ses-00_
+    dwi.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/dwi/sub-01_ses-00_
+    dwi.bvec
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/dwi/sub-01_ses-00_
+    dwi.bval
     [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/dwi.json
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-pa_bold.json
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_sbref.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-pa_sbref.json
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_events.tsv
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-ap_sbref.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-ap_sbref.json
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/anat/sub-02_ses-00_T1w.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/dwi/sub-02_ses-00_dwi.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/dwi/sub-02_ses-00_dwi.bvec
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/dwi/sub-02_ses-00_dwi.bval
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/func/sub-01_ses-00
+    _task-ArchiStandard_dir-pa_bold.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-pa_bold.j
+    son
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/func/sub-01_ses-00
+    _task-ArchiStandard_dir-pa_sbref.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-pa_sbref.
+    json
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/func/sub-01_ses-00
+    _task-ArchiStandard_dir-pa_events.tsv
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-01/ses-00/func/sub-01_ses-00
+    _task-ArchiStandard_dir-ap_sbref.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-ap_sbref.
+    json
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/anat/sub-02_ses-00
+    _T1w.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/dwi/sub-02_ses-00_
+    dwi.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/dwi/sub-02_ses-00_
+    dwi.bvec
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/dwi/sub-02_ses-00_
+    dwi.bval
     [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/dwi.json
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-pa_bold.json
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_sbref.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-pa_sbref.json
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_events.tsv
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-ap_sbref.nii.gz
-    [info] - downloading: https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-ap_sbref.json
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/func/sub-02_ses-00
+    _task-ArchiStandard_dir-pa_bold.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-pa_bold.j
+    son
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/func/sub-02_ses-00
+    _task-ArchiStandard_dir-pa_sbref.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-pa_sbref.
+    json
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/func/sub-02_ses-00
+    _task-ArchiStandard_dir-pa_events.tsv
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/sub-02/ses-00/func/sub-02_ses-00
+    _task-ArchiStandard_dir-ap_sbref.nii.gz
+    [info] - downloading: 
+    https://s3.amazonaws.com/openneuro.org/ds002685/task-ArchiStandard_dir-ap_sbref.
+    json
     Bunch(
       sub01: Bunch(
         description: PosixPath('/tmp/brainprep-data/rawdata/dataset_description.json')
@@ -167,11 +211,21 @@ to actually run each step and generate results on disk.
  .. code-block:: none
 
     [title] - Subject Level Quality Assurance...
-    [info] - setting workspace directory: /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/workspace
-    [command] - mriqc /tmp/brainprep-data/rawdata /tmp/brainprep-qa/derivatives/quality_assurance participant -w /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/workspace --no-sub --no-datalad-get --notrack --participant-label 01
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00_T1w.json
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_dwi.json
+    [info] - setting workspace directory: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/workspace
+    [command] - mriqc /tmp/brainprep-data/rawdata 
+    /tmp/brainprep-qa/derivatives/quality_assurance participant -w 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/workspace --no-sub
+    --no-datalad-get --notrack --participant-label 01
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00
+    _T1w.json
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00
+    _task-ArchiStandard_dir-pa_bold.json
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_
+    dwi.json
     [title] - Subject Level Quality Assurance done.
     Bunch(
       step1: Bunch(
@@ -181,15 +235,15 @@ to actually run each step and generate results on disk.
           image_files: [PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz'), PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz'), PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/dwi/sub-01_ses-00_dwi.nii.gz')]
           output_dir: PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00')
           keep_intermediate: True
-          kwargs: {'kwargs': {'kwargs': {}}, 'entities': [{'sub': '01', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': '28236'}, {'sub': '01', 'ses': '00', 'task': 'ArchiStandard', 'dir': 'pa', 'modality': 'bold', 'mod': 'bold', 'run': '20876'}, {'sub': '01', 'ses': '00', 'modality': 'dwi', 'mod': 'dwi', 'run': '18444'}]}
+          kwargs: {'entities': [{'sub': '01', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': '28236'}, {'sub': '01', 'ses': '00', 'task': 'ArchiStandard', 'dir': 'pa', 'modality': 'bold', 'mod': 'bold', 'run': '20876'}, {'sub': '01', 'ses': '00', 'modality': 'dwi', 'mod': 'dwi', 'run': '18444'}]}
         )
         outputs: Bunch(
           iqm_files: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_dwi.json')]
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:17.438894'
-          end: '2026-03-23 09:18:17.438894'
-          execution_time: 1.6091666666666668e-06
+          start: '2026-03-25 14:54:13.018439'
+          end: '2026-03-25 14:54:13.026228'
+          execution_time: 2.163611111111111e-06
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -215,12 +269,12 @@ to actually run each step and generate results on disk.
           output_dir: PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00')
         )
         outputs: Bunch(
-          outputs: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_dwi.json')]
+          outputs: (['mriqc', '/tmp/brainprep-data/rawdata', '/tmp/brainprep-qa/derivatives/quality_assurance', 'participant', '-w', '/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/workspace', '--no-sub', '--no-datalad-get', '--notrack', '--participant-label', '01'], ([PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_dwi.json')],))
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:17.443223'
-          end: '2026-03-23 09:18:17.443223'
-          execution_time: 1.625e-07
+          start: '2026-03-25 14:54:13.023625'
+          end: '2026-03-25 14:54:13.023781'
+          execution_time: 4.333333333333333e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -238,11 +292,21 @@ to actually run each step and generate results on disk.
       )
     )
     [title] - Subject Level Quality Assurance...
-    [info] - setting workspace directory: /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/workspace
-    [command] - mriqc /tmp/brainprep-data/rawdata /tmp/brainprep-qa/derivatives/quality_assurance participant -w /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/workspace --no-sub --no-datalad-get --notrack --participant-label 02
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00_T1w.json
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_dwi.json
+    [info] - setting workspace directory: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/workspace
+    [command] - mriqc /tmp/brainprep-data/rawdata 
+    /tmp/brainprep-qa/derivatives/quality_assurance participant -w 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/workspace --no-sub
+    --no-datalad-get --notrack --participant-label 02
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00
+    _T1w.json
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00
+    _task-ArchiStandard_dir-pa_bold.json
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_
+    dwi.json
     [title] - Subject Level Quality Assurance done.
     Bunch(
       step1: Bunch(
@@ -252,15 +316,15 @@ to actually run each step and generate results on disk.
           image_files: [PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-00/anat/sub-02_ses-00_T1w.nii.gz'), PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz'), PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-00/dwi/sub-02_ses-00_dwi.nii.gz')]
           output_dir: PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00')
           keep_intermediate: True
-          kwargs: {'kwargs': {'kwargs': {}}, 'entities': [{'sub': '02', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': '20892'}, {'sub': '02', 'ses': '00', 'task': 'ArchiStandard', 'dir': 'pa', 'modality': 'bold', 'mod': 'bold', 'run': '27010'}, {'sub': '02', 'ses': '00', 'modality': 'dwi', 'mod': 'dwi', 'run': '14470'}]}
+          kwargs: {'entities': [{'sub': '02', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': '20892'}, {'sub': '02', 'ses': '00', 'task': 'ArchiStandard', 'dir': 'pa', 'modality': 'bold', 'mod': 'bold', 'run': '27010'}, {'sub': '02', 'ses': '00', 'modality': 'dwi', 'mod': 'dwi', 'run': '14470'}]}
         )
         outputs: Bunch(
           iqm_files: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_dwi.json')]
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:17.453126'
-          end: '2026-03-23 09:18:17.453126'
-          execution_time: 1.2830555555555554e-06
+          start: '2026-03-25 14:54:13.035988'
+          end: '2026-03-25 14:54:13.042758'
+          execution_time: 1.8805555555555556e-06
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -286,12 +350,12 @@ to actually run each step and generate results on disk.
           output_dir: PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00')
         )
         outputs: Bunch(
-          outputs: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_dwi.json')]
+          outputs: (['mriqc', '/tmp/brainprep-data/rawdata', '/tmp/brainprep-qa/derivatives/quality_assurance', 'participant', '-w', '/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/workspace', '--no-sub', '--no-datalad-get', '--notrack', '--participant-label', '02'], ([PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_dwi.json')],))
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:17.456757'
-          end: '2026-03-23 09:18:17.456757'
-          execution_time: 1.2833333333333333e-07
+          start: '2026-03-25 14:54:13.040429'
+          end: '2026-03-25 14:54:13.040551'
+          execution_time: 3.3888888888888886e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -309,13 +373,21 @@ to actually run each step and generate results on disk.
       )
     )
     [title] - Group Level Quality Assurance...
-    [command] - mriqc /tmp/brainprep-qa/rawdata /tmp/brainprep-qa/derivatives/quality_assurance group --no-sub --no-datalad-get --notrack
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv
-    [info] - checking output: /tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv
+    [command] - mriqc /tmp/brainprep-qa/rawdata 
+    /tmp/brainprep-qa/derivatives/quality_assurance group --no-sub --no-datalad-get 
+    --notrack
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv
+    [info] - checking output: 
+    /tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv
     [title] - Group Level Quality Assurance done.
     Bunch(
       step1: Bunch(
@@ -330,9 +402,9 @@ to actually run each step and generate results on disk.
           iqm_files: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv')]
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:17.464360'
-          end: '2026-03-23 09:18:17.464360'
-          execution_time: 2.0272222222222222e-06
+          start: '2026-03-25 14:54:13.051756'
+          end: '2026-03-25 14:54:13.061452'
+          execution_time: 2.693333333333333e-06
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -357,12 +429,12 @@ to actually run each step and generate results on disk.
           output_dir: PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance')
         )
         outputs: Bunch(
-          outputs: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv')]
+          outputs: (['mriqc', '/tmp/brainprep-qa/rawdata', '/tmp/brainprep-qa/derivatives/quality_assurance', 'group', '--no-sub', '--no-datalad-get', '--notrack'], ([PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv')],))
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:17.467352'
-          end: '2026-03-23 09:18:17.467352'
-          execution_time: 1.338888888888889e-07
+          start: '2026-03-25 14:54:13.054591'
+          end: '2026-03-25 14:54:13.054642'
+          execution_time: 1.4166666666666666e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -388,12 +460,12 @@ to actually run each step and generate results on disk.
           dryrun: False
         )
         outputs: Bunch(
-          outputs: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv')]
+          outputs: ([PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv')],)
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:17.470869'
-          end: '2026-03-23 09:18:17.470869'
-          execution_time: 9.611111111111111e-08
+          start: '2026-03-25 14:54:13.059953'
+          end: '2026-03-25 14:54:13.059987'
+          execution_time: 9.444444444444445e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -504,9 +576,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.384 seconds)
+   **Total running time of the script:** (0 minutes 23.311 seconds)
 
-**Estimated memory usage:**  665 MB
+**Estimated memory usage:**  666 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_quality_assurance.py:

@@ -7,18 +7,18 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.utils.color.Colored
+brainprep.decorators.BidsHook
 =============================
 
-.. currentmodule:: brainprep.utils.color
+.. currentmodule:: brainprep.decorators
 
-.. autoclass:: Colored
+.. autoclass:: BidsHook
    :members:
    :show-inheritance:
    :special-members: __init__
    :member-order: alphabetical
 
-.. include:: brainprep.utils.color.Colored.examples
+.. include:: brainprep.decorators.BidsHook.examples
 
 .. raw:: html
 

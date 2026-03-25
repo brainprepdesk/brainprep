@@ -27,6 +27,14 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.datasets.openneuro_download.html'>brainprep.datasets.openneuro_download</a></li>
       <li><a href='generated/brainprep.datasets.utils.git_download.html'>brainprep.datasets.utils.git_download</a></li>
       <li><a href='generated/brainprep.datasets.utils.openneuro_download.html'>brainprep.datasets.utils.openneuro_download</a></li>
+      <li><a href='generated/brainprep.decorators.BidsHook.html'>brainprep.decorators.BidsHook</a></li>
+      <li><a href='generated/brainprep.decorators.CoerceparamsHook.html'>brainprep.decorators.CoerceparamsHook</a></li>
+      <li><a href='generated/brainprep.decorators.CommandLineWrapperHook.html'>brainprep.decorators.CommandLineWrapperHook</a></li>
+      <li><a href='generated/brainprep.decorators.Hook.html'>brainprep.decorators.Hook</a></li>
+      <li><a href='generated/brainprep.decorators.LogRuntimeHook.html'>brainprep.decorators.LogRuntimeHook</a></li>
+      <li><a href='generated/brainprep.decorators.OutputdirHook.html'>brainprep.decorators.OutputdirHook</a></li>
+      <li><a href='generated/brainprep.decorators.PythonWrapperHook.html'>brainprep.decorators.PythonWrapperHook</a></li>
+      <li><a href='generated/brainprep.decorators.SaveRuntimeHook.html'>brainprep.decorators.SaveRuntimeHook</a></li>
       <li><a href='generated/brainprep.interfaces.ants.biasfield.html'>brainprep.interfaces.ants.biasfield</a></li>
       <li><a href='generated/brainprep.interfaces.cat12.cat12vbm_morphometry.html'>brainprep.interfaces.cat12.cat12vbm_morphometry</a></li>
       <li><a href='generated/brainprep.interfaces.cat12.cat12vbm_wf.html'>brainprep.interfaces.cat12.cat12vbm_wf</a></li>
@@ -90,10 +98,6 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.reporting.utils.inject_with_jinja.html'>brainprep.reporting.utils.inject_with_jinja</a></li>
       <li><a href='generated/brainprep.reporting.utils.png_image_to_base64.html'>brainprep.reporting.utils.png_image_to_base64</a></li>
       <li><a href='generated/brainprep.utils.bunch.Bunch.html'>brainprep.utils.bunch.Bunch</a></li>
-      <li><a href='generated/brainprep.utils.color.Colored.html'>brainprep.utils.color.Colored</a></li>
-      <li><a href='generated/brainprep.utils.color.attr.html'>brainprep.utils.color.attr</a></li>
-      <li><a href='generated/brainprep.utils.color.fg.html'>brainprep.utils.color.fg</a></li>
-      <li><a href='generated/brainprep.utils.color.hex.html'>brainprep.utils.color.hex</a></li>
       <li><a href='generated/brainprep.utils.color.print_color.html'>brainprep.utils.color.print_color</a></li>
       <li><a href='generated/brainprep.utils.color.print_command.html'>brainprep.utils.color.print_command</a></li>
       <li><a href='generated/brainprep.utils.color.print_deprecated.html'>brainprep.utils.color.print_deprecated</a></li>
@@ -103,7 +107,6 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.utils.color.print_subtitle.html'>brainprep.utils.color.print_subtitle</a></li>
       <li><a href='generated/brainprep.utils.color.print_title.html'>brainprep.utils.color.print_title</a></li>
       <li><a href='generated/brainprep.utils.color.print_warn.html'>brainprep.utils.color.print_warn</a></li>
-      <li><a href='generated/brainprep.utils.color.stylize.html'>brainprep.utils.color.stylize</a></li>
       <li><a href='generated/brainprep.utils.utils.check_run_fn.html'>brainprep.utils.utils.check_run_fn</a></li>
       <li><a href='generated/brainprep.utils.utils.coerce_to_list.html'>brainprep.utils.utils.coerce_to_list</a></li>
       <li><a href='generated/brainprep.utils.utils.coerce_to_path.html'>brainprep.utils.utils.coerce_to_path</a></li>
@@ -126,8 +129,9 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
       <li><a href='generated/brainprep.workflow.vbm.brainprep_group_vbm.html'>brainprep.workflow.vbm.brainprep_group_vbm</a></li>
       <li><a href='generated/brainprep.workflow.vbm.brainprep_longitudinal_vbm.html'>brainprep.workflow.vbm.brainprep_longitudinal_vbm</a></li>
       <li><a href='generated/brainprep.workflow.vbm.brainprep_vbm.html'>brainprep.workflow.vbm.brainprep_vbm</a></li>
-      <li><a href='generated/brainprep.wrappers._check_outputs.html'>brainprep.wrappers._check_outputs</a></li>
-      <li><a href='generated/brainprep.wrappers._is_list_list_str.html'>brainprep.wrappers._is_list_list_str</a></li>
-      <li><a href='generated/brainprep.wrappers._is_list_str.html'>brainprep.wrappers._is_list_str</a></li>
+      <li><a href='generated/brainprep.wrappers.check_outputs.html'>brainprep.wrappers.check_outputs</a></li>
       <li><a href='generated/brainprep.wrappers.is_command_installed.html'>brainprep.wrappers.is_command_installed</a></li>
+      <li><a href='generated/brainprep.wrappers.is_list_list_str.html'>brainprep.wrappers.is_list_list_str</a></li>
+      <li><a href='generated/brainprep.wrappers.is_list_str.html'>brainprep.wrappers.is_list_str</a></li>
+      <li><a href='generated/brainprep.wrappers.run_command.html'>brainprep.wrappers.run_command</a></li>
     </ul>

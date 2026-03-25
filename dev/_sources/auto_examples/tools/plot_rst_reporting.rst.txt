@@ -31,15 +31,21 @@ Functions
 
 Let's create some functions to monitor.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-60
+.. GENERATED FROM PYTHON SOURCE LINES 15-68
 
 .. code-block:: Python
 
 
-    from brainprep.reporting import log_runtime
+    from brainprep.decorators import (
+        LogRuntimeHook,
+        step,
+    )
     from brainprep.utils import Bunch
 
-    @log_runtime
+
+    @step(
+        hooks=[LogRuntimeHook()]
+    )
     def workflow(val1, val2=None):
         """
         This is the main workflow.
@@ -62,7 +68,9 @@ Let's create some functions to monitor.
             return Bunch(val=val1)
 
 
-    @log_runtime
+    @step(
+        hooks=[LogRuntimeHook()]
+    )
     def square(val):
         """
         Return the square of the input.
@@ -87,14 +95,14 @@ Let's create some functions to monitor.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-65
+.. GENERATED FROM PYTHON SOURCE LINES 69-73
 
 Reporting
 ---------
 
 Now let's generate the RST report.
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-80
+.. GENERATED FROM PYTHON SOURCE LINES 73-88
 
 .. code-block:: Python
 
@@ -136,9 +144,9 @@ Now let's generate the RST report.
           val: 1
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:04.359026'
-          end: '2026-03-23 09:18:04.359026'
-          execution_time: 1.9444444444444442e-09
+          start: '2026-03-25 14:53:47.260078'
+          end: '2026-03-25 14:53:47.260101'
+          execution_time: 6.388888888888889e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -170,9 +178,9 @@ Now let's generate the RST report.
           val: 4
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:04.367293'
-          end: '2026-03-23 09:18:04.367293'
-          execution_time: 1.0533333333333333e-06
+          start: '2026-03-25 14:53:47.268500'
+          end: '2026-03-25 14:53:47.272293'
+          execution_time: 1.0536111111111112e-06
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -198,9 +206,9 @@ Now let's generate the RST report.
           val2: 4
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:04.371053'
-          end: '2026-03-23 09:18:04.371053'
-          execution_time: 1.111111111111111e-09
+          start: '2026-03-25 14:53:47.272245'
+          end: '2026-03-25 14:53:47.272254'
+          execution_time: 2.5e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -224,9 +232,9 @@ Now let's generate the RST report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.353 seconds)
+   **Total running time of the script:** (0 minutes 0.366 seconds)
 
-**Estimated memory usage:**  114 MB
+**Estimated memory usage:**  115 MB
 
 
 .. _sphx_glr_download_auto_examples_tools_plot_rst_reporting.py:

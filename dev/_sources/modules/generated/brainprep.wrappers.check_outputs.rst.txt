@@ -7,14 +7,14 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.wrappers._check_outputs
-=================================
+brainprep.wrappers.check_outputs
+================================
 
 .. currentmodule:: brainprep.wrappers
 
-.. autofunction:: _check_outputs
+.. autofunction:: check_outputs
 
-.. include:: brainprep.wrappers._check_outputs.examples
+.. include:: brainprep.wrappers.check_outputs.examples
 
 .. raw:: html
 

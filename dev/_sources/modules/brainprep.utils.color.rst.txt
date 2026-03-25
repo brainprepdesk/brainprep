@@ -7,20 +7,6 @@
 
 .. No relevant user manual section yet.
 
-Classes
--------
-
-.. currentmodule:: brainprep.utils.color
-
-.. autosummary::
-   :toctree: generated/
-   :template: class.rst
-
-    Colored
-
-.. .. autoclasstree:: brainprep.utils.color
-       :strict:
-       :align: center
 
 
 Functions
@@ -32,9 +18,6 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    attr
-    fg
-    hex
     print_color
     print_command
     print_deprecated
@@ -44,7 +27,6 @@ Functions
     print_subtitle
     print_title
     print_warn
-    stylize
 
 
 

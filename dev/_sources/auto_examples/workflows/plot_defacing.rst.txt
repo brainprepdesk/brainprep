@@ -58,7 +58,9 @@ Let's first get some anatomical data.
 
  .. code-block:: none
 
-    [info] - downloading: https://raw.githubusercontent.com/muschellij2/open_ms_data/refs/heads/master/cross_sectional/raw/patient01/T1W.nii.gz
+    [info] - downloading: 
+    https://raw.githubusercontent.com/muschellij2/open_ms_data/refs/heads/master/cro
+    ss_sectional/raw/patient01/T1W.nii.gz
     Bunch(
       description: PosixPath('/tmp/brainprep-data/rawdata/dataset_description.json')
       anat: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
@@ -114,16 +116,42 @@ to actually run each step and generate results on disk.
  .. code-block:: none
 
     [title] - Subject Level Defacing...
-    [info] - setting workspace directory: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace
-    [command] - fslreorient2std /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
-    [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
-    [command] - mri_synthstrip -i /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -m /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf
-    [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz
-    [command] - fsl_deface /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz -d /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz -f 0.5 -B
-    [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz
-    [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz
-    [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-01_ses-01_run-34706_mod-T1w_defacemosaic.png
-    [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv
+    [info] - setting workspace directory: 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace
+    [command] - fslreorient2std 
+    /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
+    b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
+    [info] - checking output: 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
+    b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
+    [command] - mri_synthstrip -i 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
+    b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -m 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
+    b-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf
+    [info] - checking output: 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
+    b-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz
+    [command] - fsl_deface 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
+    b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
+    1_run-34706_mod-T1w_deface.nii.gz -d 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
+    1_run-34706_mod-T1w_defacemask.nii.gz -f 0.5 -B
+    [info] - checking output: 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
+    1_run-34706_mod-T1w_deface.nii.gz
+    [info] - checking output: 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
+    1_run-34706_mod-T1w_defacemask.nii.gz
+    [info] - checking output: 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-
+    01_ses-01_run-34706_mod-T1w_defacemosaic.png
+    [info] - checking output: 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
+    1_run-34706_mod-T1w_defacemask.tsv
     [title] - Subject Level Defacing done.
     Bunch(
       step1: Bunch(
@@ -133,7 +161,7 @@ to actually run each step and generate results on disk.
           t1_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01')
           keep_intermediate: True
-          kwargs: {'kwargs': {'kwargs': {}}, 'entities': {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}}
+          kwargs: {'entities': {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}}
         )
         outputs: Bunch(
           deface_t1_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz')
@@ -142,9 +170,9 @@ to actually run each step and generate results on disk.
           summary_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv')
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:06.848134'
-          end: '2026-03-23 09:18:06.848134'
-          execution_time: 5.528611111111111e-06
+          start: '2026-03-25 14:53:49.506471'
+          end: '2026-03-25 14:53:49.529134'
+          execution_time: 6.295277777777778e-06
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -170,12 +198,12 @@ to actually run each step and generate results on disk.
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
+          outputs: (['fslreorient2std', '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:06.852388'
-          end: '2026-03-23 09:18:06.852388'
-          execution_time: 8.611111111111111e-08
+          start: '2026-03-25 14:53:49.511261'
+          end: '2026-03-25 14:53:49.511323'
+          execution_time: 1.7222222222222222e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -201,12 +229,12 @@ to actually run each step and generate results on disk.
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
+          outputs: (['mri_synthstrip', '-i', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '-m', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '--no-csf'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:06.855906'
-          end: '2026-03-23 09:18:06.855906'
-          execution_time: 7.722222222222222e-08
+          start: '2026-03-25 14:53:49.515886'
+          end: '2026-03-25 14:53:49.515937'
+          execution_time: 1.4166666666666666e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -232,12 +260,12 @@ to actually run each step and generate results on disk.
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz'), PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz'))
+          outputs: (['fsl_deface', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz', '-d', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz', '-f', '0.5', '-B'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz'), PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz')))
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:06.859408'
-          end: '2026-03-23 09:18:06.859408'
-          execution_time: 1.0833333333333334e-07
+          start: '2026-03-25 14:53:49.519963'
+          end: '2026-03-25 14:53:49.520036'
+          execution_time: 2.0277777777777776e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -265,12 +293,12 @@ to actually run each step and generate results on disk.
           dryrun: False
         )
         outputs: Bunch(
-          outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-01_ses-01_run-34706_mod-T1w_defacemosaic.png')
+          outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-01_ses-01_run-34706_mod-T1w_defacemosaic.png'),)
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:06.863165'
-          end: '2026-03-23 09:18:06.863165'
-          execution_time: 5.4999999999999996e-08
+          start: '2026-03-25 14:53:49.525001'
+          end: '2026-03-25 14:53:49.525038'
+          execution_time: 1.0277777777777778e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -300,12 +328,12 @@ to actually run each step and generate results on disk.
           dryrun: False
         )
         outputs: Bunch(
-          outputs: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv')
+          outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv'),)
         )
         runtime: Bunch(
-          start: '2026-03-23 09:18:06.866708'
-          end: '2026-03-23 09:18:06.866708'
-          execution_time: 6.055555555555556e-08
+          start: '2026-03-25 14:53:49.528520'
+          end: '2026-03-25 14:53:49.528548'
+          execution_time: 7.777777777777777e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
           hostname: 'runnervm46oaq'
@@ -323,8 +351,10 @@ to actually run each step and generate results on disk.
       )
     )
     [title] - Group Level Defacing...
-    [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/quality_check/mask_overlap.tsv
-    [info] - checking output: /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_overlap.png
+    [info] - checking output: 
+    /tmp/brainprep-defacing/derivatives/defacing/quality_check/mask_overlap.tsv
+    [info] - checking output: 
+    /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_overlap.png
     [title] - Group Level Defacing done.
 
 
@@ -409,9 +439,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.965 seconds)
+   **Total running time of the script:** (0 minutes 0.619 seconds)
 
-**Estimated memory usage:**  124 MB
+**Estimated memory usage:**  121 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_defacing.py:

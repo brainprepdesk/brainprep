@@ -7,14 +7,14 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.wrappers._is_list_list_str
-====================================
+brainprep.wrappers.is_list_str
+==============================
 
 .. currentmodule:: brainprep.wrappers
 
-.. autofunction:: _is_list_list_str
+.. autofunction:: is_list_str
 
-.. include:: brainprep.wrappers._is_list_list_str.examples
+.. include:: brainprep.wrappers.is_list_str.examples
 
 .. raw:: html
 

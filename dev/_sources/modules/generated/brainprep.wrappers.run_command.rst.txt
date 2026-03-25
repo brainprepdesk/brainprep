@@ -7,14 +7,14 @@
    :ref:`user guide <user_guide>` for the big picture.
 
 
-brainprep.utils.color.stylize
-=============================
+brainprep.wrappers.run_command
+==============================
 
-.. currentmodule:: brainprep.utils.color
+.. currentmodule:: brainprep.wrappers
 
-.. autofunction:: stylize
+.. autofunction:: run_command
 
-.. include:: brainprep.utils.color.stylize.examples
+.. include:: brainprep.wrappers.run_command.examples
 
 .. raw:: html
 
