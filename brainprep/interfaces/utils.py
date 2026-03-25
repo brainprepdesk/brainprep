@@ -20,27 +20,33 @@ import nibabel
 import numpy as np
 import pandas as pd
 
-from ..reporting import log_runtime
+from ..decorators import (
+    CoerceparamsHook,
+    CommandLineWrapperHook,
+    LogRuntimeHook,
+    OutputdirHook,
+    PythonWrapperHook,
+    step,
+)
 from ..typing import (
     Directory,
     File,
 )
 from ..utils import (
-    coerceparams,
     make_run_id,
-    outputdir,
-)
-from ..wrappers import (
-    cmdwrapper,
-    pywrapper,
 )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def maskdiff(
         mask1_file: File,
         mask2_file: File,
@@ -136,11 +142,16 @@ def maskdiff(
     return (summary_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def copyfiles(
         source_image_files: list[File],
         destination_image_files: list[File],
@@ -167,11 +178,16 @@ def copyfiles(
             shutil.copy(src_path, dest_path)
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def movedir(
         source_dir: Directory,
         output_dir: Directory,
@@ -217,10 +233,15 @@ def movedir(
     return (output_dir if content else output_dir / source_dir.name, )
 
 
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def ungzfile(
         input_file: File,
         output_file: File,
@@ -262,10 +283,15 @@ def ungzfile(
     return (output_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+    ]
+)
 def write_uuid_mapping(
         input_file: File,
         output_dir: Directory,
@@ -317,10 +343,15 @@ def write_uuid_mapping(
     return (outut_file, )
 
 
-@coerceparams
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def anonfile(
         input_file: File,
         mapping: dict[str, str]) -> tuple[list[str], File]:

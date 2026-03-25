@@ -20,29 +20,35 @@ import nibabel
 import numpy as np
 import pandas as pd
 
-from ..reporting import log_runtime
+from ..decorators import (
+    CoerceparamsHook,
+    CommandLineWrapperHook,
+    LogRuntimeHook,
+    OutputdirHook,
+    PythonWrapperHook,
+    step,
+)
 from ..typing import (
     Directory,
     File,
 )
 from ..utils import (
-    coerceparams,
-    outputdir,
     parse_bids_keys,
     print_info,
     print_warn,
 )
-from ..wrappers import (
-    cmdwrapper,
-    pywrapper,
+
+
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
 )
-
-
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
 def brainmask(
         image_file: File,
         output_dir: Directory,
@@ -91,11 +97,16 @@ def brainmask(
     return command, (mask_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def reconall(
         t1_file: File,
         output_dir: Directory,
@@ -169,11 +180,16 @@ def reconall(
     return command, (log_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def reconall_longitudinal(
         workspace_dir: Directory,
         output_dir: Directory,
@@ -286,10 +302,15 @@ def reconall_longitudinal(
     return commands, (log_template_file, log_files)
 
 
-@coerceparams
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def freesurfer_command_status(
         log_file: File,
         command: str,
@@ -360,11 +381,16 @@ def freesurfer_command_status(
         )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def localgi(
         output_dir: Directory,
         entities: dict) -> tuple[list[str], tuple[File]]:
@@ -409,11 +435,16 @@ def localgi(
     return command, (left_lgi_file, right_lgi_file)
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def surfreg(
         output_dir: Directory,
         entities: dict) -> tuple[list[str], tuple[File]]:
@@ -480,11 +511,16 @@ def surfreg(
     return commands, (left_reg_file, right_reg_file)
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def xhemireg(
         output_dir: Directory,
         entities: dict) -> tuple[list[str], tuple[File]]:
@@ -521,10 +557,15 @@ def xhemireg(
     return command, (left_log_file, right_log_file)
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+    ]
+)
 def fsaveragesym_surfreg(
         output_dir: Directory,
         entities: dict) -> tuple[File, File]:
@@ -590,10 +631,15 @@ def fsaveragesym_surfreg(
     return (left_reg_file, right_reg_file)
 
 
-@coerceparams
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def mris_apply_reg(
         src_file: File,
         trg_file: File,
@@ -633,11 +679,16 @@ def mris_apply_reg(
     return command, (trg_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def fsaveragesym_projection(
         left_reg_file: File,
         right_reg_file: File,
@@ -728,10 +779,15 @@ def fsaveragesym_projection(
     return tuple(features)
 
 
-@coerceparams
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def mri_convert(
         src_file: File,
         trg_file: File,
@@ -768,10 +824,15 @@ def mri_convert(
     return command, (trg_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+    ]
+)
 def mgz_to_nii(
         output_dir: Directory,
         entities: dict) -> tuple[File]:
@@ -827,11 +888,15 @@ def mgz_to_nii(
     return tuple(images)
 
 
-@coerceparams
-@log_runtime(
-    bunched=False)
-@cmdwrapper
-@coerceparams
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def aparcstats2table(
         subjects: list[str],
         session: str,
@@ -900,10 +965,15 @@ def aparcstats2table(
     return commands, (desikan_stat_file, destrieux_stat_file)
 
 
-@coerceparams
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def asegstats2table(
         subjects: list[str],
         session: str,
@@ -943,11 +1013,17 @@ def asegstats2table(
     return command, (volume_stat_file, )
 
 
-@coerceparams
-@outputdir(
-    morphometry=True)
-@log_runtime(
-    bunched=False)
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            morphometry=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+    ]
+)
 def freesurfer_features_summary(
         workspace_dir: Directory,
         output_dir: Directory) -> tuple[File]:
@@ -1051,11 +1127,16 @@ def freesurfer_features_summary(
     return summary_files
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def freesurfer_tissues(
         workspace_dir: Directory,
         output_dir: Directory,
@@ -1203,11 +1284,15 @@ def freesurfer_tissues(
     return (wm_mask_file, gm_mask_file, csf_mask_file, brain_mask_file)
 
 
-@coerceparams
-@log_runtime(
-    bunched=False)
-@cmdwrapper
-@coerceparams
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def nextbrain(
         t1_file: File,
         output_dir: Directory,

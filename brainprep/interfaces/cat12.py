@@ -21,31 +21,37 @@ from ..config import (
     DEFAULT_OPTIONS,
     brainprep_options,
 )
-from ..reporting import log_runtime
+from ..decorators import (
+    CoerceparamsHook,
+    CommandLineWrapperHook,
+    LogRuntimeHook,
+    OutputdirHook,
+    PythonWrapperHook,
+    step,
+)
 from ..typing import (
     Directory,
     File,
 )
 from ..utils import (
     coerce_to_path,
-    coerceparams,
-    outputdir,
     parse_bids_keys,
-)
-from ..wrappers import (
-    cmdwrapper,
-    pywrapper,
 )
 from .utils import (
     ungzfile,
 )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def cat12vbm_wf(
         t1_files: list[File],
         batch_file: File,
@@ -103,11 +109,16 @@ def cat12vbm_wf(
     return command, (gm_files, qc_files)
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def write_catbatch(
         t1_files: list[File],
         output_dir: Directory,
@@ -202,12 +213,18 @@ def write_catbatch(
     return (batch_file, )
 
 
-@coerceparams
-@outputdir(
-    morphometry=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            morphometry=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def cat12vbm_morphometry(
         output_dir: Directory,
         dryrun: bool = False) -> list[File]:

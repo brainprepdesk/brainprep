@@ -15,9 +15,12 @@ import shutil
 
 import brainprep.interfaces as interfaces
 
-from ..reporting import (
-    log_runtime,
-    save_runtime,
+from ..decorators import (
+    BidsHook,
+    CoerceparamsHook,
+    LogRuntimeHook,
+    SaveRuntimeHook,
+    step,
 )
 from ..typing import (
     Directory,
@@ -25,22 +28,26 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
-    bids,
-    coerceparams,
     parse_bids_keys,
     print_info,
 )
 
 
-@coerceparams
-@bids(
-    process="fmriprep",
-    bids_file="t1_file",
-    add_subjects=True,
-    container="neurospin/brainprep-fmriprep")
-@log_runtime(
-    title="Subject Level fMRI PreProcessing")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="fmriprep",
+            bids_file="t1_file",
+            add_subjects=True,
+            container="neurospin/brainprep-fmriprep"
+        ),
+        LogRuntimeHook(
+            title="Subject Level fMRI PreProcessing"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_fmriprep(
         t1_file: File,
         func_files: list[File],
@@ -247,13 +254,19 @@ def brainprep_fmriprep(
     )
 
 
-@coerceparams
-@bids(
-    process="fmriprep",
-    container="neurospin/brainprep-fmriprep")
-@log_runtime(
-    title="Group Level fMRI PreProcessing")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="fmriprep",
+            container="neurospin/brainprep-fmriprep"
+        ),
+        LogRuntimeHook(
+            title="Group Level fMRI PreProcessing"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_group_fmriprep(
         output_dir: Directory,
         fd_mean_threshold: float = 0.2,

@@ -21,27 +21,36 @@ from scipy.stats import (
 )
 from sklearn.decomposition import IncrementalPCA
 
-from ..reporting import log_runtime
+from ..decorators import (
+    CoerceparamsHook,
+    LogRuntimeHook,
+    OutputdirHook,
+    PythonWrapperHook,
+    step,
+)
 from ..typing import (
     Directory,
     File,
 )
 from ..utils import (
     coerce_to_path,
-    coerceparams,
-    outputdir,
     parse_bids_keys,
     print_warn,
 )
-from ..wrappers import pywrapper
 
 
-@coerceparams
-@outputdir(
-    quality_check=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def network_entropy(
         network_files_regex: str,
         output_dir: Directory,
@@ -130,12 +139,18 @@ def network_entropy(
     return (entropy_file, )
 
 
-@coerceparams
-@outputdir(
-    quality_check=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def mask_overlap(
         maskdiff_files_regex: str,
         output_dir: Directory,
@@ -230,12 +245,18 @@ def mask_overlap(
     return (overlap_file, )
 
 
-@coerceparams
-@outputdir(
-    quality_check=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def mean_correlation(
         image_files_regex: str,
         atlas_file: File,
@@ -338,12 +359,18 @@ def mean_correlation(
     return (correlations_file, )
 
 
-@coerceparams
-@outputdir(
-    quality_check=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def incremental_pca(
         image_files_regex: str,
         output_dir: Directory,
@@ -449,12 +476,18 @@ def incremental_pca(
     return (pca_file, )
 
 
-@coerceparams
-@outputdir(
-    quality_check=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def euler_numbers(
         output_dir: Directory,
         euler_threshold: int = -217,
@@ -553,12 +586,18 @@ def euler_numbers(
     return (euler_numbers_file, )
 
 
-@coerceparams
-@outputdir(
-    quality_check=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def vbm_metrics(
         output_dir: Directory,
         ncr_threshold: float = 4.5,
@@ -661,12 +700,18 @@ def vbm_metrics(
     return (group_stats_file, )
 
 
-@coerceparams
-@outputdir(
-    quality_check=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def fmriprep_metrics(
         output_dir: Directory,
         fd_mean_threshold: float = 0.2,
@@ -769,12 +814,18 @@ def fmriprep_metrics(
     return (group_stats_file, )
 
 
-@coerceparams
-@outputdir(
-    quality_check=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def mriqc_metrics(
         iqm_files: list[File],
         output_dir: Directory,

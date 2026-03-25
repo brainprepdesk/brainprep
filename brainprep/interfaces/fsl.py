@@ -13,23 +13,29 @@ FSL functions.
 
 from pathlib import Path
 
-from ..reporting import log_runtime
+from ..decorators import (
+    CoerceparamsHook,
+    CommandLineWrapperHook,
+    LogRuntimeHook,
+    OutputdirHook,
+    step,
+)
 from ..typing import (
     Directory,
     File,
 )
-from ..utils import (
-    coerceparams,
-    outputdir,
+
+
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
 )
-from ..wrappers import cmdwrapper
-
-
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
 def reorient(
         image_file: File,
         output_dir: Directory,
@@ -66,11 +72,16 @@ def reorient(
     return command, (reorient_image_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def deface(
         t1_file: File,
         output_dir: Directory,
@@ -125,11 +136,16 @@ def deface(
     return command, (deface_file, mask_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def applymask(
         image_file: File,
         mask_file: File,
@@ -171,11 +187,16 @@ def applymask(
     return command, (masked_image_file, )
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def scale(
         image_file: File,
         scale: int,
@@ -222,11 +243,16 @@ def scale(
     return command, (scaled_anatomical_file, transform_file)
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def affine(
         anatomical_file: File,
         template_file: File,
@@ -278,11 +304,16 @@ def affine(
     return command, (aligned_anatomical_file, transform_file)
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
+)
 def applyaffine(
         image_file: File,
         template_file: File,

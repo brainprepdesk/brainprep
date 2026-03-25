@@ -27,28 +27,34 @@ from nilearn.connectome import ConnectivityMeasure
 from nilearn.interfaces.fmriprep import load_confounds
 from nilearn.maskers import NiftiLabelsMasker
 
-from ..reporting import log_runtime
+from ..decorators import (
+    CoerceparamsHook,
+    CommandLineWrapperHook,
+    LogRuntimeHook,
+    OutputdirHook,
+    PythonWrapperHook,
+    step,
+)
 from ..typing import (
     Directory,
     File,
 )
 from ..utils import (
-    coerceparams,
-    outputdir,
     parse_bids_keys,
     sidecar_from_file,
 )
-from ..wrappers import (
-    cmdwrapper,
-    pywrapper,
+
+
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
 )
-
-
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
 def fmriprep_wf(
         t1_file: File,
         func_files: list[File],
@@ -211,11 +217,16 @@ def fmriprep_wf(
     return command, (rfmri_outputs, qc_file)
 
 
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def func_vol_connectivity(
         fmri_rest_image_file: File,
         mask_file: File,

@@ -15,9 +15,12 @@ import shutil
 
 import brainprep.interfaces as interfaces
 
-from ..reporting import (
-    log_runtime,
-    save_runtime,
+from ..decorators import (
+    BidsHook,
+    CoerceparamsHook,
+    LogRuntimeHook,
+    SaveRuntimeHook,
+    step,
 )
 from ..typing import (
     Directory,
@@ -25,8 +28,6 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
-    bids,
-    coerceparams,
     find_first_occurrence,
     parse_bids_keys,
     print_deprecated,
@@ -34,15 +35,21 @@ from ..utils import (
 )
 
 
-@coerceparams
-@bids(
-    process="sbm",
-    bids_file="t1_file",
-    add_subjects=True,
-    container="neurospin/brainprep-sbm")
-@log_runtime(
-    title="Subject Level SBM")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="sbm",
+            bids_file="t1_file",
+            add_subjects=True,
+            container="neurospin/brainprep-sbm"
+        ),
+        LogRuntimeHook(
+            title="Subject Level SBM"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_sbm(
         t1_file: File,
         output_dir: Directory,
@@ -313,17 +320,24 @@ def brainprep_sbm(
     )
 
 
-@coerceparams
-@bids(
-    process="sbm",
-    bids_file="t1_files",
-    add_subjects=True,
-    longitudinal=True,
-    container="neurospin/brainprep-sbm")
-@log_runtime(
-    title="Longitudinal SBM")
-@save_runtime(
-    parent=True)
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="sbm",
+            bids_file="t1_files",
+            add_subjects=True,
+            longitudinal=True,
+            container="neurospin/brainprep-sbm"
+        ),
+        LogRuntimeHook(
+            title="Longitudinal SBM"
+        ),
+        SaveRuntimeHook(
+            parent=True
+        ),
+    ]
+)
 def brainprep_longitudinal_sbm(
         t1_files: list[File],
         output_dir: Directory,
@@ -472,13 +486,19 @@ def brainprep_longitudinal_sbm(
     )
 
 
-@coerceparams
-@bids(
-    process="sbm",
-    container="neurospin/brainprep-sbm")
-@log_runtime(
-    title="Group Level SBM")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="sbm",
+            container="neurospin/brainprep-sbm"
+        ),
+        LogRuntimeHook(
+            title="Group Level SBM"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_group_sbm(
         output_dir: Directory,
         euler_threshold: int = -217,

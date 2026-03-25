@@ -14,12 +14,10 @@ Module that implements reporting tools.
 from .html_reporting import generate_qc_report
 from .rst_reporting import (
     RSTReport,
-    log_runtime,
-    save_runtime,
+    trace_module_calls,
 )
 
 __all__ = [
     "RSTReport",
     "generate_qc_report",
-    "log_runtime",
 ]

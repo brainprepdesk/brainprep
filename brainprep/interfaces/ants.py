@@ -11,23 +11,29 @@
 ANTs functions.
 """
 
-from ..reporting import log_runtime
+from ..decorators import (
+    CoerceparamsHook,
+    CommandLineWrapperHook,
+    LogRuntimeHook,
+    OutputdirHook,
+    step,
+)
 from ..typing import (
     Directory,
     File,
 )
-from ..utils import (
-    coerceparams,
-    outputdir,
+
+
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+    ]
 )
-from ..wrappers import cmdwrapper
-
-
-@coerceparams
-@outputdir
-@log_runtime(
-    bunched=False)
-@cmdwrapper
 def biasfield(
         image_file: File,
         mask_file: File,

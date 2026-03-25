@@ -14,9 +14,12 @@ import shutil
 
 import brainprep.interfaces as interfaces
 
-from ..reporting import (
-    log_runtime,
-    save_runtime,
+from ..decorators import (
+    BidsHook,
+    CoerceparamsHook,
+    LogRuntimeHook,
+    SaveRuntimeHook,
+    step,
 )
 from ..typing import (
     Directory,
@@ -24,22 +27,26 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
-    bids,
-    coerceparams,
     parse_bids_keys,
     print_info,
 )
 
 
-@coerceparams
-@bids(
-    process="defacing",
-    bids_file="t1_file",
-    add_subjects=True,
-    container="neurospin/brainprep-deface")
-@log_runtime(
-    title="Subject Level Defacing")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="defacing",
+            bids_file="t1_file",
+            add_subjects=True,
+            container="neurospin/brainprep-deface"
+        ),
+        LogRuntimeHook(
+            title="Subject Level Defacing"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_defacing(
         t1_file: File,
         output_dir: Directory,
@@ -171,13 +178,19 @@ def brainprep_defacing(
     )
 
 
-@coerceparams
-@bids(
-    process="defacing",
-    container="neurospin/brainprep-deface")
-@log_runtime(
-    title="Group Level Defacing")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="defacing",
+            container="neurospin/brainprep-deface"
+        ),
+        LogRuntimeHook(
+            title="Group Level Defacing"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_group_defacing(
         output_dir: Directory,
         overlap_threshold: float = 0.05,

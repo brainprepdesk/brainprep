@@ -15,9 +15,12 @@ from pathlib import Path
 
 import brainprep.interfaces as interfaces
 
-from ..reporting import (
-    log_runtime,
-    save_runtime,
+from ..decorators import (
+    BidsHook,
+    CoerceparamsHook,
+    LogRuntimeHook,
+    SaveRuntimeHook,
+    step,
 )
 from ..typing import (
     Directory,
@@ -25,22 +28,26 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
-    bids,
-    coerceparams,
     parse_bids_keys,
     print_info,
 )
 
 
-@coerceparams
-@bids(
-    process="quasiraw",
-    bids_file="anatomical_file",
-    add_subjects=True,
-    container="neurospin/brainprep-quasiraw")
-@log_runtime(
-    title="Subject Level Quasi-RAW")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="quasiraw",
+            bids_file="anatomical_file",
+            add_subjects=True,
+            container="neurospin/brainprep-quasiraw"
+        ),
+        LogRuntimeHook(
+            title="Subject Level Quasi-RAW"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_quasiraw(
         anatomical_file: File,
         output_dir: Directory,
@@ -223,13 +230,19 @@ def brainprep_quasiraw(
     )
 
 
-@coerceparams
-@bids(
-    process="quasiraw",
-    container="neurospin/brainprep-quasiraw")
-@log_runtime(
-    title="Group Level Quasi-RAW")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="quasiraw",
+            container="neurospin/brainprep-quasiraw"
+        ),
+        LogRuntimeHook(
+            title="Group Level Quasi-RAW"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_group_quasiraw(
         output_dir: Directory,
         correlation_threshold: float = 0.5,

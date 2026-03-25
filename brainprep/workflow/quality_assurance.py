@@ -14,9 +14,12 @@ import shutil
 
 import brainprep.interfaces as interfaces
 
-from ..reporting import (
-    log_runtime,
-    save_runtime,
+from ..decorators import (
+    BidsHook,
+    CoerceparamsHook,
+    LogRuntimeHook,
+    SaveRuntimeHook,
+    step,
 )
 from ..typing import (
     Directory,
@@ -24,20 +27,24 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
-    bids,
-    coerceparams,
     print_info,
 )
 
 
-@coerceparams
-@bids(
-    process="quality_assurance",
-    bids_file="image_files",
-    container="neurospin/brainprep-quality_assurance")
-@log_runtime(
-    title="Subject Level Quality Assurance")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="quality_assurance",
+            bids_file="image_files",
+            container="neurospin/brainprep-quality_assurance"
+        ),
+        LogRuntimeHook(
+            title="Subject Level Quality Assurance"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_quality_assurance(
         image_files: list[File],
         output_dir: Directory,
@@ -122,13 +129,19 @@ def brainprep_quality_assurance(
     )
 
 
-@coerceparams
-@bids(
-    process="quality_assurance",
-    container="neurospin/brainprep-quality_assurance")
-@log_runtime(
-    title="Group Level Quality Assurance")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="quality_assurance",
+            container="neurospin/brainprep-quality_assurance"
+        ),
+        LogRuntimeHook(
+            title="Group Level Quality Assurance"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_group_quality_assurance(
         modalities: list[str],
         output_dir: Directory,

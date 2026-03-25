@@ -7,7 +7,7 @@
 ##########################################################################
 
 """
-Provides signature-preserving function decorators in decorator factories.
+Module that implements a RST reporting tool.
 """
 
 import datetime
@@ -20,8 +20,6 @@ from typing import (
     Any,
     Self,
 )
-
-from decorator import decorator
 
 from .._version import __version__
 from ..config import (
@@ -266,195 +264,6 @@ class RSTReport(metaclass=SingletonReport):
                     report += f"* {key}: {val}\n"
                 report += "\n"
         Path(file_name).write_text(report)
-
-
-@decorator
-def log_runtime(
-        func: Callable,
-        title: str | None = None,
-        bunched: bool = True,
-        *args: Any,
-        **kw: Any) -> Any:
-    """
-    Decorator that logs runtime metadata and input/output details of a
-    function call.
-
-    This decorator uses an `RSTReport` instance to record metadata about the
-    execution of the decorated function, including its module, docstring,
-    inputs, outputs, and runtime statistics such as execution time and system
-    information.
-
-    Parameters
-    ----------
-    func : Callable
-        The function to be decorated.
-    title : str | None
-        A title to display. Default None.
-    bunched : bool
-        Return a bunch object with a default 'outputs' key. Default True.
-    *args : Any
-        Positional arguments passed to `func`.
-    **kw : Any
-        Keyword arguments passed to `func`. If a `report_file` keyword argument
-        is passed, the logged runtime metada are saved in this file.
-
-    Returns
-    -------
-    outputs : Any
-        The output returned by the decorated function.
-
-    Notes
-    -----
-    - The report is created using `RSTReport(reloadable=True)`, which allows
-      tracking multiple decorated steps.
-    - Inputs are captured using `inspect.getcallargs`.
-    - Runtime metadata includes start and end timestamps, execution duration
-      in hours, platform details, and hostname.
-    - Current configuration is captured.
-
-    Examples
-    --------
-    >>> @log_runtime
-    ... def add(a, b):
-    ...     '''Adds two numbers.'''
-    ...     return a + b
-
-    >>> report = RSTReport()
-    >>> result = add(3, 5)
-    >>> print(report)
-    Bunch(
-      step1: Bunch(
-        module: '__main__.add'
-        description: 'Adds two numbers.'
-        inputs: Bunch(
-          a: 3
-          b: 5
-        )
-        outputs: Bunch(
-          outputs: 8
-        )
-        runtime: Bunch(
-          start: '2025-10-03 15:12:55.428980'
-          end: '2025-10-03 15:12:55.428980'
-          execution_time: 3.611111111111111e-09
-          brainprep_version: '1.0.0'
-          platform: 'Linux'
-          hostname: 'localhost'
-        )
-      )
-    )
-    """
-    if title is not None:
-        print_title(f"{title}...")
-    trace = trace_module_calls()
-    report = RSTReport(
-        reloadable=True,
-        increment=True,
-    )
-    identifier = f"step{report._count}"
-    report.register(identifier, "module", f"{func.__module__}.{func.__name__}")
-    report.register(identifier, "description", func.__doc__)
-    if trace:
-        report.register(identifier, "trace", trace)
-    inputs = Bunch(
-        **inspect.getcallargs(func, *args, **kw)
-    )
-    report.register(identifier, "inputs", inputs)
-    start = datetime.datetime.now()
-    outputs = func(*args, **kw)
-    outputs_ = (
-        Bunch(outputs=outputs)
-        if not isinstance(outputs, Bunch)
-        else outputs
-    )
-    end = datetime.datetime.now()
-    report.register(identifier, "outputs", outputs_)
-    if bunched:
-        outputs = outputs_
-    runtime = Bunch(
-        start=str(start),
-        end=str(start),
-        execution_time=(end - start).total_seconds() / 3600,
-        brainprep_version=__version__,
-        platform=platform.platform(),
-        hostname=platform.node(),
-    )
-    report.register(identifier, "runtime", runtime)
-    config = Bunch(**DEFAULT_OPTIONS.copy())
-    config.update(
-        brainprep_options.get()
-    )
-    report.register(identifier, "config", config)
-    if title is not None:
-        print_title(f"{title} done.")
-    return outputs
-
-
-@decorator
-def save_runtime(
-        func: Callable,
-        parent: bool = False,
-        *args: Any,
-        **kw: Any) -> Any:
-    """
-    Decorator that save logged runtime metadata in a 'output_dir/log' folder.
-
-    Parameters
-    ----------
-    func : Callable
-        The function to be decorated.
-    parent : bool
-        If True, logs will be saved in the parent output directory instead of
-        the output directory. This is useful when centralizing log files.
-        Default False.
-    *args : Any
-        Positional arguments passed to `func`.
-    **kw : Any
-        Keyword arguments passed to `func`. An `output_dir` keyword argument
-        is expected.
-
-    Returns
-    -------
-    outputs : Any
-        The output returned by the decorated function.
-
-    Raises
-    ------
-    ValueError
-        If the `output_dir` keyword argument is not defined.
-
-    Examples
-    --------
-    >>> @log_runtime
-    ... @save_runtime
-    ... def add(a, b, output_dir="/tmp"):
-    ...     '''Adds two numbers.'''
-    ...     return a + b
-    >>> result = add(3, 5)
-    """
-    inputs = inspect.getcallargs(func, *args, **kw)
-    if "output_dir" not in inputs:
-        raise ValueError(
-            "This decorator needs an 'output_dir' function argument."
-        )
-    report = RSTReport(reloadable=True)
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    if parent:
-        report_file = (
-            Path(inputs.get("output_dir")).parent /
-            "log" /
-            f"report_{timestamp}.rst"
-        )
-    else:
-        report_file = (
-            Path(inputs.get("output_dir")) /
-            "log" /
-            f"report_{timestamp}.rst"
-        )
-    report_file.parent.mkdir(parents=True, exist_ok=True)
-    outputs = func(*args, **kw)
-    report.save_as_rst(report_file)
-    return outputs
 
 
 def trace_module_calls(

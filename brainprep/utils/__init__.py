@@ -22,13 +22,11 @@ from .color import (
     print_warn,
 )
 from .utils import (
-    bids,
+    coerce_to_list,
     coerce_to_path,
-    coerceparams,
     find_first_occurrence,
     find_stack_level,
     make_run_id,
-    outputdir,
     parse_bids_keys,
     sidecar_from_file,
 )

@@ -17,9 +17,12 @@ from ..config import (
     DEFAULT_OPTIONS,
     brainprep_options,
 )
-from ..reporting import (
-    log_runtime,
-    save_runtime,
+from ..decorators import (
+    BidsHook,
+    CoerceparamsHook,
+    LogRuntimeHook,
+    SaveRuntimeHook,
+    step,
 )
 from ..typing import (
     Directory,
@@ -27,22 +30,26 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
-    bids,
-    coerceparams,
     find_first_occurrence,
     parse_bids_keys,
 )
 
 
-@coerceparams
-@bids(
-    process="vbm",
-    bids_file="t1_file",
-    add_subjects=True,
-    container="neurospin/brainprep-vbm")
-@log_runtime(
-    title="Subject Level VBM")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="vbm",
+            bids_file="t1_file",
+            add_subjects=True,
+            container="neurospin/brainprep-vbm"
+        ),
+        LogRuntimeHook(
+            title="Subject Level VBM"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_vbm(
         t1_file: File,
         output_dir: Directory,
@@ -121,17 +128,24 @@ def brainprep_vbm(
     )
 
 
-@coerceparams
-@bids(
-    process="vbm",
-    bids_file="t1_files",
-    add_subjects=True,
-    longitudinal=True,
-    container="neurospin/brainprep-vbm")
-@log_runtime(
-    title="Longitudinal VBM")
-@save_runtime(
-    parent=True)
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="vbm",
+            bids_file="t1_files",
+            add_subjects=True,
+            longitudinal=True,
+            container="neurospin/brainprep-vbm"
+        ),
+        LogRuntimeHook(
+            title="Longitudinal VBM"
+        ),
+        SaveRuntimeHook(
+            parent=True,
+        ),
+    ]
+)
 def brainprep_longitudinal_vbm(
         t1_files: list[File],
         model: int,
@@ -216,13 +230,19 @@ def brainprep_longitudinal_vbm(
     )
 
 
-@coerceparams
-@bids(
-    process="vbm",
-    container="neurospin/brainprep-vbm")
-@log_runtime(
-    title="Group Level VBM")
-@save_runtime
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="vbm",
+            container="neurospin/brainprep-vbm"
+        ),
+        LogRuntimeHook(
+            title="Group Leve VBM"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
 def brainprep_group_vbm(
         output_dir: Directory,
         ncr_threshold: float = 4.5,

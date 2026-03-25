@@ -27,24 +27,31 @@ with warnings.catch_warnings():
     )
     from nilearn import plotting
 
-from ..reporting import log_runtime
+from ..decorators import (
+    CoerceparamsHook,
+    LogRuntimeHook,
+    OutputdirHook,
+    PythonWrapperHook,
+    step,
+)
 from ..typing import (
     Directory,
     File,
 )
-from ..utils import (
-    coerceparams,
-    outputdir,
+
+
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            plotting=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
 )
-from ..wrappers import pywrapper
-
-
-@coerceparams
-@outputdir(
-    plotting=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
 def plot_network(
         network_file: File,
         output_dir: Directory,
@@ -93,12 +100,18 @@ def plot_network(
     return (network_image_file, )
 
 
-@coerceparams
-@outputdir(
-    plotting=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            plotting=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def plot_defacing_mosaic(
         im_file: File,
         mask_file: File,
@@ -156,12 +169,18 @@ def plot_defacing_mosaic(
     return (mosaic_file, )
 
 
-@coerceparams
-@outputdir(
-    plotting=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            plotting=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def plot_histogram(
         table_file: File,
         col_name: str,
@@ -223,12 +242,18 @@ def plot_histogram(
     return (histogram_file, )
 
 
-@coerceparams
-@outputdir(
-    plotting=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            plotting=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def plot_brainparc(
         wm_mask_file: File,
         gm_mask_file: File,
@@ -311,12 +336,18 @@ def plot_brainparc(
     return (brainparc_image_file, )
 
 
-@coerceparams
-@outputdir(
-    plotting=True)
-@log_runtime(
-    bunched=False)
-@pywrapper
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            plotting=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+    ]
+)
 def plot_pca(
         pca_file: File,
         output_dir: Directory,
