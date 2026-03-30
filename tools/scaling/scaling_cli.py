@@ -143,7 +143,7 @@ def parse_bids(
           Session identifier without the ``ses-`` prefix.
         - ``<modality>`` : str
           File path to the corresponding NIfTI image.
-        - ``<modality>_hash`` : str or None
+        - ``<modality>_sha256_hash`` : str or None
           SHA-256 hash of the file, or None if ``with_hash=False``.
 
     Notes
@@ -188,7 +188,7 @@ def parse_bids(
                         "subject": subject,
                         "session": session,
                         modality: str(path),
-                        f"{modality}_hash": (
+                        f"{modality}_sha256_hash": (
                             hash_file(path) if with_hash else None
                         ),
                     }
@@ -198,8 +198,90 @@ def parse_bids(
     return {key: pd.DataFrame(val) for key, val in record.items()}
 
 
+def organize_bids_tab(
+        tab_file: str | Path,
+        with_hash: bool = True,
+    ) -> dict[str, pd.DataFrame]:
+    """
+    Organize a pre-parsed BIDS dataset .
+
+    This function walks through a BIDS-parsed table and extracts the file
+    paths for the most frequently used MRI modalities: T1-weighted (T1w),
+    T2-weighted (T2w), FLAIR, diffusion-weighted imaging (DWI), and
+    functional BOLD fMRI.
+
+    Parameters
+    ----------
+    tab_file : str or Path
+        Path to a pre-parsed rawdata BIDS dataset (as a TSV file). The table
+        includes:
+
+        - ``sub`` : str
+          Subject identifier without the ``sub-`` prefix.
+        - ``ses`` : str
+          Session identifier without the ``ses-`` prefix.
+        - ``submod`` : str
+          The image modality.
+        - ``path`` : str
+          File path to the corresponding NIfTI image.
+        - ``md5sum`` : str
+          MD5 hash of the file.
+    with_hash : bool
+        Collect a MD5 hash of each pre-parsed file.
+        Default True.
+
+    Returns
+    -------
+    data : dict[str, pd.DataFrame]
+        Dictionary mapping each modality name (``"T1w"``, ``"T2w"``,
+        ``"FLAIR"``, ``"dwi"``, ``"bold"``) to a DataFrame containing one row
+        per discovered file for that modality. Each table includes:
+
+        - ``subject`` : str
+          Subject identifier without the ``sub-`` prefix.
+        - ``session`` : str
+          Session identifier without the ``ses-`` prefix.
+        - ``<modality>`` : str
+          File path to the corresponding NIfTI image.
+        - ``<modality>_sha256_hash`` : str or None
+          SHA-256 hash of the file, or None if ``with_hash=False``.
+
+    Notes
+    -----
+    - Only the main imaging modalities are collected; fieldmaps, ASL, and other
+      optional BIDS modalities are not included.
+    - If multiple files exist for a modality, each is returned as a separate
+      row.
+    """
+    banner = r"""
+    +--------------------------------+
+    |     Organize BIDS data...      |
+    +--------------------------------+
+    """
+    print(banner)
+
+    df = pd.read_csv(tab_file, sep="\t", dtype=str)
+
+    record = {}
+    for _, row in df.iterrows():
+        modality = row["submod"]
+        row = {
+            "subject": row["sub"],
+            "session": row["ses"],
+            modality: row["path"],
+            f"{modality}_md5_hash": (
+                row["md5sum"] if with_hash else None
+            ),
+        }
+        record.setdefault(modality, []).append(row)
+    print(f"- modalities: {list(record.keys())}")
+
+    return {key: pd.DataFrame(val) for key, val in record.items()}
+
+
 def organize_longitudinal(
         data: dict[str, pd.DataFrame],
+        htype: str = "sha256",
     ) -> dict[str, pd.DataFrame]:
     """
     Organize BIDS modality tables into one longitudinal table per modality,
@@ -213,7 +295,9 @@ def organize_longitudinal(
             - "subject"
             - "session"
             - "<modality>"
-            - "<modality>_hash"
+            - "<modality>_<htype>_hash"
+    htype : str
+        Hash type. Default 'sha256'.
 
     Returns
     -------
@@ -221,7 +305,7 @@ def organize_longitudinal(
         One DataFrame per modality, with one row per subject/session.
         If multiple files exist for a modality, they are expanded into
         columns named "<modality>-1", "<modality>-2", ... and
-        "<modality>-hash-1", "<modality>-hash-2", ...
+        "<modality>_<htype>_hash-1", "<modality>_<htype>_hash-2", ...
     """
     banner = r"""
     +----------------------------------+
@@ -244,7 +328,7 @@ def organize_longitudinal(
         hashes_wide = df.pivot_table(
             index=["subject", "session"],
             columns="idx",
-            values=f"{modality}_hash",
+            values=f"{modality}_{htype}_hash",
             aggfunc="first"
         )
 
@@ -253,7 +337,7 @@ def organize_longitudinal(
             for idx in files_wide.columns
         ]
         hashes_wide.columns = [
-            f"{modality}_hash-{idx}"
+            f"{modality}_{htype}_hash-{idx}"
             for idx in hashes_wide.columns
         ]
 
@@ -472,6 +556,7 @@ def scan_configs(
         partition: str,
         freesurfer_license_file: str | Path,
         with_hash: bool = False,
+        allowed_workflows: list[str] | None = None,
     ) -> None:
     """
     Two infrastructures are supported: ``ccc`` and ``slurm``.
@@ -496,6 +581,9 @@ def scan_configs(
     with_hash : bool
         Compute a SHA-256 hash of each parsed file.
         Dafault False.
+    allowed_workflows : list[str] | None
+        Optionally specify a subset of workflows to consider.
+        If None, all available workflows will be used.
     """
     root = Path(root)
     image_dir = Path(image_dir)
@@ -524,17 +612,50 @@ def scan_configs(
         project_id = None
 
     # Parse root
-    dfs = parse_bids(root=root, with_hash=with_hash)
-    long_dfs = organize_longitudinal(dfs)
+    cache_files = list(root.glob("rawdata_v-*.tsv"))
+    if len(cache_files) == 0:
+        print("No cache files found. Parsing data.")
+        selected = None
+    else:
+        print("Multiple cache files found:")
+        for idx, path in enumerate(cache_files, 1):
+            print(f"{idx}. {path.name}")
+        choice = input(
+            "Select a file by number (or press Enter to force parsing): "
+        ).strip()
+        if choice.isdigit() and 1 <= int(choice) <= len(cache_files):
+            selected = cache_files[int(choice) - 1]
+            print(f"Selected: {selected}")
+        else:
+            print("No valid selection. Force parsing.")
+            selected = None
+    if selected is None:
+        dfs = parse_bids(root=root, with_hash=with_hash)
+        htype = "sha256"
+    else:
+        dfs = organize_bids_tab(tab_file=selected, with_hash=with_hash)
+        htype = "md5"
+    long_dfs = organize_longitudinal(dfs, htype=htype)
 
     # Scan workflows
     workflows = workflow_resource["brainprep"]["workflow"]
     workflow_mapping = workflow_resource["brainprep"]["mapping"]
-    allowed_workflows = [
+    known_workflows = [
         name
         for key in dfs
         for name in workflow_mapping.get(key, [])
     ]
+    if allowed_workflows is None:
+        allowed_workflows = known_workflows
+    else:
+        if isinstance(allowed_workflows, str):
+            allowed_workflows = allowed_workflows.split(",")
+        unknown = set(allowed_workflows) - set(known_workflows)
+        if unknown:
+            raise ValueError(
+                f"Unknown workflow IDs: {', '.join(sorted(unknown))}. "
+                f"Valid workflows are: {', '.join(sorted(known_workflows))}"
+            )
     for worflow_id, workflow_parameters in workflows.items():
         if worflow_id not in allowed_workflows:
             print(f"\n-- skip: {worflow_id} --")
