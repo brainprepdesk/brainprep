@@ -113,9 +113,12 @@ def brainprep_vbm(
     )
 
     mapping = {
-        str(find_first_occurrence(t1_file, "rawdata")): "RAWDATA",
         str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
     }
+    if "rawdata" in str(t1_file):
+        mapping.update({
+            str(find_first_occurrence(t1_file, "rawdata")): "RAWDATA",
+        })
     interfaces.anonfile(
         batch_file,
         mapping,
@@ -215,9 +218,12 @@ def brainprep_longitudinal_vbm(
     )
 
     mapping = {
-        str(find_first_occurrence(t1_files[0], "rawdata")): "RAWDATA",
         str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
     }
+    if "rawdata" in str(t1_files[0]):
+        mapping.update({
+            str(find_first_occurrence(t1_files[0], "rawdata")): "RAWDATA",
+        })
     interfaces.anonfile(
         batch_file,
         mapping,
