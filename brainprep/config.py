@@ -17,6 +17,7 @@ DEFAULT_OPTIONS = {
     "verbose": True,
     "dryrun": False,
     "no_color": False,
+    "skip_run_check": False,
     "cat12_file": Path(
         "/opt/cat12/standalone/cat_standalone.sh"
     ),
@@ -62,7 +63,8 @@ class Config:
         Keyword arguments intercepted by the wrapper function:
         - verbose : bool, default True - print information or not.
         - dryrun : bool, default False - execute commands or not
-        - with_color : bool, default True - print with colors or not.
+        - no_color : bool, default False - print with colors or not.
+        - skip_run_check : bool, default False - check run unicity or not.
         - cat12_file : File - path to the CAT12 standalone executable.
         - spm12_dir : Directory - path to the SPM12 standalone executable.
         - matlab_dir : Directory - path to the Matlab Compiler Runtime (MCR).

@@ -24,6 +24,10 @@ from typing import (
 )
 
 from .._version import __version__
+from ..config import (
+    DEFAULT_OPTIONS,
+    brainprep_options,
+)
 from ..typing import (
     Directory,
     File,
@@ -193,21 +197,30 @@ def parse_bids_keys(
         entities["mod"] = entities["modality"]
 
     # Define default values for missing entities
+    run_in_entities = "run" in entities
+    if not run_in_entities:
+        print_warn(
+            f"BIDS file name does not contain run key: {filename}"
+        )
     defaults = {
         "ses": "01",
         "run": make_run_id(filename)[1],
     }
 
     # Fill in missing entities with defaults
-    run_in_entities = "run" in entities
     for key, default in defaults.items():
         entities.setdefault(key, default)
 
     # Check integrity
+    opts = brainprep_options.get()
+    check_run = (
+        check_run and
+        not opts.get("skip_run_check", DEFAULT_OPTIONS["skip_run_check"])
+    )
     if check_run:
         status = check_run_fn(bids_path, entities, full_path)
         if run_in_entities and not status:
-            print_info(
+            print_warn(
                 "Multiple files with same run ID detected, using UUID instead."
             )
             entities["run"] = defaults["run"]
@@ -216,10 +229,6 @@ def parse_bids_keys(
             print_warn(
                 f"The generated UUID is not unique: {bids_path}"
             )
-    elif not run_in_entities:
-        print_warn(
-            f"BIDS file name does not contain run key: {filename}"
-        )
 
     return entities
 
