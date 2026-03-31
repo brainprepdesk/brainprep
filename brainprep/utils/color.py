@@ -21,12 +21,12 @@ from ..config import (
 fg_colors = {
     "title": "yellow",
     "subtitle": "cyan",
-    "command": "grey",
+    "command": "grey53",
     "info": "blue",
-    "result": "pink",
+    "result": "pink3",
     "error": "red",
-    "warn": "orange",
-    "deprecated": "orange",
+    "warn": "dark_orange3",
+    "deprecated": "dark_orange3",
 }
 
 
