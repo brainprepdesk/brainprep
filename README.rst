@@ -14,27 +14,27 @@
 
 **Development**
 
-.. image:: https://coveralls.io/repos/brainprepdesk/brainprep/badge.svg?branch=dev&service=github
+.. image:: https://coveralls.io/repos/brainprepdesk/brainprep/badge.svg?service=github
     :target: https://coveralls.io/github/brainprepdesk/brainprep
     :alt: Coveralls
 
-.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/testing.yml/badge.svg?branch=dev
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/testing.yml/badge.svg
     :target: https://github.com/brainprepdesk/brainprep/actions
     :alt: Testing Status
 
-.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/pycodestyle.yml/badge.svg?branch=dev
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/pycodestyle.yml/badge.svg
     :target: https://github.com/brainprepdesk/brainprep/actions
     :alt: PyCodeStyle
 
-.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/ruff.yml/badge.svg?branch=dev
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/ruff.yml/badge.svg
     :target: https://github.com/brainprepdesk/brainprep/actions
     :alt: Ruff Linter
 
-.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/pydoclint.yml/badge.svg?branch=dev
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/pydoclint.yml/badge.svg
     :target: https://github.com/brainprepdesk/brainprep/actions
     :alt: PyDocLint
 
-.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/documentation.yml/badge.svg?branch=dev
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/documentation.yml/badge.svg
     :target: https://brainprepdesk.github.io/brainprep
     :alt: Documentation Status
 
