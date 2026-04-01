@@ -1124,6 +1124,20 @@ def freesurfer_features_summary(
         )
         summary_files.append(volume_stat_file)
 
+    # sort by participant_id
+    output_files = output_dir.glob('*')
+    for file in output_files:
+        if file.suffix == ".csv":
+            sep = ','
+        elif file.suffix == ".tsv":
+            sep = '\t'
+        else:
+            continue
+        df = pd.read_csv(file, sep=sep)
+        first_col = df.columns[0]
+        df = df.sort_values(by=first_col)
+        df.to_csv(file, sep=sep, index=False)
+
     return summary_files
 
 
