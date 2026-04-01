@@ -37,4 +37,19 @@ from .vbm import (
     brainprep_vbm,
 )
 
-__all__ = []
+__all__ = [
+    "brainprep_defacing",
+    "brainprep_group_defacing",
+    "brainprep_fmriprep",
+    "brainprep_group_fmriprep",
+    "brainprep_group_quality_assurance",
+    "brainprep_quality_assurance",
+    "brainprep_group_quasiraw",
+    "brainprep_quasiraw",
+    "brainprep_group_sbm",
+    "brainprep_longitudinal_sbm",
+    "brainprep_sbm",
+    "brainprep_group_vbm",
+    "brainprep_longitudinal_vbm",
+    "brainprep_vbm",
+]

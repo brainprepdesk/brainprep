@@ -20,4 +20,5 @@ from .rst_reporting import (
 __all__ = [
     "RSTReport",
     "generate_qc_report",
+    "trace_module_calls",
 ]
