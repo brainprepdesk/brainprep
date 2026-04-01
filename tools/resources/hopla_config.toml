@@ -1,0 +1,24 @@
+[project]
+name = "{name}"
+operator = "{operator}"
+date = "{date}"
+
+[inputs]
+commands = {commands}
+parameters = "{parameters}"
+
+[environment]
+cluster = "{cluster}"
+folder = "{hopla_dir}"
+queue = "{partition}"
+walltime = 48
+n_cpus = {n_cpus}
+memory = {memory}
+image = "{image_file}"
+project_id = "{project_id}"
+backend = "{backend}"
+
+[config]
+dryrun = false
+delay_s = 30
+verbose = false

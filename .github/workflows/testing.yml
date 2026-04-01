@@ -1,12 +1,24 @@
-name: "TESTING"
+# Workflow to perform testings and code coverage.
+#
+# To run this check locally from the `doc` folder:
+#
+# .. code-block:: bash
+#
+#   $ nosetests --with-coverage --cover-package=brainprep --verbosity=2
+#     --with-doctest --doctest-options='+ELLIPSIS,+NORMALIZE_WHITESPACE'
+###
+name: "testing[nosetests]"
 
 on:
   push:
     branches:
       - "master"
+      - "main"
+      - "dev"
   pull_request:
     branches:
       - "*"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,27 +28,29 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: [3.9, 3.12]
+        python-version: [3.12]
+    env:
+      FREESURFER_HOME: "/freesurfer/home"
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+        cache: "pip"
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pynose coverage coveralls
-        python -m pip install --progress-bar off .
+        python -m pip install --progress-bar off ".[ci]"
     - name: Run unit tests
       run: |
-        nosetests --with-coverage --cover-package=brainprep --verbosity=2
+        nosetests --with-coverage --cover-package=brainprep --verbosity=2 --with-doctest --doctest-options='+ELLIPSIS,+NORMALIZE_WHITESPACE'
     - name: Coveralls
-      if: matrix.python-version == 3.9
+      if: matrix.python-version == 3.12
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |

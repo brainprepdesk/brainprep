@@ -1,0 +1,49 @@
+---
+# Workflow to check code format.
+#
+# To run this check locally from the repository folder:
+#
+# .. code-block:: bash
+#
+#   $ pycodestyle brainprep --ignore="E121,E123,E126,E226,E24,E704,E402,E731,E722,E741,W503,W504,W605,E305,E125"
+###
+name: "PythonLinter[pycodestyle]"
+
+on:
+  push:
+    branches:
+      - "master"
+      - "main"
+      - "dev"
+  pull_request:
+    branches:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.12]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pycodestyle
+        pip install --progress-bar off .
+    - name: Check Python syntax
+      run: |
+        pycodestyle brainprep --ignore="E121,E123,E126,E226,E24,E704,E402,E731,E722,E741,W503,W504,W605,E305,E125"

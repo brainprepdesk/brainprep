@@ -1,0 +1,106 @@
+FROM ubuntu:24.04
+
+ENV LANG="en_US.UTF-8" \
+    LC_ALL="en_US.UTF-8"
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           apt-utils \
+           bzip2 \
+           ca-certificates \
+           curl \
+           locales \
+           unzip \
+    && rm -rf /var/lib/apt/lists/*
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && update-locale LANG="en_US.UTF-8"
+RUN chmod 777 /opt && chmod a+s /opt
+
+# Parameters
+ENV MCR_VERSION="2017b v93" \
+    MCR_ROOT="/opt/MCR-2017b/v93" \
+    MCR_URL="https://ssd.mathworks.com/supportfiles/downloads/R2017b/deployment_files/R2017b/installers/glnxa64/MCR_R2017b_glnxa64_installer.zip" \
+    CAT12_VERSION="8.2" \
+    CAT12_TAG="r2166_R2017b" \
+    CAT12_URL="https://www.neuro.uni-jena.de/cat12/CAT12.8.2_r2166_R2017b_MCR_Linux.zip"
+
+# Install: MATLAB MCR
+ENV MATLABCMD="$MCR_ROOT/toolbox/matlab" \
+    XAPPLRESDIR="$MCR_ROOT/x11/app-defaults" \
+    LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu:$MCR_ROOT/runtime/glnxa64:$MCR_ROOT/bin/glnxa64:/$MCR_ROOT/sys/os/glnxa64:$MCR_ROOT/extern/bin/glnxa64"
+RUN export TMPDIR="$(mktemp -d)"
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           bc \
+           curl \
+           dbus-x11 \
+           libncurses6 \
+           libxext6 \
+           libxmu6 \
+           libxpm-dev \
+           libxt6 \
+           openjdk-8-jre \
+           unzip \
+    && rm -rf /var/lib/apt/lists/*
+RUN echo "Downloading MATLAB Compiler Runtime ..." \
+    && curl -o $TMPDIR/mcr.zip $MCR_URL
+RUN unzip -q $TMPDIR/mcr.zip -d $TMPDIR/mcrtmp \
+    && $TMPDIR/mcrtmp/install -destinationFolder $(dirname "$MCR_ROOT") -mode silent -agreeToLicense yes \
+    && rm -rf $TMPDIR \
+    && unset TMPDIR
+
+# Install: CAT12
+ENV FORCE_SPMMCR="1" \
+    SPM_HTML_BROWSER="0" \
+    MCR_INHIBIT_CTF_LOCK="1" \
+    SPMROOT="/opt/cat12" \
+    PATH="/opt/cat12:$PATH"
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           ca-certificates \
+           curl \
+           unzip \
+    && rm -rf /var/lib/apt/lists/*
+RUN echo "Downloading standalone CAT12 ..." \
+    && curl -fL -o /tmp/cat12.zip $CAT12_URL
+RUN unzip -q /tmp/cat12.zip -d /tmp \
+    && rm -rf /tmp/cat12.zip \
+    && mkdir -p $SPMROOT \
+    && mv /tmp/*"${CAT12_TAG}"*/* "$SPMROOT" \
+    && chmod -R 777 $SPMROOT
+
+# Test
+RUN $SPMROOT/spm12 function exit
+
+# Fix m file
+RUN rm $SPMROOT/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/cat_long_main.m \
+    && cp $SPMROOT/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/cat_long_main.txt $SPMROOT/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/cat_long_main.m
+
+# Install: brainprep
+RUN curl -fsSL https://pixi.sh/install.sh | bash
+ENV PATH="/root/.pixi/bin:${PATH}"
+WORKDIR /opt/brainprep
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           git \
+    && rm -rf /var/lib/apt/lists/*
+COPY pixi.toml .
+RUN pixi install
+RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainprep
+
+COPY entrypoint.sh /opt/entrypoint.sh
+RUN chmod +x /opt/entrypoint.sh
+ENTRYPOINT ["/opt/entrypoint.sh"]
+ENV DEFAULT_ARGS="subject-level-vbm group-level-vbm longitudinal-vbm"
+
+LABEL org.opencontainers.image.title="BrainPrep VBM" \
+      org.opencontainers.image.description="Container for BrainPrep VBM using CAT12 and MATLAB Runtime" \
+      org.opencontainers.image.version="v2" \
+      org.opencontainers.image.licenses="CeCILL-B" \
+      org.opencontainers.image.authors="CEA/NeuroSpin/GAIA" \
+      org.opencontainers.image.documentation="https://brainprepdesk.github.io/brainprep/stable" \
+      org.opencontainers.image.source="https://github.com/brainprepdesk/brainprep" \
+      org.opencontainers.image.created="2025-01-15" \
+      com.brainprep.mcr.version="$MCR_VERSION" \
+      com.brainprep.cat12.version="$CAT12_VERSION $CAT12_TAG" \
+      com.brainprep.spm.version="SPM12"

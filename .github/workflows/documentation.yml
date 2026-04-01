@@ -1,105 +1,104 @@
-name: "DOCUMENTATION"
+# Workflow to build doc, upload it as artifact, and deploy it for the
+# master, main and dev branches.
+#
+# To run this check locally from the `doc` folder:
+#
+# .. code-block:: bash
+#
+#   $ sphinxdoc -v 2 -p $MODULE_DIR -n brainprep -o $MODULE_DIR/doc
+#   $ cd $MODULE_DIR/doc
+#   $ make html-strict
+###
+name: "DocumentationBuilder"
 
 on:
   push:
     branches:
       - "master"
+      - "main"
+      - "dev"
   pull_request:
     branches:
       - "*"
+  workflow_dispatch:
+
+env:
+  MIN_PYTHON_VERSION: "3.12"
 
 jobs:
 
   build_and_deploy:
 
-    runs-on: ${{ matrix.os }}
-    if: ${{ github.ref == 'refs/heads/master' }}
+    runs-on: "ubuntu-latest"
     strategy:
       fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.12]
+    env:
+      FREESURFER_HOME: "/freesurfer/home"
 
     permissions:
       contents: write
 
     steps:
+    - name: Extract branch name
+      id: extract-branch
+      shell: bash
+      run: echo "BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+    - name: Identify deploy type
+      id: deploy-type
+      run: |
+        if ${{ github.ref == 'refs/heads/master' ||
+            github.ref == 'refs/heads/main' }}; then
+            echo "DEPLOY_TYPE=stable" >> $GITHUB_OUTPUT
+        elif ${{ github.ref == 'refs/heads/dev' }}; then
+            echo "DEPLOY_TYPE=dev" >> $GITHUB_OUTPUT
+        else
+          echo "DEPLOY_TYPE=pr" >> $GITHUB_OUTPUT
+        fi
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+    - name: Set up Python
+      uses: actions/setup-python@v6
       with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+        python-version: ${{ env.MIN_PYTHON_VERSION }}
+        cache: "pip"
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install --progress-bar off .
-        python -m pip install git+https://github.com/AGrigis/pysphinxdoc.git
-        python -m pip install requests "scipy<=1.15" statsmodels
-        python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-        python -m pip install git+https://github.com/neurospin-deepinsight/brainrise.git
+        python -m pip install --progress-bar off ".[ci,doc]"
+    - name: Install apt packages
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: dvipng texlive-latex-base texlive-latex-extra build-essential
+        version: 1.0
+    - name: Install documentation resources
+      run: |
+        DIR=$(pwd)
+        which python
+        sphinxdoc -v 2 -p $DIR -n brainprep -o $DIR/doc
     - name: Compute documentation
       run: |
-        mkdir -p tmp/doc
-        sphinxdoc -v 2 -p . -n brainprep -o tmp/doc
-        cd tmp/doc
-        make raw-html
-        ls source/_static
-        ls build/html/_static
-        cp -r source/_static/* build/html/_static
-        cd ../..
+        DIR=$(pwd)
+        cd $DIR/doc
+        echo "Documentation folder: $DIR/doc"
+        make html-strict
+        cd $DIR
     - name: Upload documentation as an artifact
       uses: actions/upload-artifact@v4
+      env:
+        DEPLOY_TYPE: ${{ steps.deploy-type.outputs.DEPLOY_TYPE }}
       with: 
-        name: html-documentation
-        retention-days: 15
+        name: doc-${{ env.DEPLOY_TYPE }}
+        retention-days: 1
         path: |
-            tmp/doc/build/html
+            doc/_build/html
     - name: Deploy
+      env:
+        DEPLOY_TYPE: ${{ steps.deploy-type.outputs.DEPLOY_TYPE }}
+      if: env.DEPLOY_TYPE != 'pr'
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: tmp/doc/build/html
-
-  build:
-
-    runs-on: ${{ matrix.os }}
-    if: ${{ github.ref != 'refs/heads/master' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.12]
-
-    permissions:
-      contents: write
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install --progress-bar off .
-        python -m pip install git+https://github.com/AGrigis/pysphinxdoc.git
-        python -m pip install requests "scipy<=1.15" statsmodels
-        python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-        python -m pip install git+https://github.com/neurospin-deepinsight/brainrise.git
-    - name: Compute documentation
-      run: |
-        mkdir -p tmp/doc
-        sphinxdoc -v 2 -p . -n brainprep -o tmp/doc
-        cd tmp/doc
-        make raw-html
-        ls source/_static
-        ls build/html/_static
-        cp -r source/_static/* build/html/_static
-        cd ../..
+        publish_dir: doc/_build/html
+        destination_dir: ./${{ env.DEPLOY_TYPE }}

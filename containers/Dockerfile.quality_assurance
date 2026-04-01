@@ -1,0 +1,40 @@
+FROM nipreps/mriqc:24.0.2
+
+ENV LANG="en_US.UTF-8" \
+    LC_ALL="en_US.UTF-8"
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           apt-utils \
+           bzip2 \
+           ca-certificates \
+           curl \
+           locales \
+           unzip \
+    && rm -rf /var/lib/apt/lists/*
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && update-locale LANG="en_US.UTF-8" \
+    && chmod 777 /opt && chmod a+s /opt
+
+# Install: brainprep
+RUN curl -fsSL https://pixi.sh/install.sh | bash
+ENV PATH="${HOME}/.pixi/bin:${PATH}"
+WORKDIR /opt/brainprep
+COPY pixi.toml .
+RUN pixi install
+RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainprep
+
+COPY entrypoint.sh /opt/entrypoint.sh
+RUN chmod +x /opt/entrypoint.sh
+ENTRYPOINT ["/opt/entrypoint.sh"]
+ENV DEFAULT_ARGS="subject-level-qa group-level-qa"
+
+LABEL org.opencontainers.image.title="BrainPrep Defacing" \
+      org.opencontainers.image.description="Container for BrainPrep QA using MRIQC" \
+      org.opencontainers.image.version="v2" \
+      org.opencontainers.image.licenses="CeCILL-B" \
+      org.opencontainers.image.authors="CEA/NeuroSpin/GAIA" \
+      org.opencontainers.image.documentation="https://brainprepdesk.github.io/brainprep/stable" \
+      org.opencontainers.image.source="https://github.com/brainprepdesk/brainprep" \
+      org.opencontainers.image.created="2025-01-15" \
+      com.brainprep.mriqc.version="24.0.2"

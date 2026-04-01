@@ -1,0 +1,48 @@
+---
+# Workflow to check common misspellings in text files.
+#
+# To run this check locally from the repository folder:
+#
+# .. code-block:: bash
+#
+#   $ codespell --toml pyproject.toml brainprep examples
+###
+name: "SpellLinter[codespell]"
+
+on:
+  push:
+    branches:
+      - "master"
+      - "main"
+      - "dev"
+  pull_request:
+    branches:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  codespell:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.12]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Codespell
+      uses: codespell-project/actions-codespell@v2
+      with:
+        path: examples,brainprep
+        builtin: clear,rare,en-GB_to_en-US
+        ignore_words_file: ./.github/codespellignore.txt
+        skip: ./.git,*.bib,./brainprep/resources/*,./AUTHORS.rst

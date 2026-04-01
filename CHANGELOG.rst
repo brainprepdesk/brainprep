@@ -1,18 +1,20 @@
 .. -*- mode: rst -*-
 
-0.0.1
-=====
+2.1.0.dev
+=========
 
-Will be released in September 2022
-
-Highlights
+HIGHLIGHTS
 ----------
 
-Work in progress.
-This release includes different workflows to process antomical, functional and
-diffusion MR images.
-All workflows are integrated in dedicated containers to enforce reproducible
-research.
+NEW
+---
+
+- :bdg-success:`Enhancement` Add the dmriprep workflow.
+- :bdg-success:`Enhancement` Add the tbss workflow.
+- :bdg-success:`Enhancement` Add the mrophologist workflow.
+
+Fixes
+-----
 
 Enhancements
 ------------
@@ -20,7 +22,80 @@ Enhancements
 Changes
 -------
 
-The following workflows are released:
+
+2.0.0
+=====
+
+HIGHLIGHTS
+----------
+
+his is a major release featuring significant changes to both the API and
+CLI. Please review the modifications below.
+
+NEW
+---
+
+- :bdg-success:`Doc` Create doc with `furo <https://github.com/pradyunsg/furo>`_.
+- :bdg-success:`Enhancement` Worflows generate a report file.
+- :bdg-success:`Enhancement` Anonymize workflow outputs.
+- :bdg-success:`Enhancement` Worflows generate BIDS-compliant organization.
+- :bdg-success:`Enhancement` New workflows can generate HTML reporting.
+- :bdg-success:`Datasets` Toy datasets have been added to test the module.
+- :bdg-success:`Enhancement` Quasi-RAW preprocessing compute the brain mask
+  using `mri_synthstrip <https://surfer.nmr.mgh.harvard.edu/docs/synthstrip>`_.
+- :bdg-success:`Enhancement` A build‑and‑test container strategy has been
+  released.
+- :bdg-success:`Enhancement` The software version has been updated, and the
+  corresponding workflow has been revised accordingly.
+- :bdg-success:`Enhancement` A consolidated quality‑check HTML report can
+  now be generated directly from the CLI.
+
+Enhancements
+------------
+
+- :bdg-success:`API` A `keep_intermediate` argument has been added to all
+  workflows to retain intermediate results; useful for debugging.
+- :bdg-success:`Doc` A user guide is now available.
+- :bdg-success:`Enhancement` Each workflow now has its own dedicated container,
+  enabling easier upgrades without impacting other workflows.”
+- :bdg-success:`Enhancement` The brainprep command scope has been limited to
+  the contents of considered container.
+- :bdg-success:`Enhancement` Each workflow now includes its own dedicated
+  automatic quality‑check procedure.
+
+Changes
+-------
+
+- :bdg-danger:`Deprecation` Remove the old dmriprep workflow and tbss workflow
+  (will be updated in v2.1.0).
+- :bdg-success:`API` Building blocks are now grouped in an interfaces
+  submodule.
+- :bdg-danger:`Deprecation` Path custom white matter mask to `recon-all` has
+  been deprecated.
+- :bdg-success:`Enhancement` Use '--no-annot' in surfreg to avoid using the
+  annotation (aparc) to help with the registration. This was described to
+  create some artifacts on the edge of the medial wall
+  (https://surfer.nmr.mgh.harvard.edu/fswiki/Xhemi).
+- :bdg-danger:`Deprecation` Workflows have been renamed.
+
+
+0.0.2
+=====
+
+**Released September 2022**
+
+HIGHLIGHTS
+----------
+
+- :bdg-success:`API` This release includes different workflows to process
+  antomical, functional and diffusion MR images.
+- :bdg-success:`API` All workflows are integrated in a dedicated container
+  to enforce reproducible research.
+
+NEW
+---
+
+- :bdg-success:`API` The following workflows are released:
 
 * fsreconall
 * fsreconall-summary
@@ -40,14 +115,12 @@ The following workflows are released:
 * tbss
 * dmriprep
 
-Bug fixes
----------
+Fixes
+-----
 
-Contributors
+Enhancements
 ------------
 
-The following people contributed to this release (from ``git shortlog -ns v0.0.1``)::
+Changes
+-------
 
-* 61  Antoine Grigis
-* 38  LoicDorval
-* 26  JulieNeuro

@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2021 - 2022
+# NSAp - Copyright (C) CEA, 2021 - 2025
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -8,144 +7,379 @@
 ##########################################################################
 
 """
-Interface for fmriprep.
+Functional MRI pre-processing workflow.
 """
 
-# System import
-import os
-import tempfile
-import brainprep
+import itertools
 import shutil
-from brainprep.color_utils import print_subtitle
+
+import brainprep.interfaces as interfaces
+
+from ..decorators import (
+    BidsHook,
+    CoerceparamsHook,
+    LogRuntimeHook,
+    SaveRuntimeHook,
+    step,
+)
+from ..typing import (
+    Directory,
+    File,
+)
+from ..utils import (
+    Bunch,
+    parse_bids_keys,
+    print_info,
+)
 
 
-def brainprep_fmriprep(anatomical, functionals, subjid, descfile, fsdir,
-                       outdir="/out", workdir="/work", fmriprep="fmriprep"):
-    """ Define the fmriprep pre-processing workflow.
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="fmriprep",
+            bids_file="t1_file",
+            add_subjects=True,
+            container="neurospin/brainprep-fmriprep"
+        ),
+        LogRuntimeHook(
+            title="Subject Level fMRI PreProcessing"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
+def brainprep_fmriprep(
+        t1_file: File,
+        func_files: list[File],
+        freesurfer_dir: Directory,
+        output_dir: Directory,
+        keep_intermediate: bool = False,
+        **kwargs: dict) -> Bunch:
+    """
+    Subject level functional MRI pre-processing.
+
+    Applies fmriprep tool :footcite:p:`esteban2019fmriprep` with the following
+    setting:
+
+    1) T1-weighted volume was corrected for INU (intensity non-uniformity)
+       using N4BiasFieldCorrection and skull-stripped using
+       antsBrainExtraction.sh (using the OASIS template).
+    2) Brain mask estimated previously was refined with a custom variation of
+       the method to reconcile ANTs-derived and FreeSurfer-derived
+       segmentations of the cortical gray-matter of Mindboggle.
+    3) Spatial normalization to the ICBM 152 Nonlinear Asymmetrical template
+       version 2009c was performed through nonlinear registration with the
+       antsRegistration tool of ANTs, using brain-extracted versions of both
+       T1w volume and template.
+    4) Brain tissue segmentation of cerebrospinal fluid (CSF), white-matter
+       (WM) and gray-matter (GM) was performed on the brain-extracted T1w
+       using FSL fast.
+    5) Functional data was motion corrected using FSL mcflirt.
+    6) This was followed by co-registration to the corresponding T1w using
+       boundary-based registration with six degrees of freedom, using
+       FreeSurfer bbregister.
+    7) Motion correcting transformations, BOLD-to-T1w transformation and
+       T1w-to-template (MNI) warp were concatenated and applied in a single
+       step using ANTs antsApplyTransforms using Lanczos interpolation.
+    8) Physiological noise regressors were extracted applying CompCor.
+       Principal components were estimated for the two CompCor variants:
+       temporal (tCompCor) and anatomical (aCompCor).A mask to exclude signal
+       with cortical origin was obtained by eroding the brain mask, ensuring
+       it only contained subcortical structures. Six tCompCor components were
+       then calculated including only the top 5% variable voxels within that
+       subcortical mask. For aCompCor, six components were calculated within
+       the intersection of the subcortical mask and the union of CSF and WM
+       masks calculated in T1w space, after their projection to the native
+       space of each functional run.
+    9) Frame-wise displacement was calculated for each functional run using
+       Nipype.
+
+    Then, compute functional ROI-based functional connectivity from
+    pre-processed volumetric fMRI data based on the Schaefer 200 ROI atlas.
+    Connectivity is computed using Pearson correlation.
 
     Parameters
     ----------
-    anatomical: str
-        path to the anatomical T1w Nifti file.
-    functionals: list of str
-        path to the functional Nifti files.
-    subjid: str
-        the subject identifier.
-    descfile: str
-        the dataset description file. (bids)
-    fsdir: str
-        Path to existing FreeSurfer subjects directory to reuse.
-    outdir: str
-        the destination folder.
-    workdir: str
-        the working folder.
-    fmriprep: str
-        path to the fmriprep binary.
+    t1_file : File
+        Path to the input T1w image file.
+    func_files : list[File]
+        Path to the input functional image files of one subject.
+    freesurfer_dir : Directory
+        Path to an existing FreeSurfer subjects directory in which the
+        recon-all commands have already been executed.
+    output_dir : Directory
+        Directory where the prep-processing related outputs will be saved
+        (i.e., the root of your dataset).
+    keep_intermediate : bool
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging. Default False.
+    **kwargs : dict
+        entities: dict
+            Dictionary of parsed BIDS entities.
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+
+        - fmri_rest_image_files: list[File] - pre-processed rfMRI NIFTI
+          volumes: 2mm MNI152NLin6Asym and MNI152NLin2009cAsym.
+        - fmri_rest_surf_files: File - pre-processed rfMRI CIFTI surfaces:
+          fsLR23k.
+        - qc_file: File - the HTML visual report for the subject's data.
+        - connectivity_files: list[File] - TSV files containing the ROI-to-ROI
+          connectivity matrix for each resting-state fMRI pre-processed
+          image.
+
+    Raises
+    ------
+    ValueError
+        If the input T1w file is not BIDS-compliant.
+
+    Notes
+    -----
+    This workflow assumes the T1w image is organized in BIDS.
+
+    References
+    ----------
+
+    .. footbibliography::
+
+    Examples
+    --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
+    >>> from brainprep.workflow import brainprep_fmriprep
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_fmriprep(
+    ...         t1_file=(
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
+    ...             "sub-01_ses-01_run-01_T1w.nii.gz"
+    ...         ),
+    ...         func_files=[
+    ...             "/tmp/dataset/rawdata/sub-01/ses-01/func/"
+    ...             "sub-01_ses-01_task-rest_run-01_bold.nii.gz",
+    ...         ],
+    ...         freesurfer_dir=(
+    ...             "/tmp/dataset/derivatives/brain_parcellation/subjects"
+    ...         ),
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     ) # doctest: +SKIP
+    >>> outputs # doctest: +SKIP
+    Bunch(
+        fmri_rest_image_files=[PosixPath('...')],
+        fmri_rest_surf_files=[PosixPath('...')],
+        qc_file=PosixPath('...'),
+        connectivity_files=[PosixPath('...')],
+    )
     """
-    print_subtitle("Launch fmriprep...")
-    if not isinstance(functionals, list):
-        functionals = functionals.split(",")
-    destdir = os.path.join(outdir, "fmriprep_{0}".format(subjid))
-    status = os.path.join(destdir, subjid, "ok")
-    if not os.path.isfile(status):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            datadir = os.path.join(tmpdir, "data")
-            anatdir = os.path.join(datadir, subjid, "anat")
-            funcdir = os.path.join(datadir, subjid, "func")
-            resdir = os.path.join(tmpdir, "out")
-            for path in (anatdir, funcdir, resdir):
-                if not os.path.isdir(path):
-                    os.makedirs(path)
-            shutil.copy(anatomical, os.path.join(anatdir,
-                                                 os.path.basename(anatomical)))
-            shutil.copy(anatomical.replace(".nii.gz", ".json"),
-                        os.path.join(anatdir,
-                                     os.path.basename(anatomical.replace
-                                                      (".nii.gz", ".json"))))
-            for path in functionals:
-                shutil.copy(path, os.path.join(funcdir,
-                                               os.path.basename(path)))
-                shutil.copy(path.replace(".nii.gz", ".json"),
-                            os.path.join(funcdir, os.path.basename(path.replace
-                                                                   (".nii.gz",
-                                                                    ".json"))))
-            shutil.copy(descfile, os.path.join(datadir,
-                                               os.path.basename(descfile)))
-            cmd = [
-                fmriprep,
-                datadir,
-                resdir,
-                "participant",
-                "--fs-subjects-dir", fsdir,
-                "-w", workdir,
-                "--n_cpus", "1",
-                "--stop-on-first-crash",
-                "--fs-license-file", "/code/freesurfer.txt",
-                "--skip_bids_validation",
-                "--force bbr",
-                "--no-msm",
-                "--cifti-output", "91k",
-                "--output-spaces", (
-                    "MNI152NLin2009cAsym MNI152NLin6Asym:res-2 "
-                    "fsaverage fsLR"),
-                "--ignore", "slicetiming",
-                "--participant_label", subjid]
-            brainprep.execute_command(cmd)
-            shutil.move(resdir, destdir)
-            open(status, "a").close()
+    workspace_dir = output_dir / "workspace"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
+
+    dataset_description_file = (
+        t1_file.parent.parent.parent.parent /
+        "dataset_description.json"
+    )
+    if not dataset_description_file.is_file():
+        raise ValueError(
+            "A description file must be included in rawdata directory."
+        )
+
+    entities = kwargs.get("entities", {})
+    if len(entities) == 0:
+        raise ValueError(
+            f"The T1w file '{t1_file}' is not BIDS-compliant."
+        )
+
+    rfmri_outputs, qc_file = interfaces.fmriprep_wf(
+        t1_file,
+        func_files,
+        dataset_description_file,
+        freesurfer_dir,
+        workspace_dir,
+        output_dir,
+        entities,
+    )
+
+    connectivity_files = []
+    func_entities = [
+        parse_bids_keys(
+            path,
+            check_run=True,
+        )
+        for path in func_files
+    ]
+    for outputs, entities_ in zip(rfmri_outputs, func_entities, strict=True):
+        mask_files, fmri_image_files, _, confounds_file = outputs
+        for mask_file, fmri_image_file in zip(
+                mask_files, fmri_image_files, strict=True):
+            if "space-T1w" in str(fmri_image_file):
+                continue
+            entities = parse_bids_keys(fmri_image_file)
+            if "run" not in entities:
+                entities["run"] = entities_["run"]
+            connectivity_files.append(
+                interfaces.func_vol_connectivity(
+                    fmri_image_file,
+                    mask_file,
+                    confounds_file,
+                    workspace_dir,
+                    output_dir / "figures",
+                    entities,
+                    fwhm=0.,
+                )
+            )
+            interfaces.plot_network(
+                connectivity_files[-1],
+                output_dir,
+                entities,
+            )
+
+    if not keep_intermediate:
+        print_info(f"cleaning workspace directory: {workspace_dir}")
+        shutil.rmtree(workspace_dir)
+
+    return Bunch(
+        fmri_rest_image_files=list(itertools.chain.from_iterable(
+            [item[1] for item in rfmri_outputs]
+        )),
+        fmri_rest_surf_files=[
+            item[2] for item in rfmri_outputs
+        ],
+        qc_file=qc_file,
+        connectivity_files=connectivity_files,
+    )
 
 
-def brainprep_fmriprep_conn(fmri_file, counfounds_file, mask_file, tr,
-                            outdir="/work", low_pass=0.1, high_pass=0.01,
-                            scrub=5, fd_threshold=0.2, std_dvars_threshold=3,
-                            fwhm=0.):
-    """ Compute ROI-based functional connectivity from fMRIPrep pre-processing.
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        BidsHook(
+            process="fmriprep",
+            container="neurospin/brainprep-fmriprep"
+        ),
+        LogRuntimeHook(
+            title="Group Level fMRI PreProcessing"
+        ),
+        SaveRuntimeHook(),
+    ]
+)
+def brainprep_group_fmriprep(
+        output_dir: Directory,
+        fd_mean_threshold: float = 0.2,
+        dvars_std_threshold: float = 1.5,
+        entropy_threshold: float = 12,
+        keep_intermediate: bool = False) -> Bunch:
+    """
+    Group level functional MRI pre-processing.
+
+    1) Generate a TSV file containing the quality metrics described below.
+    2) Apply threshold-based quality checks on the selected quality metrics.
+    3) Generate a histogram showing the distribution of these quality metrics.
+
+    The following quality metrics are considered:
+
+    - ``fd_mean`` : mean framewise displacement  (mm), a measure of head motion
+      across the time series.
+    - ``dvars_std`` : mean standardized DVARS, quantifying the rate of change
+      in BOLD signal intensity between consecutive volumes.
+    - ``entropy`` : network entropy, quantifying whether a connectivity
+      matrix exhibits meaningful structure.
 
     Parameters
     ----------
-    fmri_file: str
-        the fMRIPrep pre-processing file: ***desc-preproc_bold.nii.gz**.
-    counfounds_file: str
-        the path to the fMRIPrep counfounds file:
-        ***desc-confounds_regressors.tsv**.
-    mask_file: str
-        signal is only cleaned from voxels inside the mask. It should have the
-        same shape and affine as the ``fmri_file``:
-        ***desc-brain_mask.nii.gz**.
-    tr: float
-        the repetition time (TR) in seconds.
-    outdir: str
-        the destination folder.
-    low_pass: float, default 0.1
-        the low-pass filter cutoff frequency in Hz. Set it to ``None`` if you
-        dont want low-pass filtering.
-    high_pass: float, default 0.01
-        the high-pass filter cutoff frequency in Hz. Set it to ``None`` if you
-        dont want high-pass filtering.
-    scrub: int, default 5
-        after accounting for time frames with excessive motion, further remove
-        segments shorter than the given number. The default value is 5. When
-        the value is 0, remove time frames based on excessive framewise
-        displacement and DVARS only. One-hot encoding vectors are added as
-        regressors for each scrubbed frame.
-    fd_threshold: float, default 0.2
-        Framewise displacement threshold for scrub. This value is typically
-        between 0 and 1 mm.
-    std_dvars_threshold: float, default 3
-        standardized DVARS threshold for scrub. DVARs is defined as root mean
-        squared intensity difference of volume N to volume N + 1. D refers
-        to temporal derivative of timecourses, VARS referring to root mean
-        squared variance over voxels.
-    fwhm: float or list, default 0.
-        smoothing strength, expressed as as Full-Width at Half Maximum
-        (fwhm), in millimeters. Can be a single number ``fwhm=8``, the width
-        is identical along x, y and z or ``fwhm=0``, no smoothing is peformed.
-        Can be three consecutive numbers, ``fwhm=[1,1.5,2.5]``, giving the fwhm
-        along each axis.
+    output_dir : Directory
+        Working directory containing all the subjects.
+    fd_mean_threshold : float
+        Quality control threshold applied on the mean framewise displacement.
+        Default 0.2.
+    dvars_std_threshold : float
+        Quality control threshold applied on the standardized DVARS.
+        Default 1.5.
+    entropy_threshold : float
+        Quality control threshold applied on the network entropy.
+        Default 12.
+    keep_intermediate : bool
+        If True, retains intermediate results (i.e., the workspace); useful
+        for debugging. Default False.
+
+    Returns
+    -------
+    Bunch
+        A dictionary-like object containing:
+
+        - group_stats_file : File - a TSV file containing quality check (QC)
+          metrics.
+        - entropy_file : File - a TSV file network entropy quality check (QC)
+          metric.
+        - histogram_files : list[File] - PNG files containing histograms of
+          selected important information.
+
+    Notes
+    -----
+    This workflow assumes the subject-level analyses have already been
+    performed.
+
+    A ``qc`` column is added to the TSV QC output table. It contains a
+    binary flag indicating whether the produced results should be kept:
+    ``qc = 1`` if the result passes the thresholds, otherwise ``qc = 0``.
+
+    The associated PNG histograms help verify that the chosen thresholds
+    are neither too restrictive nor too permissive.
+
+    Examples
+    --------
+    >>> from brainprep.config import Config
+    >>> from brainprep.reporting import RSTReport
+    >>> from brainprep.workflow import brainprep_group_fmriprep
+    >>>
+    >>> with Config(dryrun=True, verbose=False):
+    ...     report = RSTReport()
+    ...     outputs = brainprep_group_fmriprep(
+    ...         output_dir="/tmp/dataset/derivatives",
+    ...     ) # doctest: +SKIP
+    >>> outputs # doctest: +SKIP
+    Bunch(
+        group_stats_file=PosixPath('...')
+        entropy_file=PosixPath('...')
+        histogram_files=[PosixPath('...'),...,PosixPath('...')]
+    )
     """
-    print_subtitle("Launch fmriprep connectivity...")
-    brainprep.func_connectivity(
-        fmri_file, counfounds_file, mask_file, tr, outdir, low_pass=low_pass,
-        high_pass=high_pass, scrub=scrub, fd_threshold=fd_threshold,
-        std_dvars_threshold=std_dvars_threshold, detrend=True,
-        standardize=True, remove_volumes=True, fwhm=fwhm)
+    group_stats_file = interfaces.fmriprep_metrics(
+        output_dir,
+        fd_mean_threshold,
+        dvars_std_threshold,
+    )
+    entropy_file = interfaces.network_entropy(
+        (
+            output_dir /
+            "subjects" / "sub-*" / "ses-*" /
+            "figures" /
+            "*_atlas-schaefer200_desc-correlation_connectivity.tsv"
+        ),
+        output_dir,
+        entropy_threshold,
+    )
+    histogram_files = [
+        interfaces.plot_histogram(
+            group_stats_file,
+            "fd_mean",
+            output_dir,
+            bar_coords=[fd_mean_threshold],
+        ),
+        interfaces.plot_histogram(
+            group_stats_file,
+            "dvars_std",
+            output_dir,
+            bar_coords=[dvars_std_threshold],
+        ),
+    ]
+
+    return Bunch(
+        group_stats_file=group_stats_file,
+        entropy_file=entropy_file,
+        histogram_files=histogram_files,
+    )

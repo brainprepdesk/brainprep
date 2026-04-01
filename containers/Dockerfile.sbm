@@ -1,0 +1,175 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND="noninteractive" \
+    LANG="en_US.UTF-8" \
+    LC_ALL="en_US.UTF-8"
+
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           apt-utils \
+           bzip2 \
+           ca-certificates \
+           curl \
+           locales \
+           unzip \
+    && rm -rf /var/lib/apt/lists/*
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && update-locale LANG="en_US.UTF-8" \
+    && chmod 777 /opt && chmod a+s /opt
+
+# Parameters
+ENV FS_VERSION="8.1.0" \
+    FS_URL="https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/8.1.0/freesurfer_ubuntu22-8.1.0_amd64.deb"
+    
+# Install: FreeSurfer
+ENV OS="Linux" \
+    PATH="/opt/freesurfer/bin:/opt/freesurfer/fsfast/bin:/opt/freesurfer/tktools:/opt/freesurfer/mni/bin:$PATH" \
+    FREESURFER_HOME="/opt/freesurfer" \
+    FREESURFER="/opt/freesurfer" \
+    SUBJECTS_DIR="/opt/freesurfer/subjects" \
+    LOCAL_DIR="/opt/freesurfer/local" \
+    FSFAST_HOME="/opt/freesurfer/fsfast" \
+    FMRI_ANALYSIS_DIR="/opt/freesurfer/fsfast" \
+    FUNCTIONALS_DIR="/opt/freesurfer/sessions" \
+    FS_OVERRIDE="0" \
+    FIX_VERTEX_AREA="" \
+    FSF_OUTPUT_FORMAT="nii.gz" \
+    MINC_BIN_DIR="/opt/freesurfer/mni/bin" \
+    MINC_LIB_DIR="/opt/freesurfer/mni/lib" \
+    MNI_DIR="/opt/freesurfer/mni" \
+    MNI_DATAPATH="/opt/freesurfer/mni/data" \
+    MNI_PERL5LIB="/opt/freesurfer/mni/share/perl5" \
+    PERL5LIB="/opt/freesurfer/mni/share/perl5"
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+        octave \
+        wget \
+        language-pack-en \
+        binutils \
+        libx11-dev \
+        gettext \
+        xterm \
+        x11-apps \
+        perl \
+        make \
+        csh \
+        tcsh \
+        file \
+        bc \
+        xorg \
+        xorg-dev \
+        xserver-xorg-video-intel \
+        libncurses5 \
+        libbsd0 \
+        libegl1 \
+        libexpat1 \
+        libfontconfig1 \
+        libfreetype6 \
+        libgl1 \
+        libglib2.0-0 \
+        libglu1-mesa \
+        libglvnd0 \
+        libglx0 \
+        libgomp1 \
+        libice6 \
+        libicu70 \
+        libjpeg62 \
+        libmd0 \
+        libopengl0 \
+        libpcre2-16-0 \
+        libpng16-16 \
+        libquadmath0 \
+        libsm6 \
+        libx11-6 \
+        libx11-xcb1 \
+        libxau6 \
+        libxcb-icccm4 \
+        libxcb-image0 \
+        libxcb-keysyms1 \
+        libxcb-randr0 \
+        libxcb-render-util0 \
+        libxcb-render0 \
+        libxcb-shape0 \
+        libxcb-shm0 \
+        libxcb-sync1 \
+        libxcb-util1 \
+        libxcb-xfixes0 \
+        libxcb-xinerama0 \
+        libxcb-xinput0 \
+        libxcb-xkb1 \
+        libxcb1 \
+        libxdmcp6 \
+        libxext6 \
+        libxft2 \
+        libxi6 \
+        libxkbcommon-x11-0 \
+        libxkbcommon0 \
+        libxmu6 \
+        libxrender1 \
+        libxss1 \
+        libxt6 \
+        mesa-utils \
+        unzip \
+        libncurses5 \
+        libgomp1 \
+        openjdk-8-jdk \
+        xvfb \
+        xauth \
+    && rm -rf /var/lib/apt/lists/*
+RUN export TMPDIR="$(mktemp -d)"
+RUN echo "Downloading FreeSurfer ..." \
+    && curl -o $TMPDIR/freesurfer.deb $FS_URL
+RUN dpkg -i $TMPDIR/freesurfer.deb \
+    && rm -rf $TMPDIR \
+    && unset TMPDIR
+RUN ln -s /usr/local/freesurfer/${FS_VERSION} /opt/freesurfer
+RUN fs_install_mcr R2019b
+RUN curl -o $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation_810.tgz \
+       https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/stage/ERC_bayesian_segmentation_810.tgz \
+    && tar zxpf $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation_810.tgz -C $FREESURFER_HOME/python/packages \
+    && rm $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation_810.tgz
+RUN curl -o $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation/atlas_simplified.zip \
+       https://ftp.nmr.mgh.harvard.edu/pub/dist/lcnpublic/dist/Histo_Atlas_Iglesias_2023/atlas_simplified.zip
+RUN unzip $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation/atlas_simplified.zip -d $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation \
+    && rm $FREESURFER_HOME/python/packages/ERC_bayesian_segmentation/atlas_simplified.zip
+
+# Create a fake cp that filter proviledge argument
+RUN echo '#!/bin/bash' > /usr/local/bin/cp && \
+    echo 'args=()' >> /usr/local/bin/cp && \
+    echo 'for arg in "$@"; do' >> /usr/local/bin/cp && \
+    echo '    case "$arg" in' >> /usr/local/bin/cp && \
+    echo '        -p|--preserve|--preserve=*) ;;' >> /usr/local/bin/cp && \
+    echo '        *) args+=("$arg") ;;' >> /usr/local/bin/cp && \
+    echo '    esac' >> /usr/local/bin/cp && \
+    echo 'done' >> /usr/local/bin/cp && \
+    echo 'echo "[cp wrapper] filtered args: ${args[@]}"' >> /usr/local/bin/cp && \
+    echo '/bin/cp "${args[@]}"' >> /usr/local/bin/cp && \
+    chmod +x /usr/local/bin/cp
+
+# Install: brainprep
+RUN curl -fsSL https://pixi.sh/install.sh | bash
+ENV PATH="/root/.pixi/bin:${PATH}"
+WORKDIR /opt/brainprep
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           git \
+    && rm -rf /var/lib/apt/lists/*
+COPY pixi.toml .
+RUN pixi install
+RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainprep
+
+COPY entrypoint.sh /opt/entrypoint.sh
+RUN chmod +x /opt/entrypoint.sh
+ENTRYPOINT ["/opt/entrypoint.sh"]
+ENV DEFAULT_ARGS="subject-level-sbm group-level-sbm longitudinal-sbm"
+
+LABEL org.opencontainers.image.title="BrainPrep SBM" \
+      org.opencontainers.image.description="Container for BrainPrep SBM using FreeSurfer" \
+      org.opencontainers.image.version="v2" \
+      org.opencontainers.image.licenses="CeCILL-B" \
+      org.opencontainers.image.authors="CEA/NeuroSpin/GAIA" \
+      org.opencontainers.image.documentation="https://brainprepdesk.github.io/brainprep/stable" \
+      org.opencontainers.image.source="https://github.com/brainprepdesk/brainprep" \
+      org.opencontainers.image.created="2025-01-15" \
+      com.brainprep.freesurfer.version="$FS_VERSION"

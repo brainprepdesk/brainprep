@@ -1,0 +1,50 @@
+---
+# Workflow to check whether a docstring's sections (arguments,
+# returns, raises, ...) match the function signature or function
+# implementation.
+#
+# To run this check locally from the repository folder:
+#
+# .. code-block:: bash
+#
+#   $ pydoclint brainprep
+###
+name: "PythonDocLinter[pydoclint]"
+
+on:
+  push:
+    branches:
+      - "master"
+      - "main"
+      - "dev"
+  pull_request:
+    branches:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  codespell:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.12]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pydoclint
+    - name: Check Python docstring syntax
+      run: |
+        pydoclint brainprep
