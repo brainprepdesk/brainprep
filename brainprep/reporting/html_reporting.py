@@ -58,7 +58,7 @@ class HTMLReport:
     >>> report = HTMLReport(html)
     >>> print(report)
     <h1>Hello, world!</h1>
-    >>> report.save_as_html("output.html")
+    >>> report.save_as_html("/tmp/output.html")
     """
 
     def __init__(

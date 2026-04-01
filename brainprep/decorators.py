@@ -367,14 +367,14 @@ class BidsHook(Hook):
     ...     )
 
     >>> result = myfunc(
-    ...     "/tmp/rawdata/sub-00/anat/sub-00_T1w.nii.gz",
+    ...     "/tmp/rawdata/sub-00/anat/sub-00_run-00_T1w.nii.gz",
     ...     "/tmp/derivatives",
     ... )
     >>> print(result)
     Bunch(
-      t1_file: PosixPath('/tmp/rawdata/sub-00/anat/sub-00_T1w.nii.gz')
+      t1_file: PosixPath('/tmp/rawdata/sub-00/anat/sub-00_run-00_T1w.nii.gz')
       output_dir: PosixPath('...derivatives/test/subjects/sub-00/ses-01')
-      entities: {'sub': '00',..., 'ses': '01', 'run': '28954'}
+      entities: {'sub': '00', 'run': '00', ...}
     )
     """
 

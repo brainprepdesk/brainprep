@@ -177,7 +177,7 @@ class RSTReport(metaclass=SingletonReport):
         )
       )
     )
-    >>> report.save_as_rst("report.rst")
+    >>> report.save_as_rst("/tmp/report.rst")
     """
 
     _registry: Bunch = Bunch()
