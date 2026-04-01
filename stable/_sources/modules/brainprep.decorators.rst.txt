@@ -1,0 +1,36 @@
+:mod:`brainprep.decorators`: Defines a hook-driven decorator step with common hooks.
+====================================================================================
+
+.. automodule:: brainprep.decorators
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.decorators
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    BidsHook
+    CoerceparamsHook
+    CommandLineWrapperHook
+    Hook
+    LogRuntimeHook
+    OutputdirHook
+    PythonWrapperHook
+    SaveRuntimeHook
+
+.. .. autoclasstree:: brainprep.decorators
+       :strict:
+       :align: center
+
+
+
+
+
+

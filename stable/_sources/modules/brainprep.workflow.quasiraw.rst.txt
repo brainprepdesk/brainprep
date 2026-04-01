@@ -1,0 +1,26 @@
+:mod:`brainprep.workflow.quasiraw`: Quasi-RAW workflow.
+=======================================================
+
+.. automodule:: brainprep.workflow.quasiraw
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.quasiraw
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_group_quasiraw
+    brainprep_quasiraw
+
+
+
+

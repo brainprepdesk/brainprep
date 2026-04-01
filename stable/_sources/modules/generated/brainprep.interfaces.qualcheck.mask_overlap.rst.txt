@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.interfaces.qualcheck.mask_overlap
+===========================================
+
+.. currentmodule:: brainprep.interfaces.qualcheck
+
+.. autofunction:: mask_overlap
+
+.. include:: brainprep.interfaces.qualcheck.mask_overlap.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

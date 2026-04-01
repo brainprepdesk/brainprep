@@ -1,0 +1,29 @@
+:mod:`brainprep.datasets.ibc`: Fetcher to download IBC dataset from OpenNeuro.
+==============================================================================
+
+.. automodule:: brainprep.datasets.ibc
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.datasets.ibc
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    IBCDataset
+
+.. .. autoclasstree:: brainprep.datasets.ibc
+       :strict:
+       :align: center
+
+
+
+
+
+

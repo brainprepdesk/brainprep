@@ -1,0 +1,26 @@
+:mod:`brainprep.cli`:  Command-line interface (CLI) utilities for BrainPrep workflows.
+======================================================================================
+
+.. automodule:: brainprep.cli
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.cli
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    main
+    make_wrapped
+
+
+
+

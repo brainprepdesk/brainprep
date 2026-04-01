@@ -1,0 +1,26 @@
+:mod:`brainprep.interfaces.fmriprep`: fMRIprep functions.
+=========================================================
+
+.. automodule:: brainprep.interfaces.fmriprep
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.fmriprep
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    fmriprep_wf
+    func_vol_connectivity
+
+
+
+

@@ -1,0 +1,41 @@
+:mod:`brainprep.datasets`: Module that implements dataset fetchers.
+===================================================================
+
+.. automodule:: brainprep.datasets
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.datasets
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    IBCDataset
+    OpenMSDataset
+
+.. .. autoclasstree:: brainprep.datasets
+       :strict:
+       :align: center
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.datasets
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    git_download
+    openneuro_download
+
+
+
+

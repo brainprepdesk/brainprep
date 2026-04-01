@@ -1,0 +1,27 @@
+:mod:`brainprep.reporting.utils`: Reporting tools.
+==================================================
+
+.. automodule:: brainprep.reporting.utils
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.reporting.utils
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    dataframe_to_html
+    inject_with_jinja
+    png_image_to_base64
+
+
+
+

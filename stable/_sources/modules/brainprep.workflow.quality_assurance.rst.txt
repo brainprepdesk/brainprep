@@ -1,0 +1,26 @@
+:mod:`brainprep.workflow.quality_assurance`: Quality assurance workflow.
+========================================================================
+
+.. automodule:: brainprep.workflow.quality_assurance
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.quality_assurance
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_group_quality_assurance
+    brainprep_quality_assurance
+
+
+
+

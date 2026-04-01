@@ -1,0 +1,63 @@
+
+
+.. _sphx_glr_auto_examples_tools:
+
+=====
+Tools
+=====
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/tools/images/thumb/sphx_glr_plot_html_reporting_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_tools_plot_html_reporting.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">HTML reporting</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/tools/images/thumb/sphx_glr_plot_rst_reporting_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_tools_plot_rst_reporting.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">RST reporting</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/tools/plot_html_reporting
+   /auto_examples/tools/plot_rst_reporting
+

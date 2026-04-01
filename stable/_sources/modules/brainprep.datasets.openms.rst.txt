@@ -1,0 +1,29 @@
+:mod:`brainprep.datasets.openms`: Fetcher to download the OpenMS dataset from GitHub.
+=====================================================================================
+
+.. automodule:: brainprep.datasets.openms
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.datasets.openms
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    OpenMSDataset
+
+.. .. autoclasstree:: brainprep.datasets.openms
+       :strict:
+       :align: center
+
+
+
+
+
+

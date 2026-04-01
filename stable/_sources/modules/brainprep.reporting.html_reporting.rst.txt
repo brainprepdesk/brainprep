@@ -1,0 +1,39 @@
+:mod:`brainprep.reporting.html_reporting`: Module that implements a HTML reporting tool.
+========================================================================================
+
+.. automodule:: brainprep.reporting.html_reporting
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.reporting.html_reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    HTMLReport
+
+.. .. autoclasstree:: brainprep.reporting.html_reporting
+       :strict:
+       :align: center
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.reporting.html_reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    generate_qc_report
+
+
+
+

@@ -1,0 +1,26 @@
+:mod:`brainprep.workflow.fmriprep`: Functional MRI pre-processing workflow.
+===========================================================================
+
+.. automodule:: brainprep.workflow.fmriprep
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.fmriprep
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_fmriprep
+    brainprep_group_fmriprep
+
+
+
+

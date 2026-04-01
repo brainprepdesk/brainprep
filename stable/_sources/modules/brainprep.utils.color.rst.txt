@@ -1,0 +1,33 @@
+:mod:`brainprep.utils.color`: Utility methods to print the results in a terminal using term colors.
+===================================================================================================
+
+.. automodule:: brainprep.utils.color
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.utils.color
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    print_color
+    print_command
+    print_deprecated
+    print_error
+    print_info
+    print_result
+    print_subtitle
+    print_title
+    print_warn
+
+
+
+

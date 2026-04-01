@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.utils.find_first_occurrence
+=====================================
+
+.. currentmodule:: brainprep.utils
+
+.. autofunction:: find_first_occurrence
+
+.. include:: brainprep.utils.find_first_occurrence.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

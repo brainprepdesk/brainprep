@@ -1,0 +1,30 @@
+:mod:`brainprep.interfaces.utils`: Utils functions.
+===================================================
+
+.. automodule:: brainprep.interfaces.utils
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.utils
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    anonfile
+    copyfiles
+    maskdiff
+    movedir
+    ungzfile
+    write_uuid_mapping
+
+
+
+

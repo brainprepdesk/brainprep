@@ -1,0 +1,40 @@
+:mod:`brainprep.reporting.rst_reporting`: Module that implements a RST reporting tool.
+======================================================================================
+
+.. automodule:: brainprep.reporting.rst_reporting
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+Classes
+-------
+
+.. currentmodule:: brainprep.reporting.rst_reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+    RSTReport
+    SingletonReport
+
+.. .. autoclasstree:: brainprep.reporting.rst_reporting
+       :strict:
+       :align: center
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.reporting.rst_reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    trace_module_calls
+
+
+
+

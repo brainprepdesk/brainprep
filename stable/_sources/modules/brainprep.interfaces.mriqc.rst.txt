@@ -1,0 +1,26 @@
+:mod:`brainprep.interfaces.mriqc`: MRIQC functions.
+===================================================
+
+.. automodule:: brainprep.interfaces.mriqc
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.mriqc
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    group_level_qa
+    subject_level_qa
+
+
+
+

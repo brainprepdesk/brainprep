@@ -1,0 +1,26 @@
+:mod:`brainprep.datasets.utils`: Dataset creation tools.
+========================================================
+
+.. automodule:: brainprep.datasets.utils
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.datasets.utils
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    git_download
+    openneuro_download
+
+
+
+

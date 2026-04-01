@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.reporting.generate_qc_report
+======================================
+
+.. currentmodule:: brainprep.reporting
+
+.. autofunction:: generate_qc_report
+
+.. include:: brainprep.reporting.generate_qc_report.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

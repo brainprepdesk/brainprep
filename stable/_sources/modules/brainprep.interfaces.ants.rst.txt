@@ -1,0 +1,25 @@
+:mod:`brainprep.interfaces.ants`: ANTs functions.
+=================================================
+
+.. automodule:: brainprep.interfaces.ants
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.ants
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    biasfield
+
+
+
+

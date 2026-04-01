@@ -1,0 +1,41 @@
+:mod:`brainprep.interfaces.freesurfer`: FreeSurfer functions.
+=============================================================
+
+.. automodule:: brainprep.interfaces.freesurfer
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.freesurfer
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    aparcstats2table
+    asegstats2table
+    brainmask
+    freesurfer_command_status
+    freesurfer_features_summary
+    freesurfer_tissues
+    fsaveragesym_projection
+    fsaveragesym_surfreg
+    localgi
+    mgz_to_nii
+    mri_convert
+    mris_apply_reg
+    nextbrain
+    reconall
+    reconall_longitudinal
+    surfreg
+    xhemireg
+
+
+
+
