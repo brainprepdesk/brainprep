@@ -127,11 +127,146 @@ The structure is organized following the :ref:`brainprep ontology <ontology>`.
 
 .. code-block:: text
 
-    vbm/
-    ├── dataset_description.json
-    ├── logs
-    │   └── report_<timestamp>.rst
-    ...
+  vbm/
+  ├── dataset_description.json
+  ├── figures
+  │   ├── histogram_IQR.png
+  │   ├── histogram_mean_correlation.png
+  │   └── histogram_NCR.png
+  ├── log
+  │   └── report_<timestamp>.rst
+  ├── longitudinal
+  │   ├── figures
+  │   │   ├── histogram_IQR.png
+  │   │   ├── histogram_mean_correlation.png
+  │   │   └── histogram_NCR.png
+  │   ├── morphometry
+  │   │   ├── <atlas_name>_cat12_vbm_roi.tsv
+  │   │   └── cat12_vbm_total_volumes.tsv
+  │   ├── quality_check
+  │   │   ├── group_stats.tsv
+  │   │   └── mean_correlations.tsv
+  │   └── subjects
+  │       └── sub-<sub_id>
+  │           ├── cat12vbm_matlabbatch.m
+  │           ├── log
+  │           ├── ses-01
+  │           │   ├── avg_sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   ├── label
+  │           │   │   ├── catROI_rsub-<sub_id>_ses-01_<bids_keys>_T1w.mat
+  │           │   │   └── catROI_rsub-<sub_id>_ses-01_<bids_keys>_T1w.xml
+  │           │   ├── mri
+  │           │   │   ├── avg_y_rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── mean_mwp1rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── mean_mwp2rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── mwp1rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── mwp2rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── p0avg_sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── p0rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── p1rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── p2rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── rp1avg_sub-<sub_id>_ses-01_<bids_keys>_T1w_affine.nii
+  │           │   │   ├── rp2avg_sub-<sub_id>_ses-01_<bids_keys>_T1w_affine.nii
+  │           │   │   ├── rp3avg_sub-<sub_id>_ses-01_<bids_keys>_T1w_affine.nii
+  │           │   │   ├── tpidiff_mwp1rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── tpidiff_mwp2rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── tprdiff_mwp1rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   ├── tprdiff_mwp2rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   │   └── y_rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   ├── report
+  │           │   │   ├── cat_avg_sub-<sub_id>_ses-01_<bids_keys>_T1w.mat
+  │           │   │   ├── cat_avg_sub-<sub_id>_ses-01_<bids_keys>_T1w.xml
+  │           │   │   ├── catlog_avg_sub-<sub_id>_ses-01_<bids_keys>_T1w.txt
+  │           │   │   ├── catlog_rsub-<sub_id>_ses-01_<bids_keys>_T1w.txt
+  │           │   │   ├── catlongreportj_mwp1rsub-<sub_id>_ses-01_<bids_keys>_T1w.jpg
+  │           │   │   ├── catlongreport_mwp1rsub-<sub_id>_ses-01_<bids_keys>_T1w.pdf
+  │           │   │   ├── catlong_sub-<sub_id>_ses-01_<bids_keys>_T1w.mat
+  │           │   │   ├── catlong_sub-<sub_id>_ses-01_<bids_keys>_T1w.xml
+  │           │   │   ├── catreport_avg_sub-<sub_id>_ses-01_<bids_keys>_T1w.pdf
+  │           │   │   ├── catreportj_avg_sub-<sub_id>_ses-01_<bids_keys>_T1w.jpg
+  │           │   │   ├── catreportj_rsub-<sub_id>_ses-01_<bids_keys>_T1w.jpg
+  │           │   │   ├── catreport_rsub-<sub_id>_ses-01_<bids_keys>_T1w.pdf
+  │           │   │   ├── cat_rsub-<sub_id>_ses-01_<bids_keys>_T1w.mat
+  │           │   │   └── cat_rsub-<sub_id>_ses-01_<bids_keys>_T1w.xml
+  │           │   ├── rsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   ├── sanlm_sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   ├── sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           │   └── wavg_sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+  │           └── ses-02
+  │               ├── label
+  │               │   ├── catROI_rsub-<sub_id>_ses-02_<bids_keys>_T1w.mat
+  │               │   └── catROI_rsub-<sub_id>_ses-02_<bids_keys>_T1w.xml
+  │               ├── mri
+  │               │   ├── mwp1rsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  │               │   ├── mwp2rsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  │               │   ├── p0rsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  │               │   ├── p1rsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  │               │   ├── p2rsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  │               │   └── y_rsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  │               ├── report
+  │               │   ├── catlog_rsub-<sub_id>_ses-02_<bids_keys>_T1w.txt
+  │               │   ├── catreportj_rsub-<sub_id>_ses-02_<bids_keys>_T1w.jpg
+  │               │   ├── catreport_rsub-<sub_id>_ses-02_<bids_keys>_T1w.pdf
+  │               │   ├── cat_rsub-<sub_id>_ses-02_<bids_keys>_T1w.mat
+  │               │   └── cat_rsub-<sub_id>_ses-02_<bids_keys>_T1w.xml
+  │               ├── rsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  │               ├── sanlm_sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  │               └── sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+  ├── morphometry
+  │   ├── <atlas_name>_cat12_vbm_roi.tsv
+  │   └── cat12_vbm_total_volumes.tsv
+  ├── quality_check
+  │   ├── group_stats.tsv
+  │   └── mean_correlations.tsv
+  └── subjects
+      └── sub-<sub_id>
+          ├── ses-01
+          │   ├── cat12vbm_matlabbatch_run-<run_id>.m
+          │   ├── label
+          │   │   ├── catROI_sub-<sub_id>_ses-01_<bids_keys>_T1w.mat
+          │   │   └── catROI_sub-<sub_id>_ses-01_<bids_keys>_T1w.xml
+          │   ├── log
+          │   ├── mri
+          │   │   ├── iy_sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   ├── mwp1sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   ├── mwp2sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   ├── mwp3sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   ├── p0sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   ├── p1sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   ├── p2sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   ├── p3sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   ├── wmsub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   │   └── y_sub-<sub_id>_ses-01_<bids_keys>_T1w.nii
+          │   └── report
+          │       ├── catlog_sub-<sub_id>_ses-01_<bids_keys>_T1w.txt
+          │       ├── catreportj_sub-<sub_id>_ses-01_<bids_keys>_T1w.jpg
+          │       ├── catreport_sub-<sub_id>_ses-01_<bids_keys>_T1w.pdf
+          │       ├── cat_sub-<sub_id>_ses-01_<bids_keys>_T1w.mat
+          │       └── cat_sub-<sub_id>_ses-01_<bids_keys>_T1w.xml
+          └── ses-02
+              ├── cat12vbm_matlabbatch_run-<run_id>.m
+              ├── label
+              │   ├── catROI_sub-<sub_id>_ses-02_<bids_keys>_T1w.mat
+              │   └── catROI_sub-<sub_id>_ses-02_<bids_keys>_T1w.xml
+              ├── log
+              ├── mri
+              │   ├── iy_sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── mwp1sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── mwp2sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── mwp3sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── nsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── p0sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── p1sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── p2sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── p3sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   ├── wmsub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              │   └── y_sub-<sub_id>_ses-02_<bids_keys>_T1w.nii
+              └── report
+                  ├── catlog_sub-<sub_id>_ses-02_<bids_keys>_T1w.txt
+                  ├── catreportj_sub-<sub_id>_ses-02_<bids_keys>_T1w.jpg
+                  ├── catreport_sub-<sub_id>_ses-02_<bids_keys>_T1w.pdf
+                  ├── cat_sub-<sub_id>_ses-02_<bids_keys>_T1w.mat
+                  └── cat_sub-<sub_id>_ses-02_<bids_keys>_T1w.xml
 
 
 **Description of contents**:
@@ -139,9 +274,47 @@ The structure is organized following the :ref:`brainprep ontology <ontology>`.
 - ``dataset_description.json``  
   Metadata describing the process, including versioning and processing
   information.
+- ``figures``
+  Contains quality measure histograms extracted by the group-level-vbm
+  command.
+- ``morphometry/<atlas_name>_cat12_vbm_roi.tsv``
+  Tissue volumes per <atlas_name>'s ROI. We extract the information for all 
+  atlases made available by cat12, whose list can be found in the `cat12 
+  documentation <https://neuro-jena.github.io/cat12-help/#atlas>`__.
+- ``morphometry/cat12_vbm_total_volumes.tsv``
+  Total intracranial volume (TIV) and total tissue volumes per subject.
+- ``quality_check/group_stats.tsv``
+  Quality metrics extracted by the group-level-vbm pipeline. See its doc for
+  more info.
+- ``quality_check/mean_correlations.tsv``
+  Mean correlation of each image to the used template. Should be close to 1
+  if alignment went right.
 - ``log/report_<timestamp>.rst``  
   Contains group-level workflow steps and parameters.
-- ...
+- ``subjects/sub-<id>/ses-<id>``
+  subject-level-vbm pipeline outputs, consisting in cat12 outputs.
+  If multiple images for a single session, the outputs are in the same folder.
+
+  - ``cat12vbm_matlabbatch_run-<run_id>.m``
+    Parameters file used by cat12.
+    If no run_id for the image, it is generated using a hash algorithm on
+    the input filename.
+  - ``label``
+    Files containing the image ROI volumes. They are summarized for all 
+    subjects in 'morphometry' folder.
+  - ``log``
+    Cat12 logs.
+  - ``mri``
+    Cat12 output images. The naming convention is described in the `cat12 
+    documentation <https://neuro-jena.github.io/cat12-help/#naming>`__.
+  - ``report``
+    Summary reports generated by cat12. They contain process parameters, 
+    metrics and quality metrics.
+
+- ``longitudinal``
+  Same organisation as the main output folder, but for the longitudinal-vbm
+  pipeline outputs.
+
 
 Featured examples
 -----------------
