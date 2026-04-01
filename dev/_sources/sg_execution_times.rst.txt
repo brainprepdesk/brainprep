@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:17.530** total execution time for 9 files **from all galleries**:
+**00:17.753** total execution time for 9 files **from all galleries**:
 
 .. container::
 
@@ -33,29 +33,29 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_workflows_plot_quality_assurance.py` (``../examples/workflows/plot_quality_assurance.py``)
-     - 00:10.324
-     - 554.4
+     - 00:12.087
+     - 452.9
    * - :ref:`sphx_glr_auto_examples_workflows_plot_sbm.py` (``../examples/workflows/plot_sbm.py``)
-     - 00:02.224
-     - 113.5
+     - 00:02.142
+     - 111.7
    * - :ref:`sphx_glr_auto_examples_tutorials_plot_iqms.py` (``../examples/tutorials/plot_iqms.py``)
-     - 00:01.405
-     - 129.3
+     - 00:01.067
+     - 127.6
    * - :ref:`sphx_glr_auto_examples_workflows_plot_quasiraw.py` (``../examples/workflows/plot_quasiraw.py``)
-     - 00:00.830
-     - 141.5
+     - 00:00.606
+     - 138.7
    * - :ref:`sphx_glr_auto_examples_workflows_plot_defacing.py` (``../examples/workflows/plot_defacing.py``)
-     - 00:00.797
-     - 120.6
-   * - :ref:`sphx_glr_auto_examples_workflows_plot_fmriprep.py` (``../examples/workflows/plot_fmriprep.py``)
-     - 00:00.632
-     - 113.5
+     - 00:00.492
+     - 111.7
    * - :ref:`sphx_glr_auto_examples_workflows_plot_vbm.py` (``../examples/workflows/plot_vbm.py``)
-     - 00:00.596
-     - 113.5
-   * - :ref:`sphx_glr_auto_examples_tools_plot_html_reporting.py` (``../examples/tools/plot_html_reporting.py``)
-     - 00:00.363
-     - 115.2
+     - 00:00.413
+     - 111.7
+   * - :ref:`sphx_glr_auto_examples_workflows_plot_fmriprep.py` (``../examples/workflows/plot_fmriprep.py``)
+     - 00:00.406
+     - 111.7
    * - :ref:`sphx_glr_auto_examples_tools_plot_rst_reporting.py` (``../examples/tools/plot_rst_reporting.py``)
-     - 00:00.360
-     - 114.5
+     - 00:00.287
+     - 112.7
+   * - :ref:`sphx_glr_auto_examples_tools_plot_html_reporting.py` (``../examples/tools/plot_html_reporting.py``)
+     - 00:00.252
+     - 113.6

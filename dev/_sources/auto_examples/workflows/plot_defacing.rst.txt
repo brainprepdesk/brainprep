@@ -171,9 +171,9 @@ to actually run each step and generate results on disk.
           summary_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv')
         )
         runtime: Bunch(
-          start: '2026-04-01 12:24:35.050743'
-          end: '2026-04-01 12:24:35.079647'
-          execution_time: 8.028888888888888e-06
+          start: '2026-04-01 12:33:27.762923'
+          end: '2026-04-01 12:33:27.785682'
+          execution_time: 6.321944444444445e-06
           brainprep_version: '2.0.0'
           platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmrg6be'
@@ -203,9 +203,9 @@ to actually run each step and generate results on disk.
           outputs: (['fslreorient2std', '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-01 12:24:35.056926'
-          end: '2026-04-01 12:24:35.057006'
-          execution_time: 2.2222222222222224e-08
+          start: '2026-04-01 12:33:27.767590'
+          end: '2026-04-01 12:33:27.767675'
+          execution_time: 2.3611111111111113e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmrg6be'
@@ -235,9 +235,9 @@ to actually run each step and generate results on disk.
           outputs: (['mri_synthstrip', '-i', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '-m', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '--no-csf'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-01 12:24:35.062964'
-          end: '2026-04-01 12:24:35.063020'
-          execution_time: 1.5555555555555554e-08
+          start: '2026-04-01 12:33:27.772298'
+          end: '2026-04-01 12:33:27.772356'
+          execution_time: 1.6111111111111112e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmrg6be'
@@ -267,9 +267,9 @@ to actually run each step and generate results on disk.
           outputs: (['fsl_deface', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz', '-d', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz', '-f', '0.5', '-B'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz'), PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz')))
         )
         runtime: Bunch(
-          start: '2026-04-01 12:24:35.068327'
-          end: '2026-04-01 12:24:35.068398'
-          execution_time: 1.9722222222222225e-08
+          start: '2026-04-01 12:33:27.776520'
+          end: '2026-04-01 12:33:27.776583'
+          execution_time: 1.75e-08
           brainprep_version: '2.0.0'
           platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmrg6be'
@@ -301,9 +301,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-01_ses-01_run-34706_mod-T1w_defacemosaic.png'),)
         )
         runtime: Bunch(
-          start: '2026-04-01 12:24:35.074577'
-          end: '2026-04-01 12:24:35.074614'
-          execution_time: 1.0277777777777778e-08
+          start: '2026-04-01 12:33:27.781472'
+          end: '2026-04-01 12:33:27.781503'
+          execution_time: 8.611111111111111e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmrg6be'
@@ -337,9 +337,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv'),)
         )
         runtime: Bunch(
-          start: '2026-04-01 12:24:35.079012'
-          end: '2026-04-01 12:24:35.079044'
-          execution_time: 8.888888888888889e-09
+          start: '2026-04-01 12:33:27.785154'
+          end: '2026-04-01 12:33:27.785180'
+          execution_time: 7.222222222222222e-09
           brainprep_version: '2.0.0'
           platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmrg6be'
@@ -446,9 +446,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.797 seconds)
+   **Total running time of the script:** (0 minutes 0.492 seconds)
 
-**Estimated memory usage:**  121 MB
+**Estimated memory usage:**  112 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_defacing.py:
