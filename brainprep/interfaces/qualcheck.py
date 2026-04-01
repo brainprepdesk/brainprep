@@ -577,6 +577,7 @@ def euler_numbers(
         ]
 
     scores["qc"] = (scores["euler_number"] > euler_threshold).astype(int)
+    scores = scores.sort_values(by=["participant_id", "session"])
     scores.to_csv(
         euler_numbers_file,
         index=False,
