@@ -26,12 +26,12 @@ working_dir.mkdir(parents=True, exist_ok=True)
 
 
 git_download(
-    url=("https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/"
+    url=("https://raw.githubusercontent.com/brainprepdesk/brainprep/"
          "dev/doc/logos/brainprep.png"),
     destination=working_dir / "im1.png",
 )
 git_download(
-    url=("https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/"
+    url=("https://raw.githubusercontent.com/brainprepdesk/brainprep/"
          "dev/doc/logos/brainprep.png"),
     destination=working_dir / "im2.png",
 )

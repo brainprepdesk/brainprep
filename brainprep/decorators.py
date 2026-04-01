@@ -485,7 +485,7 @@ class BidsHook(Hook):
                     {
                         "Name": "brainprep",
                         "Version": __version__,
-                        "CodeURL": ("https://github.com/neurospin-deepinsight/"
+                        "CodeURL": ("https://github.com/brainprepdesk/"
                                     "brainprep"),
                     }
                 ],

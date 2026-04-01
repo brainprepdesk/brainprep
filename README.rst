@@ -14,28 +14,28 @@
 
 **Development**
 
-.. image:: https://coveralls.io/repos/neurospin-deepinsight/brainprep/badge.svg?branch=dev&service=github
-    :target: https://coveralls.io/github/neurospin-deepinsight/brainprep
+.. image:: https://coveralls.io/repos/brainprepdesk/brainprep/badge.svg?branch=dev&service=github
+    :target: https://coveralls.io/github/brainprepdesk/brainprep
     :alt: Coveralls
 
-.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/testing.yml/badge.svg?branch=dev
-    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/testing.yml/badge.svg?branch=dev
+    :target: https://github.com/brainprepdesk/brainprep/actions
     :alt: Testing Status
 
-.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/pycodestyle.yml/badge.svg?branch=dev
-    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/pycodestyle.yml/badge.svg?branch=dev
+    :target: https://github.com/brainprepdesk/brainprep/actions
     :alt: PyCodeStyle
 
-.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/ruff.yml/badge.svg?branch=dev
-    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/ruff.yml/badge.svg?branch=dev
+    :target: https://github.com/brainprepdesk/brainprep/actions
     :alt: Ruff Linter
 
-.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/pydoclint.yml/badge.svg?branch=dev
-    :target: https://github.com/neurospin-deepinsight/brainprep/actions
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/pydoclint.yml/badge.svg?branch=dev
+    :target: https://github.com/brainprepdesk/brainprep/actions
     :alt: PyDocLint
 
-.. image:: https://github.com/neurospin-deepinsight/brainprep/actions/workflows/documentation.yml/badge.svg?branch=dev
-    :target: https://neurospin-deepinsight.github.io/brainprep
+.. image:: https://github.com/brainprepdesk/brainprep/actions/workflows/documentation.yml/badge.svg?branch=dev
+    :target: https://brainprepdesk.github.io/brainprep
     :alt: Documentation Status
 
 **Release**
@@ -96,9 +96,9 @@ scalable, and reproducible foundation to accelerate your research.
 Important Links
 ===============
 
-- Official source code repo: https://github.com/neurospin-deepinsight/brainprep
-- HTML documentation (stable release): https://neurospin-deepinsight.github.io/brainprep/stable
-- HTML documentation (dev): https://neurospin-deepinsight.github.io/brainprep/dev
+- Official source code repo: https://github.com/brainprepdesk/brainprep
+- HTML documentation (stable release): https://brainprepdesk.github.io/brainprep/stable
+- HTML documentation (dev): https://brainprepdesk.github.io/brainprep/dev
 
 
 Install
@@ -156,7 +156,7 @@ Dependencies
 ============
 
 The required dependencies to use the software are listed
-in the file `pyproject.toml <https://github.com/neurospin-deepinsight/brainprep/blob/main/pyproject.toml>`_.
+in the file `pyproject.toml <https://github.com/brainprepdesk/brainprep/blob/main/pyproject.toml>`_.
 
 
 Citation
@@ -171,5 +171,5 @@ repository. Thank you.
     @misc{brainprep,
         title = {{BrainPrep source code (Version 1.0.0)}},
         author = {Grigis, Antoine and Victor, Julie and Dorval, Loic and Duchesnay, Edouard},
-        url = {https://github.com/neurospin-deepinsight/brainprep},
+        url = {https://github.com/brainprepdesk/brainprep},
     }

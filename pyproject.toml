@@ -62,9 +62,9 @@ doc = [
 ]
 
 [project.urls]
-Development = "https://github.com/neurospin-deepinsight/brainprep"
-issues = "https://github.com/neurospin-deepinsight/brainprep/issues"
-homepage = "https://neurospin-deepinsight.github.io/brainprep/stable"
+Development = "https://github.com/brainprepdesk/brainprep"
+issues = "https://github.com/brainprepdesk/brainprep/issues"
+homepage = "https://brainprepdesk.github.io/brainprep/stable"
 
 [tool.setuptools]
 include-package-data = true

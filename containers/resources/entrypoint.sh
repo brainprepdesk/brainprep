@@ -10,7 +10,7 @@ cat <<EOF
 
   Version : 2
   License : CeCILL-B
-  Source  : https://github.com/neurospin-deepinsight/brainprep
+  Source  : https://github.com/brainprepdesk/brainprep
 
   Container started at : $START_TIME
 

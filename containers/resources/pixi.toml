@@ -8,5 +8,5 @@ platforms = ["linux-64"]
 python = "==3.12"
 
 [pypi-dependencies]
-brainprep = { git = "https://github.com/neurospin-deepinsight/brainprep.git", branch = "dev" }
+brainprep = { git = "https://github.com/brainprepdesk/brainprep.git", branch = "main" }
 

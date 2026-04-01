@@ -25,7 +25,7 @@ Then, generate the new recipies (one per workflow type):
         --label description="brainprep quality assesssment" version="2.0" \
         --yes \
         --entrypoint python3 \
-        --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
+        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
         > Dockerfile.qa
 
     neurodocker generate docker \
@@ -35,7 +35,7 @@ Then, generate the new recipies (one per workflow type):
         --entrypoint python3 \
         --fsl version=6.0.7.18 \
           install_path=/opt/fsl-6.0.7.18 \
-        --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
+        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
         > Dockerfile.defacing
 
     neurodocker generate docker \
@@ -49,7 +49,7 @@ Then, generate the new recipies (one per workflow type):
           install_path=/opt/freesurfer-7.4.1 \
           exclude_paths="average/mult-comp-cor lib/cuda lib/qt subjects/V1_average subjects/bert subjects/cvs_avg35 subjects/cvs_avg35_inMNI152 subjects/fsaverage3 subjects/fsaverage4 subjects/fsaverage5 subjects/fsaverage6 subjects/fsaverage_sym trctrain" \
         --ants version=2.6.2 \
-        --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
+        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
         > Dockerfile.quasiraw
 
     neurodocker generate docker \
@@ -60,7 +60,7 @@ Then, generate the new recipies (one per workflow type):
         --matlabmcr version=2023b \
         --cat12 version=12.9_R2023b \
           install_path=/opt/cat12-12.9_R2023b \
-        --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
+        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
         > Dockerfile.vbm
 
     neurodocker generate docker \
@@ -71,7 +71,7 @@ Then, generate the new recipies (one per workflow type):
         --freesurfer version=7.4.1 \
           install_path=/opt/freesurfer-7.4.1 \
           exclude_paths="diffusion docs fsfast average/mult-comp-cor lib/cuda lib/qt subjects/V1_average subjects/bert subjects/cvs_avg35 subjects/cvs_avg35_inMNI152 subjects/fsaverage3 subjects/fsaverage4 subjects/fsaverage5 subjects/fsaverage6 subjects/fsaverage_sym trctrain" \
-        --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
+        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
         > Dockerfile.brainparc
 
     neurodocker generate docker \
@@ -81,7 +81,7 @@ Then, generate the new recipies (one per workflow type):
         --entrypoint python3 \
         --fsl version=6.0.7.18 \
           install_path=/opt/fsl-6.0.7.18 \
-        --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
+        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
         > Dockerfile.tbss
 
     neurodocker generate docker \
@@ -89,7 +89,7 @@ Then, generate the new recipies (one per workflow type):
         --pkg-manager apt \
         --yes \
         --entrypoint python3 \
-        --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
+        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
         > Dockerfile.fmriprep
 
     neurodocker generate docker \
@@ -97,7 +97,7 @@ Then, generate the new recipies (one per workflow type):
         --pkg-manager apt \
         --yes \
         --entrypoint python3 \
-        --run-bash "pip install git+https://github.com/neurospin-deepinsight/brainprep.git@dev" \
+        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
         > Dockerfile.dmriprep
 
 .. note::
