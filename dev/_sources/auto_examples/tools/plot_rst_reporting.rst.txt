@@ -144,17 +144,18 @@ Now let's generate the RST report.
           val: 1
         )
         runtime: Bunch(
-          start: '2026-03-25 14:53:47.260078'
-          end: '2026-03-25 14:53:47.260101'
-          execution_time: 6.388888888888889e-09
+          start: '2026-04-01 12:24:32.549497'
+          end: '2026-04-01 12:24:32.549518'
+          execution_time: 5.833333333333333e-09
           brainprep_version: '2.0.0'
-          platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm46oaq'
+          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmrg6be'
         )
         config: Bunch(
           verbose: True
           dryrun: False
           no_color: False
+          skip_run_check: False
           cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
@@ -178,17 +179,18 @@ Now let's generate the RST report.
           val: 4
         )
         runtime: Bunch(
-          start: '2026-03-25 14:53:47.268500'
-          end: '2026-03-25 14:53:47.272293'
-          execution_time: 1.0536111111111112e-06
+          start: '2026-04-01 12:24:32.559186'
+          end: '2026-04-01 12:24:32.565195'
+          execution_time: 1.6691666666666666e-06
           brainprep_version: '2.0.0'
-          platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm46oaq'
+          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmrg6be'
         )
         config: Bunch(
           verbose: True
           dryrun: False
           no_color: False
+          skip_run_check: False
           cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
@@ -206,17 +208,18 @@ Now let's generate the RST report.
           val2: 4
         )
         runtime: Bunch(
-          start: '2026-03-25 14:53:47.272245'
-          end: '2026-03-25 14:53:47.272254'
-          execution_time: 2.5e-09
+          start: '2026-04-01 12:24:32.565136'
+          end: '2026-04-01 12:24:32.565152'
+          execution_time: 4.444444444444444e-09
           brainprep_version: '2.0.0'
-          platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm46oaq'
+          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmrg6be'
         )
         config: Bunch(
           verbose: True
           dryrun: False
           no_color: False
+          skip_run_check: False
           cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
@@ -232,7 +235,7 @@ Now let's generate the RST report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.366 seconds)
+   **Total running time of the script:** (0 minutes 0.360 seconds)
 
 **Estimated memory usage:**  115 MB
 

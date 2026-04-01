@@ -1,6 +1,6 @@
 """
-fMRI Pre-Processings
-====================
+fMRI
+====
 
 Simple example.
 

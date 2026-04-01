@@ -49,12 +49,12 @@ carousel of two images.
 
 
     git_download(
-        url=("https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/"
+        url=("https://raw.githubusercontent.com/brainprepdesk/brainprep/"
              "dev/doc/logos/brainprep.png"),
         destination=working_dir / "im1.png",
     )
     git_download(
-        url=("https://raw.githubusercontent.com/neurospin-deepinsight/brainprep/"
+        url=("https://raw.githubusercontent.com/brainprepdesk/brainprep/"
              "dev/doc/logos/brainprep.png"),
         destination=working_dir / "im2.png",
     )
@@ -123,7 +123,7 @@ Now let's generate the HTML report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.337 seconds)
+   **Total running time of the script:** (0 minutes 0.363 seconds)
 
 **Estimated memory usage:**  115 MB
 

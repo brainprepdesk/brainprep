@@ -167,7 +167,7 @@ Workflows
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Quasi-RAW pre-processing</div>
+      <div class="sphx-glr-thumbnail-title">Quasi-RAW</div>
     </div>
 
 
@@ -218,7 +218,7 @@ Workflows
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">fMRI Pre-Processings</div>
+      <div class="sphx-glr-thumbnail-title">fMRI</div>
     </div>
 
 

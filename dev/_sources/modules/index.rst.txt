@@ -33,11 +33,13 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
    brainprep.reporting.utils.rst
    brainprep.utils.bunch.rst
    brainprep.utils.color.rst
+   brainprep.utils.rst
    brainprep.utils.utils.rst
    brainprep.workflow.defacing.rst
    brainprep.workflow.fmriprep.rst
    brainprep.workflow.quality_assurance.rst
    brainprep.workflow.quasiraw.rst
+   brainprep.workflow.rst
    brainprep.workflow.sbm.rst
    brainprep.workflow.vbm.rst
    brainprep.wrappers.rst

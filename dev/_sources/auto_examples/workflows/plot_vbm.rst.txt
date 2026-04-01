@@ -138,6 +138,7 @@ to actually run each step and generate results on disk.
 
  .. code-block:: none
 
+    [warn] - BIDS file name does not contain run key: sub-01_ses-study1_T1w.nii.gz
     [title] - Subject Level VBM...
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/sub-01_ses-study1_
@@ -155,15 +156,16 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/report/catreport_s
     ub-01_ses-study1_T1w.nii
-    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 
-    's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 
-    's/runnervm46oaq/HOSTNAME/g' -e 's/10.1.0.65/X.X.X.X/g' -e 's/runner/USER/g' -i 
+    [command] - sed -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 
+    's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/runnervmrg6be/HOSTNAME/g' -e 
+    's/10.1.0.52/X.X.X.X/g' -e 's/runner/USER/g' -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
     ch_run-15456.m
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
     ch_run-15456.m
     [title] - Subject Level VBM done.
+    [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
     [title] - Subject Level VBM...
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/sub-02_ses-study1_
@@ -181,15 +183,17 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/report/catreport_s
     ub-02_ses-study1_T1w.nii
-    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 
-    's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 
-    's/runnervm46oaq/HOSTNAME/g' -e 's/10.1.0.65/X.X.X.X/g' -e 's/runner/USER/g' -i 
+    [command] - sed -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 
+    's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/runnervmrg6be/HOSTNAME/g' -e 
+    's/10.1.0.52/X.X.X.X/g' -e 's/runner/USER/g' -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
     ch_run-38141.m
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
     ch_run-38141.m
     [title] - Subject Level VBM done.
+    [warn] - BIDS file name does not contain run key: sub-01_ses-study1_T1w.nii.gz
+    [warn] - BIDS file name does not contain run key: sub-01_ses-study2_T1w.nii.gz
     [title] - Longitudinal VBM...
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study1/sub-0
@@ -216,9 +220,9 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2/repor
     t/catreport_sub-01_ses-study2_T1w.nii
-    [command] - sed -e 's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 
-    's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 
-    's/runnervm46oaq/HOSTNAME/g' -e 's/10.1.0.65/X.X.X.X/g' -e 's/runner/USER/g' -i 
+    [command] - sed -e 's/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g' -e 
+    's/\/tmp\/brainprep-data\/rawdata/RAWDATA/g' -e 's/runnervmrg6be/HOSTNAME/g' -e 
+    's/10.1.0.52/X.X.X.X/g' -e 's/runner/USER/g' -i 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
     atch.m
     [info] - checking output: 
@@ -457,7 +461,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.541 seconds)
+   **Total running time of the script:** (0 minutes 0.596 seconds)
 
 **Estimated memory usage:**  114 MB
 

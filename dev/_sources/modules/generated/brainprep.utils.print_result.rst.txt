@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.utils.print_result
+============================
+
+.. currentmodule:: brainprep.utils
+
+.. autofunction:: print_result
+
+.. include:: brainprep.utils.print_result.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

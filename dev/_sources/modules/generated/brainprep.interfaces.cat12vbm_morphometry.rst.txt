@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.interfaces.cat12vbm_morphometry
+=========================================
+
+.. currentmodule:: brainprep.interfaces
+
+.. autofunction:: cat12vbm_morphometry
+
+.. include:: brainprep.interfaces.cat12vbm_morphometry.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

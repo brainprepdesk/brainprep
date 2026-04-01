@@ -18,8 +18,8 @@
 .. _sphx_glr_auto_examples_workflows_plot_fmriprep.py:
 
 
-fMRI Pre-Processings
-====================
+fMRI
+====
 
 Simple example.
 
@@ -111,6 +111,7 @@ to actually run each step and generate results on disk.
 
  .. code-block:: none
 
+    [warn] - BIDS file name does not contain run key: sub-01_ses-00_T1w.nii.gz
     [title] - Subject Level fMRI PreProcessing...
     [info] - setting workspace directory: 
     /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace
@@ -150,6 +151,8 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01.html
     [warn] - BIDS file name does not contain run key: 
+    sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz
+    [warn] - BIDS file name does not contain run key: 
     sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_b
     old.nii.gz
     [info] - checking output: 
@@ -180,17 +183,18 @@ to actually run each step and generate results on disk.
           connectivity_files: [PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv')]
         )
         runtime: Bunch(
-          start: '2026-03-25 14:54:17.437971'
-          end: '2026-03-25 14:54:17.639194'
-          execution_time: 5.589527777777778e-05
+          start: '2026-04-01 12:24:50.791728'
+          end: '2026-04-01 12:24:50.908222'
+          execution_time: 3.235944444444444e-05
           brainprep_version: '2.0.0'
-          platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm46oaq'
+          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmrg6be'
         )
         config: Bunch(
           verbose: True
           dryrun: True
           no_color: False
+          skip_run_check: False
           cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
@@ -215,17 +219,18 @@ to actually run each step and generate results on disk.
           outputs: (['fmriprep', '/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace/rawdata', '/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects', 'participant', '--fs-subjects-dir', '/my/freesurfer/directory', '--work-dir', '/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace/work', '--n-cpus', '4', '--stop-on-first-crash', '--fs-license-file', '/freesurfer/home/license.txt', '--skip-bids-validation', '--fs-no-reconall', '--fs-no-resume', '--force', 'bbr', 'syn-sdc', '--no-msm', '--cifti-output', '91k', '--output-spaces', 'T1w', 'MNI152NLin2009cAsym', 'MNI152NLin2009cAsym:res-2', 'fsnative', 'fsLR', '--ignore', 'slicetiming', '--participant-label', '01'], ([[[PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-brain_mask.nii.gz'), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz')], [PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-preproc_bold.nii.gz'), PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz')], [(PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsnative_den-91k_bold.dtseries.nii'),), (PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsLR_den-91k_bold.dtseries.nii'),)], PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_desc-confounds_timeseries.tsv')]], PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01.html')))
         )
         runtime: Bunch(
-          start: '2026-03-25 14:54:17.442747'
-          end: '2026-03-25 14:54:17.623146'
-          execution_time: 5.0110833333333335e-05
+          start: '2026-04-01 12:24:50.797597'
+          end: '2026-04-01 12:24:50.888160'
+          execution_time: 2.515638888888889e-05
           brainprep_version: '2.0.0'
-          platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm46oaq'
+          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmrg6be'
         )
         config: Bunch(
           verbose: True
           dryrun: True
           no_color: False
+          skip_run_check: False
           cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
@@ -259,17 +264,18 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv'),)
         )
         runtime: Bunch(
-          start: '2026-03-25 14:54:17.634689'
-          end: '2026-03-25 14:54:17.634726'
-          execution_time: 1.0277777777777778e-08
+          start: '2026-04-01 12:24:50.902129'
+          end: '2026-04-01 12:24:50.902168'
+          execution_time: 1.0833333333333333e-08
           brainprep_version: '2.0.0'
-          platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm46oaq'
+          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmrg6be'
         )
         config: Bunch(
           verbose: True
           dryrun: True
           no_color: False
+          skip_run_check: False
           cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
@@ -291,17 +297,18 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.png'),)
         )
         runtime: Bunch(
-          start: '2026-03-25 14:54:17.638196'
-          end: '2026-03-25 14:54:17.638220'
-          execution_time: 6.666666666666667e-09
+          start: '2026-04-01 12:24:50.907551'
+          end: '2026-04-01 12:24:50.907577'
+          execution_time: 7.222222222222222e-09
           brainprep_version: '2.0.0'
-          platform: 'Linux-6.14.0-1017-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm46oaq'
+          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmrg6be'
         )
         config: Bunch(
           verbose: True
           dryrun: True
           no_color: False
+          skip_run_check: False
           cat12_file: PosixPath('/opt/cat12/standalone/cat_standalone.sh')
           spm12_dir: PosixPath('/opt/cat12')
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
@@ -387,7 +394,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.565 seconds)
+   **Total running time of the script:** (0 minutes 0.632 seconds)
 
 **Estimated memory usage:**  114 MB
 
