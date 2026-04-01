@@ -43,6 +43,9 @@ from .fsl import (
     reorient,
     scale,
 )
+from .morphologist import (
+    morphologist_wf,
+)
 from .mriqc import (
     group_level_qa,
     subject_level_qa,
@@ -100,6 +103,7 @@ __all__ = [
     "maskdiff",
     "mean_correlation",
     "mgz_to_nii",
+    "morphologist_wf",
     "movedir",
     "mriqc_metrics",
     "network_entropy",

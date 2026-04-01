@@ -31,6 +31,9 @@ from .sbm import (
     brainprep_longitudinal_sbm,
     brainprep_sbm,
 )
+from .sulcirec import (
+    brainprep_sulcirec,
+)
 from .vbm import (
     brainprep_group_vbm,
     brainprep_longitudinal_vbm,
@@ -51,5 +54,6 @@ __all__ = [
     "brainprep_quality_assurance",
     "brainprep_quasiraw",
     "brainprep_sbm",
+    "brainprep_sulcirec",
     "brainprep_vbm",
 ]

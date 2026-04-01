@@ -149,6 +149,7 @@ def main():
         "group-level-vbm": wf.brainprep_group_vbm,
         "subject-level-fmriprep": wf.brainprep_fmriprep,
         "group-level-fmriprep": wf.brainprep_group_fmriprep,
+        "subject-level-sulcirec": wf.brainprep_sulcirec,
     }
     for key, fn in commands.items():
         commands[key] = make_wrapped(fn, is_vbm=key.endswith("vbm"))
