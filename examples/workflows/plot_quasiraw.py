@@ -1,6 +1,6 @@
 """
-Quasi-RAW pre-processing
-========================
+Quasi-RAW
+=========
 
 Simple example.
 
