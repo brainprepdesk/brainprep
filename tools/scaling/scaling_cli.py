@@ -10,6 +10,7 @@
 """
 
 import hashlib
+import os
 import re
 import tomllib
 from datetime import date, datetime
@@ -261,6 +262,10 @@ def organize_bids_tab(
     print(banner)
 
     df = pd.read_csv(tab_file, sep="\t", dtype=str)
+    if isinstance(tab_file, Path):
+        rawdata_path = str(tab_file.parent)
+    elif isinstance(tab_file, str):
+        rawdata_path = os.path.dirname(tab_file)
 
     record = {}
     for _, row in df.iterrows():
@@ -268,7 +273,7 @@ def organize_bids_tab(
         row = {
             "subject": row["sub"],
             "session": row["ses"],
-            modality: row["path"],
+            modality: row["path"].replace("./", f"{rawdata_path}/"),
             f"{modality}_md5_hash": (
                 row["md5sum"] if with_hash else None
             ),
