@@ -26,6 +26,7 @@ from ..decorators import (
     LogRuntimeHook,
     OutputdirHook,
     PythonWrapperHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -49,6 +50,7 @@ from ..utils import (
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def network_entropy(
@@ -149,6 +151,7 @@ def network_entropy(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def mask_overlap(
@@ -255,6 +258,7 @@ def mask_overlap(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def mean_correlation(
@@ -369,6 +373,7 @@ def mean_correlation(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def incremental_pca(
@@ -486,6 +491,7 @@ def incremental_pca(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def euler_numbers(
@@ -597,6 +603,7 @@ def euler_numbers(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def vbm_metrics(
@@ -711,6 +718,7 @@ def vbm_metrics(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def fmriprep_metrics(
@@ -825,6 +833,7 @@ def fmriprep_metrics(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def mriqc_metrics(
@@ -907,3 +916,78 @@ def mriqc_metrics(
         df.to_csv(output_file, sep="\t", index=False)
 
     return (filter_iqm_files, )
+
+
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(
+            quality_check=True
+        ),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+        SignatureHook(),
+    ]
+)
+def sulcirec_metrics(
+        output_dir: Directory,
+        dryrun: bool = False) -> tuple[File]:
+    """
+    Morphologist quality control.
+
+    Parameters
+    ----------
+    output_dir : Directory
+        Working directory containing the outputs.
+    dryrun : bool
+        If True, skip actual computation and file writing. Default False.
+
+    Returns
+    -------
+    group_stats_file : File
+        A TSV file containing  a binary ``qc`` column indicating the
+        morphologist quality control result.
+
+    References
+    ----------
+
+    .. footbibliography::
+    """
+    group_stats_file = output_dir / "group_stats.tsv"
+
+    if dryrun:
+        return (group_stats_file, )
+
+    pattern = "sub-*/ses-*/run-*/qc.tsv"
+    status_files = list(
+        (output_dir.parent / "subjects").glob(pattern)
+    )
+    if len(status_files) == 0:
+        print_warn(f"No data found: {pattern}")
+    entities = [
+        parse_bids_keys(path, full_path=True)
+        for path in status_files
+    ]
+
+    stats = []
+    for info, path in zip(entities, status_files, strict=True):
+        df_ = pd.read_csv(path, sep="\t")
+        df = pd.DataFrame({
+            "participant_id": [info["sub"]],
+            "session": [info["ses"]],
+            "run": [info["run"]],
+            "qc": [int(all(df_["morpho_qc"].values == "OK"))],
+        })
+        stats.append(df)
+    df = pd.concat(stats)
+    df.sort_values(by=["participant_id", "session", "run"], inplace=True)
+
+    df.to_csv(
+        group_stats_file,
+        index=False,
+        sep="\t",
+    )
+
+    return (group_stats_file, )

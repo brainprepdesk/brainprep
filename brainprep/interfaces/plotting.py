@@ -32,6 +32,7 @@ from ..decorators import (
     LogRuntimeHook,
     OutputdirHook,
     PythonWrapperHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -50,6 +51,7 @@ from ..typing import (
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def plot_network(
@@ -110,6 +112,7 @@ def plot_network(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def plot_defacing_mosaic(
@@ -179,6 +182,7 @@ def plot_defacing_mosaic(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def plot_histogram(
@@ -252,6 +256,7 @@ def plot_histogram(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def plot_brainparc(
@@ -346,6 +351,7 @@ def plot_brainparc(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def plot_pca(

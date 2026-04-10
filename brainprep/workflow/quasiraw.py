@@ -20,6 +20,7 @@ from ..decorators import (
     CoerceparamsHook,
     LogRuntimeHook,
     SaveRuntimeHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -46,6 +47,7 @@ from ..utils import (
             title="Subject Level Quasi-RAW"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_quasiraw(
@@ -241,6 +243,7 @@ def brainprep_quasiraw(
             title="Group Level Quasi-RAW"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_group_quasiraw(

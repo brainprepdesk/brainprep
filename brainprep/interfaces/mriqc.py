@@ -18,6 +18,7 @@ from ..decorators import (
     CommandLineWrapperHook,
     LogRuntimeHook,
     OutputdirHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -34,6 +35,7 @@ from ..typing import (
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def subject_level_qa(
@@ -100,6 +102,7 @@ def subject_level_qa(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def group_level_qa(

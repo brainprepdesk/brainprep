@@ -18,6 +18,7 @@ from ..decorators import (
     CommandLineWrapperHook,
     LogRuntimeHook,
     OutputdirHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -34,6 +35,7 @@ from ..typing import (
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def reorient(
@@ -80,6 +82,7 @@ def reorient(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def deface(
@@ -144,6 +147,7 @@ def deface(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def applymask(
@@ -195,6 +199,7 @@ def applymask(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def scale(
@@ -251,6 +256,7 @@ def scale(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def affine(
@@ -312,6 +318,7 @@ def affine(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def applyaffine(

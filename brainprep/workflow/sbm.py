@@ -20,6 +20,7 @@ from ..decorators import (
     CoerceparamsHook,
     LogRuntimeHook,
     SaveRuntimeHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -48,6 +49,7 @@ from ..utils import (
             title="Subject Level SBM"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_sbm(
@@ -339,6 +341,7 @@ def brainprep_sbm(
         SaveRuntimeHook(
             parent=True
         ),
+        SignatureHook(),
     ]
 )
 def brainprep_longitudinal_sbm(
@@ -503,6 +506,7 @@ def brainprep_longitudinal_sbm(
             title="Group Level SBM"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_group_sbm(

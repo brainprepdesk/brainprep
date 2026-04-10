@@ -19,6 +19,7 @@ from ..decorators import (
     CoerceparamsHook,
     LogRuntimeHook,
     SaveRuntimeHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -45,6 +46,7 @@ from ..utils import (
             title="Subject Level Defacing"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_defacing(
@@ -189,6 +191,7 @@ def brainprep_defacing(
             title="Group Level Defacing"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_group_defacing(

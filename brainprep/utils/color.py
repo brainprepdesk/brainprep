@@ -30,20 +30,35 @@ fg_colors = {
 }
 
 
-def print_color(category: str, text: str) -> None:
-    """ Print text.
+def print_category_color(category: str, text: str) -> None:
+    """
+    Print a formatted message to the console using the color associated
+    with a given category.
+
+    The output style depends on the global brainprep options:
+    - If ``verbose`` is False, only messages with category ``"deprecated"``
+      are printed.
+    - If ``no_color`` is True, the message is printed without color styling.
 
     Parameters
     ----------
-    category: str
-        a category to select the preconfigured color.
-    text: str
-        text to print.
+    category : str
+        A message category used to select the corresponding color style
+        from the ``fg_colors`` table. Examples include ``"info"``,
+        ``"warning"``, ``"error"``, or ``"deprecated"``.
+    text : str
+        The message content to display.
 
     Raises
     ------
     ValueError
-        If an invalid category is used.
+        If ``category`` is not defined in the ``fg_colors`` table.
+
+    Notes
+    -----
+    The printed message follows the format:
+        [category] - text
+    with optional color styling applied through ``rich``.
     """
     console = Console()
     opts = brainprep_options.get()
@@ -64,6 +79,39 @@ def print_color(category: str, text: str) -> None:
     console.print(line)
 
 
+def print_color(color: str, text: str, end: str = "\n") -> None:
+    r"""
+    Print a message to the console using a given color.
+
+    The output style depends on the global brainprep options:
+    - If ``verbose`` is False, no message is printed.
+    - If ``no_color`` is True, the message is printed without color styling.
+
+    Parameters
+    ----------
+    color : str
+        Name of the color style to apply.
+    text : str
+        The message to display.
+    end : str, optional
+        String appended after the message. Default ``"\\n"``.
+
+    Notes
+    -----
+    Color styling is handled by ``rich``.
+    """
+    console = Console()
+    opts = brainprep_options.get()
+    verbose = opts.get("verbose", DEFAULT_OPTIONS["verbose"])
+    with_color = not opts.get("no_color", DEFAULT_OPTIONS["no_color"])
+
+    if not verbose:
+        return
+
+    style = color if with_color else None
+    console.print(Text(text, style=style), end=end)
+
+
 def print_title(title: str) -> None:
     """ Print title.
 
@@ -72,7 +120,7 @@ def print_title(title: str) -> None:
     title: str
         text to print.
     """
-    print_color("title", title)
+    print_category_color("title", title)
 
 
 def print_subtitle(subtitle: str) -> None:
@@ -83,7 +131,7 @@ def print_subtitle(subtitle: str) -> None:
     subtitle: str
         text to print.
     """
-    print_color("subtitle", subtitle)
+    print_category_color("subtitle", subtitle)
 
 
 def print_command(command: str) -> None:
@@ -94,7 +142,7 @@ def print_command(command: str) -> None:
     command: str
         text to print.
     """
-    print_color("command", command)
+    print_category_color("command", command)
 
 
 def print_info(info: str) -> None:
@@ -105,7 +153,7 @@ def print_info(info: str) -> None:
     info: str
         text to print.
     """
-    print_color("info", info)
+    print_category_color("info", info)
 
 
 def print_warn(warn: str) -> None:
@@ -116,7 +164,7 @@ def print_warn(warn: str) -> None:
     warn: str
         text to print.
     """
-    print_color("warn", warn)
+    print_category_color("warn", warn)
 
 
 def print_result(result: str) -> None:
@@ -127,7 +175,7 @@ def print_result(result: str) -> None:
     result: str
         text to print.
     """
-    print_color("result", result)
+    print_category_color("result", result)
 
 
 def print_error(error: str) -> None:
@@ -138,7 +186,7 @@ def print_error(error: str) -> None:
     error: str
         text to print.
     """
-    print_color("error", error)
+    print_category_color("error", error)
 
 
 def print_deprecated(deprecated: str) -> None:
@@ -149,4 +197,26 @@ def print_deprecated(deprecated: str) -> None:
     deprecated: str
         text to print.
     """
-    print_color("deprecated", deprecated)
+    print_category_color("deprecated", deprecated)
+
+
+def print_call(call: str) -> None:
+    """ Print call.
+
+    Parameters
+    ----------
+    call: str
+        text to print.
+    """
+    print_color("blue", call)
+
+
+def print_stdout(stdout: str) -> None:
+    """ Print stdout.
+
+    Parameters
+    ----------
+    stdout: str
+        text to print.
+    """
+    print_color("salmon1", stdout, end="")

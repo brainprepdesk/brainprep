@@ -22,6 +22,7 @@ from ..decorators import (
     CoerceparamsHook,
     LogRuntimeHook,
     SaveRuntimeHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -48,6 +49,7 @@ from ..utils import (
             title="Subject Level VBM"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_vbm(
@@ -147,6 +149,7 @@ def brainprep_vbm(
         SaveRuntimeHook(
             parent=True,
         ),
+        SignatureHook(),
     ]
 )
 def brainprep_longitudinal_vbm(
@@ -244,9 +247,10 @@ def brainprep_longitudinal_vbm(
             container="neurospin/brainprep-vbm"
         ),
         LogRuntimeHook(
-            title="Group Leve VBM"
+            title="Group Level VBM"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_group_vbm(

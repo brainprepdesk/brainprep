@@ -33,6 +33,7 @@ from ..decorators import (
     LogRuntimeHook,
     OutputdirHook,
     PythonWrapperHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -53,6 +54,7 @@ from ..utils import (
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def fmriprep_wf(
@@ -225,6 +227,7 @@ def fmriprep_wf(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def func_vol_connectivity(

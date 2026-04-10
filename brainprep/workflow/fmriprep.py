@@ -20,6 +20,7 @@ from ..decorators import (
     CoerceparamsHook,
     LogRuntimeHook,
     SaveRuntimeHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -46,6 +47,7 @@ from ..utils import (
             title="Subject Level fMRI PreProcessing"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_fmriprep(
@@ -265,6 +267,7 @@ def brainprep_fmriprep(
             title="Group Level fMRI PreProcessing"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_group_fmriprep(

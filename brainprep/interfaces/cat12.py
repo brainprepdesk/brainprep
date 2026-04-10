@@ -27,6 +27,7 @@ from ..decorators import (
     LogRuntimeHook,
     OutputdirHook,
     PythonWrapperHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -50,6 +51,7 @@ from .utils import (
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def cat12vbm_wf(
@@ -95,7 +97,8 @@ def cat12vbm_wf(
         for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
     ]
     qc_files = [
-        trg_dir / "report" / f"catreport_{im_file.name.replace('.gz', '')}"
+        trg_dir / "report" /
+        f"catreport_{im_file.name.replace('nii.gz', 'pdf')}"
         for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
     ]
 
@@ -117,6 +120,7 @@ def cat12vbm_wf(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def write_catbatch(
@@ -224,6 +228,7 @@ def write_catbatch(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def cat12vbm_morphometry(

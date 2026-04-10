@@ -15,6 +15,7 @@ import inspect
 import json
 import platform
 import subprocess
+import time
 from collections.abc import Callable, Iterable
 from pathlib import Path
 from typing import (
@@ -41,6 +42,7 @@ from .utils import (
     coerce_to_list,
     coerce_to_path,
     parse_bids_keys,
+    print_call,
     print_command,
     print_title,
 )
@@ -706,8 +708,8 @@ class LogRuntimeHook(Hook):
     Log runtime metadata and input/output details of a function call.
 
     This hook uses an ``RSTReport`` instance to record metadata about the
-    execution of the decorated function. It captures the follwoing
-    informations:
+    execution of the decorated function. It captures the following
+    information:
 
     - the function's name, module, and docstring
     - the input arguments passed to the function
@@ -1048,3 +1050,69 @@ def step(
     for plug in hooks:
         outputs = plug.after_call(outputs)
     return outputs
+
+
+class SignatureHook(Hook):
+    """
+    Decorator that prints which function is called, its arguments and
+    execution time.
+
+    Examples
+    --------
+    >>> from brainprep.decorators import step, SignatureHook
+
+    >>> @step(
+    ...     hooks=[SignatureHook()]
+    ... )
+    ... def add(a, b):
+    ...     '''Adds two numbers.'''
+    ...     return a + b
+
+    >>> result = add(3, 5) # doctest: +SKIP
+    """
+
+    def before_call(
+            self,
+            func: Callable,
+            inputs: dict[str, Any],
+        ) -> dict[str, Any]:
+        """
+        Display start information.
+
+        Parameters
+        ----------
+        func : Callable
+            The function to be decorated.
+        inputs : dict[str, Any]
+            Positional and keyword arguments passed to `func`.
+
+        Returns
+        -------
+        inputs : dict[str, Any]
+            Unchanged positional and keyword arguments passed to `func`.
+        """
+        self._start = time.perf_counter()
+        if inputs:
+            args_lines = ",\n".join(
+                f"    {k}={v!r}" for k, v in inputs.items()
+            )
+            signature = f"{func.__qualname__}(\n{args_lines},\n)"
+        else:
+            signature = f"{func.__qualname__}()"
+
+        print_call("_" * 80)
+        print_call(f"[call] {signature}")
+        return inputs
+
+    def after_call(
+            self,
+            outputs: Any,
+        ) -> Any:
+        """
+        Display end information.
+        """
+        end = time.perf_counter()
+        duration = end - self._start
+        msg = f"{duration:.2f}s, {duration / 60:.2f}min"
+        print_call("_" * max(0, 80 - len(msg)) + msg)
+        return outputs

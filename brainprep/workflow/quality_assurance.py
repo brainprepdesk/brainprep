@@ -19,6 +19,7 @@ from ..decorators import (
     CoerceparamsHook,
     LogRuntimeHook,
     SaveRuntimeHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -43,6 +44,7 @@ from ..utils import (
             title="Subject Level Quality Assurance"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_quality_assurance(
@@ -67,7 +69,7 @@ def brainprep_quality_assurance(
         If True, retains intermediate results (i.e., the workspace); useful
         for debugging. Default False.
     **kwargs : dict
-        entities: lsit[dict]
+        entities: list[dict]
             Dictionaries of parsed BIDS entities.
 
 
@@ -140,6 +142,7 @@ def brainprep_quality_assurance(
             title="Group Level Quality Assurance"
         ),
         SaveRuntimeHook(),
+        SignatureHook(),
     ]
 )
 def brainprep_group_quality_assurance(

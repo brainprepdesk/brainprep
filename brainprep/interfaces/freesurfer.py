@@ -26,6 +26,7 @@ from ..decorators import (
     LogRuntimeHook,
     OutputdirHook,
     PythonWrapperHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -47,6 +48,7 @@ from ..utils import (
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def brainmask(
@@ -105,6 +107,7 @@ def brainmask(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def reconall(
@@ -188,6 +191,7 @@ def reconall(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def reconall_longitudinal(
@@ -309,6 +313,7 @@ def reconall_longitudinal(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def freesurfer_command_status(
@@ -389,6 +394,7 @@ def freesurfer_command_status(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def localgi(
@@ -443,6 +449,7 @@ def localgi(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def surfreg(
@@ -519,6 +526,7 @@ def surfreg(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def xhemireg(
@@ -564,6 +572,7 @@ def xhemireg(
         LogRuntimeHook(
             bunched=False
         ),
+        SignatureHook(),
     ]
 )
 def fsaveragesym_surfreg(
@@ -638,6 +647,7 @@ def fsaveragesym_surfreg(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def mris_apply_reg(
@@ -687,6 +697,7 @@ def mris_apply_reg(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def fsaveragesym_projection(
@@ -786,6 +797,7 @@ def fsaveragesym_projection(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def mri_convert(
@@ -831,6 +843,7 @@ def mri_convert(
         LogRuntimeHook(
             bunched=False
         ),
+        SignatureHook(),
     ]
 )
 def mgz_to_nii(
@@ -895,6 +908,7 @@ def mgz_to_nii(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def aparcstats2table(
@@ -972,6 +986,7 @@ def aparcstats2table(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def asegstats2table(
@@ -1022,6 +1037,7 @@ def asegstats2table(
         LogRuntimeHook(
             bunched=False
         ),
+        SignatureHook(),
     ]
 )
 def freesurfer_features_summary(
@@ -1124,19 +1140,16 @@ def freesurfer_features_summary(
         )
         summary_files.append(volume_stat_file)
 
-    # sort by participant_id
-    output_files = output_dir.glob('*')
-    for file in output_files:
-        if file.suffix == ".csv":
-            sep = ','
-        elif file.suffix == ".tsv":
-            sep = '\t'
-        else:
+    output_files = output_dir.glob("*")
+    seps = {".csv": ",", ".tsv": "\t"}
+    for table_file in output_files:
+        if table_file.suffix not in seps:
             continue
-        df = pd.read_csv(file, sep=sep)
+        sep = seps[table_file.suffix]
+        df = pd.read_csv(table_file, sep=sep)
         first_col = df.columns[0]
         df = df.sort_values(by=first_col)
-        df.to_csv(file, sep=sep, index=False)
+        df.to_csv(table_file, sep=sep, index=False)
 
     return summary_files
 
@@ -1149,6 +1162,7 @@ def freesurfer_features_summary(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def freesurfer_tissues(
@@ -1305,6 +1319,7 @@ def freesurfer_tissues(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def nextbrain(

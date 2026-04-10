@@ -16,6 +16,7 @@ from ..decorators import (
     CommandLineWrapperHook,
     LogRuntimeHook,
     OutputdirHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -32,6 +33,7 @@ from ..typing import (
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def biasfield(

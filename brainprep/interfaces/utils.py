@@ -26,6 +26,7 @@ from ..decorators import (
     LogRuntimeHook,
     OutputdirHook,
     PythonWrapperHook,
+    SignatureHook,
     step,
 )
 from ..typing import (
@@ -45,6 +46,7 @@ from ..utils import (
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def maskdiff(
@@ -150,6 +152,7 @@ def maskdiff(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def copyfiles(
@@ -186,6 +189,7 @@ def copyfiles(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def movedir(
@@ -240,6 +244,7 @@ def movedir(
             bunched=False
         ),
         PythonWrapperHook(),
+        SignatureHook(),
     ]
 )
 def ungzfile(
@@ -290,6 +295,7 @@ def ungzfile(
         LogRuntimeHook(
             bunched=False
         ),
+        SignatureHook(),
     ]
 )
 def write_uuid_mapping(
@@ -350,6 +356,7 @@ def write_uuid_mapping(
             bunched=False
         ),
         CommandLineWrapperHook(),
+        SignatureHook(),
     ]
 )
 def anonfile(

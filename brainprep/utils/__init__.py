@@ -12,11 +12,13 @@ Module that implements tools.
 
 from .bunch import Bunch
 from .color import (
+    print_call,
     print_command,
     print_deprecated,
     print_error,
     print_info,
     print_result,
+    print_stdout,
     print_subtitle,
     print_title,
     print_warn,
@@ -39,11 +41,13 @@ __all__ = [
     "find_stack_level",
     "make_run_id",
     "parse_bids_keys",
+    "print_call",
     "print_command",
     "print_deprecated",
     "print_error",
     "print_info",
     "print_result",
+    "print_stdout",
     "print_subtitle",
     "print_title",
     "print_warn",
