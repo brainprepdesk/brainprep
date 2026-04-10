@@ -21,6 +21,7 @@ from .typing import (
 from .utils import (
     print_error,
     print_info,
+    print_stdout,
 )
 
 
@@ -58,15 +59,27 @@ def run_command(
         cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+        text=True,
+        bufsize=1,
     )
-    stdout, stderr = process.communicate()
+
+    stdout_lines = []
+    for line in iter(process.stdout.readline, ""):
+        print_stdout(line)
+        stdout_lines.append(line)
+    process.stdout.close()
+    stdout = "".join(stdout_lines)
+
+    stderr = process.stderr.read()
+    process.stderr.close()
+
+    process.wait()
 
     if process.returncode != 0:
-        print_info(stdout.decode("utf-8"))
-        print_error(stderr.decode("utf-8"))
+        print_error(stderr)
         raise RuntimeError(f"Command execution failed: {' '.join(cmd)}")
 
-    return stdout.decode("utf-8")
+    return stdout
 
 
 def is_list_str(
