@@ -1,0 +1,19 @@
+[workspace]
+channels = [
+  "https://brainvisa.info/neuro-forge",
+  "conda-forge"
+]
+platforms = ["linux-64"]
+
+[dependencies]
+morphologist = "==6.0.13"
+
+[activation.env]
+LD_PRELOAD = "/opt/morphologist/.pixi/envs/default/mesalib/lib/libglapi.so.0:/opt/morphologist/.pixi/envs/default/mesalib/lib/libGL.so.1"
+
+[tasks.morphologist-wrapper]
+cmd = "bash -c 'echo $LD_PRELOAD'; morphologist-cli"
+
+[tasks.morphologist-wrapper.env]
+LD_PRELOAD = "/opt/morphologist/.pixi/envs/default/mesalib/lib/libglapi.so.0:/opt/morphologist/.pixi/envs/default/mesalib/lib/libGL.so.1"
+

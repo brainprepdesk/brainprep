@@ -13,6 +13,8 @@ longitudinal-vbm = "--t1_files {T1ws} --model 1 --output-dir {outdir}"
 group-level-vbm = "--output-dir {outdir}"
 subject-level-fmriprep = "--t1-file {T1w} --func-files {bolds} --freesurfer-dir {fsdir} --output-dir {outdir}"
 group-level-fmriprep = "--output-dir {outdir}"
+subject-level-sulcirec = "--t1-file {T1w} --output-dir {outdir}"
+group-level-sulcirec = "--output-dir {outdir}"
 
 [brainprep.mapping]
 T1w = [
@@ -27,7 +29,10 @@ T1w = [
     "group-level-sbm",
     "subject-level-vbm",
     "longitudinal-vbm",
-    "group-level-vbm"]
+    "group-level-vbm",
+    "subject-level-sulcirec",
+    "group-level-sulcirec",
+]
 T2w = [
     "subject-level-qa",
     "group-level-qa",
@@ -63,6 +68,10 @@ freesurfer = true
 [defacing.default]
 n_cpus = 1
 memory = 5
+
+[sulcirec.default]
+n_cpus = 1
+memory = 1
 
 [fmriprep.default]
 n_cpus = 1

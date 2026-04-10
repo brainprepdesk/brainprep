@@ -1,0 +1,59 @@
+FROM ubuntu:24.04
+
+ENV LANG="en_US.UTF-8" \
+    LC_ALL="en_US.UTF-8"
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           apt-utils \
+           bzip2 \
+           ca-certificates \
+           curl \
+           locales \
+           unzip \
+    && rm -rf /var/lib/apt/lists/*
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && update-locale LANG="en_US.UTF-8" \
+    && chmod 777 /opt && chmod a+s /opt
+
+# Parameters
+ENV MORPHOLOGIST_VERSION="6.0.13"
+
+# Install: pixi
+RUN curl -fsSL https://pixi.sh/install.sh | bash
+ENV PATH="/root/.pixi/bin:${PATH}"
+
+# Install: morphologist
+WORKDIR /opt/morphologist
+COPY headless.py /opt/morphologist/.pixi/envs/default/lib/python3.11/site-packages/soma/qt_gui/
+COPY pixi_morphologist.toml ./pixi.toml
+RUN pixi install
+RUN echo '#!/usr/bin/env bash' > /usr/local/bin/morphologist-wrapper \
+    && echo 'set -e' >> /usr/local/bin/morphologist-wrapper \
+    && echo 'pixi run -m /opt/morphologist/pixi.toml --as-is morphologist-cli "$@"' >> /usr/local/bin/morphologist-wrapper \
+    && chmod +x /usr/local/bin/morphologist-wrapper
+
+# Install: brainprep
+WORKDIR /opt/brainprep
+RUN apt-get update -qq \
+    && apt-get install -y -q --no-install-recommends \
+           git \
+    && rm -rf /var/lib/apt/lists/*
+COPY pixi.toml .
+RUN pixi install
+RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainprep
+
+COPY entrypoint.sh /opt/entrypoint.sh
+RUN chmod +x /opt/entrypoint.sh
+ENTRYPOINT ["/opt/entrypoint.sh"]
+ENV DEFAULT_ARGS="subject-level-sulcirec"
+
+LABEL org.opencontainers.image.title="BrainPrep Sulci Recognition" \
+      org.opencontainers.image.description="Container for BrainPrep Sulci Recognition using Morphologist" \
+      org.opencontainers.image.version="v2" \
+      org.opencontainers.image.licenses="CeCILL-B" \
+      org.opencontainers.image.authors="CEA/NeuroSpin/GAIA" \
+      org.opencontainers.image.documentation="https://brainprepdesk.github.io/brainprep/stable" \
+      org.opencontainers.image.source="https://github.com/brainprepdesk/brainprep" \
+      org.opencontainers.image.created="2026-03-25" \
+      com.brainprep.morphologist.version="${MORPHOLOGIST_VERSION}"

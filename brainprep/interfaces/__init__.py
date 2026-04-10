@@ -44,6 +44,7 @@ from .fsl import (
     scale,
 )
 from .morphologist import (
+    morphologist_morphometry,
     morphologist_wf,
 )
 from .mriqc import (
@@ -65,6 +66,7 @@ from .qualcheck import (
     mean_correlation,
     mriqc_metrics,
     network_entropy,
+    sulcirec_metrics,
     vbm_metrics,
 )
 from .utils import (
@@ -118,6 +120,7 @@ __all__ = [
     "reorient",
     "scale",
     "subject_level_qa",
+    "sulcirec_metrics",
     "ungzfile",
     "vbm_metrics",
     "write_catbatch",
