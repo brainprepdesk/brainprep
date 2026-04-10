@@ -36,9 +36,9 @@ NEW
 ---
 
 - :bdg-success:`Doc` Create doc with `furo <https://github.com/pradyunsg/furo>`_.
-- :bdg-success:`Enhancement` Worflows generate a report file.
+- :bdg-success:`Enhancement` Workflows generate a report file.
 - :bdg-success:`Enhancement` Anonymize workflow outputs.
-- :bdg-success:`Enhancement` Worflows generate BIDS-compliant organization.
+- :bdg-success:`Enhancement` workflows generate BIDS-compliant organization.
 - :bdg-success:`Enhancement` New workflows can generate HTML reporting.
 - :bdg-success:`Datasets` Toy datasets have been added to test the module.
 - :bdg-success:`Enhancement` Quasi-RAW preprocessing compute the brain mask
