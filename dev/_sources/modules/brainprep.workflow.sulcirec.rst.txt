@@ -1,0 +1,26 @@
+:mod:`brainprep.workflow.sulcirec`: Functional MRI pre-processing workflow.
+===========================================================================
+
+.. automodule:: brainprep.workflow.sulcirec
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.sulcirec
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_group_sulcirec
+    brainprep_sulcirec
+
+
+
+

@@ -44,6 +44,7 @@ Functions
     maskdiff
     mean_correlation
     mgz_to_nii
+    morphologist_wf
     movedir
     mriqc_metrics
     network_entropy
@@ -58,6 +59,7 @@ Functions
     reorient
     scale
     subject_level_qa
+    sulcirec_metrics
     ungzfile
     vbm_metrics
     write_catbatch

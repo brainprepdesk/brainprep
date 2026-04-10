@@ -1,0 +1,29 @@
+:mod:`brainprep.interfaces.morphologist`: Morphologist functions.
+=================================================================
+
+.. automodule:: brainprep.interfaces.morphologist
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.morphologist
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    _get_single_match
+    morphologist_cmd
+    morphologist_morphometry
+    morphologist_move
+    morphologist_wf
+
+
+
+

@@ -22,6 +22,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
    brainprep.interfaces.fmriprep.rst
    brainprep.interfaces.freesurfer.rst
    brainprep.interfaces.fsl.rst
+   brainprep.interfaces.morphologist.rst
    brainprep.interfaces.mriqc.rst
    brainprep.interfaces.plotting.rst
    brainprep.interfaces.qualcheck.rst
@@ -41,5 +42,6 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
    brainprep.workflow.quasiraw.rst
    brainprep.workflow.rst
    brainprep.workflow.sbm.rst
+   brainprep.workflow.sulcirec.rst
    brainprep.workflow.vbm.rst
    brainprep.wrappers.rst

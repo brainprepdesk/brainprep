@@ -88,6 +88,23 @@ Workflows
 
 .. only:: html
 
+  .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_sulcirec_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_workflows_plot_sulcirec.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Sulci Reconstruction</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple example.">
+
+.. only:: html
+
   .. image:: /auto_examples/workflows/images/thumb/sphx_glr_plot_vbm_thumb.png
     :alt:
 
@@ -130,6 +147,7 @@ Workflows
    /auto_examples/workflows/plot_quality_assurance
    /auto_examples/workflows/plot_quasiraw
    /auto_examples/workflows/plot_sbm
+   /auto_examples/workflows/plot_sulcirec
    /auto_examples/workflows/plot_vbm
    /auto_examples/workflows/plot_fmriprep
 

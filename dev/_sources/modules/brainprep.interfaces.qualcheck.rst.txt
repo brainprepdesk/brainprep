@@ -25,6 +25,7 @@ Functions
     mean_correlation
     mriqc_metrics
     network_entropy
+    sulcirec_metrics
     vbm_metrics
 
 
