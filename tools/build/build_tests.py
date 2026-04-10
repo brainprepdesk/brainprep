@@ -172,8 +172,8 @@ def main(
             image_file = str(image_template).format(
                 workflow=name.replace("plot_", ""),
             )
-            worflow_type = step_commands[0][1].split("-")[0]
-            selected_conf = confs.get(worflow_type, confs["default"])
+            workflow_type = step_commands[0][1].split("-")[0]
+            selected_conf = confs.get(workflow_type, confs["default"])
             if selected_conf.get("freesurfer", False):
                 if infra == "ccc":
                     image_parameters_ += (

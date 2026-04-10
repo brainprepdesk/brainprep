@@ -364,7 +364,7 @@ def collect_config(
         config_file: str | Path,
         dfs: dict[str, pd.DataFrame],
         long_dfs: dict[str, pd.DataFrame],
-        worflow_id: str,
+        workflow_id: str,
         workflow_parameters: str,
         workflow_resource: dict,
         image_dir: str | Path,
@@ -392,7 +392,7 @@ def collect_config(
         One DataFrame per modality, with one row per subject/session.
         If multiple files exist for a modality, they are expanded into
         columns named "<modality>-1", "<modality>-2".
-    worflow_id : str
+    workflow_id : str
         The workflow dcalred name in brainprep CLI.
     workflow_parameters : str
         A command-line template containing placeholders like {T1w}.
@@ -418,10 +418,10 @@ def collect_config(
     """
     print(banner)
 
-    workflow_name = worflow_id.split("-")[-1]
+    workflow_name = workflow_id.split("-")[-1]
     if workflow_name == "qa":
         workflow_name = "quality_assurance"
-    workflow_type = worflow_id.split("-")[0]
+    workflow_type = workflow_id.split("-")[0]
     print(f"- name: {workflow_name}")
     print(f"- type: {workflow_type}")
     print(f"- parameters: {workflow_parameters}")
@@ -656,9 +656,9 @@ def scan_configs(
                 f"Unknown workflow IDs: {', '.join(sorted(unknown))}. "
                 f"Valid workflows are: {', '.join(sorted(known_workflows))}"
             )
-    for worflow_id, workflow_parameters in workflows.items():
-        if worflow_id not in allowed_workflows:
-            print(f"\n-- skip: {worflow_id} --")
+    for workflow_id, workflow_parameters in workflows.items():
+        if workflow_id not in allowed_workflows:
+            print(f"\n-- skip: {workflow_id} --")
             continue
         collect_config(
             infra,
@@ -666,7 +666,7 @@ def scan_configs(
             config_file,
             dfs,
             long_dfs,
-            worflow_id,
+            workflow_id,
             workflow_parameters,
             workflow_resource,
             image_dir,
