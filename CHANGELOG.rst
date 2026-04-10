@@ -10,14 +10,18 @@ NEW
 ---
 
 - :bdg-success:`Enhancement` Add the dmriprep workflow.
-- :bdg-success:`Enhancement` Add the tbss workflow.
 - :bdg-success:`Enhancement` Add the mrophologist workflow.
 
 Fixes
 -----
 
+- :bdg-danger:`Deprecation` Fix the containers that are using mri_synthstrip.
+
 Enhancements
 ------------
+
+- :bdg-success:`Enhancement` Add signature hook.
+- :bdg-success:`Enhancement` Add live comand line monitoring support.
 
 Changes
 -------
