@@ -393,7 +393,7 @@ def collect_config(
         If multiple files exist for a modality, they are expanded into
         columns named "<modality>-1", "<modality>-2".
     workflow_id : str
-        The workflow dcalred name in brainprep CLI.
+        The workflow declared name in brainprep CLI.
     workflow_parameters : str
         A command-line template containing placeholders like {T1w}.
     workflow_resource : dict
@@ -485,7 +485,7 @@ def collect_config(
 
     if infra == "slurm":
         image_parameters = (
-            f"--cleanenv --home {home_dir} --bind {bind_dir} "
+            f"--cleanenv --home {home_dir} --bind {bind_dir} --bind {output_dir}"
         )
     else:
         image_parameters = ""
@@ -513,7 +513,7 @@ def collect_config(
         name=workflow_name,
         operator="TO UPDATE",
         date=str(datetime.now().date()),
-        commands=f'"brainprep {workflow_name} {workflow_parameters}"',
+        commands=f'"brainprep {workflow_id} {workflow_parameters}"',
         parameters=image_parameters,
         cluster=infra,
         partition=partition,
