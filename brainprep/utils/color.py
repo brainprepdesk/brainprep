@@ -36,6 +36,7 @@ def print_category_color(category: str, text: str) -> None:
     with a given category.
 
     The output style depends on the global brainprep options:
+
     - If ``verbose`` is False, only messages with category ``"deprecated"``
       are printed.
     - If ``no_color`` is True, the message is printed without color styling.
@@ -56,9 +57,8 @@ def print_category_color(category: str, text: str) -> None:
 
     Notes
     -----
-    The printed message follows the format:
-        [category] - text
-    with optional color styling applied through ``rich``.
+    The printed message follows the format: [category] - text, with optional
+    color styling applied through ``rich``.
     """
     console = Console()
     opts = brainprep_options.get()
@@ -84,6 +84,7 @@ def print_color(color: str, text: str, end: str = "\n") -> None:
     Print a message to the console using a given color.
 
     The output style depends on the global brainprep options:
+
     - If ``verbose`` is False, no message is printed.
     - If ``no_color`` is True, the message is printed without color styling.
 

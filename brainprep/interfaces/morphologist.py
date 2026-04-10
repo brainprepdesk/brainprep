@@ -49,7 +49,7 @@ def morphologist_wf(
         t1_file: File,
         output_dir: Directory,
         workspace_dir: Directory,
-        entities: dict) ->  tuple[list[File], File]:
+        entities: dict) -> tuple[list[File], File]:
     """
     Sulci reconstruction and identification using morphologist.
 
