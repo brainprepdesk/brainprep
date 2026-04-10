@@ -490,7 +490,8 @@ def collect_config(
 
     if infra == "slurm":
         image_parameters = (
-            f"--cleanenv --home {home_dir} --bind {bind_dir} --bind {output_dir}"
+            f"--cleanenv --home {home_dir} --bind {bind_dir} "
+            f"--bind {output_dir} "
         )
     else:
         image_parameters = ""
