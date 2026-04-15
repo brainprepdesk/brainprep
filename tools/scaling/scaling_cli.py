@@ -10,6 +10,7 @@
 """
 
 import hashlib
+import os
 import re
 import tomllib
 from datetime import date, datetime
@@ -261,6 +262,10 @@ def organize_bids_tab(
     print(banner)
 
     df = pd.read_csv(tab_file, sep="\t", dtype=str)
+    if isinstance(tab_file, Path):
+        rawdata_path = str(tab_file.parent)
+    elif isinstance(tab_file, str):
+        rawdata_path = os.path.dirname(tab_file)
 
     record = {}
     for _, row in df.iterrows():
@@ -268,7 +273,7 @@ def organize_bids_tab(
         row = {
             "subject": row["sub"],
             "session": row["ses"],
-            modality: row["path"],
+            modality: row["path"].replace("./", f"{rawdata_path}/"),
             f"{modality}_md5_hash": (
                 row["md5sum"] if with_hash else None
             ),
@@ -364,7 +369,7 @@ def collect_config(
         config_file: str | Path,
         dfs: dict[str, pd.DataFrame],
         long_dfs: dict[str, pd.DataFrame],
-        worflow_id: str,
+        workflow_id: str,
         workflow_parameters: str,
         workflow_resource: dict,
         image_dir: str | Path,
@@ -392,8 +397,8 @@ def collect_config(
         One DataFrame per modality, with one row per subject/session.
         If multiple files exist for a modality, they are expanded into
         columns named "<modality>-1", "<modality>-2".
-    worflow_id : str
-        The workflow dcalred name in brainprep CLI.
+    workflow_id : str
+        The workflow declared name in brainprep CLI.
     workflow_parameters : str
         A command-line template containing placeholders like {T1w}.
     workflow_resource : dict
@@ -418,10 +423,10 @@ def collect_config(
     """
     print(banner)
 
-    workflow_name = worflow_id.split("-")[-1]
+    workflow_name = workflow_id.split("-")[-1]
     if workflow_name == "qa":
         workflow_name = "quality_assurance"
-    workflow_type = worflow_id.split("-")[0]
+    workflow_type = workflow_id.split("-")[0]
     print(f"- name: {workflow_name}")
     print(f"- type: {workflow_type}")
     print(f"- parameters: {workflow_parameters}")
@@ -486,6 +491,7 @@ def collect_config(
     if infra == "slurm":
         image_parameters = (
             f"--cleanenv --home {home_dir} --bind {bind_dir} "
+            f"--bind {output_dir} "
         )
     else:
         image_parameters = ""
@@ -513,7 +519,7 @@ def collect_config(
         name=workflow_name,
         operator="TO UPDATE",
         date=str(datetime.now().date()),
-        commands=f'"brainprep {workflow_name} {workflow_parameters}"',
+        commands=f'"brainprep {workflow_id} {workflow_parameters}"',
         parameters=image_parameters,
         cluster=infra,
         partition=partition,
@@ -656,9 +662,9 @@ def scan_configs(
                 f"Unknown workflow IDs: {', '.join(sorted(unknown))}. "
                 f"Valid workflows are: {', '.join(sorted(known_workflows))}"
             )
-    for worflow_id, workflow_parameters in workflows.items():
-        if worflow_id not in allowed_workflows:
-            print(f"\n-- skip: {worflow_id} --")
+    for workflow_id, workflow_parameters in workflows.items():
+        if workflow_id not in allowed_workflows:
+            print(f"\n-- skip: {workflow_id} --")
             continue
         collect_config(
             infra,
@@ -666,7 +672,7 @@ def scan_configs(
             config_file,
             dfs,
             long_dfs,
-            worflow_id,
+            workflow_id,
             workflow_parameters,
             workflow_resource,
             image_dir,
