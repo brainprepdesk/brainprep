@@ -398,7 +398,7 @@ def anonfile(
     for old, new in mapping.items():
         old_esc = old.replace("/", r"\/")
         new_esc = new.replace("/", r"\/")
-        patterns.extend(["-e", f"'s/{old_esc}/{new_esc}/g'"])
+        patterns.extend(["-e", f"s/{old_esc}/{new_esc}/g"])
     command = [
         "sed",
         *patterns,
