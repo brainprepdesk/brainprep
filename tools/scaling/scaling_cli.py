@@ -10,7 +10,6 @@
 """
 
 import hashlib
-import os
 import re
 import tomllib
 from datetime import date, datetime
@@ -204,7 +203,7 @@ def organize_bids_tab(
         with_hash: bool = True,
     ) -> dict[str, pd.DataFrame]:
     """
-    Organize a pre-parsed BIDS dataset .
+    Organize a pre-parsed BIDS dataset.
 
     This function walks through a BIDS-parsed table and extracts the file
     paths for the most frequently used MRI modalities: T1-weighted (T1w),
@@ -262,10 +261,7 @@ def organize_bids_tab(
     print(banner)
 
     df = pd.read_csv(tab_file, sep="\t", dtype=str)
-    if isinstance(tab_file, Path):
-        rawdata_path = str(tab_file.parent)
-    elif isinstance(tab_file, str):
-        rawdata_path = os.path.dirname(tab_file)
+    rawdata_path = str(Path(tab_file).parent)
 
     record = {}
     for _, row in df.iterrows():
