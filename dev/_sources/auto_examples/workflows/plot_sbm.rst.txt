@@ -799,7 +799,7 @@ to actually run each step and generate results on disk.
     -study1_run-15456_brainparc.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level SBM done.
-    __________________________________________________________________0.19s, 0.00min
+    __________________________________________________________________0.20s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-01_ses-study2_T1w.nii.gz
     [title] - Subject Level SBM...
     ________________________________________________________________________________
@@ -1242,7 +1242,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.
     sulc.fsaverage_sym.mgh
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     ________________________________________________________________________________
     [call] mgz_to_nii(
         output_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -1436,7 +1436,7 @@ to actually run each step and generate results on disk.
     -study2_run-27245_brainparc.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level SBM done.
-    __________________________________________________________________0.18s, 0.00min
+    __________________________________________________________________0.19s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
     [title] - Subject Level SBM...
     ________________________________________________________________________________
@@ -1879,7 +1879,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.
     sulc.fsaverage_sym.mgh
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     ________________________________________________________________________________
     [call] mgz_to_nii(
         output_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -3518,7 +3518,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study2_stats.csv
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.21s, 0.00min
+    __________________________________________________________________0.22s, 0.00min
     ________________________________________________________________________________
     [call] euler_numbers(
         output_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/quality_check'),
@@ -3541,7 +3541,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/figures/histogram_euler_number.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level SBM done.
-    __________________________________________________________________0.24s, 0.00min
+    __________________________________________________________________0.25s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
     [warn] - BIDS file name does not contain run key: sub-02_ses-study2_T1w.nii.gz
     [title] - Longitudinal SBM...
@@ -4500,9 +4500,9 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aseg_ses-study2_stat
     s.csv
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.21s, 0.00min
-    [title] - Group Level SBM done.
     __________________________________________________________________0.23s, 0.00min
+    [title] - Group Level SBM done.
+    __________________________________________________________________0.24s, 0.00min
 
 
 
@@ -4701,7 +4701,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.685 seconds)
+   **Total running time of the script:** (0 minutes 3.673 seconds)
 
 **Estimated memory usage:**  113 MB
 
