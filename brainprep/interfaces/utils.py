@@ -302,7 +302,7 @@ def write_uuid_mapping(
         input_file: File,
         output_dir: Directory,
         entities: dict,
-        name: str = "uuid_mapping.tsv",
+        name: str = "uuid_mapping",
         full_path: bool = False) -> File:
     """
     Create a TSV file that records a deterministic  UUID-based mapping.
@@ -331,7 +331,7 @@ def write_uuid_mapping(
     output_file : File
         Path to the written TSV file.
     """
-    outut_file = output_dir / f"run-{entities['run']}" / name
+    outut_file = output_dir / f"{name}_{entities['run']}.tsv"
     filename = str(input_file) if full_path else input_file.name
     code, short_code = make_run_id(filename)
 

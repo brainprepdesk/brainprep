@@ -16,6 +16,8 @@ Fixes
 -----
 
 - :bdg-danger:`Deprecation` Fix the containers that are using mri_synthstrip.
+- :bdg-danger:`Deprecation` The run mapping file has been moved to avoid
+  conflicts with FreeSurfer.
 
 Enhancements
 ------------
