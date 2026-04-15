@@ -1,16 +1,18 @@
-FROM ubuntu:22.04 AS ubuntu_base
+FROM freesurfer/synthstrip:1.8 AS synthstrip
+
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND="noninteractive" \
     LANG="en_US.UTF-8" \
     LC_ALL="en_US.UTF-8"
 RUN apt-get update -qq \
     && apt-get install -y -q --no-install-recommends \
-    apt-utils \
-    bzip2 \
-    ca-certificates \
-    curl \
-    locales \
-    unzip \
+        apt-utils \
+        bzip2 \
+        ca-certificates \
+        curl \
+        locales \
+        unzip \
     && rm -rf /var/lib/apt/lists/*
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
@@ -20,6 +22,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 # Parameters
 ENV ANTS_VERSION="2.6.2" \
     FSL_VERSION="6.0.7.19" \
+    FS_SYNTHSTRIP_VERSION="1.8" \
     ANTS_URL="https://github.com/ANTsX/ANTs/releases/download/v2.6.2/ants-2.6.2-centos7-X64-gcc.zip"
 
 # Install: FSL
@@ -35,54 +38,49 @@ ENV FSLDIR="/opt/fsl" \
     FSLGECUDAQ="cuda.q"
 RUN apt-get update -qq \
     && apt-get install -y -q --no-install-recommends \
-    bc \
-    ca-certificates \
-    curl \
-    dc \
-    file \
-    libfontconfig1 \
-    libfreetype6 \
-    libgl1-mesa-dev \
-    libgl1-mesa-dri \
-    libglu1-mesa-dev \
-    libgomp1 \
-    libice6 \
-    libopenblas0 \
-    libxcursor1 \
-    libxft2 \
-    libxinerama1 \
-    libxrandr2 \
-    libxrender1 \
-    libxt6 \
-    nano \
-    python3 \
-    sudo \
-    wget \
+        bc \
+        ca-certificates \
+        curl \
+        dc \
+        file \
+        libfontconfig1 \
+        libfreetype6 \
+        libgl1-mesa-dev \
+        libgl1-mesa-dri \
+        libglu1-mesa-dev \
+        libgomp1 \
+        libice6 \
+        libopenblas0 \
+        libxcursor1 \
+        libxft2 \
+        libxinerama1 \
+        libxrandr2 \
+        libxrender1 \
+        libxt6 \
+        nano \
+        python3 \
+        sudo \
+        wget \
     && rm -rf /var/lib/apt/lists/*
 RUN echo "Installing FSL ..." \
     && curl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py | python3 - -d $FSLDIR -V $FSL_VERSION
 
-# -- SynthStrip build stage --
-FROM freesurfer/synthstrip:1.8 AS synthstrip
-# ----------------------------
-
-# Back in the main ubuntu build context
-FROM ubuntu_base AS main
-
-# Copy SynthStrip artifacts into main image
+# Install FreeSurfer SynthStrip
 ENV FREESURFER_HOME="/freesurfer"
-
-# Copy SynthStrip files from build stage
 COPY --from=synthstrip $FREESURFER_HOME $FREESURFER_HOME
+RUN echo "#!/bin/bash" > /usr/local/bin/mri_synthstrip && \
+    echo "PYTHONPATH='/freesurfer/env/lib/python3.10/site-packages'" >> /usr/local/bin/mri_synthstrip && \
+    echo "/usr/bin/python3 /freesurfer/mri_synthstrip '$@'" >> /usr/local/bin/mri_synthstrip && \
+    chmod +x /usr/local/bin/mri_synthstrip
 
 # Install ANTs
 ENV ANTSPATH="/opt/ants" \
     PATH="/opt/ants:$PATH"
 RUN apt-get update -qq \
     && apt-get install -y -q --no-install-recommends \
-    ca-certificates \
-    curl \
-    unzip \
+        ca-certificates \
+        curl \
+        unzip \
     && rm -rf /var/lib/apt/lists/*
 RUN echo "Downloading ANTs ..." \
     && curl -fsSL -o /opt/ants.zip $ANTS_URL
@@ -97,19 +95,11 @@ ENV PATH="/root/.pixi/bin:${PATH}"
 WORKDIR /opt/brainprep
 RUN apt-get update -qq \
     && apt-get install -y -q --no-install-recommends \
-    git \
+        git \
     && rm -rf /var/lib/apt/lists/*
 COPY pixi.toml .
 RUN pixi install
 RUN ln -s /opt/brainprep/.pixi/envs/default/bin/brainprep /usr/local/bin/brainprep
-
-# Wrapper in : /usr/local/bin
-# This script sets the PYTHONPATH locally only for mri_synthstrip
-RUN echo '#!/bin/bash\n\
-    PYTHONPATH="/freesurfer/env/lib/python3.10/site-packages" \
-    /usr/bin/python3 /freesurfer/mri_synthstrip "$@"' > /usr/local/bin/mri_synthstrip && \
-    chmod +x /usr/local/bin/mri_synthstrip
-ENV PATH="/usr/local/bin:$FREESURFER_HOME:$PATH
 
 COPY entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh
@@ -117,13 +107,13 @@ ENTRYPOINT ["/opt/entrypoint.sh"]
 ENV DEFAULT_ARGS="subject-level-quasiraw group-level-quasiraw"
 
 LABEL org.opencontainers.image.title="BrainPrep Quasi-Raw" \
-    org.opencontainers.image.description="Container for BrainPrep Quasi-Raw using FSL and FREESURFER" \
-    org.opencontainers.image.version="v2" \
-    org.opencontainers.image.licenses="CeCILL-B" \
-    org.opencontainers.image.authors="CEA/NeuroSpin/GAIA" \
-    org.opencontainers.image.documentation="https://brainprepdesk.github.io/brainprep/stable" \
-    org.opencontainers.image.source="https://github.com/brainprepdesk/brainprep" \
-    org.opencontainers.image.created="2025-01-15" \
-    com.brainprep.fsl.version="${FSL_VERSION}" \
-    com.brainprep.freesurfer.version="${FS_VERSION}" \
-    com.brainprep.ants.version="${ANTS_VERSION}"
+      org.opencontainers.image.description="Container for BrainPrep Quasi-Raw using FSL and FREESURFER" \
+      org.opencontainers.image.version="v2" \
+      org.opencontainers.image.licenses="CeCILL-B" \
+      org.opencontainers.image.authors="CEA/NeuroSpin/GAIA" \
+      org.opencontainers.image.documentation="https://brainprepdesk.github.io/brainprep/stable" \
+      org.opencontainers.image.source="https://github.com/brainprepdesk/brainprep" \
+      org.opencontainers.image.created="2025-01-15" \
+      com.brainprep.fsl.version="${FSL_VERSION}" \
+      com.brainprep.freesurfer-synthstrip.version="${FS_SYNTHSTRIP_VERSION}" \
+      com.brainprep.ants.version="${ANTS_VERSION}"
