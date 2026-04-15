@@ -208,7 +208,7 @@ to actually run each step and generate results on disk.
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
     s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e 
-    s/10.1.0.37/X.X.X.X/g -e s/runner/USER/g -i 
+    s/10.1.0.43/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
     ch_run-15456.m
     [info] - checking output: 
@@ -287,7 +287,7 @@ to actually run each step and generate results on disk.
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
     s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e 
-    s/10.1.0.37/X.X.X.X/g -e s/runner/USER/g -i 
+    s/10.1.0.43/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
     ch_run-38141.m
     [info] - checking output: 
@@ -399,7 +399,7 @@ to actually run each step and generate results on disk.
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
     s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e 
-    s/10.1.0.37/X.X.X.X/g -e s/runner/USER/g -i 
+    s/10.1.0.43/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
     atch.m
     [info] - checking output: 
@@ -776,9 +776,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.517 seconds)
+   **Total running time of the script:** (0 minutes 0.464 seconds)
 
-**Estimated memory usage:**  113 MB
+**Estimated memory usage:**  111 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_vbm.py:
