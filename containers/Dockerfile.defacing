@@ -1,3 +1,5 @@
+FROM freesurfer/synthstrip:1.8 AS synthstrip
+
 FROM ubuntu:24.04
 
 ENV LANG="en_US.UTF-8" \
@@ -17,7 +19,8 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && chmod 777 /opt && chmod a+s /opt
 
 # Parameters
-ENV FSL_VERSION="6.0.7.19"
+ENV FSL_VERSION="6.0.7.19" \
+    FS_SYNTHSTRIP_VERSION="1.8"
 
 # Install: FSL
 ENV FSLDIR="/opt/fsl" \
@@ -59,9 +62,26 @@ RUN apt-get update -qq \
 RUN echo "Installing FSL ..." \
     && curl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py | python3 - -d $FSLDIR -V $FSL_VERSION
 
-# Install: brainprep
+# Install: pixi
 RUN curl -fsSL https://pixi.sh/install.sh | bash
 ENV PATH="/root/.pixi/bin:${PATH}"
+
+# Install: FreeSurfer SynthStrip
+ENV FREESURFER_HOME="/freesurfer"
+COPY --from=synthstrip $FREESURFER_HOME $FREESURFER_HOME
+WORKDIR /opt/freesurfer
+RUN pixi init && \
+    pixi add python=3.10
+COPY --from=synthstrip /freesurfer/env/lib/python3.10/site-packages \
+    .pixi/envs/default/lib/python3.10/site-packages
+COPY --from=synthstrip /freesurfer/mri_synthstrip \
+    .pixi/envs/default/mri_synthstrip
+RUN echo '#!/bin/bash' > /usr/local/bin/mri_synthstrip && \
+    echo '/opt/freesurfer/.pixi/envs/default/bin/python /opt/freesurfer/.pixi/envs/default/mri_synthstrip "$@"' \
+        >> /usr/local/bin/mri_synthstrip && \
+    chmod +x /usr/local/bin/mri_synthstrip
+
+# Install: brainprep
 WORKDIR /opt/brainprep
 RUN apt-get update -qq \
     && apt-get install -y -q --no-install-recommends \
@@ -84,4 +104,5 @@ LABEL org.opencontainers.image.title="BrainPrep Defacing" \
       org.opencontainers.image.documentation="https://brainprepdesk.github.io/brainprep/stable" \
       org.opencontainers.image.source="https://github.com/brainprepdesk/brainprep" \
       org.opencontainers.image.created="2025-01-15" \
-      com.brainprep.fsl.version="${FSL_VERSION}"
+      com.brainprep.fsl.version="${FSL_VERSION}" \
+      com.brainprep.freesurfer-synthstrip.version="${FS_SYNTHSTRIP_VERSION}"

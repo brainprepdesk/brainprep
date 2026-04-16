@@ -65,12 +65,12 @@ RUN apt-get update -qq \
 RUN echo "Installing FSL ..." \
     && curl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py | python3 - -d $FSLDIR -V $FSL_VERSION
 
-# Install FreeSurfer SynthStrip
+# Install: FreeSurfer SynthStrip
 ENV FREESURFER_HOME="/freesurfer"
-COPY --from=synthstrip $FREESURFER_HOME $FREESURFER_HOME
-RUN echo "#!/bin/bash" > /usr/local/bin/mri_synthstrip && \
-    echo "PYTHONPATH='/freesurfer/env/lib/python3.10/site-packages'" >> /usr/local/bin/mri_synthstrip && \
-    echo "/usr/bin/python3 /freesurfer/mri_synthstrip '$@'" >> /usr/local/bin/mri_synthstrip && \
+COPY --from=synthstrip /freesurfer /freesurfer
+RUN echo '#!/bin/bash' > /usr/local/bin/mri_synthstrip && \
+    echo 'PYTHONPATH="/freesurfer/env/lib/python3.10/site-packages" \\' >> /usr/local/bin/mri_synthstrip && \
+    echo '    /usr/bin/python3 /freesurfer/mri_synthstrip "$@"' >> /usr/local/bin/mri_synthstrip && \
     chmod +x /usr/local/bin/mri_synthstrip
 
 # Install ANTs
