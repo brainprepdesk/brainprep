@@ -1096,9 +1096,11 @@ class SignatureHook(Hook):
             args_lines = ",\n".join(
                 f"    {k}={v!r}" for k, v in inputs.items()
             )
-            signature = f"{func.__qualname__}(\n{args_lines},\n)"
+            signature = (
+                f"{func.__module__}.{func.__qualname__}(\n{args_lines},\n)"
+            )
         else:
-            signature = f"{func.__qualname__}()"
+            signature = f"{func.__module__}.{func.__qualname__}()"
 
         print_call("_" * 80)
         print_call(f"[call] {signature}")
