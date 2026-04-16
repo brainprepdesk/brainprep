@@ -319,36 +319,31 @@ def organize_longitudinal(
     for modality, df in data.items():
 
         df = df.sort_values(["subject", "session"]).reset_index(drop=True)
-        df["idx"] = df.groupby(["subject", "session"]).cumcount() + 1
-        files_wide = df.pivot_table(
-            index=["subject", "session"],
-            columns="idx",
+        files_wide = df.pivot(
+            index="subject",
+            columns="session",
             values=modality,
-            aggfunc="first"
         )
-        hashes_wide = df.pivot_table(
-            index=["subject", "session"],
-            columns="idx",
+        hashes_wide = df.pivot(
+            index="subject",
+            columns="session",
             values=f"{modality}_{htype}_hash",
-            aggfunc="first"
         )
-
         files_wide.columns = [
-            f"{modality}-{idx}"
-            for idx in files_wide.columns
+            f"{modality}-{ses}"
+            for ses in files_wide.columns
         ]
         hashes_wide.columns = [
-            f"{modality}_{htype}_hash-{idx}"
-            for idx in hashes_wide.columns
+            f"{modality}_{htype}_hash-{ses}"
+            for ses in hashes_wide.columns
         ]
-
         merged = pd.concat([files_wide, hashes_wide], axis=1).reset_index()
         merged = merged[[
             "subject",
             *sorted([
                 name
                 for name in merged.columns
-                if name not in ("subject", "session")
+                if name != "subject"
             ])
         ]]
 
@@ -365,6 +360,7 @@ def collect_config(
         config_file: str | Path,
         dfs: dict[str, pd.DataFrame],
         long_dfs: dict[str, pd.DataFrame],
+        timepoints: list[str],
         workflow_id: str,
         workflow_parameters: str,
         workflow_resource: dict,
@@ -393,6 +389,8 @@ def collect_config(
         One DataFrame per modality, with one row per subject/session.
         If multiple files exist for a modality, they are expanded into
         columns named "<modality>-1", "<modality>-2".
+    timepoints : list[str]
+        The timepoints to consider in the longitudinal analysis.
     workflow_id : str
         The workflow declared name in brainprep CLI.
     workflow_parameters : str
@@ -432,7 +430,7 @@ def collect_config(
     )
 
     params = extract_braced_parameters(workflow_parameters)
-    print(f"- varaibles: {params}")
+    print(f"- variables: {params}")
 
     record = []
     for key in params:
@@ -440,12 +438,18 @@ def collect_config(
         is_missing = True
         key = key[1:] if key[0] == "!" else key
         if key.endswith("s") and key[:-1] in long_dfs:
-            record.append(long_dfs[key[:-1]].dropna())
+            df_ = long_dfs[key[:-1]]
+            df_ = df_.filter(regex=f"-({'|'.join(timepoints)})$").copy()
+            subset = [
+                name
+                for name in df_.columns
+                if "_hash-" not in name
+            ]
+            df_.dropna(subset=subset, inplace=True)
+            record.append(df_)
             multi_params = [
                 f"{{{key_}}}"
-                for key_ in sorted(
-                    set(record[-1].columns) - {"subject", "session"}
-                )
+                for key_ in subset
             ]
             workflow_parameters = workflow_parameters.replace(
                 f"{{!{key}}}" if is_optional else f"{{{key}}}",
@@ -557,6 +561,7 @@ def scan_configs(
         working_dir: str | Path,
         partition: str,
         freesurfer_license_file: str | Path,
+        timepoints: list[str] | None = None,
         with_hash: bool = False,
         allowed_workflows: list[str] | None = None,
     ) -> None:
@@ -580,6 +585,8 @@ def scan_configs(
         ``<project>:<name>`` depending on the infrastructure.
     freesurfer_license_file : str | Path
         Path to the FreeSurfer license file required for container execution
+    timepoints : list[str]
+        The timepoints to consider in the longitudinal analysis. Default None.
     with_hash : bool
         Compute a SHA-256 hash of each parsed file.
         Dafault False.
@@ -638,6 +645,7 @@ def scan_configs(
         dfs = organize_bids_tab(tab_file=selected, with_hash=with_hash)
         htype = "md5"
     long_dfs = organize_longitudinal(dfs, htype=htype)
+    print(long_dfs)
 
     # Scan workflows
     workflows = workflow_resource["brainprep"]["workflow"]
@@ -662,12 +670,17 @@ def scan_configs(
         if workflow_id not in allowed_workflows:
             print(f"\n-- skip: {workflow_id} --")
             continue
+        if timepoints is None and "longitudinal" in workflow_id:
+            print(f"\n-- skip: {workflow_id} --")
+            print(f"|-> need timepoints specification --")
+            continue
         collect_config(
             infra,
             root.parent,
             config_file,
             dfs,
             long_dfs,
+            timepoints,
             workflow_id,
             workflow_parameters,
             workflow_resource,
