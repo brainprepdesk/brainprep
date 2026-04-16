@@ -391,6 +391,7 @@ def collect_config(
         columns named "<modality>-1", "<modality>-2".
     timepoints : list[str]
         The timepoints to consider in the longitudinal analysis.
+        Default None.
     workflow_id : str
         The workflow declared name in brainprep CLI.
     workflow_parameters : str
@@ -439,7 +440,11 @@ def collect_config(
         key = key[1:] if key[0] == "!" else key
         if key.endswith("s") and key[:-1] in long_dfs:
             df_ = long_dfs[key[:-1]]
-            df_ = df_.filter(regex=f"-({'|'.join(timepoints)})$").copy()
+            df_ = (
+                df_.filter(regex=f"-({'|'.join(timepoints)})$").copy()
+                if timepoints is not None
+                else df_.copy()
+            )
             subset = [
                 name
                 for name in df_.columns
