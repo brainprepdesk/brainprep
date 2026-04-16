@@ -737,7 +737,7 @@ to actually run each step and generate results on disk.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[warn] - BIDS file name does not contain run key: sub-01_ses-study1_T1w.nii.gz
 [title] - Subject Level VBM...
 ________________________________________________________________________________
-[call] brainprep_vbm(
+[call] brainprep.workflow.vbm.brainprep_vbm(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01
 _ses-study1_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses
@@ -747,7 +747,7 @@ _ses-study1_T1w.nii.gz&#39;),
 &#39;T1w&#39;, &#39;run&#39;: &#39;15456&#39;}},
 )
 ________________________________________________________________________________
-[call] write_catbatch(
+[call] brainprep.interfaces.cat12.write_catbatch(
     t1_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
 01_ses-study1_T1w.nii.gz&#39;)],
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01&#39;),
@@ -757,7 +757,7 @@ ________________________________________________________________________________
     dryrun=True,
 )
 ________________________________________________________________________________
-[call] ungzfile(
+[call] brainprep.interfaces.utils.ungzfile(
     input_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub
 -01_ses-study1_T1w.nii.gz&#39;),
     output_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/se
@@ -775,7 +775,7 @@ __________________________________________________________________0.00s, 0.00min
 ch_run-15456.m
 __________________________________________________________________0.01s, 0.00min
 ________________________________________________________________________________
-[call] cat12vbm_wf(
+[call] brainprep.interfaces.cat12.cat12vbm_wf(
     t1_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
 01_ses-study1_T1w.nii.gz&#39;)],
     batch_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses
@@ -796,15 +796,15 @@ ch_run-15456.m
 ub-01_ses-study1_T1w.pdf
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] anonfile(
+[call] brainprep.interfaces.utils.anonfile(
     input_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses
 -study1/cat12vbm_matlabbatch_run-15456.m&#39;),
     mapping={&#39;/tmp/brainprep-vbm/derivatives&#39;: &#39;DERIVATIVES&#39;,
 &#39;/tmp/brainprep-data/rawdata&#39;: &#39;RAWDATA&#39;},
 )
 [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e
-s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e
-s/10.1.0.43/X.X.X.X/g -e s/runner/USER/g -i
+s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e
+s/10.1.0.242/X.X.X.X/g -e s/runner/USER/g -i
 /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
 ch_run-15456.m
 [info] - checking output:
@@ -816,7 +816,7 @@ __________________________________________________________________0.03s, 0.00min
 [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
 [title] - Subject Level VBM...
 ________________________________________________________________________________
-[call] brainprep_vbm(
+[call] brainprep.workflow.vbm.brainprep_vbm(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02
 _ses-study1_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses
@@ -826,7 +826,7 @@ _ses-study1_T1w.nii.gz&#39;),
 &#39;T1w&#39;, &#39;run&#39;: &#39;38141&#39;}},
 )
 ________________________________________________________________________________
-[call] write_catbatch(
+[call] brainprep.interfaces.cat12.write_catbatch(
     t1_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-
 02_ses-study1_T1w.nii.gz&#39;)],
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02&#39;),
@@ -836,7 +836,7 @@ ________________________________________________________________________________
     dryrun=True,
 )
 ________________________________________________________________________________
-[call] ungzfile(
+[call] brainprep.interfaces.utils.ungzfile(
     input_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub
 -02_ses-study1_T1w.nii.gz&#39;),
     output_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/se
@@ -854,7 +854,7 @@ __________________________________________________________________0.00s, 0.00min
 ch_run-38141.m
 __________________________________________________________________0.01s, 0.00min
 ________________________________________________________________________________
-[call] cat12vbm_wf(
+[call] brainprep.interfaces.cat12.cat12vbm_wf(
     t1_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-
 02_ses-study1_T1w.nii.gz&#39;)],
     batch_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses
@@ -875,15 +875,15 @@ ch_run-38141.m
 ub-02_ses-study1_T1w.pdf
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] anonfile(
+[call] brainprep.interfaces.utils.anonfile(
     input_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses
 -study1/cat12vbm_matlabbatch_run-38141.m&#39;),
     mapping={&#39;/tmp/brainprep-vbm/derivatives&#39;: &#39;DERIVATIVES&#39;,
 &#39;/tmp/brainprep-data/rawdata&#39;: &#39;RAWDATA&#39;},
 )
 [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e
-s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e
-s/10.1.0.43/X.X.X.X/g -e s/runner/USER/g -i
+s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e
+s/10.1.0.242/X.X.X.X/g -e s/runner/USER/g -i
 /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
 ch_run-38141.m
 [info] - checking output:
@@ -896,7 +896,7 @@ __________________________________________________________________0.03s, 0.00min
 [warn] - BIDS file name does not contain run key: sub-01_ses-study2_T1w.nii.gz
 [title] - Longitudinal VBM...
 ________________________________________________________________________________
-[call] brainprep_longitudinal_vbm(
+[call] brainprep.workflow.vbm.brainprep_longitudinal_vbm(
     t1_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
 01_ses-study1_T1w.nii.gz&#39;),
 PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_
@@ -910,7 +910,7 @@ ts/sub-01/ses-study1&#39;),
 &#39;mod&#39;: &#39;T1w&#39;, &#39;run&#39;: &#39;27245&#39;}]},
 )
 ________________________________________________________________________________
-[call] write_catbatch(
+[call] brainprep.interfaces.cat12.write_catbatch(
     t1_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
 01_ses-study1_T1w.nii.gz&#39;),
 PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_
@@ -924,7 +924,7 @@ ts/sub-01&#39;),
     dryrun=True,
 )
 ________________________________________________________________________________
-[call] ungzfile(
+[call] brainprep.interfaces.utils.ungzfile(
     input_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub
 -01_ses-study1_T1w.nii.gz&#39;),
     output_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal/subje
@@ -938,7 +938,7 @@ ts/sub-01/ses-study1&#39;),
 1_ses-study1_T1w.nii
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] ungzfile(
+[call] brainprep.interfaces.utils.ungzfile(
     input_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub
 -01_ses-study2_T1w.nii.gz&#39;),
     output_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal/subje
@@ -956,7 +956,7 @@ __________________________________________________________________0.00s, 0.00min
 atch.m
 __________________________________________________________________0.01s, 0.00min
 ________________________________________________________________________________
-[call] cat12vbm_wf(
+[call] brainprep.interfaces.cat12.cat12vbm_wf(
     t1_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
 01_ses-study1_T1w.nii.gz&#39;),
 PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_
@@ -987,15 +987,15 @@ t/catreport_sub-01_ses-study1_T1w.pdf
 t/catreport_sub-01_ses-study2_T1w.pdf
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] anonfile(
+[call] brainprep.interfaces.utils.anonfile(
     input_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjec
 ts/sub-01/cat12vbm_matlabbatch.m&#39;),
     mapping={&#39;/tmp/brainprep-vbm/derivatives&#39;: &#39;DERIVATIVES&#39;,
 &#39;/tmp/brainprep-data/rawdata&#39;: &#39;RAWDATA&#39;},
 )
 [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e
-s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e
-s/10.1.0.43/X.X.X.X/g -e s/runner/USER/g -i
+s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e
+s/10.1.0.242/X.X.X.X/g -e s/runner/USER/g -i
 /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
 atch.m
 [info] - checking output:
@@ -1003,10 +1003,10 @@ atch.m
 atch.m
 __________________________________________________________________0.00s, 0.00min
 [title] - Longitudinal VBM done.
-__________________________________________________________________0.03s, 0.00min
+__________________________________________________________________0.04s, 0.00min
 [title] - Group Level VBM...
 ________________________________________________________________________________
-[call] brainprep_group_vbm(
+[call] brainprep.workflow.vbm.brainprep_group_vbm(
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm&#39;),
     ncr_threshold=4.5,
     iqr_threshold=4.5,
@@ -1015,7 +1015,7 @@ ________________________________________________________________________________
     keep_intermediate=False,
 )
 ________________________________________________________________________________
-[call] cat12vbm_morphometry(
+[call] brainprep.interfaces.cat12.cat12vbm_morphometry(
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/morphometry&#39;),
     dryrun=True,
 )
@@ -1056,7 +1056,7 @@ tsv
 /tmp/brainprep-vbm/derivatives/vbm/morphometry/thalamus_cat12_vbm_roi.tsv
 __________________________________________________________________0.01s, 0.00min
 ________________________________________________________________________________
-[call] mean_correlation(
+[call] brainprep.interfaces.qualcheck.mean_correlation(
     image_files_regex=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/subjects/sub
 -*/ses-*/mri/wm*_T1w.nii&#39;),
     atlas_file=PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbo
@@ -1069,7 +1069,7 @@ x/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii&#39;),
 /tmp/brainprep-vbm/derivatives/vbm/quality_check/mean_correlations.tsv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] vbm_metrics(
+[call] brainprep.interfaces.qualcheck.vbm_metrics(
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/quality_check&#39;),
     ncr_threshold=4.5,
     iqr_threshold=4.5,
@@ -1079,7 +1079,7 @@ ________________________________________________________________________________
 /tmp/brainprep-vbm/derivatives/vbm/quality_check/group_stats.tsv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_histogram(
+[call] brainprep.interfaces.plotting.plot_histogram(
     table_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/quality_check/mean_
 correlations.tsv&#39;),
     col_name=&#39;mean_correlation&#39;,
@@ -1091,7 +1091,7 @@ correlations.tsv&#39;),
 /tmp/brainprep-vbm/derivatives/vbm/figures/histogram_mean_correlation.png
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_histogram(
+[call] brainprep.interfaces.plotting.plot_histogram(
     table_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/quality_check/group
 _stats.tsv&#39;),
     col_name=&#39;NCR&#39;,
@@ -1103,7 +1103,7 @@ _stats.tsv&#39;),
 /tmp/brainprep-vbm/derivatives/vbm/figures/histogram_NCR.png
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_histogram(
+[call] brainprep.interfaces.plotting.plot_histogram(
     table_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/quality_check/group
 _stats.tsv&#39;),
     col_name=&#39;IQR&#39;,
@@ -1118,7 +1118,7 @@ __________________________________________________________________0.00s, 0.00min
 __________________________________________________________________0.04s, 0.00min
 [title] - Group Level VBM...
 ________________________________________________________________________________
-[call] brainprep_group_vbm(
+[call] brainprep.workflow.vbm.brainprep_group_vbm(
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm&#39;),
     ncr_threshold=4.5,
     iqr_threshold=4.5,
@@ -1127,7 +1127,7 @@ ________________________________________________________________________________
     keep_intermediate=False,
 )
 ________________________________________________________________________________
-[call] cat12vbm_morphometry(
+[call] brainprep.interfaces.cat12.cat12vbm_morphometry(
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal/morpho
 metry&#39;),
     dryrun=True,
@@ -1179,7 +1179,7 @@ sv
 oi.tsv
 __________________________________________________________________0.01s, 0.00min
 ________________________________________________________________________________
-[call] mean_correlation(
+[call] brainprep.interfaces.qualcheck.mean_correlation(
     image_files_regex=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal
 /subjects/sub-*/ses-*/mri/wm*_T1w.nii&#39;),
     atlas_file=PosixPath(&#39;/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbo
@@ -1194,7 +1194,7 @@ y_check&#39;),
 tsv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] vbm_metrics(
+[call] brainprep.interfaces.qualcheck.vbm_metrics(
     output_dir=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal/qualit
 y_check&#39;),
     ncr_threshold=4.5,
@@ -1205,7 +1205,7 @@ y_check&#39;),
 /tmp/brainprep-vbm/derivatives/vbm/longitudinal/quality_check/group_stats.tsv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_histogram(
+[call] brainprep.interfaces.plotting.plot_histogram(
     table_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal/qualit
 y_check/mean_correlations.tsv&#39;),
     col_name=&#39;mean_correlation&#39;,
@@ -1219,7 +1219,7 @@ s&#39;),
 on.png
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_histogram(
+[call] brainprep.interfaces.plotting.plot_histogram(
     table_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal/qualit
 y_check/group_stats.tsv&#39;),
     col_name=&#39;NCR&#39;,
@@ -1232,7 +1232,7 @@ s&#39;),
 /tmp/brainprep-vbm/derivatives/vbm/longitudinal/figures/histogram_NCR.png
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_histogram(
+[call] brainprep.interfaces.plotting.plot_histogram(
     table_file=PosixPath(&#39;/tmp/brainprep-vbm/derivatives/vbm/longitudinal/qualit
 y_check/group_stats.tsv&#39;),
     col_name=&#39;IQR&#39;,
@@ -1346,7 +1346,7 @@ In practice, this means that once the CLI has produced the appropriate
 instructions, you can simply copy and run them inside the container to
 achieve the intended results. You can find the BrainPrep images on Docker
 Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.464 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.457 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  111 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflows-plot-vbm-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">

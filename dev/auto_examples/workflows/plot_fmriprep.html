@@ -710,7 +710,7 @@ to actually run each step and generate results on disk.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[warn] - BIDS file name does not contain run key: sub-01_ses-00_T1w.nii.gz
 [title] - Subject Level fMRI PreProcessing...
 ________________________________________________________________________________
-[call] brainprep_fmriprep(
+[call] brainprep.workflow.fmriprep.brainprep_fmriprep(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses
 -00_T1w.nii.gz&#39;),
     func_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01
@@ -725,7 +725,7 @@ sub-01/ses-00&#39;),
 [info] - setting workspace directory:
 /tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace
 ________________________________________________________________________________
-[call] fmriprep_wf(
+[call] brainprep.interfaces.fmriprep.fmriprep_wf(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses
 -00_T1w.nii.gz&#39;),
     func_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-00/func/sub-01
@@ -782,7 +782,7 @@ sub-01_ses-00_task-ArchiStandard_dir-pa_bold.nii.gz
 sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_b
 old.nii.gz
 ________________________________________________________________________________
-[call] func_vol_connectivity(
+[call] brainprep.interfaces.fmriprep.func_vol_connectivity(
     fmri_rest_image_file=PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep
 /subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI15
 2NLin2009cAsym_desc-preproc_bold.nii.gz&#39;),
@@ -816,7 +816,7 @@ sub-01/ses-00/figures&#39;),
 orrelation_connectivity.tsv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_network(
+[call] brainprep.interfaces.plotting.plot_network(
     network_file=PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subject
 s/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cA
 sym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;),
@@ -833,7 +833,7 @@ sub-01/ses-00/figures&#39;),
 orrelation_connectivity.png
 __________________________________________________________________0.00s, 0.00min
 [title] - Subject Level fMRI PreProcessing done.
-__________________________________________________________________0.12s, 0.00min
+__________________________________________________________________0.11s, 0.00min
 Bunch(
   step1: Bunch(
     module: &#39;brainprep.workflow.fmriprep.brainprep_fmriprep&#39;
@@ -853,12 +853,12 @@ Bunch(
       connectivity_files: [PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;)]
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:19:09.744921&#39;
-      end: &#39;2026-04-15 13:19:09.858741&#39;
-      execution_time: 3.1616666666666665e-05
+      start: &#39;2026-04-16 13:33:24.949282&#39;
+      end: &#39;2026-04-16 13:33:25.058020&#39;
+      execution_time: 3.0205e-05
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -889,12 +889,12 @@ Bunch(
       outputs: ([&#39;fmriprep&#39;, &#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace/rawdata&#39;, &#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects&#39;, &#39;participant&#39;, &#39;--fs-subjects-dir&#39;, &#39;/my/freesurfer/directory&#39;, &#39;--work-dir&#39;, &#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/workspace/work&#39;, &#39;--n-cpus&#39;, &#39;4&#39;, &#39;--stop-on-first-crash&#39;, &#39;--fs-license-file&#39;, &#39;/freesurfer/home/license.txt&#39;, &#39;--skip-bids-validation&#39;, &#39;--fs-no-reconall&#39;, &#39;--fs-no-resume&#39;, &#39;--force&#39;, &#39;bbr&#39;, &#39;syn-sdc&#39;, &#39;--no-msm&#39;, &#39;--cifti-output&#39;, &#39;91k&#39;, &#39;--output-spaces&#39;, &#39;T1w&#39;, &#39;MNI152NLin2009cAsym&#39;, &#39;MNI152NLin2009cAsym:res-2&#39;, &#39;fsnative&#39;, &#39;fsLR&#39;, &#39;--ignore&#39;, &#39;slicetiming&#39;, &#39;--participant-label&#39;, &#39;01&#39;], ([[[PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-brain_mask.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz&#39;)], [PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-T1w_desc-preproc_bold.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&#39;)], [(PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsnative_den-91k_bold.dtseries.nii&#39;),), (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_space-fsLR_den-91k_bold.dtseries.nii&#39;),)], PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_desc-confounds_timeseries.tsv&#39;)]], PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01.html&#39;)))
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:19:09.751763&#39;
-      end: &#39;2026-04-15 13:19:09.837996&#39;
-      execution_time: 2.3953611111111113e-05
+      start: &#39;2026-04-16 13:33:24.955936&#39;
+      end: &#39;2026-04-16 13:33:25.037623&#39;
+      execution_time: 2.2690833333333333e-05
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -934,12 +934,12 @@ Bunch(
       outputs: (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.tsv&#39;),)
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:19:09.848730&#39;
-      end: &#39;2026-04-15 13:19:09.851808&#39;
-      execution_time: 8.55e-07
+      start: &#39;2026-04-16 13:33:25.047850&#39;
+      end: &#39;2026-04-16 13:33:25.050944&#39;
+      execution_time: 8.594444444444445e-07
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -967,12 +967,12 @@ Bunch(
       outputs: (PosixPath(&#39;/tmp/brainprep-fmriprep/derivatives/fmriprep/subjects/sub-01/ses-00/figures/sub-01_ses-00_task-rest_run-39767_space-MNI152NLin2009cAsym_atlas-schaefer200_desc-correlation_connectivity.png&#39;),)
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:19:09.856510&#39;
-      end: &#39;2026-04-15 13:19:09.857927&#39;
-      execution_time: 3.9361111111111113e-07
+      start: &#39;2026-04-16 13:33:25.055695&#39;
+      end: &#39;2026-04-16 13:33:25.057200&#39;
+      execution_time: 4.1805555555555556e-07
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -1038,7 +1038,7 @@ In practice, this means that once the CLI has produced the appropriate
 instructions, you can simply copy and run them inside the container to
 achieve the intended results. You can find the BrainPrep images on Docker
 Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.460 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.421 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  111 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflows-plot-fmriprep-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">

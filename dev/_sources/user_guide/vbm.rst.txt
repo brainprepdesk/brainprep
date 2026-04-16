@@ -115,7 +115,7 @@ Description
 
 - **Thresholding**  
   Both Noise Contrast Ratio (NCR) and Image Quality Rating (IQR) are
-  thresholded at a minimum value of 4. Images with NCR < 4 or IQR < 4 are
+  thresholded at a maximum value of 4.5. Images with NCR > 4.5 or IQR > 4.5 are
   flagged as low‑quality.
 
 Outputs

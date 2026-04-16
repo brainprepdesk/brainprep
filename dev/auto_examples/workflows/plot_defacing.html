@@ -714,7 +714,7 @@ to actually run each step and generate results on disk.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[warn] - BIDS file name does not contain run key: sub-01_T1w.nii.gz
 [title] - Subject Level Defacing...
 ________________________________________________________________________________
-[call] brainprep_defacing(
+[call] brainprep.workflow.defacing.brainprep_defacing(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w
 .nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/
@@ -726,7 +726,7 @@ sub-01/ses-01&#39;),
 [info] - setting workspace directory:
 /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace
 ________________________________________________________________________________
-[call] reorient(
+[call] brainprep.interfaces.fsl.reorient(
     image_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_
 T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/
@@ -743,7 +743,7 @@ b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
 b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] brainmask(
+[call] brainprep.interfaces.freesurfer.brainmask(
     image_file=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/
 sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/
@@ -761,7 +761,7 @@ b-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf
 b-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] deface(
+[call] brainprep.interfaces.fsl.deface(
     t1_file=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub
 -01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/
@@ -784,7 +784,7 @@ b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
 1_run-34706_mod-T1w_defacemask.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_defacing_mosaic(
+[call] brainprep.interfaces.plotting.plot_defacing_mosaic(
     im_file=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub
 -01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz&#39;),
     mask_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T
@@ -800,7 +800,7 @@ sub-01/ses-01/figures&#39;),
 01_ses-01_run-34706_mod-T1w_defacemosaic.png
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] maskdiff(
+[call] brainprep.interfaces.utils.maskdiff(
     mask1_file=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/
 sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz&#39;),
     mask2_file=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/
@@ -836,12 +836,12 @@ Bunch(
       summary_file: PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv&#39;)
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:18:46.125600&#39;
-      end: &#39;2026-04-15 13:18:46.161622&#39;
-      execution_time: 1.0006111111111111e-05
+      start: &#39;2026-04-16 13:32:52.669766&#39;
+      end: &#39;2026-04-16 13:32:52.703831&#39;
+      execution_time: 9.4625e-06
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -868,12 +868,12 @@ Bunch(
       outputs: ([&#39;fslreorient2std&#39;, &#39;/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz&#39;, &#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz&#39;], (PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz&#39;),))
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:18:46.132470&#39;
-      end: &#39;2026-04-15 13:18:46.133735&#39;
-      execution_time: 3.513888888888889e-07
+      start: &#39;2026-04-16 13:32:52.676657&#39;
+      end: &#39;2026-04-16 13:32:52.678084&#39;
+      execution_time: 3.9638888888888893e-07
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -900,12 +900,12 @@ Bunch(
       outputs: ([&#39;mri_synthstrip&#39;, &#39;-i&#39;, &#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz&#39;, &#39;-m&#39;, &#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz&#39;, &#39;--no-csf&#39;], (PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz&#39;),))
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:18:46.139090&#39;
-      end: &#39;2026-04-15 13:18:46.140341&#39;
-      execution_time: 3.475e-07
+      start: &#39;2026-04-16 13:32:52.683358&#39;
+      end: &#39;2026-04-16 13:32:52.684641&#39;
+      execution_time: 3.563888888888889e-07
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -932,12 +932,12 @@ Bunch(
       outputs: ([&#39;fsl_deface&#39;, &#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz&#39;, &#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz&#39;, &#39;-d&#39;, &#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz&#39;, &#39;-f&#39;, &#39;0.5&#39;, &#39;-B&#39;], (PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz&#39;), PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz&#39;)))
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:18:46.145379&#39;
-      end: &#39;2026-04-15 13:18:46.146633&#39;
-      execution_time: 3.483333333333333e-07
+      start: &#39;2026-04-16 13:32:52.689310&#39;
+      end: &#39;2026-04-16 13:32:52.690625&#39;
+      execution_time: 3.6527777777777777e-07
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -966,12 +966,12 @@ Bunch(
       outputs: (PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-01_ses-01_run-34706_mod-T1w_defacemosaic.png&#39;),)
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:18:46.152368&#39;
-      end: &#39;2026-04-15 13:18:46.153992&#39;
-      execution_time: 4.511111111111111e-07
+      start: &#39;2026-04-16 13:32:52.695798&#39;
+      end: &#39;2026-04-16 13:32:52.697551&#39;
+      execution_time: 4.869444444444445e-07
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -1002,12 +1002,12 @@ Bunch(
       outputs: (PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv&#39;),)
     )
     runtime: Bunch(
-      start: &#39;2026-04-15 13:18:46.159043&#39;
-      end: &#39;2026-04-15 13:18:46.160746&#39;
-      execution_time: 4.7305555555555557e-07
+      start: &#39;2026-04-16 13:32:52.701488&#39;
+      end: &#39;2026-04-16 13:32:52.703102&#39;
+      execution_time: 4.483333333333333e-07
       brainprep_version: &#39;2.1.0.dev&#39;
       platform: &#39;Linux-6.17.0-1010-azure-x86_64-with-glibc2.39&#39;
-      hostname: &#39;runnervm35a4x&#39;
+      hostname: &#39;runnervmeorf1&#39;
     )
     config: Bunch(
       verbose: True
@@ -1024,13 +1024,13 @@ Bunch(
 )
 [title] - Group Level Defacing...
 ________________________________________________________________________________
-[call] brainprep_group_defacing(
+[call] brainprep.workflow.defacing.brainprep_group_defacing(
     output_dir=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing&#39;),
     overlap_threshold=0.05,
     keep_intermediate=False,
 )
 ________________________________________________________________________________
-[call] mask_overlap(
+[call] brainprep.interfaces.qualcheck.mask_overlap(
     maskdiff_files_regex=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing
 /subjects/sub-*/ses-*/*mod-T1w_defacemask.tsv&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/quality_c
@@ -1042,7 +1042,7 @@ heck&#39;),
 /tmp/brainprep-defacing/derivatives/defacing/quality_check/mask_overlap.tsv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_histogram(
+[call] brainprep.interfaces.plotting.plot_histogram(
     table_file=PosixPath(&#39;/tmp/brainprep-defacing/derivatives/defacing/quality_c
 heck/mask_overlap.tsv&#39;),
     col_name=&#39;overlap&#39;,
@@ -1055,7 +1055,7 @@ heck/mask_overlap.tsv&#39;),
 /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_overlap.png
 __________________________________________________________________0.00s, 0.00min
 [title] - Group Level Defacing done.
-__________________________________________________________________0.03s, 0.00min
+__________________________________________________________________0.01s, 0.00min
 </pre></div>
 </div>
 </section>
@@ -1113,7 +1113,7 @@ In practice, this means that once the CLI has produced the appropriate
 instructions, you can simply copy and run them inside the container to
 achieve the intended results. You can find the BrainPrep images on Docker
 Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.750 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.612 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  134 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflows-plot-defacing-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">

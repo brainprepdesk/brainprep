@@ -762,7 +762,7 @@ to actually run each step and generate results on disk.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[warn] - BIDS file name does not contain run key: sub-01_ses-study1_T1w.nii.gz
 [title] - Subject Level SBM...
 ________________________________________________________________________________
-[call] brainprep_sbm(
+[call] brainprep.workflow.sbm.brainprep_sbm(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01
 _ses-study1_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -779,19 +779,19 @@ _ses-study1_T1w.nii.gz&#39;),
 [deprecated] - You passed a white matter file as input. This behavior is
 deprecated and will be removed in version &gt;1.
 ________________________________________________________________________________
-[call] write_uuid_mapping(
+[call] brainprep.interfaces.utils.write_uuid_mapping(
     input_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub
 -01_ses-study1_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;15456&#39;},
-    name=&#39;uuid_mapping.tsv&#39;,
+    name=&#39;uuid_mapping&#39;,
     full_path=False,
 )
 __________________________________________________________________0.01s, 0.00min
 ________________________________________________________________________________
-[call] reconall(
+[call] brainprep.interfaces.freesurfer.reconall(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01
 _ses-study1_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -811,7 +811,7 @@ _ses-study1_T1w.nii.gz&#39;),
 recon-all.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -819,7 +819,7 @@ tudy1/run-15456/scripts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] localgi(
+[call] brainprep.interfaces.freesurfer.localgi(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -835,7 +835,7 @@ pial_lgi
 pial_lgi
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -843,14 +843,14 @@ tudy1/run-15456/scripts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] fsaveragesym_surfreg(
+[call] brainprep.interfaces.freesurfer.fsaveragesym_surfreg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;15456&#39;},
 )
 ________________________________________________________________________________
-[call] xhemireg(
+[call] brainprep.interfaces.freesurfer.xhemireg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -865,7 +865,7 @@ emireg.lh.log
 emireg.rh.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/xhemi/xhemireg.rh.log&#39;),
     command=&#39;xhemireg&#39;,
@@ -873,7 +873,7 @@ tudy1/run-15456/xhemi/xhemireg.rh.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] surfreg(
+[call] brainprep.interfaces.freesurfer.surfreg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -890,7 +890,7 @@ rf/lh.fsaverage_sym.sphere.reg
 __________________________________________________________________0.00s, 0.00min
 __________________________________________________________________0.02s, 0.00min
 ________________________________________________________________________________
-[call] fsaveragesym_projection(
+[call] brainprep.interfaces.freesurfer.fsaveragesym_projection(
     left_reg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/
 ses-study1/run-15456/surf/lh.fsaverage_sym.sphere.reg&#39;),
     right_reg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01
@@ -905,7 +905,7 @@ ses-study1/run-15456/surf/lh.fsaverage_sym.sphere.reg&#39;),
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.
 thickness
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/lh.thickness&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -932,7 +932,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.
 thickness
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/rh.thickness&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -959,7 +959,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.
 curv
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/lh.curv&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -986,7 +986,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.
 curv
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/rh.curv&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1013,7 +1013,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.
 area
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/lh.area&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1040,7 +1040,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.
 area
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/rh.area&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1067,7 +1067,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.
 pial_lgi
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/lh.pial_lgi&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1094,7 +1094,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.
 pial_lgi
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/rh.pial_lgi&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1121,7 +1121,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/lh.
 sulc
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/lh.sulc&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1148,7 +1148,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.
 sulc
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/surf/rh.sulc&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1201,16 +1201,16 @@ sulc.fsaverage_sym.mgh
 [info] - checking output:
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.
 sulc.fsaverage_sym.mgh
-__________________________________________________________________0.08s, 0.00min
+__________________________________________________________________0.07s, 0.00min
 ________________________________________________________________________________
-[call] mgz_to_nii(
+[call] brainprep.interfaces.freesurfer.mgz_to_nii(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;15456&#39;},
 )
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/mri/aparc+aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1230,7 +1230,7 @@ c+aseg.nii.gz
 c+aseg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/mri/aparc.a2009s+aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1250,7 +1250,7 @@ c.a2009s+aseg.nii.gz
 c.a2009s+aseg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/mri/aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1270,7 +1270,7 @@ vg.mgz
 .nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/mri/wm.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1290,7 +1290,7 @@ ii.gz
 ii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/mri/rawavg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1310,7 +1310,7 @@ vg.nii.gz
 vg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/mri/ribbon.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1330,7 +1330,7 @@ on.nii.gz
 on.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy1/run-15456/mri/brain.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1351,7 +1351,7 @@ n.nii.gz
 __________________________________________________________________0.00s, 0.00min
 __________________________________________________________________0.04s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_tissues(
+[call] brainprep.interfaces.freesurfer.freesurfer_tissues(
     workspace_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/
 ses-study1/workspace&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -1375,7 +1375,7 @@ ses-study1/workspace&#39;),
 n-15456.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_brainparc(
+[call] brainprep.interfaces.plotting.plot_brainparc(
     wm_mask_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/s
 es-study1/workspace/wm_run-15456.nii.gz&#39;),
     gm_mask_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/s
@@ -1395,11 +1395,11 @@ ses-study1/workspace/csf_run-15456.nii.gz&#39;),
 -study1_run-15456_brainparc.png
 __________________________________________________________________0.00s, 0.00min
 [title] - Subject Level SBM done.
-__________________________________________________________________0.21s, 0.00min
+__________________________________________________________________0.20s, 0.00min
 [warn] - BIDS file name does not contain run key: sub-01_ses-study2_T1w.nii.gz
 [title] - Subject Level SBM...
 ________________________________________________________________________________
-[call] brainprep_sbm(
+[call] brainprep.workflow.sbm.brainprep_sbm(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01
 _ses-study2_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -1416,19 +1416,19 @@ _ses-study2_T1w.nii.gz&#39;),
 [deprecated] - You passed a white matter file as input. This behavior is
 deprecated and will be removed in version &gt;1.
 ________________________________________________________________________________
-[call] write_uuid_mapping(
+[call] brainprep.interfaces.utils.write_uuid_mapping(
     input_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub
 -01_ses-study2_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;27245&#39;},
-    name=&#39;uuid_mapping.tsv&#39;,
+    name=&#39;uuid_mapping&#39;,
     full_path=False,
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] reconall(
+[call] brainprep.interfaces.freesurfer.reconall(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01
 _ses-study2_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -1448,7 +1448,7 @@ _ses-study2_T1w.nii.gz&#39;),
 recon-all.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -1456,7 +1456,7 @@ tudy2/run-27245/scripts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] localgi(
+[call] brainprep.interfaces.freesurfer.localgi(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -1472,7 +1472,7 @@ pial_lgi
 pial_lgi
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -1480,14 +1480,14 @@ tudy2/run-27245/scripts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] fsaveragesym_surfreg(
+[call] brainprep.interfaces.freesurfer.fsaveragesym_surfreg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;27245&#39;},
 )
 ________________________________________________________________________________
-[call] xhemireg(
+[call] brainprep.interfaces.freesurfer.xhemireg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -1502,7 +1502,7 @@ emireg.lh.log
 emireg.rh.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/xhemi/xhemireg.rh.log&#39;),
     command=&#39;xhemireg&#39;,
@@ -1510,7 +1510,7 @@ tudy2/run-27245/xhemi/xhemireg.rh.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] surfreg(
+[call] brainprep.interfaces.freesurfer.surfreg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -1527,7 +1527,7 @@ rf/lh.fsaverage_sym.sphere.reg
 __________________________________________________________________0.00s, 0.00min
 __________________________________________________________________0.02s, 0.00min
 ________________________________________________________________________________
-[call] fsaveragesym_projection(
+[call] brainprep.interfaces.freesurfer.fsaveragesym_projection(
     left_reg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/
 ses-study2/run-27245/surf/lh.fsaverage_sym.sphere.reg&#39;),
     right_reg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01
@@ -1542,7 +1542,7 @@ ses-study2/run-27245/surf/lh.fsaverage_sym.sphere.reg&#39;),
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.
 thickness
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/lh.thickness&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1569,7 +1569,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.
 thickness
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/rh.thickness&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1596,7 +1596,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.
 curv
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/lh.curv&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1623,7 +1623,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.
 curv
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/rh.curv&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1650,7 +1650,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.
 area
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/lh.area&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1677,7 +1677,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.
 area
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/rh.area&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1704,7 +1704,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.
 pial_lgi
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/lh.pial_lgi&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1731,7 +1731,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.
 pial_lgi
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/rh.pial_lgi&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1758,7 +1758,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/lh.
 sulc
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/lh.sulc&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1785,7 +1785,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.
 sulc
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/surf/rh.sulc&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1840,14 +1840,14 @@ sulc.fsaverage_sym.mgh
 sulc.fsaverage_sym.mgh
 __________________________________________________________________0.08s, 0.00min
 ________________________________________________________________________________
-[call] mgz_to_nii(
+[call] brainprep.interfaces.freesurfer.mgz_to_nii(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;01&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;27245&#39;},
 )
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/mri/aparc+aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1867,7 +1867,7 @@ c+aseg.nii.gz
 c+aseg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/mri/aparc.a2009s+aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1887,7 +1887,7 @@ c.a2009s+aseg.nii.gz
 c.a2009s+aseg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/mri/aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1907,7 +1907,7 @@ vg.mgz
 .nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/mri/wm.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1927,7 +1927,7 @@ ii.gz
 ii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/mri/rawavg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1947,7 +1947,7 @@ vg.nii.gz
 vg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/mri/ribbon.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1967,7 +1967,7 @@ on.nii.gz
 on.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
 tudy2/run-27245/mri/brain.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-s
@@ -1986,9 +1986,9 @@ n.nii.gz
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/brai
 n.nii.gz
 __________________________________________________________________0.00s, 0.00min
-__________________________________________________________________0.05s, 0.00min
+__________________________________________________________________0.04s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_tissues(
+[call] brainprep.interfaces.freesurfer.freesurfer_tissues(
     workspace_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/
 ses-study2/workspace&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -2012,7 +2012,7 @@ ses-study2/workspace&#39;),
 n-27245.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_brainparc(
+[call] brainprep.interfaces.plotting.plot_brainparc(
     wm_mask_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/s
 es-study2/workspace/wm_run-27245.nii.gz&#39;),
     gm_mask_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/s
@@ -2032,11 +2032,11 @@ ses-study2/workspace/csf_run-27245.nii.gz&#39;),
 -study2_run-27245_brainparc.png
 __________________________________________________________________0.00s, 0.00min
 [title] - Subject Level SBM done.
-__________________________________________________________________0.21s, 0.00min
+__________________________________________________________________0.19s, 0.00min
 [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
 [title] - Subject Level SBM...
 ________________________________________________________________________________
-[call] brainprep_sbm(
+[call] brainprep.workflow.sbm.brainprep_sbm(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02
 _ses-study1_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -2053,19 +2053,19 @@ _ses-study1_T1w.nii.gz&#39;),
 [deprecated] - You passed a white matter file as input. This behavior is
 deprecated and will be removed in version &gt;1.
 ________________________________________________________________________________
-[call] write_uuid_mapping(
+[call] brainprep.interfaces.utils.write_uuid_mapping(
     input_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub
 -02_ses-study1_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;38141&#39;},
-    name=&#39;uuid_mapping.tsv&#39;,
+    name=&#39;uuid_mapping&#39;,
     full_path=False,
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] reconall(
+[call] brainprep.interfaces.freesurfer.reconall(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02
 _ses-study1_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -2085,7 +2085,7 @@ _ses-study1_T1w.nii.gz&#39;),
 recon-all.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -2093,7 +2093,7 @@ tudy1/run-38141/scripts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] localgi(
+[call] brainprep.interfaces.freesurfer.localgi(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -2109,7 +2109,7 @@ pial_lgi
 pial_lgi
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -2117,14 +2117,14 @@ tudy1/run-38141/scripts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] fsaveragesym_surfreg(
+[call] brainprep.interfaces.freesurfer.fsaveragesym_surfreg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;38141&#39;},
 )
 ________________________________________________________________________________
-[call] xhemireg(
+[call] brainprep.interfaces.freesurfer.xhemireg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -2139,7 +2139,7 @@ emireg.lh.log
 emireg.rh.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/xhemi/xhemireg.rh.log&#39;),
     command=&#39;xhemireg&#39;,
@@ -2147,7 +2147,7 @@ tudy1/run-38141/xhemi/xhemireg.rh.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] surfreg(
+[call] brainprep.interfaces.freesurfer.surfreg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -2164,7 +2164,7 @@ rf/lh.fsaverage_sym.sphere.reg
 __________________________________________________________________0.00s, 0.00min
 __________________________________________________________________0.02s, 0.00min
 ________________________________________________________________________________
-[call] fsaveragesym_projection(
+[call] brainprep.interfaces.freesurfer.fsaveragesym_projection(
     left_reg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/
 ses-study1/run-38141/surf/lh.fsaverage_sym.sphere.reg&#39;),
     right_reg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02
@@ -2179,7 +2179,7 @@ ses-study1/run-38141/surf/lh.fsaverage_sym.sphere.reg&#39;),
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.
 thickness
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/lh.thickness&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2206,7 +2206,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.
 thickness
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/rh.thickness&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2233,7 +2233,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.
 curv
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/lh.curv&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2260,7 +2260,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.
 curv
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/rh.curv&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2287,7 +2287,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.
 area
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/lh.area&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2314,7 +2314,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.
 area
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/rh.area&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2341,7 +2341,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.
 pial_lgi
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/lh.pial_lgi&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2368,7 +2368,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.
 pial_lgi
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/rh.pial_lgi&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2395,7 +2395,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/lh.
 sulc
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/lh.sulc&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2422,7 +2422,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.
 sulc
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/surf/rh.sulc&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2475,16 +2475,16 @@ sulc.fsaverage_sym.mgh
 [info] - checking output:
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.
 sulc.fsaverage_sym.mgh
-__________________________________________________________________0.08s, 0.00min
+__________________________________________________________________0.07s, 0.00min
 ________________________________________________________________________________
-[call] mgz_to_nii(
+[call] brainprep.interfaces.freesurfer.mgz_to_nii(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study1&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study1&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;38141&#39;},
 )
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/mri/aparc+aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2504,7 +2504,7 @@ c+aseg.nii.gz
 c+aseg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/mri/aparc.a2009s+aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2524,7 +2524,7 @@ c.a2009s+aseg.nii.gz
 c.a2009s+aseg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/mri/aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2544,7 +2544,7 @@ vg.mgz
 .nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/mri/wm.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2564,7 +2564,7 @@ ii.gz
 ii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/mri/rawavg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2584,7 +2584,7 @@ vg.nii.gz
 vg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/mri/ribbon.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2604,7 +2604,7 @@ on.nii.gz
 on.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy1/run-38141/mri/brain.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2623,9 +2623,9 @@ n.nii.gz
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/brai
 n.nii.gz
 __________________________________________________________________0.00s, 0.00min
-__________________________________________________________________0.05s, 0.00min
+__________________________________________________________________0.04s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_tissues(
+[call] brainprep.interfaces.freesurfer.freesurfer_tissues(
     workspace_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/
 ses-study1/workspace&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -2649,7 +2649,7 @@ ses-study1/workspace&#39;),
 n-38141.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_brainparc(
+[call] brainprep.interfaces.plotting.plot_brainparc(
     wm_mask_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/s
 es-study1/workspace/wm_run-38141.nii.gz&#39;),
     gm_mask_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/s
@@ -2669,11 +2669,11 @@ ses-study1/workspace/csf_run-38141.nii.gz&#39;),
 -study1_run-38141_brainparc.png
 __________________________________________________________________0.00s, 0.00min
 [title] - Subject Level SBM done.
-__________________________________________________________________0.21s, 0.00min
+__________________________________________________________________0.18s, 0.00min
 [warn] - BIDS file name does not contain run key: sub-02_ses-study2_T1w.nii.gz
 [title] - Subject Level SBM...
 ________________________________________________________________________________
-[call] brainprep_sbm(
+[call] brainprep.workflow.sbm.brainprep_sbm(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02
 _ses-study2_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -2690,19 +2690,19 @@ _ses-study2_T1w.nii.gz&#39;),
 [deprecated] - You passed a white matter file as input. This behavior is
 deprecated and will be removed in version &gt;1.
 ________________________________________________________________________________
-[call] write_uuid_mapping(
+[call] brainprep.interfaces.utils.write_uuid_mapping(
     input_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub
 -02_ses-study2_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;13661&#39;},
-    name=&#39;uuid_mapping.tsv&#39;,
+    name=&#39;uuid_mapping&#39;,
     full_path=False,
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] reconall(
+[call] brainprep.interfaces.freesurfer.reconall(
     t1_file=PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02
 _ses-study2_T1w.nii.gz&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -2722,7 +2722,7 @@ _ses-study2_T1w.nii.gz&#39;),
 recon-all.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -2730,7 +2730,7 @@ tudy2/run-13661/scripts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] localgi(
+[call] brainprep.interfaces.freesurfer.localgi(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -2746,7 +2746,7 @@ pial_lgi
 pial_lgi
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -2754,14 +2754,14 @@ tudy2/run-13661/scripts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] fsaveragesym_surfreg(
+[call] brainprep.interfaces.freesurfer.fsaveragesym_surfreg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;13661&#39;},
 )
 ________________________________________________________________________________
-[call] xhemireg(
+[call] brainprep.interfaces.freesurfer.xhemireg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -2776,7 +2776,7 @@ emireg.lh.log
 emireg.rh.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/xhemi/xhemireg.rh.log&#39;),
     command=&#39;xhemireg&#39;,
@@ -2784,7 +2784,7 @@ tudy2/run-13661/xhemi/xhemireg.rh.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] surfreg(
+[call] brainprep.interfaces.freesurfer.surfreg(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
@@ -2801,7 +2801,7 @@ rf/lh.fsaverage_sym.sphere.reg
 __________________________________________________________________0.00s, 0.00min
 __________________________________________________________________0.02s, 0.00min
 ________________________________________________________________________________
-[call] fsaveragesym_projection(
+[call] brainprep.interfaces.freesurfer.fsaveragesym_projection(
     left_reg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/
 ses-study2/run-13661/surf/lh.fsaverage_sym.sphere.reg&#39;),
     right_reg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02
@@ -2816,7 +2816,7 @@ ses-study2/run-13661/surf/lh.fsaverage_sym.sphere.reg&#39;),
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.
 thickness
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/lh.thickness&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2843,7 +2843,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.
 thickness
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/rh.thickness&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2870,7 +2870,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.
 curv
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/lh.curv&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2897,7 +2897,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.
 curv
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/rh.curv&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2924,7 +2924,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.
 area
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/lh.area&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2951,7 +2951,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.
 area
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/rh.area&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -2978,7 +2978,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.
 pial_lgi
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/lh.pial_lgi&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3005,7 +3005,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.
 pial_lgi
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/rh.pial_lgi&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3032,7 +3032,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/lh.
 sulc
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/lh.sulc&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3059,7 +3059,7 @@ __________________________________________________________________0.00s, 0.00min
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.
 sulc
 ________________________________________________________________________________
-[call] mris_apply_reg(
+[call] brainprep.interfaces.freesurfer.mris_apply_reg(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/surf/rh.sulc&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3112,16 +3112,16 @@ sulc.fsaverage_sym.mgh
 [info] - checking output:
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.
 sulc.fsaverage_sym.mgh
-__________________________________________________________________0.08s, 0.00min
+__________________________________________________________________0.07s, 0.00min
 ________________________________________________________________________________
-[call] mgz_to_nii(
+[call] brainprep.interfaces.freesurfer.mgz_to_nii(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
 -study2&#39;),
     entities={&#39;sub&#39;: &#39;02&#39;, &#39;ses&#39;: &#39;study2&#39;, &#39;modality&#39;: &#39;T1w&#39;, &#39;mod&#39;: &#39;T1w&#39;,
 &#39;run&#39;: &#39;13661&#39;},
 )
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/mri/aparc+aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3141,7 +3141,7 @@ c+aseg.nii.gz
 c+aseg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/mri/aparc.a2009s+aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3161,7 +3161,7 @@ c.a2009s+aseg.nii.gz
 c.a2009s+aseg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/mri/aseg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3181,7 +3181,7 @@ vg.mgz
 .nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/mri/wm.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3201,7 +3201,7 @@ ii.gz
 ii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/mri/rawavg.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3221,7 +3221,7 @@ vg.nii.gz
 vg.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/mri/ribbon.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3241,7 +3241,7 @@ on.nii.gz
 on.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] mri_convert(
+[call] brainprep.interfaces.freesurfer.mri_convert(
     src_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
 tudy2/run-13661/mri/brain.mgz&#39;),
     trg_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-s
@@ -3260,9 +3260,9 @@ n.nii.gz
 /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/brai
 n.nii.gz
 __________________________________________________________________0.00s, 0.00min
-__________________________________________________________________0.05s, 0.00min
+__________________________________________________________________0.04s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_tissues(
+[call] brainprep.interfaces.freesurfer.freesurfer_tissues(
     workspace_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/
 ses-study2/workspace&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -3286,7 +3286,7 @@ ses-study2/workspace&#39;),
 n-13661.nii.gz
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_brainparc(
+[call] brainprep.interfaces.plotting.plot_brainparc(
     wm_mask_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/s
 es-study2/workspace/wm_run-13661.nii.gz&#39;),
     gm_mask_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/s
@@ -3306,10 +3306,10 @@ ses-study2/workspace/csf_run-13661.nii.gz&#39;),
 -study2_run-13661_brainparc.png
 __________________________________________________________________0.00s, 0.00min
 [title] - Subject Level SBM done.
-__________________________________________________________________0.21s, 0.00min
+__________________________________________________________________0.19s, 0.00min
 [title] - Group Level SBM...
 ________________________________________________________________________________
-[call] brainprep_group_sbm(
+[call] brainprep.workflow.sbm.brainprep_group_sbm(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm&#39;),
     euler_threshold=-217,
     longitudinal=False,
@@ -3318,12 +3318,12 @@ ________________________________________________________________________________
 [info] - setting workspace directory:
 /tmp/brainprep-sbm/derivatives/sbm/workspace
 ________________________________________________________________________________
-[call] freesurfer_features_summary(
+[call] brainprep.interfaces.freesurfer.freesurfer_features_summary(
     workspace_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/workspace&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/morphometry&#39;),
 )
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -3347,7 +3347,7 @@ a_stats.csv
 s-area_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -3371,7 +3371,7 @@ ume_stats.csv
 s-volume_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -3395,7 +3395,7 @@ ckness_stats.csv
 s-thickness_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -3419,7 +3419,7 @@ cknessstd_stats.csv
 s-thicknessstd_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -3443,7 +3443,7 @@ ncurv_stats.csv
 s-meancurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -3467,7 +3467,7 @@ scurv_stats.csv
 s-gauscurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -3491,7 +3491,7 @@ dind_stats.csv
 s-foldind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -3515,7 +3515,7 @@ vind_stats.csv
 s-curvind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -3539,7 +3539,7 @@ a_stats.csv
 s-area_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -3563,7 +3563,7 @@ ume_stats.csv
 s-volume_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -3587,7 +3587,7 @@ ckness_stats.csv
 s-thickness_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -3611,7 +3611,7 @@ cknessstd_stats.csv
 s-thicknessstd_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -3635,7 +3635,7 @@ ncurv_stats.csv
 s-meancurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -3659,7 +3659,7 @@ scurv_stats.csv
 s-gauscurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -3683,7 +3683,7 @@ dind_stats.csv
 s-foldind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -3707,7 +3707,7 @@ vind_stats.csv
 s-curvind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] asegstats2table(
+[call] brainprep.interfaces.freesurfer.asegstats2table(
     subjects=[&#39;sub-02_run-38141&#39;, &#39;sub-01_run-15456&#39;],
     session=&#39;study1&#39;,
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/morphometry&#39;),
@@ -3719,7 +3719,7 @@ ________________________________________________________________________________
 /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study1_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -3743,7 +3743,7 @@ a_stats.csv
 s-area_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -3767,7 +3767,7 @@ ume_stats.csv
 s-volume_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -3791,7 +3791,7 @@ ckness_stats.csv
 s-thickness_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -3815,7 +3815,7 @@ cknessstd_stats.csv
 s-thicknessstd_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -3839,7 +3839,7 @@ ncurv_stats.csv
 s-meancurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -3863,7 +3863,7 @@ scurv_stats.csv
 s-gauscurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -3887,7 +3887,7 @@ dind_stats.csv
 s-foldind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -3911,7 +3911,7 @@ vind_stats.csv
 s-curvind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -3935,7 +3935,7 @@ a_stats.csv
 s-area_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -3959,7 +3959,7 @@ ume_stats.csv
 s-volume_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -3983,7 +3983,7 @@ ckness_stats.csv
 s-thickness_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4007,7 +4007,7 @@ cknessstd_stats.csv
 s-thicknessstd_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4031,7 +4031,7 @@ ncurv_stats.csv
 s-meancurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4055,7 +4055,7 @@ scurv_stats.csv
 s-gauscurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4079,7 +4079,7 @@ dind_stats.csv
 s-foldind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4103,7 +4103,7 @@ vind_stats.csv
 s-curvind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] asegstats2table(
+[call] brainprep.interfaces.freesurfer.asegstats2table(
     subjects=[&#39;sub-02_run-13661&#39;, &#39;sub-01_run-27245&#39;],
     session=&#39;study2&#39;,
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/morphometry&#39;),
@@ -4114,9 +4114,9 @@ ________________________________________________________________________________
 [info] - checking output:
 /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study2_stats.csv
 __________________________________________________________________0.00s, 0.00min
-__________________________________________________________________0.24s, 0.00min
+__________________________________________________________________0.21s, 0.00min
 ________________________________________________________________________________
-[call] euler_numbers(
+[call] brainprep.interfaces.qualcheck.euler_numbers(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/quality_check&#39;),
     euler_threshold=-217,
     dryrun=True,
@@ -4125,7 +4125,7 @@ ________________________________________________________________________________
 /tmp/brainprep-sbm/derivatives/sbm/quality_check/euler_numbers.tsv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] plot_histogram(
+[call] brainprep.interfaces.plotting.plot_histogram(
     table_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/quality_check/euler
 _numbers.tsv&#39;),
     col_name=&#39;euler_number&#39;,
@@ -4137,12 +4137,12 @@ _numbers.tsv&#39;),
 /tmp/brainprep-sbm/derivatives/sbm/figures/histogram_euler_number.png
 __________________________________________________________________0.00s, 0.00min
 [title] - Group Level SBM done.
-__________________________________________________________________0.27s, 0.00min
+__________________________________________________________________0.24s, 0.00min
 [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
 [warn] - BIDS file name does not contain run key: sub-02_ses-study2_T1w.nii.gz
 [title] - Longitudinal SBM...
 ________________________________________________________________________________
-[call] brainprep_longitudinal_sbm(
+[call] brainprep.workflow.sbm.brainprep_longitudinal_sbm(
     t1_files=[PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-
 02_ses-study1_T1w.nii.gz&#39;),
 PosixPath(&#39;/tmp/brainprep-data/rawdata/sub-02/ses-study2/anat/sub-02_ses-study2_
@@ -4157,7 +4157,7 @@ ts/sub-02/ses-study1&#39;),
 [info] - setting workspace directory:
 /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/workspace
 ________________________________________________________________________________
-[call] reconall_longitudinal(
+[call] brainprep.interfaces.freesurfer.reconall_longitudinal(
     workspace_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/sub
 jects/sub-02/workspace&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjec
@@ -4186,7 +4186,7 @@ ses-study1:study2/scripts/recon-all.log
 2_run-13661.long.sub-02_template_ses-study1:study2/scripts/recon-all.log
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects
 /sub-02/sub-02_template_ses-study1:study2/scripts/recon-all.log&#39;),
     command=&#39;recon-all&#39;,
@@ -4194,7 +4194,7 @@ ________________________________________________________________________________
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects
 /sub-02/sub-02_ses-study1_run-38141.long.sub-02_template_ses-study1:study2/scrip
 ts/recon-all.log&#39;),
@@ -4203,7 +4203,7 @@ ts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] freesurfer_command_status(
+[call] brainprep.interfaces.freesurfer.freesurfer_command_status(
     log_file=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects
 /sub-02/sub-02_ses-study2_run-13661.long.sub-02_template_ses-study1:study2/scrip
 ts/recon-all.log&#39;),
@@ -4212,7 +4212,7 @@ ts/recon-all.log&#39;),
 )
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] movedir(
+[call] brainprep.interfaces.utils.movedir(
     source_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjec
 ts/sub-02/sub-02_ses-study1_run-38141.long.sub-02_template_ses-study1:study2&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjec
@@ -4225,7 +4225,7 @@ ts/sub-02/ses-study1/run-38141&#39;),
 8141
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] movedir(
+[call] brainprep.interfaces.utils.movedir(
     source_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjec
 ts/sub-02/sub-02_ses-study2_run-13661.long.sub-02_template_ses-study1:study2&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjec
@@ -4238,7 +4238,7 @@ ts/sub-02/ses-study2/run-13661&#39;),
 3661
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] movedir(
+[call] brainprep.interfaces.utils.movedir(
     source_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjec
 ts/sub-02/sub-02_template_ses-study1:study2&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjec
@@ -4253,7 +4253,7 @@ __________________________________________________________________0.00s, 0.00min
 __________________________________________________________________0.05s, 0.00min
 [title] - Group Level SBM...
 ________________________________________________________________________________
-[call] brainprep_group_sbm(
+[call] brainprep.workflow.sbm.brainprep_group_sbm(
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm&#39;),
     euler_threshold=-217,
     longitudinal=True,
@@ -4262,14 +4262,14 @@ ________________________________________________________________________________
 [info] - setting workspace directory:
 /tmp/brainprep-sbm/derivatives/sbm/longitudinal/workspace
 ________________________________________________________________________________
-[call] freesurfer_features_summary(
+[call] brainprep.interfaces.freesurfer.freesurfer_features_summary(
     workspace_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/wor
 kspace&#39;),
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/morpho
 metry&#39;),
 )
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -4294,7 +4294,7 @@ i-lh_meas-area_stats.csv
 1_hemi-lh_meas-area_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -4319,7 +4319,7 @@ i-lh_meas-volume_stats.csv
 1_hemi-lh_meas-volume_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -4344,7 +4344,7 @@ i-lh_meas-thickness_stats.csv
 1_hemi-lh_meas-thickness_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -4369,7 +4369,7 @@ i-lh_meas-thicknessstd_stats.csv
 1_hemi-lh_meas-thicknessstd_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -4394,7 +4394,7 @@ i-lh_meas-meancurv_stats.csv
 1_hemi-lh_meas-meancurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -4419,7 +4419,7 @@ i-lh_meas-gauscurv_stats.csv
 1_hemi-lh_meas-gauscurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -4444,7 +4444,7 @@ i-lh_meas-foldind_stats.csv
 1_hemi-lh_meas-foldind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;lh&#39;,
@@ -4469,7 +4469,7 @@ i-lh_meas-curvind_stats.csv
 1_hemi-lh_meas-curvind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -4494,7 +4494,7 @@ i-rh_meas-area_stats.csv
 1_hemi-rh_meas-area_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -4519,7 +4519,7 @@ i-rh_meas-volume_stats.csv
 1_hemi-rh_meas-volume_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -4544,7 +4544,7 @@ i-rh_meas-thickness_stats.csv
 1_hemi-rh_meas-thickness_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -4569,7 +4569,7 @@ i-rh_meas-thicknessstd_stats.csv
 1_hemi-rh_meas-thicknessstd_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -4594,7 +4594,7 @@ i-rh_meas-meancurv_stats.csv
 1_hemi-rh_meas-meancurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -4619,7 +4619,7 @@ i-rh_meas-gauscurv_stats.csv
 1_hemi-rh_meas-gauscurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -4644,7 +4644,7 @@ i-rh_meas-foldind_stats.csv
 1_hemi-rh_meas-foldind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     hemi=&#39;rh&#39;,
@@ -4669,7 +4669,7 @@ i-rh_meas-curvind_stats.csv
 1_hemi-rh_meas-curvind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] asegstats2table(
+[call] brainprep.interfaces.freesurfer.asegstats2table(
     subjects=[&#39;sub-02_run-38141&#39;],
     session=&#39;study1&#39;,
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/morpho
@@ -4683,7 +4683,7 @@ s.csv --delimiter comma --subjects sub-02_run-38141
 s.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -4708,7 +4708,7 @@ i-lh_meas-area_stats.csv
 2_hemi-lh_meas-area_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -4733,7 +4733,7 @@ i-lh_meas-volume_stats.csv
 2_hemi-lh_meas-volume_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -4758,7 +4758,7 @@ i-lh_meas-thickness_stats.csv
 2_hemi-lh_meas-thickness_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -4783,7 +4783,7 @@ i-lh_meas-thicknessstd_stats.csv
 2_hemi-lh_meas-thicknessstd_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -4808,7 +4808,7 @@ i-lh_meas-meancurv_stats.csv
 2_hemi-lh_meas-meancurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -4833,7 +4833,7 @@ i-lh_meas-gauscurv_stats.csv
 2_hemi-lh_meas-gauscurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -4858,7 +4858,7 @@ i-lh_meas-foldind_stats.csv
 2_hemi-lh_meas-foldind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;lh&#39;,
@@ -4883,7 +4883,7 @@ i-lh_meas-curvind_stats.csv
 2_hemi-lh_meas-curvind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4908,7 +4908,7 @@ i-rh_meas-area_stats.csv
 2_hemi-rh_meas-area_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4933,7 +4933,7 @@ i-rh_meas-volume_stats.csv
 2_hemi-rh_meas-volume_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4958,7 +4958,7 @@ i-rh_meas-thickness_stats.csv
 2_hemi-rh_meas-thickness_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -4983,7 +4983,7 @@ i-rh_meas-thicknessstd_stats.csv
 2_hemi-rh_meas-thicknessstd_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -5008,7 +5008,7 @@ i-rh_meas-meancurv_stats.csv
 2_hemi-rh_meas-meancurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -5033,7 +5033,7 @@ i-rh_meas-gauscurv_stats.csv
 2_hemi-rh_meas-gauscurv_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -5058,7 +5058,7 @@ i-rh_meas-foldind_stats.csv
 2_hemi-rh_meas-foldind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] aparcstats2table(
+[call] brainprep.interfaces.freesurfer.aparcstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     hemi=&#39;rh&#39;,
@@ -5083,7 +5083,7 @@ i-rh_meas-curvind_stats.csv
 2_hemi-rh_meas-curvind_stats.csv
 __________________________________________________________________0.00s, 0.00min
 ________________________________________________________________________________
-[call] asegstats2table(
+[call] brainprep.interfaces.freesurfer.asegstats2table(
     subjects=[&#39;sub-02_run-13661&#39;],
     session=&#39;study2&#39;,
     output_dir=PosixPath(&#39;/tmp/brainprep-sbm/derivatives/sbm/longitudinal/morpho
@@ -5271,7 +5271,7 @@ In practice, this means that once the CLI has produced the appropriate
 instructions, you can simply copy and run them inside the container to
 achieve the intended results. You can find the BrainPrep images on Docker
 Hub: <a class="reference external" href="https://hub.docker.com/u/neurospin">Neurospin Docker Hub</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.679 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 5.165 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  111 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflows-plot-sbm-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
