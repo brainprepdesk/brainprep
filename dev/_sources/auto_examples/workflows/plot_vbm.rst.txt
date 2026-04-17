@@ -207,8 +207,8 @@ to actually run each step and generate results on disk.
     '/tmp/brainprep-data/rawdata': 'RAWDATA'},
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
-    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e 
-    s/10.1.0.242/X.X.X.X/g -e s/runner/USER/g -i 
+    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e 
+    s/10.1.0.34/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
     ch_run-15456.m
     [info] - checking output: 
@@ -286,8 +286,8 @@ to actually run each step and generate results on disk.
     '/tmp/brainprep-data/rawdata': 'RAWDATA'},
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
-    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e 
-    s/10.1.0.242/X.X.X.X/g -e s/runner/USER/g -i 
+    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e 
+    s/10.1.0.34/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
     ch_run-38141.m
     [info] - checking output: 
@@ -295,7 +295,7 @@ to actually run each step and generate results on disk.
     ch_run-38141.m
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level VBM done.
-    __________________________________________________________________0.03s, 0.00min
+    __________________________________________________________________0.02s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-01_ses-study1_T1w.nii.gz
     [warn] - BIDS file name does not contain run key: sub-01_ses-study2_T1w.nii.gz
     [title] - Longitudinal VBM...
@@ -398,8 +398,8 @@ to actually run each step and generate results on disk.
     '/tmp/brainprep-data/rawdata': 'RAWDATA'},
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
-    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e 
-    s/10.1.0.242/X.X.X.X/g -e s/runner/USER/g -i 
+    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm35a4x/HOSTNAME/g -e 
+    s/10.1.0.34/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
     atch.m
     [info] - checking output: 
@@ -407,7 +407,7 @@ to actually run each step and generate results on disk.
     atch.m
     __________________________________________________________________0.00s, 0.00min
     [title] - Longitudinal VBM done.
-    __________________________________________________________________0.04s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     [title] - Group Level VBM...
     ________________________________________________________________________________
     [call] brainprep.workflow.vbm.brainprep_group_vbm(
@@ -776,9 +776,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.457 seconds)
+   **Total running time of the script:** (0 minutes 0.485 seconds)
 
-**Estimated memory usage:**  111 MB
+**Estimated memory usage:**  113 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_vbm.py:
