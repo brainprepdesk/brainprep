@@ -441,10 +441,11 @@ def collect_config(
         if key.endswith("s") and key[:-1] in long_dfs:
             df_ = long_dfs[key[:-1]]
             df_ = (
-                df_.filter(regex=f"-({'|'.join(timepoints)})$").copy()
+                df_.filter(regex=f"-({'|'.join(timepoints)})$")
                 if timepoints is not None
-                else df_.copy()
+                else df_.drop(columns=["subject"])
             )
+            df_ = df_.copy()
             subset = [
                 name
                 for name in df_.columns
