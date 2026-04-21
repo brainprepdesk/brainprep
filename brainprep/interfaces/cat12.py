@@ -180,7 +180,6 @@ def write_catbatch(
             f"ses-{entities[0]['ses']}" /
             f"cat12vbm_matlabbatch_run-{entities[0]['run']}.m"
         )
-        batch_file.parent.mkdir(parents=True, exist_ok=True)
         template_batch = (
             Path(__file__).parent.parent /
             "resources" /
@@ -190,6 +189,9 @@ def write_catbatch(
         output_dir / f"ses-{info['ses']}"
         for info in entities
     ]
+    batch_file.parent.mkdir(parents=True, exist_ok=True)
+    for output_dir in output_dirs:
+        output_dir.mkdir(exist_ok=True)
     unzip_t1_files = [
         trg_dir / im_file.name.replace(".gz", "")
         for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
