@@ -87,6 +87,7 @@ def cat12vbm_wf(
     cat12_file = opts.get("cat12_file", DEFAULT_OPTIONS["cat12_file"])
     spm12_dir = opts.get("spm12_dir", DEFAULT_OPTIONS["spm12_dir"])
     matlab_dir = opts.get("matlab_dir", DEFAULT_OPTIONS["matlab_dir"])
+    longitudinal = len(t1_files) > 1
 
     output_dirs = [
         output_dir / f"ses-{info['ses']}"
@@ -101,6 +102,11 @@ def cat12vbm_wf(
         f"catreport_{im_file.name.replace('nii.gz', 'pdf')}"
         for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
     ]
+    if longitudinal:
+        gm_files = [Path(str(filepath).replace("mwp1", "mwp1r"))
+                    for filepath in gm_files]
+        qc_files = [Path(str(filepath).replace("catreport_", "catreport_r"))
+                    for filepath in qc_files]
 
     command = [
         str(cat12_file),
@@ -180,7 +186,6 @@ def write_catbatch(
             f"ses-{entities[0]['ses']}" /
             f"cat12vbm_matlabbatch_run-{entities[0]['run']}.m"
         )
-        batch_file.parent.mkdir(parents=True, exist_ok=True)
         template_batch = (
             Path(__file__).parent.parent /
             "resources" /
@@ -190,6 +195,9 @@ def write_catbatch(
         output_dir / f"ses-{info['ses']}"
         for info in entities
     ]
+    batch_file.parent.mkdir(parents=True, exist_ok=True)
+    for output_dir in output_dirs:
+        output_dir.mkdir(exist_ok=True)
     unzip_t1_files = [
         trg_dir / im_file.name.replace(".gz", "")
         for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
