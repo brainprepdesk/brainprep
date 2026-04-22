@@ -193,7 +193,7 @@ to actually run each step and generate results on disk.
         name='uuid_mapping',
         full_path=False,
     )
-    __________________________________________________________________0.01s, 0.00min
+    __________________________________________________________________0.00s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.reconall(
         t1_file=PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01
@@ -292,7 +292,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/xhemi/su
     rf/lh.fsaverage_sym.sphere.reg
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.01s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.fsaveragesym_projection(
         left_reg_file=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/
@@ -605,7 +605,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/surf/rh.
     sulc.fsaverage_sym.mgh
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.mgz_to_nii(
         output_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -753,7 +753,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study1/run-15456/mri/brai
     n.nii.gz
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.04s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.freesurfer_tissues(
         workspace_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/
@@ -799,7 +799,7 @@ to actually run each step and generate results on disk.
     -study1_run-15456_brainparc.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level SBM done.
-    __________________________________________________________________0.19s, 0.00min
+    __________________________________________________________________0.14s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-01_ses-study2_T1w.nii.gz
     [title] - Subject Level SBM...
     ________________________________________________________________________________
@@ -929,7 +929,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/xhemi/su
     rf/lh.fsaverage_sym.sphere.reg
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.01s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.fsaveragesym_projection(
         left_reg_file=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/
@@ -1242,7 +1242,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/surf/rh.
     sulc.fsaverage_sym.mgh
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.mgz_to_nii(
         output_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses
@@ -1390,7 +1390,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/ses-study2/run-27245/mri/brai
     n.nii.gz
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.04s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.freesurfer_tissues(
         workspace_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-01/
@@ -1436,7 +1436,7 @@ to actually run each step and generate results on disk.
     -study2_run-27245_brainparc.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level SBM done.
-    __________________________________________________________________0.18s, 0.00min
+    __________________________________________________________________0.13s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
     [title] - Subject Level SBM...
     ________________________________________________________________________________
@@ -1566,7 +1566,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/xhemi/su
     rf/lh.fsaverage_sym.sphere.reg
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.01s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.fsaveragesym_projection(
         left_reg_file=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/
@@ -1879,7 +1879,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/surf/rh.
     sulc.fsaverage_sym.mgh
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.mgz_to_nii(
         output_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -2027,7 +2027,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study1/run-38141/mri/brai
     n.nii.gz
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.04s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.freesurfer_tissues(
         workspace_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/
@@ -2073,7 +2073,7 @@ to actually run each step and generate results on disk.
     -study1_run-38141_brainparc.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level SBM done.
-    __________________________________________________________________0.18s, 0.00min
+    __________________________________________________________________0.13s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_ses-study2_T1w.nii.gz
     [title] - Subject Level SBM...
     ________________________________________________________________________________
@@ -2203,7 +2203,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/xhemi/su
     rf/lh.fsaverage_sym.sphere.reg
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.01s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.fsaveragesym_projection(
         left_reg_file=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/
@@ -2516,7 +2516,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/surf/rh.
     sulc.fsaverage_sym.mgh
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.mgz_to_nii(
         output_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses
@@ -2664,7 +2664,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/ses-study2/run-13661/mri/brai
     n.nii.gz
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.04s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.freesurfer_tissues(
         workspace_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/subjects/sub-02/
@@ -2710,7 +2710,7 @@ to actually run each step and generate results on disk.
     -study2_run-13661_brainparc.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level SBM done.
-    __________________________________________________________________0.18s, 0.00min
+    __________________________________________________________________0.14s, 0.00min
     [title] - Group Level SBM...
     ________________________________________________________________________________
     [call] brainprep.workflow.sbm.brainprep_group_sbm(
@@ -3518,7 +3518,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-sbm/derivatives/sbm/morphometry/aseg_ses-study2_stats.csv
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.22s, 0.00min
+    __________________________________________________________________0.15s, 0.00min
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.euler_numbers(
         output_dir=PosixPath('/tmp/brainprep-sbm/derivatives/sbm/quality_check'),
@@ -3541,7 +3541,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/figures/histogram_euler_number.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level SBM done.
-    __________________________________________________________________0.24s, 0.00min
+    __________________________________________________________________0.17s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
     [warn] - BIDS file name does not contain run key: sub-02_ses-study2_T1w.nii.gz
     [title] - Longitudinal SBM...
@@ -3654,7 +3654,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/longitudinal/subjects/sub-02/template
     __________________________________________________________________0.00s, 0.00min
     [title] - Longitudinal SBM done.
-    __________________________________________________________________0.05s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     [title] - Group Level SBM...
     ________________________________________________________________________________
     [call] brainprep.workflow.sbm.brainprep_group_sbm(
@@ -4500,9 +4500,9 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sbm/derivatives/sbm/longitudinal/morphometry/aseg_ses-study2_stat
     s.csv
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.22s, 0.00min
+    __________________________________________________________________0.16s, 0.00min
     [title] - Group Level SBM done.
-    __________________________________________________________________0.24s, 0.00min
+    __________________________________________________________________0.17s, 0.00min
 
 
 
@@ -4701,9 +4701,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.989 seconds)
+   **Total running time of the script:** (0 minutes 2.269 seconds)
 
-**Estimated memory usage:**  113 MB
+**Estimated memory usage:**  111 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_sbm.py:

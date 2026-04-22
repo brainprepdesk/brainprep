@@ -144,12 +144,12 @@ Now let's generate the RST report.
           val: 1
         )
         runtime: Bunch(
-          start: '2026-04-17 11:57:04.029995'
-          end: '2026-04-17 11:57:04.030012'
-          execution_time: 4.722222222222223e-09
+          start: '2026-04-22 13:13:20.155065'
+          end: '2026-04-22 13:13:20.155080'
+          execution_time: 4.166666666666667e-09
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm35a4x'
+          hostname: 'runnervmeorf1'
         )
         config: Bunch(
           verbose: True
@@ -179,12 +179,12 @@ Now let's generate the RST report.
           val: 4
         )
         runtime: Bunch(
-          start: '2026-04-17 11:57:04.038579'
-          end: '2026-04-17 11:57:04.042722'
-          execution_time: 1.1508333333333333e-06
+          start: '2026-04-22 13:13:20.160700'
+          end: '2026-04-22 13:13:20.163328'
+          execution_time: 7.3e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm35a4x'
+          hostname: 'runnervmeorf1'
         )
         config: Bunch(
           verbose: True
@@ -208,12 +208,12 @@ Now let's generate the RST report.
           val2: 4
         )
         runtime: Bunch(
-          start: '2026-04-17 11:57:04.042682'
-          end: '2026-04-17 11:57:04.042690'
-          execution_time: 2.222222222222222e-09
+          start: '2026-04-22 13:13:20.163298'
+          end: '2026-04-22 13:13:20.163304'
+          execution_time: 1.6666666666666667e-09
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervm35a4x'
+          hostname: 'runnervmeorf1'
         )
         config: Bunch(
           verbose: True
@@ -235,9 +235,9 @@ Now let's generate the RST report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.384 seconds)
+   **Total running time of the script:** (0 minutes 0.316 seconds)
 
-**Estimated memory usage:**  114 MB
+**Estimated memory usage:**  112 MB
 
 
 .. _sphx_glr_download_auto_examples_tools_plot_rst_reporting.py:
