@@ -94,19 +94,21 @@ def cat12vbm_wf(
         for info in entities
     ]
     gm_files = [
-        trg_dir / "mri" / f"mwp1{im_file.name.replace('.gz', '')}"
+        trg_dir / "mri" / (
+            f"mwp1r{im_file.name.replace('.gz', '')}"
+            if longitudinal
+            else f"mwp1{im_file.name.replace('.gz', '')}"
+        )
         for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
     ]
     qc_files = [
-        trg_dir / "report" /
-        f"catreport_{im_file.name.replace('nii.gz', 'pdf')}"
+        trg_dir / "report" / (
+            f"catreport_r{im_file.name.replace('nii.gz', 'pdf')}"
+            if longitudinal
+            else f"catreport_{im_file.name.replace('nii.gz', 'pdf')}"
+        )
         for im_file, trg_dir in zip(t1_files, output_dirs, strict=True)
     ]
-    if longitudinal:
-        gm_files = [Path(str(filepath).replace("mwp1", "mwp1r"))
-                    for filepath in gm_files]
-        qc_files = [Path(str(filepath).replace("catreport_", "catreport_r"))
-                    for filepath in qc_files]
 
     command = [
         str(cat12_file),
