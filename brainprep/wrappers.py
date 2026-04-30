@@ -58,7 +58,7 @@ def run_command(
     process = subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
         text=True,
         bufsize=1,
     )
@@ -70,13 +70,10 @@ def run_command(
     process.stdout.close()
     stdout = "".join(stdout_lines)
 
-    stderr = process.stderr.read()
-    process.stderr.close()
-
     process.wait()
 
     if process.returncode != 0:
-        print_error(stderr)
+        print_error(stdout)
         raise RuntimeError(f"Command execution failed: {' '.join(cmd)}")
 
     return stdout
