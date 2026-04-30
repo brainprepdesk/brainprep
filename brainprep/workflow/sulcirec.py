@@ -117,15 +117,15 @@ def brainprep_sulcirec(
         sulci_graphs_files=[PosixPath('...'), PosixPath('...')],
     )
     """
-    workspace_dir = output_dir / "workspace"
-    workspace_dir.mkdir(parents=True, exist_ok=True)
-    print_info(f"setting workspace directory: {workspace_dir}")
-
     entities = kwargs.get("entities", {})
     if len(entities) == 0:
         raise ValueError(
             f"The T1w file '{t1_file}' is not BIDS-compliant."
         )
+
+    workspace_dir = output_dir / f"workspace_{entities['run']}"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
 
     sulci_graphs_files, qc_file = interfaces.morphologist_wf(
         t1_file,

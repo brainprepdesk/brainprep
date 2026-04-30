@@ -134,18 +134,18 @@ def brainprep_quasiraw(
       transform_file: PosixPath('...')
     )
     """
-    resource_dir = Path(interfaces.__file__).parent.parent / "resources"
-    template_file = resource_dir / "MNI152_T1_1mm_brain.nii.gz"
-    print_info(f"setting template file: {template_file}")
-    workspace_dir = output_dir / "workspace"
-    workspace_dir.mkdir(parents=True, exist_ok=True)
-    print_info(f"setting workspace directory: {workspace_dir}")
-
     entities = kwargs.get("entities", {})
     if len(entities) == 0:
         raise ValueError(
             f"The anatomical file '{anatomical_file}' is not BIDS-compliant."
         )
+
+    resource_dir = Path(interfaces.__file__).parent.parent / "resources"
+    template_file = resource_dir / "MNI152_T1_1mm_brain.nii.gz"
+    print_info(f"setting template file: {template_file}")
+    workspace_dir = output_dir / f"workspace_{entities['run']}"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
 
     reoriented_anatomical_file = interfaces.reorient(
         anatomical_file,

@@ -129,15 +129,15 @@ def brainprep_defacing(
       summary_file: PosixPath('...')
     )
     """
-    workspace_dir = output_dir / "workspace"
-    workspace_dir.mkdir(parents=True, exist_ok=True)
-    print_info(f"setting workspace directory: {workspace_dir}")
-
     entities = kwargs.get("entities", {})
     if len(entities) == 0:
         raise ValueError(
             f"The T1w file '{t1_file}' is not BIDS-compliant."
         )
+
+    workspace_dir = output_dir / f"workspace_{entities['run']}"
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    print_info(f"setting workspace directory: {workspace_dir}")
 
     reoriented_t1_file = interfaces.reorient(
         t1_file,
