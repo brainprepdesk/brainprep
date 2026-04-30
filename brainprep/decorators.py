@@ -290,11 +290,10 @@ class CommandLineWrapperHook(Hook):
                 "list of list of string for multiple commands."
             )
         commands = [command] if is_list_str(command) else command
+
         for cmd in commands:
             print_command(" ".join(cmd))
-
-        if not dryrun:
-            for cmd in commands:
+            if not dryrun:
                 run_command(cmd)
 
         for item in outputs or []:
