@@ -150,6 +150,8 @@ class RSTReport(metaclass=SingletonReport):
     ----------
     _registry : Bunch
         Internal storage for all registered report data.
+    _commands : Bunch
+        Internal storage for all registered commands.
     _str_fields : tuple[str]
         Allowed string fields.
 
@@ -181,6 +183,7 @@ class RSTReport(metaclass=SingletonReport):
     """
 
     _registry: Bunch = Bunch()
+    _commands: Bunch = Bunch()
     _str_fields: tuple[str] = ("module", "trace", "description")
 
     def __init__(
@@ -231,6 +234,29 @@ class RSTReport(metaclass=SingletonReport):
             )
         self._registry[identifier][name] = data
 
+    def register_command(
+            self,
+            cmd: str) -> None:
+        """
+        Add a new command entry to the report.
+
+        Parameters
+        ----------
+        cmd: str
+            The command.
+
+        Raises
+        ------
+        ValueError
+            If duplicated identifier found.
+        """
+        identifier = f"cmd{self._count}"
+        if identifier in self._commands:
+            raise ValueError(
+                "Duplicated identifier in commands."
+            )
+        self._commands[identifier] = cmd
+
     def __str__(self):
         return repr(self._registry)
 
@@ -263,6 +289,22 @@ class RSTReport(metaclass=SingletonReport):
                 for key, val in data.items():
                     report += f"* {key}: {val}\n"
                 report += "\n"
+        Path(file_name).write_text(report)
+
+    def save_commands_as_rst(
+            self,
+            file_name: File) -> None:
+        """
+        Save the commands list to a reStructuredText (.rst) file.
+
+        Parameters
+        ----------
+        file_name: File
+            Path to the RST file used for saving.
+        """
+        report = ""
+        for cmd in self._commands.values():
+            report += f"{cmd}\n\n"
         Path(file_name).write_text(report)
 
 

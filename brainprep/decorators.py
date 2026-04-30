@@ -813,6 +813,7 @@ class LogRuntimeHook(Hook):
             reloadable=True,
             increment=True,
         )
+
         if self.title is not None:
             print_title(f"{self.title}...")
         trace = trace_module_calls()
@@ -825,6 +826,23 @@ class LogRuntimeHook(Hook):
             report.register(self.identifier, "trace", trace)
         report.register(self.identifier, "inputs", Bunch(**inputs))
         self.start = datetime.datetime.now()
+
+        if func.__module__.startswith("brainprep.interfaces"):
+            cmd = [
+                "brainprep",
+                "interfaces",
+                func.__qualname__
+            ]
+            for name, val in inputs.items():
+                cmd.extend([
+                    f"-{name.replace('_', '-')}",
+                    "_".join(f"{key}-{val}" for key, val in val.items())
+                    if name == "entities"
+                    else str(val)
+                ])
+            print_command(" ".join(cmd))
+            report.register_command(" ".join(cmd))
+
         return inputs
 
     def after_call(
@@ -962,6 +980,11 @@ class SaveRuntimeHook(Hook):
             )
         report_file.parent.mkdir(parents=True, exist_ok=True)
         report.save_as_rst(report_file)
+        report.save_commands_as_rst(
+            report_file.with_name(
+                report_file.name.replace("report_", "commands_")
+            )
+        )
         return outputs
 
 
