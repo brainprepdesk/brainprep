@@ -11,7 +11,7 @@
 FSL functions.
 """
 
-from pathlib import Path
+import os
 
 from ..decorators import (
     CoerceparamsHook,
@@ -370,3 +370,75 @@ def applyaffine(
     ]
 
     return command, (aligned_image_file, )
+
+
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        CommandLineWrapperHook(),
+        SignatureHook(),
+    ]
+)
+def dti_fit(
+        dwi_file: File,
+        mask_file: File,
+        workspace_dir: Directory,
+        output_dir: Directory,
+        entities: dict) -> tuple[list[str], tuple[File]]:
+    """
+    DTI model fitting.
+
+    This function prepares the command-line required to compute diffusion
+    tensor imaging (DTI) metrics using FSL `dtifit` for a single subject.
+
+    DTI estimation is performed using the diffusion tensor model and weighted
+    least square fitting to derive  scalar measures such as fractional
+    anisotropy (FA), mean diffusivity (MD), and radial diffusivity (RD).
+
+    Parameters
+    ----------
+    dwi_file : File
+        Path to the preprocessed diffusion weighted image file of one subject.
+    mask_file : File
+        Path to the associated brain image file.
+    workspace_dir: Directory
+        Working directory with the workspace of the current processing.
+    output_dir : Directory
+        Directory where the reoriented image will be saved.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
+
+    Returns
+    -------
+    command : list[str]
+        DTI scalar maps computation command-line.
+    outputs : tuple[File]
+        - fa_file : File - The DTI fractional anisotropy image file.
+        - md_file : File - The DTI mean diffusivity image file.
+    """
+    basename = dwi_file.name.removesuffix("_desc-preproc_dwi.nii.gz")
+    basename += "_desc-dti"
+    output_dir_ = output_dir / "maps"
+    output_dir_.mkdir(parents=True, exist_ok=True)
+
+    os.environ["FSLOUTPUTTYPE"] = "NIFTI_GZ"
+
+    command = [
+        "dtifit",
+        "-k", str(dwi_file),
+        "-m", str(mask_file),
+        "-r", str(dwi_file).replace(".nii.gz", ".bvec"),
+        "-b", str(dwi_file).replace(".nii.gz", ".bval"),
+        "-w",
+        "--no_tensor",
+        "-o", str(output_dir_ / basename),
+    ]
+
+    return command, [
+        output_dir_ / f"{basename}_FA.nii.gz",
+        output_dir_ / f"{basename}_MD.nii.gz",
+    ]

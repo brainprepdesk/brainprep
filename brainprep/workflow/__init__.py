@@ -14,6 +14,9 @@ from .defacing import (
     brainprep_defacing,
     brainprep_group_defacing,
 )
+from .dmriprep import (
+    brainprep_dmriprep,
+)
 from .fmriprep import (
     brainprep_fmriprep,
     brainprep_group_fmriprep,

@@ -24,6 +24,7 @@ from .color import (
     print_warn,
 )
 from .utils import (
+    bvecbval_from_file,
     coerce_to_list,
     coerce_to_path,
     find_first_occurrence,
