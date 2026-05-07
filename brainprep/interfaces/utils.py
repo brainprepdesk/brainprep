@@ -196,6 +196,8 @@ def movedir(
         source_dir: Directory,
         output_dir: Directory,
         content: bool = False,
+        copy: bool = False,
+        add_source_basename: bool = True,
         dryrun: bool = False) -> tuple[Directory]:
     """
     Move input directory.
@@ -208,6 +210,11 @@ def movedir(
         Directory where the folder is moved.
     content : bool
         If True, move the content of the source directory. Default False.
+    copy : bool
+        If True, copy the content of the source directory. Default False.
+    add_source_basename : bool
+        If True, add the source directory basename to output directory. Only
+        valid when content is False. Default True.
     dryrun : bool
         If True, skip actual computation and file writing. Default False.
 
@@ -221,20 +228,53 @@ def movedir(
     ValueError
         If `source_dir` is not a directory.
     """
-    if not dryrun:
-        if not source_dir.is_dir():
-            raise ValueError(
-                f"Source '{source_dir}' is not a directory."
-            )
-        if not content:
-            shutil.move(source_dir, output_dir / source_dir.name)
+
+    def ensure_clean_directory(path):
+        if path.exists():
+            if path.is_file():
+                path.unlink()
+            else:
+                shutil.rmtree(path)
+
+    if dryrun:
+        return (output_dir if content else output_dir / source_dir.name, )
+
+    if not source_dir.is_dir():
+        raise ValueError(
+            f"Source '{source_dir}' is not a directory."
+        )
+
+    if not content:
+        if add_source_basename:
+            target_dir = output_dir / source_dir.name
         else:
-            for item in source_dir.iterdir():
-                target = output_dir / item.name
-                shutil.move(item, output_dir / item.name)
-            if not any(source_dir.iterdir()):
-                source_dir.rmdir()
-    return (output_dir if content else output_dir / source_dir.name, )
+            target_dir = output_dir
+        ensure_clean_directory(target_dir)
+        if copy:
+            shutil.copytree(source_dir, target_dir)
+        else:
+            shutil.move(source_dir, target_dir)
+        return (target_dir, )
+
+    items = source_dir.iterdir()
+    for item in items:
+        target = output_dir / item.name
+        ensure_clean_directory(target)
+        if item.is_dir():
+            if copy:
+                shutil.copytree(item, target)
+            else:
+                shutil.move(item, target)
+        else:
+            if copy:
+                shutil.copy2(item, target)
+            else:
+                shutil.move(item, target)
+
+    if not any(source_dir.iterdir()):
+        source_dir.rmdir()
+
+    return (output_dir, )
 
 
 @step(

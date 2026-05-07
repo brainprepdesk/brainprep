@@ -34,6 +34,12 @@ DEFAULT_OPTIONS = {
         "/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/"
         "cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii"
     ),
+    "mni_2iso_file": Path(
+        "/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz"
+    ),
+    "geolab_atlas_dir": Path(
+        "/opt/geolab/atlas"
+    ),
 }
 
 brainprep_options = contextvars.ContextVar(
