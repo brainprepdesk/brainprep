@@ -14,7 +14,6 @@ import datetime
 import inspect
 import json
 import platform
-import subprocess
 import time
 from collections.abc import Callable, Iterable
 from pathlib import Path
@@ -34,7 +33,6 @@ from .reporting import (
     trace_module_calls,
 )
 from .typing import (
-    Directory,
     File,
 )
 from .utils import (
@@ -780,9 +778,11 @@ class LogRuntimeHook(Hook):
             self,
             title: str | None = None,
             bunched: bool = True,
+            parent: bool = False,
         ) -> None:
         self.title = title
         self.bunched = bunched
+        self.parent = parent
 
     def before_call(
             self,
@@ -830,15 +830,44 @@ class LogRuntimeHook(Hook):
         if func.__module__.startswith("brainprep.interfaces"):
             cmd = [
                 "brainprep",
-                "interfaces",
-                func.__qualname__
+                "interface",
+                func.__qualname__.replace("_", "-")
             ]
             for name, val in inputs.items():
+                if self.parent and name == "output_dir":
+                    val = val.parent
                 cmd.extend([
                     f"-{name.replace('_', '-')}",
-                    "_".join(f"{key}-{val}" for key, val in val.items())
-                    if name == "entities"
-                    else str(val)
+                    (
+                        ",".join(
+                            "_".join(
+                                f"{key}-{val}"
+                                for key, val in item.items()
+                            )
+                            for item in val
+                        )
+                        if name == "entities" and isinstance(val, list)
+                        else "_".join(
+                            f"{key}-{val}"
+                            for key, val in val.items()
+                        )
+                        if name == "entities"
+                        else ",".join(
+                            str(obj)
+                            for obj in val
+                        )
+                        if isinstance(val, list)
+                        else str(val)
+                    ),
+                ])
+            config = DEFAULT_OPTIONS.copy()
+            config.update(
+                brainprep_options.get()
+            )
+            for name, val in config.items():
+                cmd.extend([
+                    f"-{name.replace('_', '-')}",
+                    str(val),
                 ])
             print_command(" ".join(cmd))
             report.register_command(" ".join(cmd))

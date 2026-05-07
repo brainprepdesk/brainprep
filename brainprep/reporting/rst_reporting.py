@@ -10,28 +10,19 @@
 Module that implements a RST reporting tool.
 """
 
-import datetime
 import inspect
-import platform
 import textwrap
-from collections.abc import Callable
 from pathlib import Path
 from typing import (
     Any,
     Self,
 )
 
-from .._version import __version__
-from ..config import (
-    DEFAULT_OPTIONS,
-    brainprep_options,
-)
 from ..typing import (
     File,
 )
 from ..utils import (
     Bunch,
-    print_title,
 )
 
 
@@ -250,7 +241,7 @@ class RSTReport(metaclass=SingletonReport):
         ValueError
             If duplicated identifier found.
         """
-        identifier = f"cmd{self._count}"
+        identifier = f"cmd{len(self._commands)}"
         if identifier in self._commands:
             raise ValueError(
                 "Duplicated identifier in commands."
@@ -304,7 +295,7 @@ class RSTReport(metaclass=SingletonReport):
         """
         report = ""
         for cmd in self._commands.values():
-            report += f"{cmd}\n\n"
+            report += f"{cmd}\n"
         Path(file_name).write_text(report)
 
 

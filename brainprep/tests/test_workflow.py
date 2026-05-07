@@ -7,6 +7,7 @@
 ##########################################################################
 
 
+import subprocess
 import unittest
 import runpy
 from pathlib import Path
@@ -16,6 +17,14 @@ class TestGalleryExamples(unittest.TestCase):
 
     def setUp(self):
         self.examples_dir = Path(__file__).parent.parent.parent / "examples"
+
+    def _test_interface_commands(self, env):
+        outdir = Path(env["outdir"])
+        for commands_file in outdir.rglob("commands_*.rst"):
+            for cmd in commands_file.read_text().splitlines():
+                print("*", cmd.split(" "))
+                print(cmd)
+                subprocess.check_call(cmd.split(" "))
 
     def test_html_reporting(self):
         script_path = (
@@ -39,7 +48,8 @@ class TestGalleryExamples(unittest.TestCase):
             "workflows" /
             "plot_quality_assurance.py"
         )
-        runpy.run_path(str(script_path))
+        env = runpy.run_path(str(script_path))
+        self._test_interface_commands(env)
 
     def test_defacing(self):
         script_path = (
@@ -47,7 +57,8 @@ class TestGalleryExamples(unittest.TestCase):
             "workflows" /
             "plot_defacing.py"
         )
-        runpy.run_path(str(script_path))
+        env = runpy.run_path(str(script_path))
+        self._test_interface_commands(env)
 
     def test_quasiraw(self):
         script_path = (
@@ -55,7 +66,8 @@ class TestGalleryExamples(unittest.TestCase):
             "workflows" /
             "plot_quasiraw.py"
         )
-        runpy.run_path(str(script_path))
+        env = runpy.run_path(str(script_path))
+        self._test_interface_commands(env)
 
     def test_sbm(self):
         script_path = (
@@ -63,7 +75,8 @@ class TestGalleryExamples(unittest.TestCase):
             "workflows" /
             "plot_sbm.py"
         )
-        runpy.run_path(str(script_path))
+        env = runpy.run_path(str(script_path))
+        self._test_interface_commands(env)
 
     def test_vbm(self):
         script_path = (
@@ -71,7 +84,8 @@ class TestGalleryExamples(unittest.TestCase):
             "workflows" /
             "plot_vbm.py"
         )
-        runpy.run_path(str(script_path))
+        env = runpy.run_path(str(script_path))
+        self._test_interface_commands(env)
 
     def test_fmriprep(self):
         script_path = (
@@ -79,7 +93,8 @@ class TestGalleryExamples(unittest.TestCase):
             "workflows" /
             "plot_fmriprep.py"
         )
-        runpy.run_path(str(script_path))
+        env = runpy.run_path(str(script_path))
+        self._test_interface_commands(env)
 
 
 if __name__ == "__main__":
