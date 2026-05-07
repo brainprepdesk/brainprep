@@ -10,6 +10,9 @@
 Module that implements interfaces.
 """
 
+from .amico import (
+    noddi_fit,
+)
 from .ants import (
     biasfield,
 )
@@ -23,6 +26,8 @@ from .fmriprep import (
     func_vol_connectivity,
 )
 from .freesurfer import (
+    aparcstats2table,
+    asegstats2table,
     brainmask,
     freesurfer_command_status,
     freesurfer_features_summary,
@@ -31,17 +36,25 @@ from .freesurfer import (
     fsaveragesym_surfreg,
     localgi,
     mgz_to_nii,
+    mri_convert,
+    mris_apply_reg,
     nextbrain,
     reconall,
     reconall_longitudinal,
+    surfreg,
+    xhemireg,
 )
 from .fsl import (
     affine,
     applyaffine,
     applymask,
     deface,
+    dti_fit,
     reorient,
     scale,
+)
+from .geolab import (
+    geolab_parcellation,
 )
 from .morphologist import (
     morphologist_morphometry,
@@ -50,6 +63,9 @@ from .morphologist import (
 from .mriqc import (
     group_level_qa,
     subject_level_qa,
+)
+from .mrtrix3 import (
+    dwi_preproc,
 )
 from .plotting import (
     plot_brainparc,
@@ -69,6 +85,9 @@ from .qualcheck import (
     sulcirec_metrics,
     vbm_metrics,
 )
+from .tractseg import (
+    tractseg_parcellation,
+)
 from .utils import (
     anonfile,
     copyfiles,
@@ -83,12 +102,16 @@ __all__ = [
     "anonfile",
     "applyaffine",
     "applymask",
+    "aparcstats2table",
+    "asegstats2table",
     "biasfield",
     "brainmask",
     "cat12vbm_morphometry",
     "cat12vbm_wf",
     "copyfiles",
     "deface",
+    "dti_fit",
+    "dwi_preproc",
     "euler_numbers",
     "fmriprep_metrics",
     "fmriprep_wf",
@@ -98,6 +121,7 @@ __all__ = [
     "fsaveragesym_projection",
     "fsaveragesym_surfreg",
     "func_vol_connectivity",
+    "geolab_parcellation",
     "group_level_qa",
     "incremental_pca",
     "localgi",
@@ -107,9 +131,12 @@ __all__ = [
     "mgz_to_nii",
     "morphologist_wf",
     "movedir",
+    "mri_convert",
     "mriqc_metrics",
+    "mris_apply_reg",
     "network_entropy",
     "nextbrain",
+    "noddi_fit",
     "plot_brainparc",
     "plot_defacing_mosaic",
     "plot_histogram",
@@ -121,8 +148,11 @@ __all__ = [
     "scale",
     "subject_level_qa",
     "sulcirec_metrics",
+    "surfreg",
+    "tractseg_parcellation",
     "ungzfile",
     "vbm_metrics",
     "write_catbatch",
     "write_uuid_mapping",
+    "xhemireg",
 ]

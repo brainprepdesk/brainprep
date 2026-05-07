@@ -11,7 +11,6 @@
 fMRIprep functions.
 """
 
-import glob
 import json
 import os
 import shutil
@@ -41,7 +40,6 @@ from ..typing import (
     File,
 )
 from ..utils import (
-    parse_bids_keys,
     sidecar_from_file,
 )
 

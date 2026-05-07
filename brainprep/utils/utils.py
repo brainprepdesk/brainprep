@@ -11,10 +11,8 @@ Module that contains some utility functions.
 """
 
 import inspect
-import json
 import re
 import uuid
-from collections.abc import Callable, Iterable
 from pathlib import Path
 from typing import (
     Any,
@@ -23,7 +21,6 @@ from typing import (
     get_origin,
 )
 
-from .._version import __version__
 from ..config import (
     DEFAULT_OPTIONS,
     brainprep_options,
@@ -33,7 +30,6 @@ from ..typing import (
     File,
 )
 from .color import (
-    print_info,
     print_warn,
 )
 
@@ -365,6 +361,61 @@ def sidecar_from_file(
             f"Sidecar inferred from input image file not found: {sidecar_file}"
         )
     return sidecar_file
+
+
+def bvecbval_from_file(
+        image_file: File) -> tuple[File, File]:
+    """
+    Infers the corresponding .bvec and .bval files for a given dMRI NIfTI image
+    file.
+
+    This function checks that the input file has a ``.nii.gz`` extension and
+    attempts to locate gradient information ``.bvec`` and ``.bval`` files
+    with the same base name. None is returned if no gradient information
+    is found.
+
+    Parameters
+    ----------
+    image_file : File
+        The NIfTI image file for which to infer the JSON sidecar.
+
+    Returns
+    -------
+    bvec_file : File
+        Path to the inferred bvec file.
+    bvval_file : File
+        Path to the inferred bvel file.
+
+    Raises
+    ------
+    ValueError
+        If the input file does not have a `.nii.gz` extension.
+
+    Examples
+    --------
+    >>> from pathlib import Path
+    >>> from brainprep.utils import bvecbval_from_file
+    >>>
+    >>> image_file = Path("/tmp/sub-01_dwi.nii.gz")
+    >>> bvec_file = Path("/tmp/sub-01_dwi.bvec")
+    >>> bvec_file.touch()
+    >>> bval_file = Path("/tmp/sub-01_dwi.bval")
+    >>> bval_file.touch()
+    >>>
+    >>> bvecbval_from_file(image_file)
+    (PosixPath('/tmp/sub-01_dwi.bvec'), PosixPath('/tmp/sub-01_dwi.bval'))
+    """
+    if not str(image_file).endswith(".nii.gz"):
+        raise ValueError(
+            f"Input image file must be in NIIGZ format: {image_file}"
+        )
+    bvec_file = Path(str(image_file).replace(".nii.gz", ".bvec"))
+    if not bvec_file.is_file():
+        bvec_file = None
+    bval_file = Path(str(image_file).replace(".nii.gz", ".bval"))
+    if not bval_file.is_file():
+        bval_file = None
+    return bvec_file, bval_file
 
 
 def find_stack_level() -> int:

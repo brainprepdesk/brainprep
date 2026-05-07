@@ -34,7 +34,6 @@ from ..typing import (
     File,
 )
 from ..utils import (
-    parse_bids_keys,
     print_info,
     print_warn,
 )
@@ -1035,7 +1034,8 @@ def asegstats2table(
             morphometry=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         SignatureHook(),
     ]

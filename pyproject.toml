@@ -113,6 +113,8 @@ extend-select = [
     "W291", # trailing whitespace
     "E203", # whitespace before ':'
     "E501", # line too long (226 > 79 characters)
+    "F401", # unused-import
+    "F821", # undefined-name
 ]
 ignore = [
     "D401",     # First line of docstring should be in imperative mood

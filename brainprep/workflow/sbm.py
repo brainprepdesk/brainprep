@@ -30,7 +30,6 @@ from ..typing import (
 from ..utils import (
     Bunch,
     find_first_occurrence,
-    parse_bids_keys,
     print_deprecated,
     print_info,
 )

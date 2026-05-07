@@ -10,7 +10,6 @@
 Functional MRI pre-processing workflow.
 """
 
-import itertools
 import shutil
 
 import brainprep.interfaces as interfaces
@@ -29,7 +28,6 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
-    parse_bids_keys,
     print_info,
 )
 
@@ -100,11 +98,9 @@ def brainprep_sulcirec(
     Examples
     --------
     >>> from brainprep.config import Config
-    >>> from brainprep.reporting import RSTReport
     >>> from brainprep.workflow import brainprep_sulcirec
     >>>
     >>> with Config(dryrun=True, verbose=False):
-    ...     report = RSTReport()
     ...     outputs = brainprep_sulcirec(
     ...         t1_file=(
     ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"
@@ -115,6 +111,7 @@ def brainprep_sulcirec(
     >>> outputs
     Bunch(
         sulci_graphs_files=[PosixPath('...'), PosixPath('...')],
+        qc_file=PosixPath('...')
     )
     """
     entities = kwargs.get("entities", {})

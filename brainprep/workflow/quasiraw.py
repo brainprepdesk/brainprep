@@ -29,7 +29,6 @@ from ..typing import (
 )
 from ..utils import (
     Bunch,
-    parse_bids_keys,
     print_info,
 )
 
