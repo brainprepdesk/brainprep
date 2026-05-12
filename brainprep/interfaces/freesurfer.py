@@ -1275,16 +1275,16 @@ def freesurfer_tissues(
             np.logical_and(
                 np.logical_or(
                     np.logical_or(
-                        np.in1d(ribbon_arr, ribbon_wm_structures),
-                        np.in1d(wmparc_arr, wmparc_wm_structures)),
-                    np.in1d(wmparc_arr, wmparc_cc_structures)),
-                np.logical_not(np.in1d(wmparc_arr, wmparc_csf_structures))),
-            np.logical_not(np.in1d(wmparc_arr, wmparc_gm_structures))
+                        np.isin(ribbon_arr, ribbon_wm_structures),
+                        np.isin(wmparc_arr, wmparc_wm_structures)),
+                    np.isin(wmparc_arr, wmparc_cc_structures)),
+                np.logical_not(np.isin(wmparc_arr, wmparc_csf_structures))),
+            np.logical_not(np.isin(wmparc_arr, wmparc_gm_structures))
         )
-        csf_mask_arr = np.in1d(wmparc_arr, wmparc_csf_structures)
+        csf_mask_arr = np.isin(wmparc_arr, wmparc_csf_structures)
         gm_mask_arr = np.logical_or(
-            np.in1d(ribbon_arr, ribbon_gm_structures),
-            np.in1d(wmparc_arr, wmparc_gm_structures)
+            np.isin(ribbon_arr, ribbon_gm_structures),
+            np.isin(wmparc_arr, wmparc_gm_structures)
         )
 
         wm_mask_arr = np.reshape(wm_mask_arr, ribbon_arr.shape)
