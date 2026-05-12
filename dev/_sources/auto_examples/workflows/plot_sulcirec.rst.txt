@@ -78,12 +78,12 @@ As with many tutorials, we won't execute the code directly here.
 However, feel free to set the 'dryrun' configuration to False
 to actually run each step and generate results on disk.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-63
+.. GENERATED FROM PYTHON SOURCE LINES 38-65
 
 .. code-block:: Python
 
 
-
+    import shutil
     from brainprep.workflow import (
         brainprep_group_sulcirec,
         brainprep_sulcirec,
@@ -92,6 +92,8 @@ to actually run each step and generate results on disk.
     from brainprep.reporting import RSTReport
 
     outdir = Path("/tmp/brainprep-sulcirec")
+    if outdir.is_dir():
+        shutil.rmtree(outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     with Config(dryrun=True, verbose=True):
         report = RSTReport()
@@ -128,7 +130,21 @@ to actually run each step and generate results on disk.
     'T1w', 'run': '28236'}},
     )
     [info] - setting workspace directory: 
-    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace
+    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28
+    236
+    [command] - brainprep interface morphologist-wf -t1-file 
+    /tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz 
+    -output-dir /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00 
+    -workspace-dir 
+    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28
+    236 -entities sub-01_ses-00_modality-T1w_mod-T1w_run-28236 -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.morphologist.morphologist_wf(
         t1_file=PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses
@@ -136,10 +152,23 @@ to actually run each step and generate results on disk.
         output_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/
     sub-01/ses-00'),
         workspace_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjec
-    ts/sub-01/ses-00/workspace'),
+    ts/sub-01/ses-00/workspace_28236'),
         entities={'sub': '01', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': 
     '28236'},
     )
+    [command] - brainprep interface morphologist-cmd -t1-file 
+    /tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz 
+    -output-dir /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00 
+    -workspace-dir 
+    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28
+    236 -entities sub-01_ses-00_modality-T1w_mod-T1w_run-28236 -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.morphologist.morphologist_cmd(
         t1_file=PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses
@@ -147,21 +176,33 @@ to actually run each step and generate results on disk.
         output_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/
     sub-01/ses-00'),
         workspace_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjec
-    ts/sub-01/ses-00/workspace'),
+    ts/sub-01/ses-00/workspace_28236'),
         entities={'sub': '01', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': 
     '28236'},
     )
     [command] - morphologist-wrapper 
     /tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz 
-    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace 
-    --subject 01
+    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28
+    236 --subject 01
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface morphologist-move -output-dir 
+    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00 
+    -workspace-dir 
+    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28
+    236 -entities sub-01_ses-00_modality-T1w_mod-T1w_run-28236 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.morphologist.morphologist_move(
         output_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/
     sub-01/ses-00'),
         workspace_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjec
-    ts/sub-01/ses-00/workspace'),
+    ts/sub-01/ses-00/workspace_28236'),
         entities={'sub': '01', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': 
     '28236'},
         dryrun=True,
@@ -176,15 +217,16 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc
     .tsv
     __________________________________________________________________0.00s, 0.00min
-    __________________________________________________________________0.01s, 0.00min
-    [info] - cleaning workspace directory: 
-    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace
-    [title] - Subject Level Sulci Reconstruction done.
     __________________________________________________________________0.02s, 0.00min
+    [info] - cleaning workspace directory: 
+    /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28
+    236
+    [title] - Subject Level Sulci Reconstruction done.
+    __________________________________________________________________0.03s, 0.00min
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.sulcirec.brainprep_sulcirec'
-        description: '\n    Subject level sulci reconstruction.\n\n    Applies morphologist tool :footcite:p:`fischer2012morphologist` for\n    cortical sulci extraction and identification.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    output_dir : Directory\n        Directory where the prep-processing related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n    **kwargs : dict\n        entities: dict\n            Dictionary of parsed BIDS entities.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - sulci_graphs_files : list[File] - Left and right hemispheres sulci.\n        - qc_file : File - QC TSV file.\n\n    Raises\n    ------\n    ValueError\n        If the input T1w file is not BIDS-compliant.\n\n    Notes\n    -----\n    This workflow assumes the T1w image is organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.reporting import RSTReport\n    >>> from brainprep.workflow import brainprep_sulcirec\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     report = RSTReport()\n    ...     outputs = brainprep_sulcirec(\n    ...         t1_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n        sulci_graphs_files=[PosixPath(\'...\'), PosixPath(\'...\')],\n    )\n    '
+        description: '\n    Subject level sulci reconstruction.\n\n    Applies morphologist tool :footcite:p:`fischer2012morphologist` for\n    cortical sulci extraction and identification.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    output_dir : Directory\n        Directory where the prep-processing related outputs will be saved\n        (i.e., the root of your dataset).\n    keep_intermediate : bool\n        If True, retains intermediate results (i.e., the workspace); useful\n        for debugging. Default False.\n    **kwargs : dict\n        entities: dict\n            Dictionary of parsed BIDS entities.\n\n    Returns\n    -------\n    Bunch\n        A dictionary-like object containing:\n\n        - sulci_graphs_files : list[File] - Left and right hemispheres sulci.\n        - qc_file : File - QC TSV file.\n\n    Raises\n    ------\n    ValueError\n        If the input T1w file is not BIDS-compliant.\n\n    Notes\n    -----\n    This workflow assumes the T1w image is organized in BIDS.\n\n    References\n    ----------\n\n    .. footbibliography::\n\n    Examples\n    --------\n    >>> from brainprep.config import Config\n    >>> from brainprep.workflow import brainprep_sulcirec\n    >>>\n    >>> with Config(dryrun=True, verbose=False):\n    ...     outputs = brainprep_sulcirec(\n    ...         t1_file=(\n    ...             "/tmp/dataset/rawdata/sub-01/ses-01/anat/"\n    ...             "sub-01_ses-01_run-01_T1w.nii.gz"\n    ...         ),\n    ...         output_dir="/tmp/dataset/derivatives",\n    ...     )\n    >>> outputs\n    Bunch(\n        sulci_graphs_files=[PosixPath(\'...\'), PosixPath(\'...\')],\n        qc_file=PosixPath(\'...\')\n    )\n    '
         inputs: Bunch(
           t1_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00')
@@ -196,9 +238,9 @@ to actually run each step and generate results on disk.
           qc_file: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv')
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:46.774196'
-          end: '2026-04-22 13:13:46.789008'
-          execution_time: 4.114444444444445e-06
+          start: '2026-05-12 09:50:54.994597'
+          end: '2026-05-12 09:50:55.019568'
+          execution_time: 6.936388888888889e-06
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -213,6 +255,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step2: Bunch(
@@ -222,16 +266,16 @@ to actually run each step and generate results on disk.
         inputs: Bunch(
           t1_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00')
-          workspace_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace')
+          workspace_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28236')
           entities: {'sub': '01', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': '28236'}
         )
         outputs: Bunch(
           outputs: ([PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-L.arg'), PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-R.arg')], PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv'))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:46.778608'
-          end: '2026-04-22 13:13:46.788069'
-          execution_time: 2.628055555555556e-06
+          start: '2026-05-12 09:50:55.000900'
+          end: '2026-05-12 09:50:55.018695'
+          execution_time: 4.943055555555555e-06
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -246,6 +290,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step3: Bunch(
@@ -255,16 +301,16 @@ to actually run each step and generate results on disk.
         inputs: Bunch(
           t1_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00')
-          workspace_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace')
+          workspace_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28236')
           entities: {'sub': '01', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': '28236'}
         )
         outputs: Bunch(
-          outputs: ['morphologist-wrapper', '/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz', '/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace', '--subject', '01']
+          outputs: ['morphologist-wrapper', '/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz', '/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28236', '--subject', '01']
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:46.781862'
-          end: '2026-04-22 13:13:46.782920'
-          execution_time: 2.9388888888888885e-07
+          start: '2026-05-12 09:50:55.007352'
+          end: '2026-05-12 09:50:55.009794'
+          execution_time: 6.783333333333333e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -279,6 +325,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step4: Bunch(
@@ -287,7 +335,7 @@ to actually run each step and generate results on disk.
         trace: 'brainprep.workflow.sulcirec.brainprep_sulcirec->brainprep.interfaces.morphologist.morphologist_wf'
         inputs: Bunch(
           output_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00')
-          workspace_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace')
+          workspace_dir: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28236')
           entities: {'sub': '01', 'ses': '00', 'modality': 'T1w', 'mod': 'T1w', 'run': '28236'}
           dryrun: False
         )
@@ -295,9 +343,9 @@ to actually run each step and generate results on disk.
           outputs: ([PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-L.arg'), PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-R.arg')], PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv'))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:46.785693'
-          end: '2026-04-22 13:13:46.786649'
-          execution_time: 2.6555555555555554e-07
+          start: '2026-05-12 09:50:55.014296'
+          end: '2026-05-12 09:50:55.016950'
+          execution_time: 7.372222222222222e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -312,6 +360,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -321,6 +371,15 @@ to actually run each step and generate results on disk.
         output_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec'),
         keep_intermediate=False,
     )
+    [command] - brainprep interface morphologist-morphometry -output-dir 
+    /tmp/brainprep-sulcirec/derivatives/sulcirec -dryrun False -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.morphologist.morphologist_morphometry(
         output_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/morphomet
@@ -334,6 +393,15 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sulcirec/derivatives/sulcirec/morphometry/brain_volumes_morpholog
     ist_roi.tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface sulcirec-metrics -output-dir 
+    /tmp/brainprep-sulcirec/derivatives/sulcirec -dryrun False -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.sulcirec_metrics(
         output_dir=PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/quality_c
@@ -344,12 +412,12 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sulcirec/derivatives/sulcirec/quality_check/group_stats.tsv
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Sulci Reconstruction done.
-    __________________________________________________________________0.01s, 0.00min
+    __________________________________________________________________0.02s, 0.00min
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-70
+.. GENERATED FROM PYTHON SOURCE LINES 66-72
 
 CLI
 ---
@@ -358,7 +426,7 @@ Let's now generate the same analysis using the CLI. The goal here is to
 translate the workflow calls into explicit shell commands.
 See :ref:`user guide <cli>` for details.
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-94
+.. GENERATED FROM PYTHON SOURCE LINES 72-96
 
 .. code-block:: Python
 
@@ -408,7 +476,7 @@ See :ref:`user guide <cli>` for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-107
+.. GENERATED FROM PYTHON SOURCE LINES 97-109
 
 Container
 ---------
@@ -426,7 +494,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.350 seconds)
+   **Total running time of the script:** (0 minutes 0.407 seconds)
 
 **Estimated memory usage:**  111 MB
 

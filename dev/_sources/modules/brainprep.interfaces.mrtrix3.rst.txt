@@ -1,0 +1,25 @@
+:mod:`brainprep.interfaces.mrtrix3`: MrTrix3 functions.
+=======================================================
+
+.. automodule:: brainprep.interfaces.mrtrix3
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.mrtrix3
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    dwi_preproc
+
+
+
+

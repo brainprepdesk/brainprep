@@ -20,14 +20,18 @@ Functions
 
     affine
     anonfile
+    aparcstats2table
     applyaffine
     applymask
+    asegstats2table
     biasfield
     brainmask
     cat12vbm_morphometry
     cat12vbm_wf
     copyfiles
     deface
+    dti_fit
+    dwi_preproc
     euler_numbers
     fmriprep_metrics
     fmriprep_wf
@@ -37,6 +41,7 @@ Functions
     fsaveragesym_projection
     fsaveragesym_surfreg
     func_vol_connectivity
+    geolab_parcellation
     group_level_qa
     incremental_pca
     localgi
@@ -46,9 +51,12 @@ Functions
     mgz_to_nii
     morphologist_wf
     movedir
+    mri_convert
     mriqc_metrics
+    mris_apply_reg
     network_entropy
     nextbrain
+    noddi_fit
     plot_brainparc
     plot_defacing_mosaic
     plot_histogram
@@ -60,10 +68,13 @@ Functions
     scale
     subject_level_qa
     sulcirec_metrics
+    surfreg
+    tractseg_parcellation
     ungzfile
     vbm_metrics
     write_catbatch
     write_uuid_mapping
+    xhemireg
 
 
 

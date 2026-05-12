@@ -1,0 +1,25 @@
+:mod:`brainprep.interfaces.tractseg`: TractSeg functions.
+=========================================================
+
+.. automodule:: brainprep.interfaces.tractseg
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.tractseg
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    tractseg_parcellation
+
+
+
+

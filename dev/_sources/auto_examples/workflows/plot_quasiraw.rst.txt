@@ -93,12 +93,12 @@ As with many tutorials, we won't execute the code directly here.
 However, feel free to set the 'dryrun' configuration to False
 to actually run each step and generate results on disk.
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-71
+.. GENERATED FROM PYTHON SOURCE LINES 46-73
 
 .. code-block:: Python
 
 
-
+    import shutil
     from brainprep.workflow import (
         brainprep_quasiraw,
         brainprep_group_quasiraw,
@@ -107,6 +107,8 @@ to actually run each step and generate results on disk.
     from brainprep.reporting import RSTReport
 
     outdir = Path("/tmp/brainprep-quasiraw")
+    if outdir.is_dir():
+        shutil.rmtree(outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     with Config(dryrun=True, verbose=True):
         for subject_data in data.values():
@@ -146,270 +148,437 @@ to actually run each step and generate results on disk.
     /home/runner/work/brainprep/brainprep/doc/../brainprep/resources/MNI152_T1_1mm_b
     rain.nii.gz
     [info] - setting workspace directory: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706
+    [command] - brainprep interface reorient -image-file 
+    /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose 
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.reorient(
         image_file=PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_
     T1w.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/01-reorient'),
+    sub-01/ses-01/workspace_34706/01-reorient'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - fslreorient2std 
     /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01
-    -reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01
-    -reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface brainmask -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.brainmask(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii
-    .gz'),
+    sub-01/ses-01/workspace_34706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorie
+    nt.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/02-brainmask'),
+    sub-01/ses-01/workspace_34706/02-brainmask'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - mri_synthstrip -i 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01
-    -reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -m 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02
-    -brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -m 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02
-    -brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface applymask -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -mask-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/03-applymask -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.applymask(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii
-    .gz'),
+    sub-01/ses-01/workspace_34706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorie
+    nt.nii.gz'),
         mask_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/s
-    ub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.ni
-    i.gz'),
+    ub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainm
+    ask.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/03-applymask'),
+    sub-01/ses-01/workspace_34706/03-applymask'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - fslmaths 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01
-    -reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -mas 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02
-    -brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03
-    -applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -mas 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03
-    -applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface scale -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz -scale 1 
+    -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/04-scale -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose 
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.scale(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.n
-    ii.gz'),
+    sub-01/ses-01/workspace_34706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_apply
+    mask.nii.gz'),
         scale=1,
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/04-scale'),
+    sub-01/ses-01/workspace_34706/04-scale'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03
-    -applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz -ref 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03
-    -applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz -applyisoxfm 1 -out 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -omat 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt -verbose 1
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz -applyisoxfm 1
+    -out 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -omat 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt -verbose 1
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface scale -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -scale 1 
+    -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/05-scale -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose 
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.scale(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.n
-    ii.gz'),
+    sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brain
+    mask.nii.gz'),
         scale=1,
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/05-scale'),
+    sub-01/ses-01/workspace_34706/05-scale'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02
-    -brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -ref 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02
-    -brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -applyisoxfm 1 -out 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -omat 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt -verbose 1
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -applyisoxfm 1
+    -out 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -omat 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt -verbose 1
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface biasfield -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -mask-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/06-biasfield -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.ants.biasfield(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'),
+    sub-01/ses-01/workspace_34706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii
+    .gz'),
         mask_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/s
-    ub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'),
+    ub-01/ses-01/workspace_34706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.
+    gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/06-biasfield'),
+    sub-01/ses-01/workspace_34706/06-biasfield'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - N4BiasFieldCorrection -d 3 -i 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -s 1 -b [1x1x1,3] -c 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -s 1 -b [1x1x1,3] -c 
     [50x50x50x50,0.001] -t [0.15,0.01,200] -x 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05
-    -scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -o 
-    [/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/0
-    6-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz,/tmp/brainprep-
-    quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-
-    01_ses-01_run-34706_mod-T1w_biasfield.nii.gz] -v
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz -o 
+    [/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_3
+    4706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz,/tmp/brai
+    nprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-bi
+    asfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz] -v
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06
-    -biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06
-    -biasfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface affine -anatomical-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz 
+    -template-file 
+    /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
+    i.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose 
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.affine(
         anatomical_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subj
-    ects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasco
-    rrected.nii.gz'),
+    ects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_
+    biascorrected.nii.gz'),
         template_file=PosixPath('/home/runner/work/brainprep/brainprep/brainprep/res
     ources/MNI152_T1_1mm_brain.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/07-affine'),
+    sub-01/ses-01/workspace_34706/07-affine'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06
-    -biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz -ref 
     /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
     i.gz -cost normmi -searchcost normmi -anglerep euler -bins 256 -interp trilinear
     -dof 9 -out 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07
-    -affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz -omat 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07
-    -affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt -verbose 1
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz -omat 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt -verbose 1
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07
-    -affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07
-    -affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface applyaffine -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz 
+    -template-file 
+    /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
+    i.gz -transform-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/08-applyaffine -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 
+    -interpolation spline -verbose True -dryrun True -no-color False -skip-run-check
+    False -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.applyaffine(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrect
-    ed.nii.gz'),
+    sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasc
+    orrected.nii.gz'),
         template_file=PosixPath('/home/runner/work/brainprep/brainprep/brainprep/res
     ources/MNI152_T1_1mm_brain.nii.gz'),
         transform_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subje
-    cts/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt
-    '),
+    cts/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affi
+    ne.txt'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/08-applyaffine'),
+    sub-01/ses-01/workspace_34706/08-applyaffine'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
         interpolation='spline',
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06
-    -biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz -ref 
     /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
     i.gz -init 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07
-    -affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt -interp spline -applyxfm -out
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08
-    -applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt -interp spline 
+    -applyxfm -out 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08
-    -applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface applyaffine -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -template-file
+    /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
+    i.gz -transform-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/09-applyaffine -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 
+    -interpolation nearestneighbour -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.applyaffine(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.n
-    ii.gz'),
+    sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brain
+    mask.nii.gz'),
         template_file=PosixPath('/home/runner/work/brainprep/brainprep/brainprep/res
     ources/MNI152_T1_1mm_brain.nii.gz'),
         transform_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subje
-    cts/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt
-    '),
+    cts/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affi
+    ne.txt'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/09-applyaffine'),
+    sub-01/ses-01/workspace_34706/09-applyaffine'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
         interpolation='nearestneighbour',
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02
-    -brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -ref 
     /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
     i.gz -init 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07
-    -affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt -interp nearestneighbour 
-    -applyxfm -out 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09
-    -applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt -interp 
+    nearestneighbour -applyxfm -out 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09
-    -applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface applymask -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz -mask-file
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz 
+    -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/10-applymask -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.applymask(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffi
-    ne.nii.gz'),
+    sub-01/ses-01/workspace_34706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_app
+    lyaffine.nii.gz'),
         mask_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/s
-    ub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffin
-    e.nii.gz'),
+    ub-01/ses-01/workspace_34706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_appl
+    yaffine.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-01/ses-01/workspace/10-applymask'),
+    sub-01/ses-01/workspace_34706/10-applymask'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - fslmaths 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08
-    -applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz -mas 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09
-    -applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10
-    -applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz -mas 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10
-    -applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface copyfiles -source-image-files 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz,/tmp/brainprep
+    -quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/09-applyaf
+    fine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz,/tmp/brainprep-quasiraw/
+    derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses
+    -01_run-34706_mod-T1w_affine.txt -destination-image-files 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-0
+    1_run-34706_T1w.nii.gz,/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub
+    -01/ses-01/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz,/tmp/brainprep-quasi
+    raw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_
+    affine.txt -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01 -dryrun 
+    False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.copyfiles(
         source_image_files=[PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/
-    subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-34706_mod-T1w_ap
-    plymask.nii.gz'), 
+    subjects/sub-01/ses-01/workspace_34706/10-applymask/sub-01_ses-01_run-34706_mod-
+    T1w_applymask.nii.gz'), 
     PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/w
-    orkspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'), 
+    orkspace_34706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz
+    '), 
     PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/w
-    orkspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')],
+    orkspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')],
         destination_image_files=[PosixPath('/tmp/brainprep-quasiraw/derivatives/quas
     iraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_T1w.nii.gz'), 
     PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/s
@@ -422,7 +591,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.06s, 0.00min
+    __________________________________________________________________0.10s, 0.00min
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
@@ -439,9 +608,9 @@ to actually run each step and generate results on disk.
           transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_affine.txt')
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.663229'
-          end: '2026-04-22 13:13:43.717349'
-          execution_time: 1.5033333333333334e-05
+          start: '2026-05-12 09:50:51.220584'
+          end: '2026-05-12 09:50:51.315596'
+          execution_time: 2.6392222222222222e-05
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -456,6 +625,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step2: Bunch(
@@ -464,16 +635,16 @@ to actually run each step and generate results on disk.
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
           image_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/01-reorient')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['fslreorient2std', '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),))
+          outputs: (['fslreorient2std', '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.668255'
-          end: '2026-04-22 13:13:43.669426'
-          execution_time: 3.252777777777778e-07
+          start: '2026-05-12 09:50:51.227771'
+          end: '2026-05-12 09:50:51.230358'
+          execution_time: 7.186111111111111e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -488,6 +659,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step3: Bunch(
@@ -495,17 +668,17 @@ to actually run each step and generate results on disk.
         description: "\n    Skull-strip a BIDS-compliant anatomical image using FreeSurfer's\n    `mri_synthstrip`.\n\n    `mri_synthstrip` is a FreeSurfer command-line tool that applies\n    SynthStrip, a deep learning-ased skull-stripping method developed to\n    work across diverse imaging modalities, resolutions, and subject\n    population :footcite:p:`hoopes2022brainmask`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file (T1w, T2w, FLAIR, etc.).\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Skull-stripping command-line.\n    outputs : tuple[File]\n        - mask_file : File - Skull-stripped brain image file.\n\n    References\n    ----------\n\n    .. footbibliography::\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['mri_synthstrip', '-i', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '-m', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '--no-csf'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz'),))
+          outputs: (['mri_synthstrip', '-i', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '-m', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '--no-csf'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.672814'
-          end: '2026-04-22 13:13:43.673839'
-          execution_time: 2.8472222222222225e-07
+          start: '2026-05-12 09:50:51.235535'
+          end: '2026-05-12 09:50:51.237903'
+          execution_time: 6.577777777777778e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -520,6 +693,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step4: Bunch(
@@ -527,18 +702,18 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `fslmaths`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file : File\n        Path to a binary mask file.\n    output_dir : Directory\n        Directory where the masked image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Masking command-line.\n    outputs : tuple[File]\n        - masked_image_file : File - masked input image file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
-          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/03-applymask')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['fslmaths', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '-mas', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'),))
+          outputs: (['fslmaths', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '-mas', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.677255'
-          end: '2026-04-22 13:13:43.678370'
-          execution_time: 3.0972222222222223e-07
+          start: '2026-05-12 09:50:51.243121'
+          end: '2026-05-12 09:50:51.245841'
+          execution_time: 7.555555555555556e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -553,6 +728,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step5: Bunch(
@@ -560,18 +737,18 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    scale : int\n        Scale factor applied in all directions.\n    output_dir : Directory\n        Directory where the scaled image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Scaling command-line.\n    outputs : tuple[File]\n        - scaled_anatomical_file : File - Scaled input image file.\n        - transform_file : File - The associated transformation file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz')
           scale: 1
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/04-scale')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz', '-ref', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz', '-applyisoxfm', '1', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt')))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz', '-ref', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/03-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz', '-applyisoxfm', '1', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.681570'
-          end: '2026-04-22 13:13:43.682598'
-          execution_time: 2.8555555555555556e-07
+          start: '2026-05-12 09:50:51.250862'
+          end: '2026-05-12 09:50:51.253310'
+          execution_time: 6.800000000000001e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -586,6 +763,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step6: Bunch(
@@ -593,18 +772,18 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    scale : int\n        Scale factor applied in all directions.\n    output_dir : Directory\n        Directory where the scaled image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Scaling command-line.\n    outputs : tuple[File]\n        - scaled_anatomical_file : File - Scaled input image file.\n        - transform_file : File - The associated transformation file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
           scale: 1
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/05-scale')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '-ref', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '-applyisoxfm', '1', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt')))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '-ref', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '-applyisoxfm', '1', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.txt')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.686482'
-          end: '2026-04-22 13:13:43.687614'
-          execution_time: 3.1444444444444446e-07
+          start: '2026-05-12 09:50:51.259055'
+          end: '2026-05-12 09:50:51.261581'
+          execution_time: 7.016666666666667e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -619,6 +798,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step7: Bunch(
@@ -626,18 +807,18 @@ to actually run each step and generate results on disk.
         description: "\n    Bias field correction of a BIDS-compliant anatomical image using ANTs's\n    `N4BiasFieldCorrection`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file: File\n        Path to a binary brain mask file.\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Bias field correction command-line.\n    outputs : tuple[File]\n        - bc_image_file : File - The bias corrected input image file.\n        - bc_field_file : File - The estimated bias field.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz')
-          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['N4BiasFieldCorrection', '-d', '3', '-i', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz', '-s', '1', '-b', '[1x1x1,3]', '-c', '[50x50x50x50,0.001]', '-t', '[0.15,0.01,200]', '-x', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz', '-o', '[/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz,/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz]', '-v'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz')))
+          outputs: (['N4BiasFieldCorrection', '-d', '3', '-i', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/04-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz', '-s', '1', '-b', '[1x1x1,3]', '-c', '[50x50x50x50,0.001]', '-t', '[0.15,0.01,200]', '-x', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/05-scale/sub-01_ses-01_run-34706_mod-T1w_scale.nii.gz', '-o', '[/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz,/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz]', '-v'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biasfield.nii.gz')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.691616'
-          end: '2026-04-22 13:13:43.692739'
-          execution_time: 3.119444444444445e-07
+          start: '2026-05-12 09:50:51.267818'
+          end: '2026-05-12 09:50:51.270259'
+          execution_time: 6.780555555555555e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -652,6 +833,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step8: Bunch(
@@ -659,18 +842,18 @@ to actually run each step and generate results on disk.
         description: "\n    Affinely register a BIDS-compliant anatomical image to a template file\n    using FSL's `flirt`.\n\n    Parameters\n    ----------\n    anatomical_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    output_dir : Directory\n        Directory where the affine transformation will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Registration command-line.\n    outputs : tuple[File]\n        - aligned_anatomical_file : File - Aligned input image file.\n        - transform_file : File - The affine transformation file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz')
+          anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz')
           template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-cost', 'normmi', '-searchcost', 'normmi', '-anglerep', 'euler', '-bins', '256', '-interp', 'trilinear', '-dof', '9', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-cost', 'normmi', '-searchcost', 'normmi', '-anglerep', 'euler', '-bins', '256', '-interp', 'trilinear', '-dof', '9', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.696647'
-          end: '2026-04-22 13:13:43.697763'
-          execution_time: 3.1e-07
+          start: '2026-05-12 09:50:51.276751'
+          end: '2026-05-12 09:50:51.279628'
+          execution_time: 7.991666666666666e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -685,6 +868,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step9: Bunch(
@@ -692,20 +877,20 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an affine transformation to a BIDS-compliant image file using FSL's\n    `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    transform_file : File\n        Path to the affine transformation file.\n    output_dir : Directory\n        Directory where the aligned image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    interpolation: str\n        The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or\n        'spline'. Default 'spline'.\n\n    Returns\n    -------\n    command : list[str]\n        Alignment command-line.\n    outputs : tuple[File]\n        - aligned_image_file : File - Aligned input image file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz')
           template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
-          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/08-applyaffine')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
           interpolation: 'spline'
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-init', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt', '-interp', 'spline', '-applyxfm', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'),))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/06-biasfield/sub-01_ses-01_run-34706_mod-T1w_biascorrected.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-init', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt', '-interp', 'spline', '-applyxfm', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.701567'
-          end: '2026-04-22 13:13:43.702888'
-          execution_time: 3.6694444444444444e-07
+          start: '2026-05-12 09:50:51.285614'
+          end: '2026-05-12 09:50:51.288905'
+          execution_time: 9.141666666666667e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -720,6 +905,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step10: Bunch(
@@ -727,20 +914,20 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an affine transformation to a BIDS-compliant image file using FSL's\n    `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    transform_file : File\n        Path to the affine transformation file.\n    output_dir : Directory\n        Directory where the aligned image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    interpolation: str\n        The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or\n        'spline'. Default 'spline'.\n\n    Returns\n    -------\n    command : list[str]\n        Alignment command-line.\n    outputs : tuple[File]\n        - aligned_image_file : File - Aligned input image file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
           template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
-          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/09-applyaffine')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
           interpolation: 'nearestneighbour'
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-init', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt', '-interp', 'nearestneighbour', '-applyxfm', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'),))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-init', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt', '-interp', 'nearestneighbour', '-applyxfm', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.706326'
-          end: '2026-04-22 13:13:43.707703'
-          execution_time: 3.825e-07
+          start: '2026-05-12 09:50:51.294589'
+          end: '2026-05-12 09:50:51.297515'
+          execution_time: 8.127777777777779e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -755,6 +942,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step11: Bunch(
@@ -762,18 +951,18 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `fslmaths`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file : File\n        Path to a binary mask file.\n    output_dir : Directory\n        Directory where the masked image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Masking command-line.\n    outputs : tuple[File]\n        - masked_image_file : File - masked input image file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz')
-          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/10-applymask')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['fslmaths', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz', '-mas', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'),))
+          outputs: (['fslmaths', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/08-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz', '-mas', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.711159'
-          end: '2026-04-22 13:13:43.712319'
-          execution_time: 3.222222222222222e-07
+          start: '2026-05-12 09:50:51.303176'
+          end: '2026-05-12 09:50:51.306021'
+          execution_time: 7.902777777777778e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -788,6 +977,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step12: Bunch(
@@ -795,7 +986,7 @@ to actually run each step and generate results on disk.
         description: '\n    Copy input image files.\n\n    Parameters\n    ----------\n    source_image_files : list[File]\n        Path to the image to be copied.\n    destination_image_files : list[File]\n        Path to the locations where images will be copied.\n    output_dir : Directory\n        Directory where the images are copied.\n    dryrun : bool\n        If True, skip actual computation and file writing. Default False.\n    '
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          source_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')]
+          source_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/10-applymask/sub-01_ses-01_run-34706_mod-T1w_applymask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/09-applyaffine/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34706/07-affine/sub-01_ses-01_run-34706_mod-T1w_affine.txt')]
           destination_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_T1w.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_affine.txt')]
           output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01')
           dryrun: False
@@ -804,9 +995,9 @@ to actually run each step and generate results on disk.
           outputs: None
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.715739'
-          end: '2026-04-22 13:13:43.717121'
-          execution_time: 3.838888888888889e-07
+          start: '2026-05-12 09:50:51.311694'
+          end: '2026-05-12 09:50:51.315262'
+          execution_time: 9.911111111111111e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -821,6 +1012,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -840,270 +1033,437 @@ to actually run each step and generate results on disk.
     /home/runner/work/brainprep/brainprep/doc/../brainprep/resources/MNI152_T1_1mm_b
     rain.nii.gz
     [info] - setting workspace directory: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669
+    [command] - brainprep interface reorient -image-file 
+    /tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose 
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.reorient(
         image_file=PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_
     T1w.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/01-reorient'),
+    sub-02/ses-01/workspace_21669/01-reorient'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
     )
     [command] - fslreorient2std 
     /tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01
-    -reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01
-    -reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface brainmask -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.brainmask(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii
-    .gz'),
+    sub-02/ses-01/workspace_21669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorie
+    nt.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/02-brainmask'),
+    sub-02/ses-01/workspace_21669/02-brainmask'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
     )
     [command] - mri_synthstrip -i 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01
-    -reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz -m 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02
-    -brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz --no-csf
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz -m 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz --no-csf
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02
-    -brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface applymask -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz -mask-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/03-applymask -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.applymask(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii
-    .gz'),
+    sub-02/ses-01/workspace_21669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorie
+    nt.nii.gz'),
         mask_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/s
-    ub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.ni
-    i.gz'),
+    ub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainm
+    ask.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/03-applymask'),
+    sub-02/ses-01/workspace_21669/03-applymask'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
     )
     [command] - fslmaths 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01
-    -reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz -mas 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02
-    -brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03
-    -applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz -mas 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03
-    -applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface scale -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz -scale 1 
+    -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/04-scale -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose 
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.scale(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.n
-    ii.gz'),
+    sub-02/ses-01/workspace_21669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_apply
+    mask.nii.gz'),
         scale=1,
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/04-scale'),
+    sub-02/ses-01/workspace_21669/04-scale'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03
-    -applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz -ref 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03
-    -applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz -applyisoxfm 1 -out 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -omat 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt -verbose 1
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz -applyisoxfm 1
+    -out 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -omat 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt -verbose 1
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface scale -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -scale 1 
+    -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/05-scale -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose 
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.scale(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.n
-    ii.gz'),
+    sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brain
+    mask.nii.gz'),
         scale=1,
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/05-scale'),
+    sub-02/ses-01/workspace_21669/05-scale'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02
-    -brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -ref 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02
-    -brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -applyisoxfm 1 -out 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -omat 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt -verbose 1
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -applyisoxfm 1
+    -out 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -omat 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt -verbose 1
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface biasfield -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -mask-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/06-biasfield -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.ants.biasfield(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'),
+    sub-02/ses-01/workspace_21669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii
+    .gz'),
         mask_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/s
-    ub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'),
+    ub-02/ses-01/workspace_21669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.
+    gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/06-biasfield'),
+    sub-02/ses-01/workspace_21669/06-biasfield'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
     )
     [command] - N4BiasFieldCorrection -d 3 -i 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -s 1 -b [1x1x1,3] -c 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -s 1 -b [1x1x1,3] -c 
     [50x50x50x50,0.001] -t [0.15,0.01,200] -x 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05
-    -scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -o 
-    [/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/0
-    6-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz,/tmp/brainprep-
-    quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-
-    02_ses-01_run-21669_mod-T1w_biasfield.nii.gz] -v
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz -o 
+    [/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_2
+    1669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz,/tmp/brai
+    nprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-bi
+    asfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz] -v
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06
-    -biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06
-    -biasfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface affine -anatomical-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz 
+    -template-file 
+    /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
+    i.gz -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose 
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.affine(
         anatomical_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subj
-    ects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasco
-    rrected.nii.gz'),
+    ects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_
+    biascorrected.nii.gz'),
         template_file=PosixPath('/home/runner/work/brainprep/brainprep/brainprep/res
     ources/MNI152_T1_1mm_brain.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/07-affine'),
+    sub-02/ses-01/workspace_21669/07-affine'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06
-    -biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz -ref 
     /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
     i.gz -cost normmi -searchcost normmi -anglerep euler -bins 256 -interp trilinear
     -dof 9 -out 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07
-    -affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz -omat 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07
-    -affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt -verbose 1
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz -omat 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt -verbose 1
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07
-    -affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07
-    -affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface applyaffine -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz 
+    -template-file 
+    /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
+    i.gz -transform-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/08-applyaffine -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 
+    -interpolation spline -verbose True -dryrun True -no-color False -skip-run-check
+    False -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.applyaffine(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrect
-    ed.nii.gz'),
+    sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasc
+    orrected.nii.gz'),
         template_file=PosixPath('/home/runner/work/brainprep/brainprep/brainprep/res
     ources/MNI152_T1_1mm_brain.nii.gz'),
         transform_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subje
-    cts/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt
-    '),
+    cts/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affi
+    ne.txt'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/08-applyaffine'),
+    sub-02/ses-01/workspace_21669/08-applyaffine'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
         interpolation='spline',
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06
-    -biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz -ref 
     /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
     i.gz -init 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07
-    -affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt -interp spline -applyxfm -out
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08
-    -applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt -interp spline 
+    -applyxfm -out 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08
-    -applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface applyaffine -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -template-file
+    /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
+    i.gz -transform-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/09-applyaffine -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 
+    -interpolation nearestneighbour -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.applyaffine(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.n
-    ii.gz'),
+    sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brain
+    mask.nii.gz'),
         template_file=PosixPath('/home/runner/work/brainprep/brainprep/brainprep/res
     ources/MNI152_T1_1mm_brain.nii.gz'),
         transform_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subje
-    cts/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt
-    '),
+    cts/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affi
+    ne.txt'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/09-applyaffine'),
+    sub-02/ses-01/workspace_21669/09-applyaffine'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
         interpolation='nearestneighbour',
     )
     [command] - flirt -in 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02
-    -brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -ref 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -ref 
     /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
     i.gz -init 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07
-    -affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt -interp nearestneighbour 
-    -applyxfm -out 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09
-    -applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt -interp 
+    nearestneighbour -applyxfm -out 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09
-    -applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface applymask -image-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz -mask-file
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz 
+    -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/10-applymask -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose
+    True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.applymask(
         image_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffi
-    ne.nii.gz'),
+    sub-02/ses-01/workspace_21669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_app
+    lyaffine.nii.gz'),
         mask_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/s
-    ub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffin
-    e.nii.gz'),
+    ub-02/ses-01/workspace_21669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_appl
+    yaffine.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/
-    sub-02/ses-01/workspace/10-applymask'),
+    sub-02/ses-01/workspace_21669/10-applymask'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
     )
     [command] - fslmaths 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08
-    -applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz -mas 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09
-    -applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10
-    -applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz -mas 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10
-    -applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface copyfiles -source-image-files 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz,/tmp/brainprep
+    -quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/09-applyaf
+    fine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz,/tmp/brainprep-quasiraw/
+    derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses
+    -01_run-21669_mod-T1w_affine.txt -destination-image-files 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-0
+    1_run-21669_T1w.nii.gz,/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub
+    -02/ses-01/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz,/tmp/brainprep-quasi
+    raw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_mod-T1w_
+    affine.txt -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01 -dryrun 
+    False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.copyfiles(
         source_image_files=[PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/
-    subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-21669_mod-T1w_ap
-    plymask.nii.gz'), 
+    subjects/sub-02/ses-01/workspace_21669/10-applymask/sub-02_ses-01_run-21669_mod-
+    T1w_applymask.nii.gz'), 
     PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/w
-    orkspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'), 
+    orkspace_21669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz
+    '), 
     PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/w
-    orkspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')],
+    orkspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')],
         destination_image_files=[PosixPath('/tmp/brainprep-quasiraw/derivatives/quas
     iraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_T1w.nii.gz'), 
     PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/s
@@ -1116,7 +1476,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.05s, 0.00min
+    __________________________________________________________________0.09s, 0.00min
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
@@ -1133,9 +1493,9 @@ to actually run each step and generate results on disk.
           transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_mod-T1w_affine.txt')
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.733905'
-          end: '2026-04-22 13:13:43.784117'
-          execution_time: 1.3947777777777778e-05
+          start: '2026-05-12 09:50:51.343324'
+          end: '2026-05-12 09:50:51.433681'
+          execution_time: 2.509916666666667e-05
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1150,6 +1510,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step2: Bunch(
@@ -1158,16 +1520,16 @@ to actually run each step and generate results on disk.
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
           image_file: PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/01-reorient')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
         )
         outputs: Bunch(
-          outputs: (['fslreorient2std', '/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz'),))
+          outputs: (['fslreorient2std', '/tmp/brainprep-data/rawdata/sub-02/ses-01/anat/sub-02_T1w.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.737727'
-          end: '2026-04-22 13:13:43.738613'
-          execution_time: 2.461111111111111e-07
+          start: '2026-05-12 09:50:51.349627'
+          end: '2026-05-12 09:50:51.352066'
+          execution_time: 6.775000000000001e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1182,6 +1544,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step3: Bunch(
@@ -1189,17 +1553,17 @@ to actually run each step and generate results on disk.
         description: "\n    Skull-strip a BIDS-compliant anatomical image using FreeSurfer's\n    `mri_synthstrip`.\n\n    `mri_synthstrip` is a FreeSurfer command-line tool that applies\n    SynthStrip, a deep learning-ased skull-stripping method developed to\n    work across diverse imaging modalities, resolutions, and subject\n    population :footcite:p:`hoopes2022brainmask`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file (T1w, T2w, FLAIR, etc.).\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Skull-stripping command-line.\n    outputs : tuple[File]\n        - mask_file : File - Skull-stripped brain image file.\n\n    References\n    ----------\n\n    .. footbibliography::\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
         )
         outputs: Bunch(
-          outputs: (['mri_synthstrip', '-i', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz', '-m', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '--no-csf'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz'),))
+          outputs: (['mri_synthstrip', '-i', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz', '-m', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '--no-csf'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.741571'
-          end: '2026-04-22 13:13:43.742540'
-          execution_time: 2.6916666666666665e-07
+          start: '2026-05-12 09:50:51.357085'
+          end: '2026-05-12 09:50:51.359645'
+          execution_time: 7.111111111111112e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1214,6 +1578,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step4: Bunch(
@@ -1221,18 +1587,18 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `fslmaths`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file : File\n        Path to a binary mask file.\n    output_dir : Directory\n        Directory where the masked image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Masking command-line.\n    outputs : tuple[File]\n        - masked_image_file : File - masked input image file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz')
-          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/03-applymask')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
         )
         outputs: Bunch(
-          outputs: (['fslmaths', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz', '-mas', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'),))
+          outputs: (['fslmaths', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz', '-mas', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.745559'
-          end: '2026-04-22 13:13:43.746847'
-          execution_time: 3.577777777777778e-07
+          start: '2026-05-12 09:50:51.365093'
+          end: '2026-05-12 09:50:51.367973'
+          execution_time: 8.000000000000001e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1247,6 +1613,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step5: Bunch(
@@ -1254,18 +1622,18 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    scale : int\n        Scale factor applied in all directions.\n    output_dir : Directory\n        Directory where the scaled image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Scaling command-line.\n    outputs : tuple[File]\n        - scaled_anatomical_file : File - Scaled input image file.\n        - transform_file : File - The associated transformation file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz')
           scale: 1
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/04-scale')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz', '-ref', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz', '-applyisoxfm', '1', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt')))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz', '-ref', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/03-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz', '-applyisoxfm', '1', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.750042'
-          end: '2026-04-22 13:13:43.751045'
-          execution_time: 2.786111111111111e-07
+          start: '2026-05-12 09:50:51.373456'
+          end: '2026-05-12 09:50:51.376006'
+          execution_time: 7.083333333333334e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1280,6 +1648,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step6: Bunch(
@@ -1287,18 +1657,18 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    scale : int\n        Scale factor applied in all directions.\n    output_dir : Directory\n        Directory where the scaled image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Scaling command-line.\n    outputs : tuple[File]\n        - scaled_anatomical_file : File - Scaled input image file.\n        - transform_file : File - The associated transformation file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz')
           scale: 1
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/05-scale')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '-ref', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '-applyisoxfm', '1', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt')))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '-ref', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '-applyisoxfm', '1', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.txt')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.754579'
-          end: '2026-04-22 13:13:43.755565'
-          execution_time: 2.738888888888889e-07
+          start: '2026-05-12 09:50:51.381730'
+          end: '2026-05-12 09:50:51.384103'
+          execution_time: 6.591666666666667e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1313,6 +1683,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step7: Bunch(
@@ -1320,18 +1692,18 @@ to actually run each step and generate results on disk.
         description: "\n    Bias field correction of a BIDS-compliant anatomical image using ANTs's\n    `N4BiasFieldCorrection`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file: File\n        Path to a binary brain mask file.\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Bias field correction command-line.\n    outputs : tuple[File]\n        - bc_image_file : File - The bias corrected input image file.\n        - bc_field_file : File - The estimated bias field.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz')
-          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
         )
         outputs: Bunch(
-          outputs: (['N4BiasFieldCorrection', '-d', '3', '-i', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz', '-s', '1', '-b', '[1x1x1,3]', '-c', '[50x50x50x50,0.001]', '-t', '[0.15,0.01,200]', '-x', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz', '-o', '[/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz,/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz]', '-v'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz')))
+          outputs: (['N4BiasFieldCorrection', '-d', '3', '-i', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/04-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz', '-s', '1', '-b', '[1x1x1,3]', '-c', '[50x50x50x50,0.001]', '-t', '[0.15,0.01,200]', '-x', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/05-scale/sub-02_ses-01_run-21669_mod-T1w_scale.nii.gz', '-o', '[/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz,/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz]', '-v'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biasfield.nii.gz')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.759164'
-          end: '2026-04-22 13:13:43.760192'
-          execution_time: 2.8555555555555556e-07
+          start: '2026-05-12 09:50:51.389637'
+          end: '2026-05-12 09:50:51.392058'
+          execution_time: 6.725e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1346,6 +1718,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step8: Bunch(
@@ -1353,18 +1727,18 @@ to actually run each step and generate results on disk.
         description: "\n    Affinely register a BIDS-compliant anatomical image to a template file\n    using FSL's `flirt`.\n\n    Parameters\n    ----------\n    anatomical_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    output_dir : Directory\n        Directory where the affine transformation will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Registration command-line.\n    outputs : tuple[File]\n        - aligned_anatomical_file : File - Aligned input image file.\n        - transform_file : File - The affine transformation file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz')
+          anatomical_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz')
           template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-cost', 'normmi', '-searchcost', 'normmi', '-anglerep', 'euler', '-bins', '256', '-interp', 'trilinear', '-dof', '9', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-cost', 'normmi', '-searchcost', 'normmi', '-anglerep', 'euler', '-bins', '256', '-interp', 'trilinear', '-dof', '9', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz', '-omat', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt', '-verbose', '1'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.763846'
-          end: '2026-04-22 13:13:43.764930'
-          execution_time: 3.0111111111111106e-07
+          start: '2026-05-12 09:50:51.397616'
+          end: '2026-05-12 09:50:51.400042'
+          execution_time: 6.738888888888889e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1379,6 +1753,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step9: Bunch(
@@ -1386,20 +1762,20 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an affine transformation to a BIDS-compliant image file using FSL's\n    `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    transform_file : File\n        Path to the affine transformation file.\n    output_dir : Directory\n        Directory where the aligned image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    interpolation: str\n        The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or\n        'spline'. Default 'spline'.\n\n    Returns\n    -------\n    command : list[str]\n        Alignment command-line.\n    outputs : tuple[File]\n        - aligned_image_file : File - Aligned input image file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz')
           template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
-          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/08-applyaffine')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
           interpolation: 'spline'
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-init', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt', '-interp', 'spline', '-applyxfm', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'),))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/06-biasfield/sub-02_ses-01_run-21669_mod-T1w_biascorrected.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-init', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt', '-interp', 'spline', '-applyxfm', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.768731'
-          end: '2026-04-22 13:13:43.769975'
-          execution_time: 3.4555555555555557e-07
+          start: '2026-05-12 09:50:51.405948'
+          end: '2026-05-12 09:50:51.408846'
+          execution_time: 8.05e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1414,6 +1790,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step10: Bunch(
@@ -1421,20 +1799,20 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an affine transformation to a BIDS-compliant image file using FSL's\n    `flirt`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    template_file: File\n        Path to the image file defining the template space.\n    transform_file : File\n        Path to the affine transformation file.\n    output_dir : Directory\n        Directory where the aligned image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    interpolation: str\n        The interpolation method: 'trilinear', 'nearestneighbour', 'sinc', or\n        'spline'. Default 'spline'.\n\n    Returns\n    -------\n    command : list[str]\n        Alignment command-line.\n    outputs : tuple[File]\n        - aligned_image_file : File - Aligned input image file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz')
           template_file: PosixPath('/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz')
-          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine')
+          transform_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/09-applyaffine')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
           interpolation: 'nearestneighbour'
         )
         outputs: Bunch(
-          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-init', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt', '-interp', 'nearestneighbour', '-applyxfm', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'),))
+          outputs: (['flirt', '-in', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz', '-ref', '/home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.nii.gz', '-init', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt', '-interp', 'nearestneighbour', '-applyxfm', '-out', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.773413'
-          end: '2026-04-22 13:13:43.774631'
-          execution_time: 3.383333333333333e-07
+          start: '2026-05-12 09:50:51.414249'
+          end: '2026-05-12 09:50:51.417091'
+          execution_time: 7.894444444444444e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1449,6 +1827,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step11: Bunch(
@@ -1456,18 +1836,18 @@ to actually run each step and generate results on disk.
         description: "\n    Apply an isotropic resampling transformation to a BIDS-compliant image\n    file using FSL's `fslmaths`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file.\n    mask_file : File\n        Path to a binary mask file.\n    output_dir : Directory\n        Directory where the masked image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Masking command-line.\n    outputs : tuple[File]\n        - masked_image_file : File - masked input image file.\n    "
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz')
-          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask')
+          image_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz')
+          mask_file: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/10-applymask')
           entities: {'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '21669'}
         )
         outputs: Bunch(
-          outputs: (['fslmaths', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz', '-mas', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'),))
+          outputs: (['fslmaths', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/08-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz', '-mas', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz', '/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'], (PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.778052'
-          end: '2026-04-22 13:13:43.779121'
-          execution_time: 2.9694444444444447e-07
+          start: '2026-05-12 09:50:51.422401'
+          end: '2026-05-12 09:50:51.424864'
+          execution_time: 6.841666666666666e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1482,6 +1862,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step12: Bunch(
@@ -1489,7 +1871,7 @@ to actually run each step and generate results on disk.
         description: '\n    Copy input image files.\n\n    Parameters\n    ----------\n    source_image_files : list[File]\n        Path to the image to be copied.\n    destination_image_files : list[File]\n        Path to the locations where images will be copied.\n    output_dir : Directory\n        Directory where the images are copied.\n    dryrun : bool\n        If True, skip actual computation and file writing. Default False.\n    '
         trace: 'brainprep.workflow.quasiraw.brainprep_quasiraw'
         inputs: Bunch(
-          source_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')]
+          source_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/10-applymask/sub-02_ses-01_run-21669_mod-T1w_applymask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/09-applyaffine/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21669/07-affine/sub-02_ses-01_run-21669_mod-T1w_affine.txt')]
           destination_image_files: [PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_T1w.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz'), PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/sub-02_ses-01_run-21669_mod-T1w_affine.txt')]
           output_dir: PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01')
           dryrun: False
@@ -1498,9 +1880,9 @@ to actually run each step and generate results on disk.
           outputs: None
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:43.782482'
-          end: '2026-04-22 13:13:43.783880'
-          execution_time: 3.883333333333333e-07
+          start: '2026-05-12 09:50:51.430184'
+          end: '2026-05-12 09:50:51.433404'
+          execution_time: 8.944444444444445e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -1515,6 +1897,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -1528,6 +1912,18 @@ to actually run each step and generate results on disk.
     [info] - setting template file: 
     /home/runner/work/brainprep/brainprep/doc/../brainprep/resources/MNI152_T1_1mm_b
     rain.nii.gz
+    [command] - brainprep interface mean-correlation -image-files-regex 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-*/ses-*/*_T1w.nii.gz 
+    -atlas-file 
+    /home/runner/work/brainprep/brainprep/brainprep/resources/MNI152_T1_1mm_brain.ni
+    i.gz -output-dir /tmp/brainprep-quasiraw/derivatives/quasiraw 
+    -correlation-threshold 0.5 -dryrun False -verbose True -dryrun True -no-color 
+    False -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.mean_correlation(
         image_files_regex=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/su
@@ -1542,6 +1938,17 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/quality_check/mean_correlations.tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-histogram -table-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/quality_check/mean_correlations.tsv
+    -col-name mean_correlation -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw -bar-coords 0.5 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_histogram(
         table_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/quality_c
@@ -1556,6 +1963,16 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-quasiraw/derivatives/quasiraw/figures/histogram_mean_correlation.
     png
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface incremental-pca -image-files-regex 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-*/ses-*/*_T1w.nii.gz 
+    -output-dir /tmp/brainprep-quasiraw/derivatives/quasiraw -batch-size 50 -dryrun 
+    False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.incremental_pca(
         image_files_regex=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/su
@@ -1568,6 +1985,16 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/quality_check/pca.tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-pca -pca-file 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/quality_check/pca.tsv -output-dir 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw -dryrun False -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_pca(
         pca_file=PosixPath('/tmp/brainprep-quasiraw/derivatives/quasiraw/quality_che
@@ -1580,12 +2007,12 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-quasiraw/derivatives/quasiraw/figures/pca.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Quasi-RAW done.
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-78
+.. GENERATED FROM PYTHON SOURCE LINES 74-80
 
 CLI
 ---
@@ -1594,7 +2021,7 @@ Let's now generate the same analysis using the CLI. The goal here is to
 translate the workflow calls into explicit shell commands.
 See :ref:`user guide <cli>` for details.
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-103
+.. GENERATED FROM PYTHON SOURCE LINES 80-105
 
 .. code-block:: Python
 
@@ -1653,7 +2080,7 @@ See :ref:`user guide <cli>` for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-116
+.. GENERATED FROM PYTHON SOURCE LINES 106-118
 
 Container
 ---------
@@ -1671,9 +2098,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.783 seconds)
+   **Total running time of the script:** (0 minutes 0.876 seconds)
 
-**Estimated memory usage:**  144 MB
+**Estimated memory usage:**  142 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_quasiraw.py:

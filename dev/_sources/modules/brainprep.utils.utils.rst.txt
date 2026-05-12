@@ -18,6 +18,7 @@ Functions
    :toctree: generated/
    :template: function.rst
 
+    bvecbval_from_file
     check_run_fn
     coerce_to_list
     coerce_to_path

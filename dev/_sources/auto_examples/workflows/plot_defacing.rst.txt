@@ -79,12 +79,12 @@ As with many tutorials, we won't execute the code directly here.
 However, feel free to set the 'dryrun' configuration to False
 to actually run each step and generate results on disk.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-62
+.. GENERATED FROM PYTHON SOURCE LINES 38-64
 
 .. code-block:: Python
 
 
-
+    import shutil
     from brainprep.workflow import (
         brainprep_defacing,
         brainprep_group_defacing,
@@ -93,6 +93,8 @@ to actually run each step and generate results on disk.
     from brainprep.reporting import RSTReport
 
     outdir = Path("/tmp/brainprep-defacing")
+    if outdir.is_dir():
+        shutil.rmtree(outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     with Config(dryrun=True, verbose=True):
         report = RSTReport()
@@ -128,54 +130,90 @@ to actually run each step and generate results on disk.
     '01', 'run': '34706'}},
     )
     [info] - setting workspace directory: 
-    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706
+    [command] - brainprep interface reorient -image-file 
+    /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz -output-dir 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706 -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.reorient(
         image_file=PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_
     T1w.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/
-    sub-01/ses-01/workspace'),
+    sub-01/ses-01/workspace_34706'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - fslreorient2std 
     /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz 
-    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
-    b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
     [info] - checking output: 
-    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
-    b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface brainmask -image-file 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -output-dir 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706 -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.freesurfer.brainmask(
         image_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/
-    sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),
+    sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/
-    sub-01/ses-01/workspace'),
+    sub-01/ses-01/workspace_34706'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - mri_synthstrip -i 
-    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
-    b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -m 
-    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
-    b-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -m 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf
     [info] - checking output: 
-    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
-    b-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface deface -t1-file 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -output-dir 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01 -entities 
+    sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose True -dryrun True 
+    -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.fsl.deface(
         t1_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub
-    -01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),
+    -01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/
     sub-01/ses-01'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
     )
     [command] - fsl_deface 
-    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/su
-    b-01_ses-01_run-34706_mod-T1w_reorient.nii.gz 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
     1_run-34706_mod-T1w_deface.nii.gz -d 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
@@ -187,6 +225,19 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
     1_run-34706_mod-T1w_defacemask.nii.gz
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-defacing-mosaic -im-file 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
+    1_run-34706_mod-T1w_defacemask.nii.gz -mask-file 
+    /tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz -output-dir 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01 -entities 
+    sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -dryrun False -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_defacing_mosaic(
         im_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub
@@ -203,10 +254,25 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-
     01_ses-01_run-34706_mod-T1w_defacemosaic.png
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface maskdiff -mask1-file 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
+    706/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -mask2-file 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
+    1_run-34706_mod-T1w_defacemask.nii.gz -output-dir 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01 -entities 
+    sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -inv-mask1 False -inv-mask2 True 
+    -dryrun False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.maskdiff(
         mask1_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/
-    sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz'),
+    sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
+    ,
         mask2_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/
     sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz'),
         output_dir=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/
@@ -222,7 +288,7 @@ to actually run each step and generate results on disk.
     1_run-34706_mod-T1w_defacemask.tsv
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.03s, 0.00min
+    __________________________________________________________________0.04s, 0.00min
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.defacing.brainprep_defacing'
@@ -240,9 +306,9 @@ to actually run each step and generate results on disk.
           summary_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv')
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:22.044370'
-          end: '2026-04-22 13:13:22.068389'
-          execution_time: 6.671944444444444e-06
+          start: '2026-05-12 09:50:37.751702'
+          end: '2026-05-12 09:50:37.792554'
+          execution_time: 1.1347777777777777e-05
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -257,6 +323,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step2: Bunch(
@@ -265,16 +333,16 @@ to actually run each step and generate results on disk.
         trace: 'brainprep.workflow.defacing.brainprep_defacing'
         inputs: Bunch(
           image_file: PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace')
+          output_dir: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['fslreorient2std', '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),))
+          outputs: (['fslreorient2std', '/tmp/brainprep-data/rawdata/sub-01/ses-01/anat/sub-01_T1w.nii.gz', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:22.049228'
-          end: '2026-04-22 13:13:22.050261'
-          execution_time: 2.8694444444444446e-07
+          start: '2026-05-12 09:50:37.758577'
+          end: '2026-05-12 09:50:37.761052'
+          execution_time: 6.875000000000001e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -289,6 +357,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step3: Bunch(
@@ -296,17 +366,17 @@ to actually run each step and generate results on disk.
         description: "\n    Skull-strip a BIDS-compliant anatomical image using FreeSurfer's\n    `mri_synthstrip`.\n\n    `mri_synthstrip` is a FreeSurfer command-line tool that applies\n    SynthStrip, a deep learning-ased skull-stripping method developed to\n    work across diverse imaging modalities, resolutions, and subject\n    population :footcite:p:`hoopes2022brainmask`.\n\n    Parameters\n    ----------\n    image_file : File\n        Path to the input image file (T1w, T2w, FLAIR, etc.).\n    output_dir : Directory\n        Directory where the reoriented image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Skull-stripping command-line.\n    outputs : tuple[File]\n        - mask_file : File - Skull-stripped brain image file.\n\n    References\n    ----------\n\n    .. footbibliography::\n    "
         trace: 'brainprep.workflow.defacing.brainprep_defacing'
         inputs: Bunch(
-          image_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
-          output_dir: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace')
+          image_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
+          output_dir: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['mri_synthstrip', '-i', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '-m', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '--no-csf'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz'),))
+          outputs: (['mri_synthstrip', '-i', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '-m', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz', '--no-csf'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz'),))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:22.053638'
-          end: '2026-04-22 13:13:22.054599'
-          execution_time: 2.6694444444444444e-07
+          start: '2026-05-12 09:50:37.766365'
+          end: '2026-05-12 09:50:37.768548'
+          execution_time: 6.063888888888889e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -321,6 +391,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step4: Bunch(
@@ -328,17 +400,17 @@ to actually run each step and generate results on disk.
         description: "\n    Defaces a BIDS-compliant T1-weighted anatomical image using FSL's\n    `fsl_deface`.\n\n    Parameters\n    ----------\n    t1_file : File\n        Path to the input T1w image file.\n    output_dir : Directory\n        Directory where the defaced T1w image will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n\n    Returns\n    -------\n    command : list[str]\n        Defacing command-line.\n    outputs : tuple[File | list[File]]\n        - deface_file : File - Defaced input T1w image file.\n        - mask_file : File - Defacing binary mask.\n        - vol_files : list[File] - Defacing 3d rendering.\n\n    Raises\n    ------\n    ValueError\n        If the input image is not a T1-weighted image.\n    "
         trace: 'brainprep.workflow.defacing.brainprep_defacing'
         inputs: Bunch(
-          t1_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
+          t1_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
         )
         outputs: Bunch(
-          outputs: (['fsl_deface', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz', '-d', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz', '-f', '0.5', '-B'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz'), PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz')))
+          outputs: (['fsl_deface', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz', '-d', '/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz', '-f', '0.5', '-B'], (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_deface.nii.gz'), PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz')))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:22.057789'
-          end: '2026-04-22 13:13:22.058769'
-          execution_time: 2.722222222222222e-07
+          start: '2026-05-12 09:50:37.773736'
+          end: '2026-05-12 09:50:37.776111'
+          execution_time: 6.597222222222222e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -353,6 +425,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step5: Bunch(
@@ -370,9 +444,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/figures/sub-01_ses-01_run-34706_mod-T1w_defacemosaic.png'),)
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:22.062523'
-          end: '2026-04-22 13:13:22.063743'
-          execution_time: 3.388888888888889e-07
+          start: '2026-05-12 09:50:37.781876'
+          end: '2026-05-12 09:50:37.784471'
+          execution_time: 7.208333333333333e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -387,6 +461,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step6: Bunch(
@@ -394,7 +470,7 @@ to actually run each step and generate results on disk.
         description: '\n    Compute summary statistics comparing two binary masks.\n\n    This function loads two binary mask images, verifies that they share\n    the same spatial dimensions and affine transformation, computes their\n    voxel-wise intersection, and writes a summary table containing voxel\n    counts and physical volumes (in mm³) for each mask and their intersection.\n\n    Parameters\n    ----------\n    mask1_file : File\n        Path to the first binary mask image.\n    mask2_file : File\n        Path to the second binary mask image.\n    output_dir : Directory\n        Directory where the defacing mask will be saved.\n    entities : dict\n        A dictionary of parsed BIDS entities including modality.\n    inv_mask1 : bool\n        If True, the first mask is inverted before comparison. This is\n        useful when the mask represents an exclusion region rather than an\n        inclusion region. Default False.\n    inv_mask2 : bool\n        If True, the second mask is inverted before comparison. This is\n        useful when the mask represents an exclusion region rather than an\n        inclusion region. Default False.\n    dryrun : bool\n        If True, skip actual computation and file writing. Default False.\n\n    Returns\n    -------\n    summary_file : File\n        Path to the generated summary TSV file.\n\n    Raises\n    ------\n    ValueError\n        If both masks have not identical shapes and affines.\n    '
         trace: 'brainprep.workflow.defacing.brainprep_defacing'
         inputs: Bunch(
-          mask1_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
+          mask1_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34706/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz')
           mask2_file: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.nii.gz')
           output_dir: PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01')
           entities: {'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': '34706'}
@@ -406,9 +482,9 @@ to actually run each step and generate results on disk.
           outputs: (PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-01_run-34706_mod-T1w_defacemask.tsv'),)
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:22.066606'
-          end: '2026-04-22 13:13:22.067821'
-          execution_time: 3.375e-07
+          start: '2026-05-12 09:50:37.789071'
+          end: '2026-05-12 09:50:37.791849'
+          execution_time: 7.716666666666667e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -423,6 +499,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -433,6 +511,16 @@ to actually run each step and generate results on disk.
         overlap_threshold=0.05,
         keep_intermediate=False,
     )
+    [command] - brainprep interface mask-overlap -maskdiff-files-regex 
+    /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-*/ses-*/*mod-T1w_defac
+    emask.tsv -output-dir /tmp/brainprep-defacing/derivatives/defacing 
+    -overlap-threshold 0.05 -dryrun False -verbose True -dryrun True -no-color False
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.mask_overlap(
         maskdiff_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing
@@ -445,6 +533,16 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-defacing/derivatives/defacing/quality_check/mask_overlap.tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-histogram -table-file 
+    /tmp/brainprep-defacing/derivatives/defacing/quality_check/mask_overlap.tsv 
+    -col-name overlap -output-dir /tmp/brainprep-defacing/derivatives/defacing 
+    -bar-coords 0.05 -dryrun False -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_histogram(
         table_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/quality_c
@@ -459,12 +557,12 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_overlap.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Defacing done.
-    __________________________________________________________________0.01s, 0.00min
+    __________________________________________________________________0.02s, 0.00min
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-69
+.. GENERATED FROM PYTHON SOURCE LINES 65-71
 
 CLI
 ---
@@ -473,7 +571,7 @@ Let's now generate the same analysis using the CLI. The goal here is to
 translate the workflow calls into explicit shell commands.
 See :ref:`user guide <cli>` for details.
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-94
+.. GENERATED FROM PYTHON SOURCE LINES 71-96
 
 .. code-block:: Python
 
@@ -525,7 +623,7 @@ See :ref:`user guide <cli>` for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-107
+.. GENERATED FROM PYTHON SOURCE LINES 97-109
 
 Container
 ---------
@@ -543,7 +641,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.672 seconds)
+   **Total running time of the script:** (0 minutes 0.537 seconds)
 
 **Estimated memory usage:**  134 MB
 

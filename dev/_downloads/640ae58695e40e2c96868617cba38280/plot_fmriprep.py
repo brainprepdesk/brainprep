@@ -36,6 +36,7 @@ print(data)
 # to actually run each step and generate results on disk.
 
 
+import shutil
 from brainprep.workflow import (
     brainprep_fmriprep,
 )
@@ -43,6 +44,8 @@ from brainprep.config import Config
 from brainprep.reporting import RSTReport
 
 outdir = Path("/tmp/brainprep-fmriprep")
+if outdir.is_dir():
+    shutil.rmtree(outdir)
 outdir.mkdir(parents=True, exist_ok=True)
 with Config(dryrun=True, verbose=True):
     report = RSTReport()

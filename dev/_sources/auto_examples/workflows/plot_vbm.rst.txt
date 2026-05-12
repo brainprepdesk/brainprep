@@ -92,12 +92,12 @@ As with many tutorials, we won't execute the code directly here.
 However, feel free to set the 'dryrun' configuration to False
 to actually run each step and generate results on disk.
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-80
+.. GENERATED FROM PYTHON SOURCE LINES 46-82
 
 .. code-block:: Python
 
 
-
+    import shutil
     from brainprep.workflow import (
         brainprep_group_vbm,
         brainprep_longitudinal_vbm,
@@ -107,6 +107,8 @@ to actually run each step and generate results on disk.
     from brainprep.reporting import RSTReport
 
     outdir = Path("/tmp/brainprep-vbm")
+    if outdir.is_dir():
+        shutil.rmtree(outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     with Config(dryrun=True, verbose=True):
         for subject_data in data.values():
@@ -150,6 +152,17 @@ to actually run each step and generate results on disk.
         kwargs={'entities': {'sub': '01', 'ses': 'study1', 'modality': 'T1w', 'mod':
     'T1w', 'run': '15456'}},
     )
+    [command] - brainprep interface write-catbatch -t1-files 
+    /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz 
+    -output-dir /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01 -entities 
+    sub-01_ses-study1_modality-T1w_mod-T1w_run-15456 -model-long 1 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.cat12.write_catbatch(
         t1_files=[PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
@@ -160,6 +173,19 @@ to actually run each step and generate results on disk.
         model_long=1,
         dryrun=True,
     )
+    [command] - brainprep interface ungzfile -input-file 
+    /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz 
+    -output-file 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/sub-01_ses-study1_
+    T1w.nii -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.ungzfile(
         input_file=PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub
@@ -178,6 +204,19 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
     ch_run-15456.m
     __________________________________________________________________0.01s, 0.00min
+    [command] - brainprep interface cat12vbm-wf -t1-files 
+    /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz 
+    -batch-file 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
+    ch_run-15456.m -output-dir /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01 
+    -entities sub-01_ses-study1_modality-T1w_mod-T1w_run-15456 -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.cat12.cat12vbm_wf(
         t1_files=[PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
@@ -199,16 +238,26 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/report/catreport_s
     ub-01_ses-study1_T1w.pdf
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface anonfile -input-file 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
+    ch_run-15456.m -derivatives-dir /tmp/brainprep-vbm/derivatives -rawdata-dir 
+    /tmp/brainprep-data/rawdata -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.anonfile(
         input_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses
     -study1/cat12vbm_matlabbatch_run-15456.m'),
-        mapping={'/tmp/brainprep-vbm/derivatives': 'DERIVATIVES', 
-    '/tmp/brainprep-data/rawdata': 'RAWDATA'},
+        derivatives_dir=PosixPath('/tmp/brainprep-vbm/derivatives'),
+        rawdata_dir=PosixPath('/tmp/brainprep-data/rawdata'),
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
     s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e 
-    s/10.1.1.106/X.X.X.X/g -e s/runner/USER/g -i 
+    s/10.1.1.138/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
     ch_run-15456.m
     [info] - checking output: 
@@ -216,7 +265,7 @@ to actually run each step and generate results on disk.
     ch_run-15456.m
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level VBM done.
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_ses-study1_T1w.nii.gz
     [title] - Subject Level VBM...
     ________________________________________________________________________________
@@ -229,6 +278,17 @@ to actually run each step and generate results on disk.
         kwargs={'entities': {'sub': '02', 'ses': 'study1', 'modality': 'T1w', 'mod':
     'T1w', 'run': '38141'}},
     )
+    [command] - brainprep interface write-catbatch -t1-files 
+    /tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz 
+    -output-dir /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02 -entities 
+    sub-02_ses-study1_modality-T1w_mod-T1w_run-38141 -model-long 1 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.cat12.write_catbatch(
         t1_files=[PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-
@@ -239,6 +299,19 @@ to actually run each step and generate results on disk.
         model_long=1,
         dryrun=True,
     )
+    [command] - brainprep interface ungzfile -input-file 
+    /tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz 
+    -output-file 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/sub-02_ses-study1_
+    T1w.nii -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.ungzfile(
         input_file=PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub
@@ -257,6 +330,19 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
     ch_run-38141.m
     __________________________________________________________________0.01s, 0.00min
+    [command] - brainprep interface cat12vbm-wf -t1-files 
+    /tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-02_ses-study1_T1w.nii.gz 
+    -batch-file 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
+    ch_run-38141.m -output-dir /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02 
+    -entities sub-02_ses-study1_modality-T1w_mod-T1w_run-38141 -verbose True -dryrun
+    True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.cat12.cat12vbm_wf(
         t1_files=[PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-study1/anat/sub-
@@ -278,16 +364,26 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/report/catreport_s
     ub-02_ses-study1_T1w.pdf
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface anonfile -input-file 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
+    ch_run-38141.m -derivatives-dir /tmp/brainprep-vbm/derivatives -rawdata-dir 
+    /tmp/brainprep-data/rawdata -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.anonfile(
         input_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses
     -study1/cat12vbm_matlabbatch_run-38141.m'),
-        mapping={'/tmp/brainprep-vbm/derivatives': 'DERIVATIVES', 
-    '/tmp/brainprep-data/rawdata': 'RAWDATA'},
+        derivatives_dir=PosixPath('/tmp/brainprep-vbm/derivatives'),
+        rawdata_dir=PosixPath('/tmp/brainprep-data/rawdata'),
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
     s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e 
-    s/10.1.1.106/X.X.X.X/g -e s/runner/USER/g -i 
+    s/10.1.1.138/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
     ch_run-38141.m
     [info] - checking output: 
@@ -295,7 +391,7 @@ to actually run each step and generate results on disk.
     ch_run-38141.m
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level VBM done.
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-01_ses-study1_T1w.nii.gz
     [warn] - BIDS file name does not contain run key: sub-01_ses-study2_T1w.nii.gz
     [title] - Longitudinal VBM...
@@ -313,6 +409,20 @@ to actually run each step and generate results on disk.
     'mod': 'T1w', 'run': '15456'}, {'sub': '01', 'ses': 'study2', 'modality': 'T1w',
     'mod': 'T1w', 'run': '27245'}]},
     )
+    [command] - brainprep interface write-catbatch -t1-files 
+    /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz,
+    /tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz 
+    -output-dir /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01 
+    -entities 
+    sub-01_ses-study1_modality-T1w_mod-T1w_run-15456,sub-01_ses-study2_modality-T1w_
+    mod-T1w_run-27245 -model-long 1 -dryrun False -verbose True -dryrun True 
+    -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.cat12.write_catbatch(
         t1_files=[PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
@@ -327,6 +437,19 @@ to actually run each step and generate results on disk.
         model_long=1,
         dryrun=True,
     )
+    [command] - brainprep interface ungzfile -input-file 
+    /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz 
+    -output-file 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study1/sub-0
+    1_ses-study1_T1w.nii -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study1 
+    -dryrun False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.ungzfile(
         input_file=PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub
@@ -341,6 +464,19 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study1/sub-0
     1_ses-study1_T1w.nii
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface ungzfile -input-file 
+    /tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz 
+    -output-file 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2/sub-0
+    1_ses-study2_T1w.nii -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2 
+    -dryrun False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.ungzfile(
         input_file=PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub
@@ -359,6 +495,21 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
     atch.m
     __________________________________________________________________0.01s, 0.00min
+    [command] - brainprep interface cat12vbm-wf -t1-files 
+    /tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-01_ses-study1_T1w.nii.gz,
+    /tmp/brainprep-data/rawdata/sub-01/ses-study2/anat/sub-01_ses-study2_T1w.nii.gz 
+    -batch-file 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
+    atch.m -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01 -entities 
+    sub-01_ses-study1_modality-T1w_mod-T1w_run-15456,sub-01_ses-study2_modality-T1w_
+    mod-T1w_run-27245 -verbose True -dryrun True -no-color False -skip-run-check 
+    False -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.cat12.cat12vbm_wf(
         t1_files=[PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-study1/anat/sub-
@@ -390,16 +541,26 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/ses-study2/repor
     t/catreport_rsub-01_ses-study2_T1w.pdf
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface anonfile -input-file 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
+    atch.m -derivatives-dir /tmp/brainprep-vbm/derivatives -rawdata-dir 
+    /tmp/brainprep-data/rawdata -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.utils.anonfile(
         input_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjec
     ts/sub-01/cat12vbm_matlabbatch.m'),
-        mapping={'/tmp/brainprep-vbm/derivatives': 'DERIVATIVES', 
-    '/tmp/brainprep-data/rawdata': 'RAWDATA'},
+        derivatives_dir=PosixPath('/tmp/brainprep-vbm/derivatives'),
+        rawdata_dir=PosixPath('/tmp/brainprep-data/rawdata'),
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
     s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmeorf1/HOSTNAME/g -e 
-    s/10.1.1.106/X.X.X.X/g -e s/runner/USER/g -i 
+    s/10.1.1.138/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
     atch.m
     [info] - checking output: 
@@ -407,7 +568,7 @@ to actually run each step and generate results on disk.
     atch.m
     __________________________________________________________________0.00s, 0.00min
     [title] - Longitudinal VBM done.
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.04s, 0.00min
     [title] - Group Level VBM...
     ________________________________________________________________________________
     [call] brainprep.workflow.vbm.brainprep_group_vbm(
@@ -418,6 +579,15 @@ to actually run each step and generate results on disk.
         longitudinal=False,
         keep_intermediate=False,
     )
+    [command] - brainprep interface cat12vbm-morphometry -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm -dryrun False -verbose True -dryrun True 
+    -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.cat12.cat12vbm_morphometry(
         output_dir=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/morphometry'),
@@ -458,7 +628,19 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/morphometry/thalamic_nuclei_cat12_vbm_roi.tsv
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/morphometry/thalamus_cat12_vbm_roi.tsv
-    __________________________________________________________________0.00s, 0.00min
+    __________________________________________________________________0.01s, 0.00min
+    [command] - brainprep interface mean-correlation -image-files-regex 
+    /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-*/ses-*/mri/wm*_T1w.nii 
+    -atlas-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -output-dir /tmp/brainprep-vbm/derivatives/vbm
+    -correlation-threshold 0.5 -dryrun False -verbose True -dryrun True -no-color 
+    False -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.mean_correlation(
         image_files_regex=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/subjects/sub
@@ -472,6 +654,15 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/quality_check/mean_correlations.tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface vbm-metrics -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm -ncr-threshold 4.5 -iqr-threshold 4.5 -dryrun
+    False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.vbm_metrics(
         output_dir=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/quality_check'),
@@ -482,6 +673,16 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/quality_check/group_stats.tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-histogram -table-file 
+    /tmp/brainprep-vbm/derivatives/vbm/quality_check/mean_correlations.tsv -col-name
+    mean_correlation -output-dir /tmp/brainprep-vbm/derivatives/vbm -bar-coords 0.5 
+    -dryrun False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_histogram(
         table_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/quality_check/mean_
@@ -494,6 +695,16 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/figures/histogram_mean_correlation.png
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-histogram -table-file 
+    /tmp/brainprep-vbm/derivatives/vbm/quality_check/group_stats.tsv -col-name NCR 
+    -output-dir /tmp/brainprep-vbm/derivatives/vbm -bar-coords 4.5 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_histogram(
         table_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/quality_check/group
@@ -506,6 +717,16 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/figures/histogram_NCR.png
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-histogram -table-file 
+    /tmp/brainprep-vbm/derivatives/vbm/quality_check/group_stats.tsv -col-name IQR 
+    -output-dir /tmp/brainprep-vbm/derivatives/vbm -bar-coords 4.5 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_histogram(
         table_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/quality_check/group
@@ -519,7 +740,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/figures/histogram_IQR.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level VBM done.
-    __________________________________________________________________0.03s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     [title] - Group Level VBM...
     ________________________________________________________________________________
     [call] brainprep.workflow.vbm.brainprep_group_vbm(
@@ -530,6 +751,15 @@ to actually run each step and generate results on disk.
         longitudinal=True,
         keep_intermediate=False,
     )
+    [command] - brainprep interface cat12vbm-morphometry -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal -dryrun False -verbose True 
+    -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.cat12.cat12vbm_morphometry(
         output_dir=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/longitudinal/morpho
@@ -582,6 +812,19 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/morphometry/thalamus_cat12_vbm_r
     oi.tsv
     __________________________________________________________________0.01s, 0.00min
+    [command] - brainprep interface mean-correlation -image-files-regex 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-*/ses-*/mri/wm*_T1w
+    .nii -atlas-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal -correlation-threshold 0.5 
+    -dryrun False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.mean_correlation(
         image_files_regex=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/longitudinal
@@ -597,6 +840,15 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/quality_check/mean_correlations.
     tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface vbm-metrics -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal -ncr-threshold 4.5 
+    -iqr-threshold 4.5 -dryrun False -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.vbm_metrics(
         output_dir=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/longitudinal/qualit
@@ -608,6 +860,17 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/quality_check/group_stats.tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-histogram -table-file 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/quality_check/mean_correlations.
+    tsv -col-name mean_correlation -output-dir 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal -bar-coords 0.5 -dryrun False 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_histogram(
         table_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/longitudinal/qualit
@@ -622,6 +885,16 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/figures/histogram_mean_correlati
     on.png
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-histogram -table-file 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/quality_check/group_stats.tsv 
+    -col-name NCR -output-dir /tmp/brainprep-vbm/derivatives/vbm/longitudinal 
+    -bar-coords 4.5 -dryrun False -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_histogram(
         table_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/longitudinal/qualit
@@ -635,6 +908,16 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/figures/histogram_NCR.png
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface plot-histogram -table-file 
+    /tmp/brainprep-vbm/derivatives/vbm/longitudinal/quality_check/group_stats.tsv 
+    -col-name IQR -output-dir /tmp/brainprep-vbm/derivatives/vbm/longitudinal 
+    -bar-coords 4.5 -dryrun False -verbose True -dryrun True -no-color False 
+    -skip-run-check False -cat12-file /opt/cat12/standalone/cat_standalone.sh 
+    -spm12-dir /opt/cat12 -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.plotting.plot_histogram(
         table_file=PosixPath('/tmp/brainprep-vbm/derivatives/vbm/longitudinal/qualit
@@ -649,12 +932,12 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/figures/histogram_IQR.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level VBM done.
-    __________________________________________________________________0.03s, 0.00min
+    __________________________________________________________________0.04s, 0.00min
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-87
+.. GENERATED FROM PYTHON SOURCE LINES 83-89
 
 CLI
 ---
@@ -663,7 +946,7 @@ Let's now generate the same analysis using the CLI. The goal here is to
 translate the workflow calls into explicit shell commands.
 See :ref:`user guide <cli>` for details.
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-128
+.. GENERATED FROM PYTHON SOURCE LINES 89-130
 
 .. code-block:: Python
 
@@ -758,7 +1041,7 @@ See :ref:`user guide <cli>` for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-141
+.. GENERATED FROM PYTHON SOURCE LINES 131-143
 
 Container
 ---------
@@ -776,7 +1059,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.447 seconds)
+   **Total running time of the script:** (0 minutes 0.478 seconds)
 
 **Estimated memory usage:**  111 MB
 

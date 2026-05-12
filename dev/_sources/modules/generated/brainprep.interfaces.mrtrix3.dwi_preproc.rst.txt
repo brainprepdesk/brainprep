@@ -1,0 +1,21 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the
+   function signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.interfaces.mrtrix3.dwi_preproc
+========================================
+
+.. currentmodule:: brainprep.interfaces.mrtrix3
+
+.. autofunction:: dwi_preproc
+
+.. include:: brainprep.interfaces.mrtrix3.dwi_preproc.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

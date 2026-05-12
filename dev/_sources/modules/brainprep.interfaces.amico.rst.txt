@@ -1,0 +1,25 @@
+:mod:`brainprep.interfaces.amico`: Amico functions.
+===================================================
+
+.. automodule:: brainprep.interfaces.amico
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.amico
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    noddi_fit
+
+
+
+

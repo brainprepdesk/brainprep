@@ -166,12 +166,12 @@ As with many tutorials, we won't execute the code directly here.
 However, feel free to set the 'dryrun' configuration to False
 to actually run each step and generate results on disk.
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-76
+.. GENERATED FROM PYTHON SOURCE LINES 44-78
 
 .. code-block:: Python
 
 
-
+    import shutil
     from brainprep.workflow import (
         brainprep_quality_assurance,
         brainprep_group_quality_assurance,
@@ -180,6 +180,8 @@ to actually run each step and generate results on disk.
     from brainprep.reporting import RSTReport
 
     outdir = Path("/tmp/brainprep-qa")
+    if outdir.is_dir():
+        shutil.rmtree(outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     with Config(dryrun=True, verbose=True):
         for subject_data in data.values():
@@ -233,6 +235,20 @@ to actually run each step and generate results on disk.
     )
     [info] - setting workspace directory: 
     /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/workspace
+    [command] - brainprep interface subject-level-qa -image-files 
+    /tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz,/tmp/bra
+    inprep-data/rawdata/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_b
+    old.nii.gz,/tmp/brainprep-data/rawdata/sub-01/ses-00/dwi/sub-01_ses-00_dwi.nii.g
+    z -workspace-dir 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/workspace 
+    -output-dir /tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.mriqc.subject_level_qa(
         image_files=[PosixPath('/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-0
@@ -276,9 +292,9 @@ to actually run each step and generate results on disk.
           iqm_files: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_dwi.json')]
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:42.821920'
-          end: '2026-04-22 13:13:42.829843'
-          execution_time: 2.200833333333333e-06
+          start: '2026-05-12 09:50:50.314184'
+          end: '2026-05-12 09:50:50.326124'
+          execution_time: 3.3166666666666665e-06
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -293,6 +309,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step2: Bunch(
@@ -308,9 +326,9 @@ to actually run each step and generate results on disk.
           outputs: (['mriqc', '/tmp/brainprep-data/rawdata', '/tmp/brainprep-qa/derivatives/quality_assurance', 'participant', '-w', '/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/workspace', '--no-sub', '--no-datalad-get', '--notrack', '--participant-label', '01'], ([PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/anat/sub-01_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/func/sub-01_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-01/ses-00/dwi/sub-01_ses-00_dwi.json')],))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:42.826631'
-          end: '2026-04-22 13:13:42.827895'
-          execution_time: 3.511111111111111e-07
+          start: '2026-05-12 09:50:50.321052'
+          end: '2026-05-12 09:50:50.323933'
+          execution_time: 8.002777777777778e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -325,6 +343,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -351,6 +371,20 @@ to actually run each step and generate results on disk.
     )
     [info] - setting workspace directory: 
     /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/workspace
+    [command] - brainprep interface subject-level-qa -image-files 
+    /tmp/brainprep-data/rawdata/sub-02/ses-00/anat/sub-02_ses-00_T1w.nii.gz,/tmp/bra
+    inprep-data/rawdata/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_b
+    old.nii.gz,/tmp/brainprep-data/rawdata/sub-02/ses-00/dwi/sub-02_ses-00_dwi.nii.g
+    z -workspace-dir 
+    /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/workspace 
+    -output-dir /tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00 
+    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.mriqc.subject_level_qa(
         image_files=[PosixPath('/tmp/brainprep-data/rawdata/sub-02/ses-00/anat/sub-0
@@ -394,9 +428,9 @@ to actually run each step and generate results on disk.
           iqm_files: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_dwi.json')]
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:42.837747'
-          end: '2026-04-22 13:13:42.845053'
-          execution_time: 2.0294444444444444e-06
+          start: '2026-05-12 09:50:50.336727'
+          end: '2026-05-12 09:50:50.347635'
+          execution_time: 3.03e-06
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -411,6 +445,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step2: Bunch(
@@ -426,9 +462,9 @@ to actually run each step and generate results on disk.
           outputs: (['mriqc', '/tmp/brainprep-data/rawdata', '/tmp/brainprep-qa/derivatives/quality_assurance', 'participant', '-w', '/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/workspace', '--no-sub', '--no-datalad-get', '--notrack', '--participant-label', '02'], ([PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/anat/sub-02_ses-00_T1w.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/func/sub-02_ses-00_task-ArchiStandard_dir-pa_bold.json'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/sub-02/ses-00/dwi/sub-02_ses-00_dwi.json')],))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:42.842027'
-          end: '2026-04-22 13:13:42.843209'
-          execution_time: 3.2833333333333335e-07
+          start: '2026-05-12 09:50:50.342888'
+          end: '2026-05-12 09:50:50.345606'
+          execution_time: 7.55e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -443,6 +479,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -453,6 +491,15 @@ to actually run each step and generate results on disk.
         output_dir=PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance'),
         keep_intermediate=False,
     )
+    [command] - brainprep interface group-level-qa -modalities T1w,bold,dwi 
+    -output-dir /tmp/brainprep-qa/derivatives/quality_assurance -verbose True 
+    -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.mriqc.group_level_qa(
         modalities=['T1w', 'bold', 'dwi'],
@@ -468,6 +515,18 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv
     __________________________________________________________________0.00s, 0.00min
+    [command] - brainprep interface mriqc-metrics -iqm-files 
+    /tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv,/tmp/brainprep-qa/
+    derivatives/quality_assurance/group_bold.tsv,/tmp/brainprep-qa/derivatives/quali
+    ty_assurance/group_dwi.tsv -output-dir 
+    /tmp/brainprep-qa/derivatives/quality_assurance -dryrun False -verbose True 
+    -dryrun True -no-color False -skip-run-check False -cat12-file 
+    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
+    /opt/MCR-2017b/v93 -tpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
+    /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
+    in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
+    /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
     [call] brainprep.interfaces.qualcheck.mriqc_metrics(
         iqm_files=[PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_
@@ -486,7 +545,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Quality Assurance done.
-    __________________________________________________________________0.01s, 0.00min
+    __________________________________________________________________0.02s, 0.00min
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.quality_assurance.brainprep_group_quality_assurance'
@@ -500,9 +559,9 @@ to actually run each step and generate results on disk.
           iqm_files: [PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv')]
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:42.851239'
-          end: '2026-04-22 13:13:42.861303'
-          execution_time: 2.7955555555555556e-06
+          start: '2026-05-12 09:50:50.356428'
+          end: '2026-05-12 09:50:50.371345'
+          execution_time: 4.143611111111111e-06
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -517,6 +576,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step2: Bunch(
@@ -531,9 +592,9 @@ to actually run each step and generate results on disk.
           outputs: (['mriqc', '/tmp/brainprep-qa/rawdata', '/tmp/brainprep-qa/derivatives/quality_assurance', 'group', '--no-sub', '--no-datalad-get', '--notrack'], ([PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv')],))
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:42.854508'
-          end: '2026-04-22 13:13:42.855247'
-          execution_time: 2.0527777777777777e-07
+          start: '2026-05-12 09:50:50.360748'
+          end: '2026-05-12 09:50:50.362459'
+          execution_time: 4.752777777777778e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -548,6 +609,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step3: Bunch(
@@ -563,9 +626,9 @@ to actually run each step and generate results on disk.
           outputs: ([PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_T1w.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_bold.tsv'), PosixPath('/tmp/brainprep-qa/derivatives/quality_assurance/group_dwi.tsv')],)
         )
         runtime: Bunch(
-          start: '2026-04-22 13:13:42.859058'
-          end: '2026-04-22 13:13:42.860049'
-          execution_time: 2.7527777777777773e-07
+          start: '2026-05-12 09:50:50.367768'
+          end: '2026-05-12 09:50:50.370056'
+          execution_time: 6.355555555555556e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -580,6 +643,8 @@ to actually run each step and generate results on disk.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -587,7 +652,7 @@ to actually run each step and generate results on disk.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-83
+.. GENERATED FROM PYTHON SOURCE LINES 79-85
 
 CLI
 ---
@@ -596,7 +661,7 @@ Let's now generate the same analysis using the CLI. The goal here is to
 translate the workflow calls into explicit shell commands.
 See :ref:`user guide <cli>` for details.
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-110
+.. GENERATED FROM PYTHON SOURCE LINES 85-112
 
 .. code-block:: Python
 
@@ -659,7 +724,7 @@ See :ref:`user guide <cli>` for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-123
+.. GENERATED FROM PYTHON SOURCE LINES 113-125
 
 Container
 ---------
@@ -677,9 +742,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 20.559 seconds)
+   **Total running time of the script:** (0 minutes 12.358 seconds)
 
-**Estimated memory usage:**  629 MB
+**Estimated memory usage:**  671 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_quality_assurance.py:

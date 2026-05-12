@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:25.487** total execution time for 7 files **from auto_examples/workflows**:
+**00:17.967** total execution time for 7 files **from auto_examples/workflows**:
 
 .. container::
 
@@ -33,23 +33,23 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_workflows_plot_quality_assurance.py` (``plot_quality_assurance.py``)
-     - 00:20.559
-     - 629.5
+     - 00:12.358
+     - 670.7
    * - :ref:`sphx_glr_auto_examples_workflows_plot_sbm.py` (``plot_sbm.py``)
-     - 00:02.269
-     - 111.2
+     - 00:02.827
+     - 111.7
    * - :ref:`sphx_glr_auto_examples_workflows_plot_quasiraw.py` (``plot_quasiraw.py``)
-     - 00:00.783
-     - 144.1
+     - 00:00.876
+     - 142.2
    * - :ref:`sphx_glr_auto_examples_workflows_plot_defacing.py` (``plot_defacing.py``)
-     - 00:00.672
+     - 00:00.537
      - 133.6
-   * - :ref:`sphx_glr_auto_examples_workflows_plot_vbm.py` (``plot_vbm.py``)
-     - 00:00.447
-     - 111.2
    * - :ref:`sphx_glr_auto_examples_workflows_plot_fmriprep.py` (``plot_fmriprep.py``)
-     - 00:00.408
+     - 00:00.482
+     - 111.2
+   * - :ref:`sphx_glr_auto_examples_workflows_plot_vbm.py` (``plot_vbm.py``)
+     - 00:00.478
      - 111.2
    * - :ref:`sphx_glr_auto_examples_workflows_plot_sulcirec.py` (``plot_sulcirec.py``)
-     - 00:00.350
+     - 00:00.407
      - 111.2
