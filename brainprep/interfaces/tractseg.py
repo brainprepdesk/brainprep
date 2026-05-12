@@ -76,7 +76,7 @@ def tractseg_parcellation(
         Parcellation computation command-lines.
     outputs : tuple[File]
         - tractometry_files : list[File] - Generated tractometry data
-        for each input scalar map.
+          for each input scalar map.
     """
     subject, session = entities["sub"], entities["ses"]
     basename = f"sub-{subject}_ses-{session}_desc-tractseg"

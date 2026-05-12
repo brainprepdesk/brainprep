@@ -7,6 +7,7 @@
 ##########################################################################
 
 
+from concurrent.futures import ProcessPoolExecutor
 import subprocess
 import unittest
 import runpy
@@ -19,33 +20,38 @@ class TestGalleryExamples(unittest.TestCase):
         self.test_interfaces = test_interfaces
         self.examples_dir = Path(__file__).parent.parent.parent / "examples"
 
+    @staticmethod
+    def run_cmd(cmd):
+        try:
+            _ = subprocess.check_call(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+            )
+            return None
+        except subprocess.CalledProcessError as e:
+            return f"Command failed: {cmd}"
+
     def _test_interface_commands(self, env):
         if not self.test_interfaces:
             return
+
         outdir = Path(env["outdir"])
         commands = []
         for commands_file in outdir.rglob("commands_*.rst"):
             commands.extend(
                 commands_file.read_text().splitlines()
             )
+        commands = [cmd.split(" ") for cmd in commands]
         print(f"Parsed: {outdir}")
         print(f"Interface commands: {len(commands)}")
-        procs = [
-            (
-                cmd, subprocess.Popen(
-                    cmd.split(" "),
-                    stdout=subprocess.PIPE,
-                )
-            )
-            for cmd in commands
-        ]
+
         failures = []
-        for cmd, proc in procs:
-            out = proc.communicate()
-            if proc.returncode != 0:
-                failures.append(
-                    f"Command failed: {cmd}\n"
-                )
+        with ProcessPoolExecutor(max_workers=50) as pool:
+            for msg in pool.map(TestGalleryExamples.run_cmd, commands):
+                if msg is not None:
+                    failures.append(msg)
         if failures:
             self.fail("\n".join(failures))
 

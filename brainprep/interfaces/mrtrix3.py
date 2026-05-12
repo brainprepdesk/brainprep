@@ -53,19 +53,18 @@ def dwi_preproc(
 
     The operations performed by the `preproc` step:
 
-    - DWI: Denoising; Gibbs ringing removal; motion, eddy current and
+    - **DWI**: Denoising; Gibbs ringing removal; motion, eddy current and
       EPI distortion correction and outlier detection & replacement; brain
       masking, bias field correction and intensity normalization; rigid-body
       registration & transformation to T1-weighted image.
-    - T1-weighted image: bias field correction; brain masking.
+    - **T1-weighted image**: bias field correction; brain masking.
 
     And the the `participant` step:
 
-    - DWI: Response function estimation; FOD estimation.
-    - T1-weighted image (if --parcellation is not none): Tissue segmentation;
-     gray matter parcellation.
-    - Combined (if --parcellation is not none, or --streamlines is provided):
-      Whole-brain streamlines tractography; SIFT2; connectome construction.
+    - **DWI**: Response function estimation; FOD estimation.
+    - **T1-weighted image**: Tissue segmentation; gray matter parcellation.
+    - **Combined**: Whole-brain streamlines tractography; SIFT2; connectome
+      construction.
 
     Parameters
     ----------
