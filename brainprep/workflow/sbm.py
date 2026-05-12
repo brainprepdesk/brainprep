@@ -273,13 +273,6 @@ def brainprep_sbm(
     )
 
     subject_dir = output_dir / f"run-{entities['run']}"
-    mapping = {
-        str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
-    }
-    if "rawdata" in str(t1_file):
-        mapping.update({
-            str(find_first_occurrence(t1_file, "rawdata")): "RAWDATA",
-        })
     for log_file in [
                 *list(subject_dir.glob("scripts/recon-all.*")),
                 subject_dir / "scripts" / "seg2cc.log",
@@ -288,7 +281,12 @@ def brainprep_sbm(
         if log_file.is_file():
             interfaces.anonfile(
                 log_file,
-                mapping,
+                find_first_occurrence(output_dir, "derivatives"),
+                (
+                    find_first_occurrence(t1_file, "rawdata")
+                    if "rawdata" in str(t1_file)
+                    else None
+                ),
             )
 
     for name in ("fsaverage", "fsaverage_sym"):
@@ -460,13 +458,6 @@ def brainprep_longitudinal_sbm(
         content=True,
     )
 
-    mapping = {
-        str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
-    }
-    if "rawdata" in str(t1_files[0]):
-        mapping.update({
-            str(find_first_occurrence(t1_files[0], "rawdata")): "RAWDATA",
-        })
     for source_dir in [
                 output_dir.parent / "template",
                 *subject_dirs,
@@ -479,7 +470,12 @@ def brainprep_longitudinal_sbm(
             if log_file.is_file():
                 interfaces.anonfile(
                     log_file,
-                    mapping,
+                    find_first_occurrence(output_dir, "derivatives"),
+                    (
+                        find_first_occurrence(t1_files[0], "rawdata")
+                        if "rawdata" in str(t1_files[0])
+                        else None
+                    ),
                 )
 
     for target_dir in output_dir.parent.iterdir():

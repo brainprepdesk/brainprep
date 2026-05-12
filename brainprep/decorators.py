@@ -724,6 +724,10 @@ class LogRuntimeHook(Hook):
         A title to display. Default None.
     bunched : bool
         Return a bunch object with a default 'outputs' key. Default True.
+    parent : bool
+        Indicates that at least one OutputdirHook parameter has been set to
+        True. When enabled, the parent output directory is included in the
+        interface logging mechanism. Default False.
 
     Notes
     -----

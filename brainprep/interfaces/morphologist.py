@@ -276,7 +276,8 @@ def _get_single_match(
             morphometry=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),

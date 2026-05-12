@@ -14,7 +14,6 @@ import getpass
 import gzip
 import shutil
 import socket
-from collections import OrderedDict
 
 import nibabel
 import numpy as np
@@ -401,21 +400,24 @@ def write_uuid_mapping(
 )
 def anonfile(
         input_file: File,
-        mapping: dict[str, str]) -> tuple[list[str], File]:
+        derivatives_dir: Directory | None,
+        rawdata_dir: Directory | None) -> tuple[list[str], File]:
     """
     Anonymize a text file using sed.
 
     The function constructs a list of sed substitution expressions based on
-    the user-provided mapping and additional system-derived identifiers
-    (hostname, IP address, username). The resulting command performs
-    in-place anonymization of the input file.
+    the user-provided directory to anonumize and additional system-derived
+    identifiers (hostname, IP address, username). The resulting command
+    performs in-place anonymization of the input file.
 
     Parameters
     ----------
     input_file : File
         Path to the file to anonymize.
-    mapping : dict[str, str]
-        Patterns to replace (keys) and their replacements (values).
+    derivatives_dir : Directory | None
+        Derivatives directory.
+    rawdata_dir : Directory | None
+        Raw data directory.
 
     Returns
     -------
@@ -424,18 +426,17 @@ def anonfile(
     output_file : File
         Path to the anonymized file.
     """
-    mapping = OrderedDict(mapping)
     hostname = socket.gethostname()
-    mapping.update(
-        OrderedDict({
-            hostname: "HOSTNAME",
-            socket.gethostbyname(hostname): "X.X.X.X",
-            getpass.getuser(): "USER",
-        })
-    )
+    mapping = [
+        (str(derivatives_dir), "DERIVATIVES"),
+        (str(rawdata_dir), "RAWDATA"),
+        (hostname, "HOSTNAME"),
+        (socket.gethostbyname(hostname), "X.X.X.X"),
+        (getpass.getuser(), "USER"),
+    ]
 
     patterns = []
-    for old, new in mapping.items():
+    for old, new in mapping:
         old_esc = old.replace("/", r"\/")
         new_esc = new.replace("/", r"\/")
         patterns.extend(["-e", f"s/{old_esc}/{new_esc}/g"])

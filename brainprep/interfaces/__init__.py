@@ -100,9 +100,9 @@ from .utils import (
 __all__ = [
     "affine",
     "anonfile",
+    "aparcstats2table",
     "applyaffine",
     "applymask",
-    "aparcstats2table",
     "asegstats2table",
     "biasfield",
     "brainmask",

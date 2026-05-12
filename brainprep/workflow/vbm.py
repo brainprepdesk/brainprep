@@ -113,16 +113,14 @@ def brainprep_vbm(
         [entities],
     )
 
-    mapping = {
-        str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
-    }
-    if "rawdata" in str(t1_file):
-        mapping.update({
-            str(find_first_occurrence(t1_file, "rawdata")): "RAWDATA",
-        })
     interfaces.anonfile(
         batch_file,
-        mapping,
+        find_first_occurrence(output_dir, "derivatives"),
+        (
+            find_first_occurrence(t1_file, "rawdata")
+            if "rawdata" in str(t1_file)
+            else None
+        ),
     )
 
     return Bunch(
@@ -219,16 +217,14 @@ def brainprep_longitudinal_vbm(
         entities,
     )
 
-    mapping = {
-        str(find_first_occurrence(output_dir, "derivatives")): "DERIVATIVES",
-    }
-    if "rawdata" in str(t1_files[0]):
-        mapping.update({
-            str(find_first_occurrence(t1_files[0], "rawdata")): "RAWDATA",
-        })
     interfaces.anonfile(
         batch_file,
-        mapping,
+        find_first_occurrence(output_dir, "derivatives"),
+        (
+            find_first_occurrence(t1_files[0], "rawdata")
+            if "rawdata" in str(t1_files[0])
+            else None
+        ),
     )
 
     return Bunch(

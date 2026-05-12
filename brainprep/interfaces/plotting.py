@@ -48,7 +48,8 @@ from ..typing import (
             plotting=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -109,7 +110,8 @@ def plot_network(
             plotting=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -179,7 +181,8 @@ def plot_defacing_mosaic(
             plotting=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -253,7 +256,8 @@ def plot_histogram(
             plotting=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -348,7 +352,8 @@ def plot_brainparc(
             plotting=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),

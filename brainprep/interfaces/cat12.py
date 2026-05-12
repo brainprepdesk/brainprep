@@ -235,7 +235,8 @@ def write_catbatch(
             morphometry=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),

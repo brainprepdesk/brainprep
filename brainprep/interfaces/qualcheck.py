@@ -47,7 +47,8 @@ from ..utils import (
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -148,7 +149,8 @@ def network_entropy(
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -255,7 +257,8 @@ def mask_overlap(
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -370,7 +373,8 @@ def mean_correlation(
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -488,7 +492,8 @@ def incremental_pca(
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -600,7 +605,8 @@ def euler_numbers(
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -715,7 +721,8 @@ def vbm_metrics(
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -830,7 +837,8 @@ def fmriprep_metrics(
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),
@@ -925,7 +933,8 @@ def mriqc_metrics(
             quality_check=True
         ),
         LogRuntimeHook(
-            bunched=False
+            bunched=False,
+            parent=True
         ),
         PythonWrapperHook(),
         SignatureHook(),

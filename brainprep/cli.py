@@ -25,6 +25,7 @@ import fire
 import brainprep.interfaces as interfaces
 import brainprep.workflow as wf
 from brainprep.config import DEFAULT_OPTIONS
+from brainprep.utils import coerce_to_list
 
 
 def make_wrapped(
@@ -104,18 +105,21 @@ def make_wrapped(
                 if param.kind in (
                         param.POSITIONAL_ONLY,
                         param.POSITIONAL_OR_KEYWORD):
+                    val = coerce_to_list(args[idx], list[str])
+                    if len(val) == 1:
+                        val = val[0]
                     args[idx] = (
                         [
                             dict(
                                 item_text.split("-")
                                 for item_text in dict_text.split("_")
                             )
-                            for dict_text in args[idx]
+                            for dict_text in val
                         ]
-                        if isinstance(args[idx], list)
+                        if isinstance(val, list)
                         else dict(
                             item_text.split("-")
-                            for item_text in args[idx].split("_")
+                            for item_text in val.split("_")
                         )
                     )
                 break
