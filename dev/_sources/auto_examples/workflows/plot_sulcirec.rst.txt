@@ -238,9 +238,9 @@ to actually run each step and generate results on disk.
           qc_file: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv')
         )
         runtime: Bunch(
-          start: '2026-05-12 09:50:54.994597'
-          end: '2026-05-12 09:50:55.019568'
-          execution_time: 6.936388888888889e-06
+          start: '2026-05-12 09:57:07.309100'
+          end: '2026-05-12 09:57:07.334794'
+          execution_time: 7.137222222222223e-06
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -273,9 +273,9 @@ to actually run each step and generate results on disk.
           outputs: ([PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-L.arg'), PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-R.arg')], PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv'))
         )
         runtime: Bunch(
-          start: '2026-05-12 09:50:55.000900'
-          end: '2026-05-12 09:50:55.018695'
-          execution_time: 4.943055555555555e-06
+          start: '2026-05-12 09:57:07.315950'
+          end: '2026-05-12 09:57:07.333779'
+          execution_time: 4.9525000000000004e-06
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -308,9 +308,9 @@ to actually run each step and generate results on disk.
           outputs: ['morphologist-wrapper', '/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz', '/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28236', '--subject', '01']
         )
         runtime: Bunch(
-          start: '2026-05-12 09:50:55.007352'
-          end: '2026-05-12 09:50:55.009794'
-          execution_time: 6.783333333333333e-07
+          start: '2026-05-12 09:57:07.322496'
+          end: '2026-05-12 09:57:07.324858'
+          execution_time: 6.56111111111111e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -343,9 +343,9 @@ to actually run each step and generate results on disk.
           outputs: ([PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-L.arg'), PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-R.arg')], PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv'))
         )
         runtime: Bunch(
-          start: '2026-05-12 09:50:55.014296'
-          end: '2026-05-12 09:50:55.016950'
-          execution_time: 7.372222222222222e-07
+          start: '2026-05-12 09:57:07.329159'
+          end: '2026-05-12 09:57:07.331892'
+          execution_time: 7.591666666666667e-07
           brainprep_version: '2.1.0.dev'
           platform: 'Linux-6.17.0-1010-azure-x86_64-with-glibc2.39'
           hostname: 'runnervmeorf1'
@@ -412,7 +412,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sulcirec/derivatives/sulcirec/quality_check/group_stats.tsv
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Sulci Reconstruction done.
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.01s, 0.00min
 
 
 
@@ -494,9 +494,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.407 seconds)
+   **Total running time of the script:** (0 minutes 0.471 seconds)
 
-**Estimated memory usage:**  111 MB
+**Estimated memory usage:**  113 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_sulcirec.py:
