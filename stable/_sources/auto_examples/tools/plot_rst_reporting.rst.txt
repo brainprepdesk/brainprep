@@ -144,12 +144,12 @@ Now let's generate the RST report.
           val: 1
         )
         runtime: Bunch(
-          start: '2026-04-01 12:42:16.530388'
-          end: '2026-04-01 12:42:16.530404'
-          execution_time: 4.444444444444444e-09
-          brainprep_version: '2.0.0'
-          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmrg6be'
+          start: '2026-09-17 11:34:59.531950'
+          end: '2026-09-17 11:34:59.531976'
+          execution_time: 7.222222222222222e-09
+          brainprep_version: '2.1.0'
+          platform: 'Linux-6.17.0-1022-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmlun5p'
         )
         config: Bunch(
           verbose: True
@@ -161,6 +161,8 @@ Now let's generate the RST report.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -179,12 +181,12 @@ Now let's generate the RST report.
           val: 4
         )
         runtime: Bunch(
-          start: '2026-04-01 12:42:16.538022'
-          end: '2026-04-01 12:42:16.541775'
-          execution_time: 1.0425e-06
-          brainprep_version: '2.0.0'
-          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmrg6be'
+          start: '2026-09-17 11:34:59.540879'
+          end: '2026-09-17 11:34:59.544835'
+          execution_time: 1.098888888888889e-06
+          brainprep_version: '2.1.0'
+          platform: 'Linux-6.17.0-1022-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmlun5p'
         )
         config: Bunch(
           verbose: True
@@ -196,6 +198,8 @@ Now let's generate the RST report.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
       step2: Bunch(
@@ -208,12 +212,12 @@ Now let's generate the RST report.
           val2: 4
         )
         runtime: Bunch(
-          start: '2026-04-01 12:42:16.541732'
-          end: '2026-04-01 12:42:16.541740'
-          execution_time: 2.222222222222222e-09
-          brainprep_version: '2.0.0'
-          platform: 'Linux-6.17.0-1008-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmrg6be'
+          start: '2026-09-17 11:34:59.544783'
+          end: '2026-09-17 11:34:59.544801'
+          execution_time: 5e-09
+          brainprep_version: '2.1.0'
+          platform: 'Linux-6.17.0-1022-azure-x86_64-with-glibc2.39'
+          hostname: 'runnervmlun5p'
         )
         config: Bunch(
           verbose: True
@@ -225,6 +229,8 @@ Now let's generate the RST report.
           matlab_dir: PosixPath('/opt/MCR-2017b/v93')
           tpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii')
           darteltpm_file: PosixPath('/opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NLin2009cAsym/Template_1_Dartel.nii')
+          mni_2iso_file: PosixPath('/opt/fsl/data/standard/MNI152_T1_2mm.nii.gz')
+          geolab_atlas_dir: PosixPath('/opt/geolab/atlas')
         )
       )
     )
@@ -235,9 +241,9 @@ Now let's generate the RST report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.389 seconds)
+   **Total running time of the script:** (0 minutes 0.360 seconds)
 
-**Estimated memory usage:**  115 MB
+**Estimated memory usage:**  112 MB
 
 
 .. _sphx_glr_download_auto_examples_tools_plot_rst_reporting.py:

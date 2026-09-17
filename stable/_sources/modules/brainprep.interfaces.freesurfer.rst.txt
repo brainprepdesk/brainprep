@@ -21,18 +21,18 @@ Functions
     aparcstats2table
     asegstats2table
     brainmask
-    freesurfer_command_status
-    freesurfer_features_summary
-    freesurfer_tissues
-    fsaveragesym_projection
-    fsaveragesym_surfreg
-    localgi
-    mgz_to_nii
+    convertmgz
+    freesurfer_status
     mri_convert
     mris_apply_reg
     nextbrain
     reconall
+    reconall_localgi
     reconall_longitudinal
+    reconall_projection
+    reconall_summary
+    reconall_surfreg
+    reconall_tissues
     surfreg
     xhemireg
 

@@ -22,6 +22,7 @@ pieces of information throughout the guide.
    quasiraw.rst
    vbm.rst
    sbm.rst
+   sulcirec.rst
    fmriprep.rst
    reporting.rst
    glossary.rst

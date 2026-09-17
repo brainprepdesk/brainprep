@@ -19,8 +19,8 @@ Functions
    :template: function.rst
 
     cat12vbm_morphometry
-    cat12vbm_wf
-    write_catbatch
+    cat12vbm_workflow
+    writebatch
 
 
 

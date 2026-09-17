@@ -42,7 +42,7 @@ print(data)
 # However, feel free to set the 'dryrun' configuration to False
 # to actually run each step and generate results on disk.
 
-
+import shutil
 from brainprep.workflow import (
     brainprep_quality_assurance,
     brainprep_group_quality_assurance,
@@ -51,6 +51,8 @@ from brainprep.config import Config
 from brainprep.reporting import RSTReport
 
 outdir = Path("/tmp/brainprep-qa")
+if outdir.is_dir():
+    shutil.rmtree(outdir)
 outdir.mkdir(parents=True, exist_ok=True)
 with Config(dryrun=True, verbose=True):
     for subject_data in data.values():

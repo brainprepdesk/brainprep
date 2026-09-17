@@ -1,0 +1,25 @@
+:mod:`brainprep.workflow.reporting`: Reporting workflow.
+========================================================
+
+.. automodule:: brainprep.workflow.reporting
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_group_reporting
+
+
+
+

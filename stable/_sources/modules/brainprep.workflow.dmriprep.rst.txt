@@ -1,0 +1,25 @@
+:mod:`brainprep.workflow.dmriprep`: Diffusion MRI pre-processing workflow.
+==========================================================================
+
+.. automodule:: brainprep.workflow.dmriprep
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.workflow.dmriprep
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    brainprep_dmriprep
+
+
+
+

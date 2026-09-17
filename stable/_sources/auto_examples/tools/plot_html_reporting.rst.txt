@@ -33,13 +33,14 @@ Let's first get some data to display. Here 'step 1' is composed of an
 image with an overlay and a table, and 'step 2' is composed of a
 carousel of two images.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-58
+.. GENERATED FROM PYTHON SOURCE LINES 17-104
 
 .. code-block:: Python
 
 
     import pandas as pd
     from pathlib import Path
+    from PIL import Image, ImageOps
 
     from brainprep.datasets import git_download
 
@@ -58,23 +59,68 @@ carousel of two images.
              "dev/doc/logos/brainprep.png"),
         destination=working_dir / "im2.png",
     )
+    image = Image.open(working_dir / "im2.png")
+    inverted_image = ImageOps.invert(image)
+    inverted_image.save(working_dir / "im2.png")
 
     data = [
-      {
-        "name": "Step 1",
-        "content": working_dir / "im1.png",
-        "overlay": working_dir / "im2.png",
-        "tables": pd.DataFrame(
-            data={'col1': [1, 2], 'col2': [4, 3]}
-        ),
-      },
-      {
-        "name": "Step 2",
-        "content": [
-            working_dir / "im1.png",
-            working_dir / "im2.png",
-        ],
-      },
+        {
+            "name": "Step 1",
+            "images": {
+                "WithOverlay": {
+                    "record": [
+                        working_dir / "im1.png",
+                    ],
+                    "overlays": [
+                        working_dir / "im2.png",
+                    ],
+                },
+                "WithoutOverlay": {
+                    "record": [
+                        working_dir / "im1.png",
+                        working_dir / "im2.png",
+                    ],
+                }
+            },
+            "tables": {
+                "TwoTables": {
+                    "record": [
+                        pd.DataFrame(
+                            data={'col1': [1, 2], 'col2': [4, 3]}
+                        ),
+                        pd.DataFrame(
+                            data={'col1': [1, 2], 'col2': [4, 3]}
+                        ),
+                    ],
+                }
+            },
+        },
+        {
+            "name": "Step 2",
+            "carousels": {
+                "Carousel": {
+                    "record": [
+                        working_dir / "im1.png",
+                        working_dir / "im2.png",
+                    ],
+                    "labels": [
+                        "Im1",
+                        "Im2",
+                    ],
+                }
+            },
+            "scatters": {
+                "Scatter": {
+                    "record": [
+                        {"x": 0, "y": 0, "img": "im1.png"},
+                        {"x": 1, "y": 1, "img": "im2.png"},
+                    ],
+                    "x_label": "x",
+                    "y_label": "y",
+                    "with_img": True,
+                },
+            },
+        },
     ]
 
 
@@ -85,14 +131,14 @@ carousel of two images.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-63
+.. GENERATED FROM PYTHON SOURCE LINES 105-109
 
 Reporting
 ---------
 
 Now let's generate the HTML report.
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-80
+.. GENERATED FROM PYTHON SOURCE LINES 109-120
 
 .. code-block:: Python
 
@@ -100,13 +146,7 @@ Now let's generate the HTML report.
     from brainprep.reporting import generate_qc_report
 
     report = generate_qc_report(
-      title="Simple QC Example",
-      docstring="""
-      This is a simple example.
-  
-      ..note::
-          Please adapt this code.
-      """,
+      title="Simple Example",
       version="0.0.0",
       date="01.01.2000",
       data=data,
@@ -123,9 +163,9 @@ Now let's generate the HTML report.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.416 seconds)
+   **Total running time of the script:** (0 minutes 0.402 seconds)
 
-**Estimated memory usage:**  115 MB
+**Estimated memory usage:**  113 MB
 
 
 .. _sphx_glr_download_auto_examples_tools_plot_html_reporting.py:

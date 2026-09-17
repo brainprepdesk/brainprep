@@ -1,0 +1,25 @@
+:mod:`brainprep.interfaces.geolab`: GeoLab functions.
+=====================================================
+
+.. automodule:: brainprep.interfaces.geolab
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.geolab
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    geolab_parcellation
+
+
+
+

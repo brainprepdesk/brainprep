@@ -1,0 +1,25 @@
+﻿:orphan:
+
+.. note::
+
+   This page is a reference documentation. It only explains the class
+   signature, and not how to use it. Please refer to the
+   :ref:`user guide <user_guide>` for the big picture.
+
+
+brainprep.decorators.SignatureHook
+==================================
+
+.. currentmodule:: brainprep.decorators
+
+.. autoclass:: SignatureHook
+   :members:
+   :show-inheritance:
+   :special-members: __init__
+   :member-order: alphabetical
+
+.. include:: brainprep.decorators.SignatureHook.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>
