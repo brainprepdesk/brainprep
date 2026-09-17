@@ -26,6 +26,7 @@ Functions
     find_stack_level
     make_run_id
     parse_bids_keys
+    sbref_from_file
     sidecar_from_file
 
 

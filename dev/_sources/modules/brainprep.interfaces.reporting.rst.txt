@@ -1,0 +1,27 @@
+:mod:`brainprep.interfaces.reporting`: Reporting functions.
+===========================================================
+
+.. automodule:: brainprep.interfaces.reporting
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.reporting
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    parse_defacing
+    parse_qa
+    parse_quasiraw
+
+
+
+

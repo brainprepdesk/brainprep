@@ -22,7 +22,7 @@ Functions
     morphologist_cmd
     morphologist_morphometry
     morphologist_move
-    morphologist_wf
+    morphologist_workflow
 
 
 

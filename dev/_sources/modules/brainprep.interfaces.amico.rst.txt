@@ -18,7 +18,7 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    noddi_fit
+    noddifit
 
 
 

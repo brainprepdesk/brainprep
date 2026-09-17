@@ -18,14 +18,14 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    euler_numbers
+    eulernums
     fmriprep_metrics
-    incremental_pca
-    mask_overlap
     maskdiff
-    mean_correlation
+    maskoverlap
+    meancorr
     mriqc_metrics
     network_entropy
+    pca
     sulcirec_metrics
     vbm_metrics
 

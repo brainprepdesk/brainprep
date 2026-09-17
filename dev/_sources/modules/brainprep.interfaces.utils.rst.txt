@@ -20,6 +20,7 @@ Functions
 
     anonfile
     copyfiles
+    htmlmin
     movedir
     ungzfile
     write_uuid_mapping

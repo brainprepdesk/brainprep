@@ -18,8 +18,8 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    fmriprep_wf
-    func_vol_connectivity
+    fmri_connectivity
+    fmriprep_workflow
 
 
 

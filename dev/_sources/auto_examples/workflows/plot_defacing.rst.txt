@@ -219,10 +219,10 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
     706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
-    706/02-brainmask -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -verbose
-    True -dryrun True -no-color False -skip-run-check False -cat12-file 
-    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
-    /opt/MCR-2017b/v93 -tpm-file 
+    706/02-brainmask -entities sub-01_modality-T1w_mod-T1w_ses-01_run-34706 -legacy 
+    False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
@@ -236,6 +236,7 @@ to actually run each step and generate results on disk.
     sub-01/ses-01/workspace_34706/02-brainmask'),
         entities={'sub': '01', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '34706'},
+        legacy=False,
     )
     [command] - mri_synthstrip -i 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
@@ -243,7 +244,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
     706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brain.nii.gz -m 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
-    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz -f 0 --no-csf
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf -f 0
     [info] - checking output: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
     706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brain.nii.gz
@@ -379,7 +380,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/quality_chec
     k/sub-01_ses-01_run-34706_mod-T1w_maskdiff.tsv
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_34
     706/03-deface/sub-01_ses-01_run-34706_mod-T1w_applyaffine.nii.gz -atlas-file 
     /home/runner/work/brainprep/brainprep/doc/../brainprep/resources/MNI152_T1_1mm_b
@@ -394,7 +395,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-01/ses-01/workspace_34706/03-deface/sub-01_ses-01_run-34706_mod-T1w_ap
     plyaffine.nii.gz'),
@@ -513,7 +514,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.09s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_T1w.nii.gz
     [title] - Subject Level Defacing...
     ________________________________________________________________________________
@@ -561,10 +562,10 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
     669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
-    669/02-brainmask -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -verbose
-    True -dryrun True -no-color False -skip-run-check False -cat12-file 
-    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
-    /opt/MCR-2017b/v93 -tpm-file 
+    669/02-brainmask -entities sub-02_modality-T1w_mod-T1w_ses-01_run-21669 -legacy 
+    False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
@@ -578,6 +579,7 @@ to actually run each step and generate results on disk.
     sub-02/ses-01/workspace_21669/02-brainmask'),
         entities={'sub': '02', 'modality': 'T1w', 'mod': 'T1w', 'ses': '01', 'run': 
     '21669'},
+        legacy=False,
     )
     [command] - mri_synthstrip -i 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
@@ -585,7 +587,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
     669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brain.nii.gz -m 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
-    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz -f 0 --no-csf
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz --no-csf -f 0
     [info] - checking output: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
     669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brain.nii.gz
@@ -640,7 +642,7 @@ to actually run each step and generate results on disk.
     [info] - checking output: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
     669/03-deface/sub-02_ses-01_run-21669_mod-T1w_defaceaffine.mat
-    __________________________________________________________________0.01s, 0.00min
+    __________________________________________________________________0.00s, 0.00min
     [command] - brainprep interface applyaffine -image-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
     669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz -template-file 
@@ -721,7 +723,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/quality_chec
     k/sub-02_ses-01_run-21669_mod-T1w_maskdiff.tsv
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_21
     669/03-deface/sub-02_ses-01_run-21669_mod-T1w_applyaffine.nii.gz -atlas-file 
     /home/runner/work/brainprep/brainprep/doc/../brainprep/resources/MNI152_T1_1mm_b
@@ -736,7 +738,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-02/ses-01/workspace_21669/03-deface/sub-02_ses-01_run-21669_mod-T1w_ap
     plyaffine.nii.gz'),
@@ -855,7 +857,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.08s, 0.00min
+    __________________________________________________________________0.07s, 0.00min
     [title] - Group Level Defacing...
     ________________________________________________________________________________
     [call] brainprep.workflow.defacing.brainprep_group_defacing(
@@ -865,7 +867,7 @@ to actually run each step and generate results on disk.
         correlation_threshold=0.5,
         keep_intermediate=False,
     )
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-*/ses-*/quality_check/
     *mod-T1w_corr.tsv -atlas-file None -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing -correlation-threshold 0.5 -suffix 
@@ -877,7 +879,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-*/ses-*/quality_check/*mod-T1w_corr.tsv'),
         atlas_file=None,
@@ -917,7 +919,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_mean_correlation_
     T1w.png
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mask-overlap -maskdiff-files-regex 
+    [command] - brainprep interface maskoverlap -maskdiff-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-*/ses-*/quality_check/
     *mod-T1w_maskdiff.tsv -output-dir /tmp/brainprep-defacing/derivatives/defacing 
     -overlap-threshold 0.05 -suffix _T1w -dryrun False -verbose True -dryrun True 
@@ -929,7 +931,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mask_overlap(
+    [call] brainprep.interfaces.qualcheck.maskoverlap(
         maskdiff_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing
     /subjects/sub-*/ses-*/quality_check/*mod-T1w_maskdiff.tsv'),
         output_dir=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/quality_c
@@ -1014,10 +1016,10 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
     909/01-reorient/sub-01_ses-01_run-17909_mod-T2w_reorient.nii.gz -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
-    909/02-brainmask -entities sub-01_modality-T2w_mod-T2w_ses-01_run-17909 -verbose
-    True -dryrun True -no-color False -skip-run-check False -cat12-file 
-    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
-    /opt/MCR-2017b/v93 -tpm-file 
+    909/02-brainmask -entities sub-01_modality-T2w_mod-T2w_ses-01_run-17909 -legacy 
+    False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
@@ -1031,6 +1033,7 @@ to actually run each step and generate results on disk.
     sub-01/ses-01/workspace_17909/02-brainmask'),
         entities={'sub': '01', 'modality': 'T2w', 'mod': 'T2w', 'ses': '01', 'run': 
     '17909'},
+        legacy=False,
     )
     [command] - mri_synthstrip -i 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
@@ -1038,7 +1041,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
     909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brain.nii.gz -m 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
-    909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brainmask.nii.gz -f 0 --no-csf
+    909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brainmask.nii.gz --no-csf -f 0
     [info] - checking output: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
     909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brain.nii.gz
@@ -1052,7 +1055,7 @@ to actually run each step and generate results on disk.
     [info] - using defacing mask: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
     1_run-34706_mod-T1w_defacemask.nii.gz
-    [command] - brainprep interface affine -anatomical-file 
+    [command] - brainprep interface align -anatomical-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
     1_run-34706_T1w.nii.gz -template-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
@@ -1067,7 +1070,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.fsl.affine(
+    [call] brainprep.interfaces.fsl.align(
         anatomical_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subj
     ects/sub-01/ses-01/sub-01_ses-01_run-34706_T1w.nii.gz'),
         template_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjec
@@ -1216,7 +1219,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/quality_chec
     k/sub-01_ses-01_run-17909_mod-T2w_maskdiff.tsv
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
     909/01-reorient/sub-01_ses-01_run-17909_mod-T2w_reorient.nii.gz -atlas-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_17
@@ -1231,7 +1234,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-01/ses-01/workspace_17909/01-reorient/sub-01_ses-01_run-17909_mod-T2w_
     reorient.nii.gz'),
@@ -1351,7 +1354,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.09s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_T2w.nii.gz
     [title] - Subject Level Defacing...
     ________________________________________________________________________________
@@ -1399,10 +1402,10 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
     679/01-reorient/sub-02_ses-01_run-32679_mod-T2w_reorient.nii.gz -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
-    679/02-brainmask -entities sub-02_modality-T2w_mod-T2w_ses-01_run-32679 -verbose
-    True -dryrun True -no-color False -skip-run-check False -cat12-file 
-    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
-    /opt/MCR-2017b/v93 -tpm-file 
+    679/02-brainmask -entities sub-02_modality-T2w_mod-T2w_ses-01_run-32679 -legacy 
+    False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
@@ -1416,6 +1419,7 @@ to actually run each step and generate results on disk.
     sub-02/ses-01/workspace_32679/02-brainmask'),
         entities={'sub': '02', 'modality': 'T2w', 'mod': 'T2w', 'ses': '01', 'run': 
     '32679'},
+        legacy=False,
     )
     [command] - mri_synthstrip -i 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
@@ -1423,7 +1427,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
     679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brain.nii.gz -m 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
-    679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brainmask.nii.gz -f 0 --no-csf
+    679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brainmask.nii.gz --no-csf -f 0
     [info] - checking output: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
     679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brain.nii.gz
@@ -1437,7 +1441,7 @@ to actually run each step and generate results on disk.
     [info] - using defacing mask: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/sub-02_ses-0
     1_run-21669_mod-T1w_defacemask.nii.gz
-    [command] - brainprep interface affine -anatomical-file 
+    [command] - brainprep interface align -anatomical-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/sub-02_ses-0
     1_run-21669_T1w.nii.gz -template-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
@@ -1452,7 +1456,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.fsl.affine(
+    [call] brainprep.interfaces.fsl.align(
         anatomical_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subj
     ects/sub-02/ses-01/sub-02_ses-01_run-21669_T1w.nii.gz'),
         template_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjec
@@ -1601,7 +1605,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/quality_chec
     k/sub-02_ses-01_run-32679_mod-T2w_maskdiff.tsv
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
     679/01-reorient/sub-02_ses-01_run-32679_mod-T2w_reorient.nii.gz -atlas-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_32
@@ -1616,7 +1620,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-02/ses-01/workspace_32679/01-reorient/sub-02_ses-01_run-32679_mod-T2w_
     reorient.nii.gz'),
@@ -1736,7 +1740,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.09s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [title] - Group Level Defacing...
     ________________________________________________________________________________
     [call] brainprep.workflow.defacing.brainprep_group_defacing(
@@ -1746,7 +1750,7 @@ to actually run each step and generate results on disk.
         correlation_threshold=0.5,
         keep_intermediate=False,
     )
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-*/ses-*/quality_check/
     *mod-T2w_corr.tsv -atlas-file None -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing -correlation-threshold 0.5 -suffix 
@@ -1758,7 +1762,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-*/ses-*/quality_check/*mod-T2w_corr.tsv'),
         atlas_file=None,
@@ -1798,7 +1802,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_mean_correlation_
     T2w.png
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mask-overlap -maskdiff-files-regex 
+    [command] - brainprep interface maskoverlap -maskdiff-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-*/ses-*/quality_check/
     *mod-T2w_maskdiff.tsv -output-dir /tmp/brainprep-defacing/derivatives/defacing 
     -overlap-threshold 0.05 -suffix _T2w -dryrun False -verbose True -dryrun True 
@@ -1810,7 +1814,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mask_overlap(
+    [call] brainprep.interfaces.qualcheck.maskoverlap(
         maskdiff_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing
     /subjects/sub-*/ses-*/quality_check/*mod-T2w_maskdiff.tsv'),
         output_dir=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/quality_c
@@ -1896,9 +1900,9 @@ to actually run each step and generate results on disk.
     566/01-reorient/sub-01_ses-01_run-16566_mod-FLAIR_reorient.nii.gz -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_16
     566/02-brainmask -entities sub-01_modality-FLAIR_mod-FLAIR_ses-01_run-16566 
-    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
-    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
-    /opt/MCR-2017b/v93 -tpm-file 
+    -legacy False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
@@ -1912,6 +1916,7 @@ to actually run each step and generate results on disk.
     sub-01/ses-01/workspace_16566/02-brainmask'),
         entities={'sub': '01', 'modality': 'FLAIR', 'mod': 'FLAIR', 'ses': '01', 
     'run': '16566'},
+        legacy=False,
     )
     [command] - mri_synthstrip -i 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_16
@@ -1919,8 +1924,8 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_16
     566/02-brainmask/sub-01_ses-01_run-16566_mod-FLAIR_brain.nii.gz -m 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_16
-    566/02-brainmask/sub-01_ses-01_run-16566_mod-FLAIR_brainmask.nii.gz -f 0 
-    --no-csf
+    566/02-brainmask/sub-01_ses-01_run-16566_mod-FLAIR_brainmask.nii.gz --no-csf -f 
+    0
     [info] - checking output: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_16
     566/02-brainmask/sub-01_ses-01_run-16566_mod-FLAIR_brain.nii.gz
@@ -1934,7 +1939,7 @@ to actually run each step and generate results on disk.
     [info] - using defacing mask: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
     1_run-34706_mod-T1w_defacemask.nii.gz
-    [command] - brainprep interface affine -anatomical-file 
+    [command] - brainprep interface align -anatomical-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/sub-01_ses-0
     1_run-34706_T1w.nii.gz -template-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_16
@@ -1949,7 +1954,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.fsl.affine(
+    [call] brainprep.interfaces.fsl.align(
         anatomical_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subj
     ects/sub-01/ses-01/sub-01_ses-01_run-34706_T1w.nii.gz'),
         template_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjec
@@ -2099,7 +2104,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/quality_chec
     k/sub-01_ses-01_run-16566_mod-FLAIR_maskdiff.tsv
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_16
     566/01-reorient/sub-01_ses-01_run-16566_mod-FLAIR_reorient.nii.gz -atlas-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-01/ses-01/workspace_16
@@ -2114,7 +2119,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-01/ses-01/workspace_16566/01-reorient/sub-01_ses-01_run-16566_mod-FLAI
     R_reorient.nii.gz'),
@@ -2236,7 +2241,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.09s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_FLAIR.nii.gz
     [title] - Subject Level Defacing...
     ________________________________________________________________________________
@@ -2285,9 +2290,9 @@ to actually run each step and generate results on disk.
     276/01-reorient/sub-02_ses-01_run-24276_mod-FLAIR_reorient.nii.gz -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_24
     276/02-brainmask -entities sub-02_modality-FLAIR_mod-FLAIR_ses-01_run-24276 
-    -verbose True -dryrun True -no-color False -skip-run-check False -cat12-file 
-    /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 -matlab-dir 
-    /opt/MCR-2017b/v93 -tpm-file 
+    -legacy False -verbose True -dryrun True -no-color False -skip-run-check False 
+    -cat12-file /opt/cat12/standalone/cat_standalone.sh -spm12-dir /opt/cat12 
+    -matlab-dir /opt/MCR-2017b/v93 -tpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/tpm/TPM.nii -darteltpm-file 
     /opt/cat12/spm12_mcr/home/gaser/gaser/spm/spm12/toolbox/cat12/templates_MNI152NL
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
@@ -2301,6 +2306,7 @@ to actually run each step and generate results on disk.
     sub-02/ses-01/workspace_24276/02-brainmask'),
         entities={'sub': '02', 'modality': 'FLAIR', 'mod': 'FLAIR', 'ses': '01', 
     'run': '24276'},
+        legacy=False,
     )
     [command] - mri_synthstrip -i 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_24
@@ -2308,8 +2314,8 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_24
     276/02-brainmask/sub-02_ses-01_run-24276_mod-FLAIR_brain.nii.gz -m 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_24
-    276/02-brainmask/sub-02_ses-01_run-24276_mod-FLAIR_brainmask.nii.gz -f 0 
-    --no-csf
+    276/02-brainmask/sub-02_ses-01_run-24276_mod-FLAIR_brainmask.nii.gz --no-csf -f 
+    0
     [info] - checking output: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_24
     276/02-brainmask/sub-02_ses-01_run-24276_mod-FLAIR_brain.nii.gz
@@ -2323,7 +2329,7 @@ to actually run each step and generate results on disk.
     [info] - using defacing mask: 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/sub-02_ses-0
     1_run-21669_mod-T1w_defacemask.nii.gz
-    [command] - brainprep interface affine -anatomical-file 
+    [command] - brainprep interface align -anatomical-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/sub-02_ses-0
     1_run-21669_T1w.nii.gz -template-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_24
@@ -2338,7 +2344,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.fsl.affine(
+    [call] brainprep.interfaces.fsl.align(
         anatomical_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subj
     ects/sub-02/ses-01/sub-02_ses-01_run-21669_T1w.nii.gz'),
         template_file=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/subjec
@@ -2488,7 +2494,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/quality_chec
     k/sub-02_ses-01_run-24276_mod-FLAIR_maskdiff.tsv
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_24
     276/01-reorient/sub-02_ses-01_run-24276_mod-FLAIR_reorient.nii.gz -atlas-file 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-02/ses-01/workspace_24
@@ -2503,7 +2509,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-02/ses-01/workspace_24276/01-reorient/sub-02_ses-01_run-24276_mod-FLAI
     R_reorient.nii.gz'),
@@ -2625,7 +2631,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.09s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [title] - Group Level Defacing...
     ________________________________________________________________________________
     [call] brainprep.workflow.defacing.brainprep_group_defacing(
@@ -2635,7 +2641,7 @@ to actually run each step and generate results on disk.
         correlation_threshold=0.5,
         keep_intermediate=False,
     )
-    [command] - brainprep interface mean-correlation -data-files-regex 
+    [command] - brainprep interface meancorr -data-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-*/ses-*/quality_check/
     *mod-FLAIR_corr.tsv -atlas-file None -output-dir 
     /tmp/brainprep-defacing/derivatives/defacing -correlation-threshold 0.5 -suffix 
@@ -2647,7 +2653,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mean_correlation(
+    [call] brainprep.interfaces.qualcheck.meancorr(
         data_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/sub
     jects/sub-*/ses-*/quality_check/*mod-FLAIR_corr.tsv'),
         atlas_file=None,
@@ -2687,7 +2693,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_mean_correlation_
     FLAIR.png
     __________________________________________________________________0.00s, 0.00min
-    [command] - brainprep interface mask-overlap -maskdiff-files-regex 
+    [command] - brainprep interface maskoverlap -maskdiff-files-regex 
     /tmp/brainprep-defacing/derivatives/defacing/subjects/sub-*/ses-*/quality_check/
     *mod-FLAIR_maskdiff.tsv -output-dir /tmp/brainprep-defacing/derivatives/defacing
     -overlap-threshold 0.05 -suffix _FLAIR -dryrun False -verbose True -dryrun True 
@@ -2699,7 +2705,7 @@ to actually run each step and generate results on disk.
     in2009cAsym/Template_1_Dartel.nii -mni-2iso-file 
     /opt/fsl/data/standard/MNI152_T1_2mm.nii.gz -geolab-atlas-dir /opt/geolab/atlas
     ________________________________________________________________________________
-    [call] brainprep.interfaces.qualcheck.mask_overlap(
+    [call] brainprep.interfaces.qualcheck.maskoverlap(
         maskdiff_files_regex=PosixPath('/tmp/brainprep-defacing/derivatives/defacing
     /subjects/sub-*/ses-*/quality_check/*mod-FLAIR_maskdiff.tsv'),
         output_dir=PosixPath('/tmp/brainprep-defacing/derivatives/defacing/quality_c
@@ -2886,7 +2892,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.682 seconds)
+   **Total running time of the script:** (0 minutes 2.788 seconds)
 
 **Estimated memory usage:**  153 MB
 

@@ -1,0 +1,25 @@
+:mod:`brainprep.interfaces.synb0disco`: Synb0-DISCO functions.
+==============================================================
+
+.. automodule:: brainprep.interfaces.synb0disco
+   :no-members:
+   :no-inherited-members:
+
+.. No relevant user manual section yet.
+
+
+
+Functions
+---------
+
+.. currentmodule:: brainprep.interfaces.synb0disco
+
+.. autosummary::
+   :toctree: generated/
+   :template: function.rst
+
+    synthb0
+
+
+
+

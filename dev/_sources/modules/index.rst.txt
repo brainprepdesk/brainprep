@@ -29,7 +29,9 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
    brainprep.interfaces.mrtrix3.rst
    brainprep.interfaces.plotting.rst
    brainprep.interfaces.qualcheck.rst
+   brainprep.interfaces.reporting.rst
    brainprep.interfaces.rst
+   brainprep.interfaces.synb0disco.rst
    brainprep.interfaces.tractseg.rst
    brainprep.interfaces.utils.rst
    brainprep.reporting.html_reporting.rst
@@ -45,6 +47,7 @@ the :ref:`user guide <user_guide>` for more information and usage examples.
    brainprep.workflow.fmriprep.rst
    brainprep.workflow.quality_assurance.rst
    brainprep.workflow.quasiraw.rst
+   brainprep.workflow.reporting.rst
    brainprep.workflow.rst
    brainprep.workflow.sbm.rst
    brainprep.workflow.sulcirec.rst

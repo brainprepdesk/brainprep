@@ -18,11 +18,11 @@ Functions
    :toctree: generated/
    :template: function.rst
 
-    affine
+    align
     applyaffine
     applymask
     deface
-    dti_fit
+    dtifit
     reorient
     scale
 
