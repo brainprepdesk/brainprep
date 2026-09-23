@@ -177,6 +177,20 @@ def brainprep_quasiraw(
         workspace_dir / "02-brainmask",
         entities,
     )
+    # mri_synthstrip (FreeSurfer) and fslreorient2std (FSL) each write their
+    # own NIfTI header independently, which can leave the mask on a grid
+    # that's numerically equivalent but not bit-for-bit identical to the
+    # reoriented image. ANTs' N4BiasFieldCorrection (unlike most FSL tools)
+    # enforces exact geometry equality between -i and -x and raises
+    # "Inputs do not occupy the same physical space" otherwise, so the
+    # mask is resampled onto the image's exact grid before it's used
+    # further.
+    mask_file = interfaces.regridmask(
+        reoriented_anatomical_file,
+        mask_file,
+        workspace_dir / "02-regridmask",
+        entities,
+    )
     bc_anatomical_file, _ = interfaces.biasfield(
         reoriented_anatomical_file,
         mask_file,
