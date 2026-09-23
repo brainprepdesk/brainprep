@@ -15,6 +15,7 @@ import gzip
 import shutil
 import socket
 
+import nibabel
 import pandas as pd
 
 from ..decorators import (
@@ -82,6 +83,106 @@ def copyfiles(
             shutil.move(src_path, dest_path)
         else:
             shutil.copy(src_path, dest_path)
+
+
+@step(
+    hooks=[
+        CoerceparamsHook(),
+        OutputdirHook(),
+        LogRuntimeHook(
+            bunched=False
+        ),
+        PythonWrapperHook(),
+        SignatureHook(),
+    ]
+)
+def regridmask(
+        image_file: File,
+        mask_file: File,
+        output_dir: Directory,
+        entities: dict,
+        dryrun: bool = False,
+    ) -> tuple[File]:
+    """
+    Rewrite a mask file onto a reference image's exact grid and give it a
+    self-consistent qform/sform, using ``nibabel``.
+
+    A mask produced by a different tool than the one that wrote the
+    reference image (e.g. FreeSurfer's `mri_synthstrip` vs. FSL's
+    `fslreorient2std`) can end up on a grid that is numerically close but
+    not bit-for-bit identical to it. Most FSL tools tolerate this, but
+    ANTs' `N4BiasFieldCorrection` does not: it raises
+    ``itk::ExceptionObject: Inputs do not occupy the same physical space``
+    when handed a mask (``-x``) that isn't exactly co-registered with the
+    image it's correcting (``-i``), down to a ~1e-7 tolerance on the
+    origin.
+
+    A NIfTI file also carries both a qform and an sform, meant to agree
+    but not always written that way — e.g. `fslreorient2std` can leave
+    them a float32 ULP or two apart — and N4's ITK reader has been
+    observed to read one of the two forms for its main image (``-i``)
+    but the other for its mask (``-x``), so two files that are each
+    internally self-consistent can still trip that check if regridded
+    through an external tool that only aligns one form (e.g. FSL's
+    `flirt`, which only touches sform, or `fslcpgeom`, which round-trips
+    the copied values through the same float32 fields and can leave
+    residual noise right at the tolerance's edge).
+
+    Recomputing either form from an affine matrix doesn't reliably close
+    that gap either — qform is quaternion-based, and any fresh matrix ->
+    quaternion decomposition (nibabel's own `set_qform()` included) can
+    land on a different last-bit rounding than whatever decomposition
+    originally produced the reference image's own qform (e.g. FSL's).
+    The only way to get a genuinely identical header is to not recompute
+    anything at all: the mask's raw qform/sform NIfTI fields (quaternion
+    components, offsets, sform rows, codes) are transcribed byte-for-byte
+    from the reference image's own header.
+
+    Parameters
+    ----------
+    image_file : File
+        Path to the reference image file whose grid will be matched.
+    mask_file : File
+        Path to the mask file to regrid.
+    output_dir : Directory
+        Directory where the regridded mask will be saved.
+    entities : dict
+        A dictionary of parsed BIDS entities including modality.
+    dryrun : bool
+        If True, skip actual computation and file writing.
+        Default False.
+
+    Returns
+    -------
+    outputs : tuple[File]
+        - regridded_mask_file : File - the mask file, rewritten onto
+          image_file's exact grid with a self-consistent qform/sform.
+    """
+    basename = "sub-{sub}_ses-{ses}_run-{run}_mod-{mod}_regridmask".format(
+        **entities)
+    regridded_mask_file = output_dir / f"{basename}.nii.gz"
+    if dryrun:
+        return (regridded_mask_file, )
+
+    image_img = nibabel.load(image_file)
+    mask_img = nibabel.load(mask_file)
+    regridded_mask_img = nibabel.Nifti1Image(
+        mask_img.get_fdata().astype(mask_img.get_data_dtype()),
+        image_img.affine,
+        header=mask_img.header,
+    )
+    # The constructor above only syncs the mask's sform from the passed
+    # affine, leaving its qform untouched — so both forms are transcribed
+    # here directly from the reference image's own header fields (see
+    # the docstring for why nothing here is recomputed).
+    for field in ("qform_code", "sform_code", "pixdim",
+                  "quatern_b", "quatern_c", "quatern_d",
+                  "qoffset_x", "qoffset_y", "qoffset_z",
+                  "srow_x", "srow_y", "srow_z"):
+        regridded_mask_img.header[field] = image_img.header[field]
+    nibabel.save(regridded_mask_img, regridded_mask_file)
+
+    return (regridded_mask_file, )
 
 
 @step(

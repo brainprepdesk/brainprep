@@ -96,6 +96,7 @@ from .utils import (
     copyfiles,
     htmlmin,
     movedir,
+    regridmask,
     ungzfile,
     write_uuid_mapping,
 )
@@ -147,6 +148,7 @@ __all__ = [
     "reconall_summary",
     "reconall_surfreg",
     "reconall_tissues",
+    "regridmask",
     "reorient",
     "scale",
     "subject_level_qa",
