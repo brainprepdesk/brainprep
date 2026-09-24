@@ -517,7 +517,7 @@ def collect_config(
     print(f"- name: {workflow_name}")
     print(f"- type: {workflow_type}")
     print(f"- parameters: {workflow_parameters}")
-    output_dir = (
+    config_dir = (
         working_dir /
         f"{workflow_name}_{workflow_type}_{modality}"
     )
@@ -609,7 +609,7 @@ def collect_config(
     workflow_parameters = workflow_parameters.format_map(
         SafeDict({
             "mod_names": ",".join(set(dfs.keys()) - {"mod"}),
-            "outdir": working_dir / "derivatives",
+            "outdir": working_dir,
             "fsdir": working_dir / "derivatives" / "sbm"
         })
     )
@@ -618,15 +618,15 @@ def collect_config(
     confs = workflow_resource[workflow_name]
     selected_conf = confs.get(workflow_type, confs["default"])
 
-    hopla_dir = output_dir / "hopla"
-    home_dir = output_dir / "home"
+    hopla_dir = config_dir / "hopla"
+    home_dir = config_dir / "home"
     for dir_ in (hopla_dir, home_dir):
         dir_.mkdir(parents=True, exist_ok=True)
 
     if infra == "slurm":
         image_parameters = (
             f"--cleanenv --home {home_dir} --bind {bind_dir} "
-            f"--bind {output_dir} "
+            f"--bind {working_dir} "
         )
     else:
         image_parameters = ""
@@ -644,7 +644,7 @@ def collect_config(
 
     if df is not None:
         df.to_csv(
-            output_dir / "data.tsv",
+            config_dir / "data.tsv",
             sep="\t",
             index=False,
         )
@@ -670,7 +670,7 @@ def collect_config(
         hopla_dir=hopla_dir,
     )
     config_path = (
-        output_dir /
+        config_dir /
         f"config.toml"
     )
     with config_path.open("w") as of:
@@ -678,7 +678,7 @@ def collect_config(
     print(f"- configuration file: {config_path}")
 
     instructions_path = (
-        output_dir /
+        config_dir /
         f"commands.txt"
     )
     hopla_cmd = (
@@ -730,7 +730,7 @@ def scan_configs(
         Default None.
     with_hash : bool
         If True, compute a SHA-256 hash of each parsed file.
-        Dafault False.
+        Default False.
     with_longitudinal : bool
         If True, configure longitudinal workflows.
         Default True.
