@@ -514,7 +514,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.05s, 0.00min
+    __________________________________________________________________0.07s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_T1w.nii.gz
     [title] - Subject Level Defacing...
     ________________________________________________________________________________
@@ -857,7 +857,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.05s, 0.00min
+    __________________________________________________________________0.07s, 0.00min
     [title] - Group Level Defacing...
     ________________________________________________________________________________
     [call] brainprep.workflow.defacing.brainprep_group_defacing(
@@ -968,7 +968,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_overlap_T1w.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Defacing done.
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-01_T2w.nii.gz
     [title] - Subject Level Defacing...
     ________________________________________________________________________________
@@ -1354,7 +1354,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.05s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_T2w.nii.gz
     [title] - Subject Level Defacing...
     ________________________________________________________________________________
@@ -1740,7 +1740,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.05s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [title] - Group Level Defacing...
     ________________________________________________________________________________
     [call] brainprep.workflow.defacing.brainprep_group_defacing(
@@ -1851,7 +1851,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_overlap_T2w.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Defacing done.
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-01_FLAIR.nii.gz
     [title] - Subject Level Defacing...
     ________________________________________________________________________________
@@ -2241,7 +2241,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.05s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_FLAIR.nii.gz
     [title] - Subject Level Defacing...
     ________________________________________________________________________________
@@ -2631,7 +2631,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Defacing done.
-    __________________________________________________________________0.05s, 0.00min
+    __________________________________________________________________0.08s, 0.00min
     [title] - Group Level Defacing...
     ________________________________________________________________________________
     [call] brainprep.workflow.defacing.brainprep_group_defacing(
@@ -2744,7 +2744,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-defacing/derivatives/defacing/figures/histogram_overlap_FLAIR.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Defacing done.
-    __________________________________________________________________0.02s, 0.00min
+    __________________________________________________________________0.03s, 0.00min
 
 
 
@@ -2892,7 +2892,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.586 seconds)
+   **Total running time of the script:** (0 minutes 2.634 seconds)
 
 **Estimated memory usage:**  153 MB
 
