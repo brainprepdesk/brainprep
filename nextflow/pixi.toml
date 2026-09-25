@@ -1,0 +1,13 @@
+[project]
+channels = [
+    "conda-forge",
+    "bioconda",
+]
+name = "nextflow"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+nextflow = ">=26.4.6,<27"
