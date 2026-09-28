@@ -16,7 +16,7 @@ workflow {
         def workflow_id = "${params.workflow}_${params.rtype}"
         def aligned_anatomical_ch = Channel.empty()
 
-        if ( params.workflow == "first_level_quasiraw" ) {
+        if ( params.workflow == "subject_level_quasiraw" ) {
             (anatomical_ch, output_ch, sub_ch, ses_ch,
              run_ch, mod_ch) = channel.fromPath(params.data)
                 .splitCsv(header: true, strip: true)
@@ -36,7 +36,7 @@ workflow {
             helpMessage()
             exit 0
         }
-        else if ( workflow_id == "first_level_quasiraw_pool" ) {
+        else if ( workflow_id == "subject_level_quasiraw_pool" ) {
             quasiraw_pool(
                 anatomical_ch,
                 output_ch,
@@ -46,7 +46,7 @@ workflow {
                 mod_ch,
             )
         }
-        else if ( workflow_id == "first_level_quasiraw_flow" ) {
+        else if ( workflow_id == "subject_level_quasiraw_flow" ) {
             quasiraw_outputs = quasiraw(
                 anatomical_ch,
                 output_ch,

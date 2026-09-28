@@ -56,7 +56,7 @@ To run the quasiraw workflow, adapt the following command:
 .. code-block:: bash
 
     nextflow run brainprep.nf \
-        --workflow first_level_quasiraw \
+        --workflow subject_level_quasiraw \
         --data <CSV_DATA_FILE> \
         --rtype flow \
         --outdir <OUTDIR> \
