@@ -69,6 +69,15 @@ def brainmask(
     work across diverse imaging modalities, resolutions, and subject
     population :footcite:p:`hoopes2022brainmask`.
 
+    `mri_synthstrip` enforces orientation standards and a target voxel spacing
+    to feed the image through its neural network architecture. When writing
+    the generated binary mask back into NIfTI format, the floating-point
+    arithmetic used to re-calculate the qform and sform affine matrices can
+    introduce small variations. This causes downstream neuroimaging packages
+    like ITK, ANTs, or MONAI to flag the header as modified, offset, or
+    corrupted. `fslcpgeom` is used to copy the exact geometric header from the
+    input scan directly onto the `mri_synthstrip` mask.
+
     Parameters
     ----------
     image_file : File
@@ -100,21 +109,33 @@ def brainmask(
     brain_file = output_dir / f"{basename}_brain.nii.gz"
     mask_file = output_dir / f"{basename}_brainmask.nii.gz"
 
-    command = [
-        "mri_synthstrip",
-        "-i", str(image_file),
-        "-o", str(brain_file),
-        "-m", str(mask_file),
-        "--no-csf",
+    commands = [
+        [
+            "mri_synthstrip",
+            "-i", str(image_file),
+            "-o", str(brain_file),
+            "-m", str(mask_file),
+            "--no-csf",
+        ],
+        [
+            "fslcpgeom",
+            str(image_file),
+            str(brain_file),
+        ],
+        [
+            "fslcpgeom",
+            str(image_file),
+            str(mask_file),
+        ],
     ]
     if not legacy:
-        command.extend(
+        commands[0].extend(
             [
                 "-f", "0",
             ]
         )
 
-    return command, (brain_file, mask_file, )
+    return commands, (brain_file, mask_file, )
 
 
 @step(
