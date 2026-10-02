@@ -11,6 +11,7 @@ Module that contains some utility functions.
 """
 
 import inspect
+import os
 import re
 import uuid
 from pathlib import Path
@@ -20,6 +21,9 @@ from typing import (
     get_args,
     get_origin,
 )
+
+import nibabel as nib
+import numpy as np
 
 from ..config import (
     DEFAULT_OPTIONS,
@@ -566,3 +570,79 @@ def find_first_occurrence(
     raise ValueError(
         f"Unable to find target '{target}' in parents of {input_file}"
     )
+
+
+def compress_nii(
+        mri_nii: File,
+        atol: float = 1e-2,
+        clean_nii: bool = True,
+        keep: str = 'original'
+    ) -> File | list[File]:
+    """Compress a .nii to a .nii.gz using nibabel. Before deleting the .nii,
+    the function checks that the compressed version is not too different. If it
+    is, keep images follwing the 'keep' keyword.
+
+    Arguments
+    ---------
+    mri_nii: str
+        Image to compress. Must be a .nii.
+    atol: float
+        Absolute tolerance for content comparison between the .nii
+        and the generated .nii.gz
+    clean_nii: bool, default True
+        Set to True if you want to delete the .nii after they have
+        been successfully compressed to .nii.gz.
+    keep_both: str, default "both"
+        Set up the behavior when the .nii and the .nii.gz don't contain
+        the same data.
+        Set to "both" to keep both the .nii and the .nii.gz.
+        Set to "orignal" to keep the .nii.
+        Set to "compressed" to keep the .nii.gz.
+    """
+    # save a copy as nii.gz
+    if isinstance(mri_nii, str):
+        mri_niigz = mri_nii.replace('.nii', '.nii.gz')
+    elif isinstance(mri_nii, Path):
+        mri_niigz = mri_nii.with_suffix(".gz")
+    else:
+        raise TypeError("'mri_nii' should be either str of Path, "
+                        f"not {type(mri_nii)}")
+    img_nii = nib.load(mri_nii)
+    nib.save(img_nii, mri_niigz)
+    # check the copy is good
+    img_niigz = nib.load(mri_niigz)
+    equal_affine = (img_nii.affine == img_niigz.affine).all()
+    similar_content = np.allclose(img_nii.get_fdata(),
+                                  img_niigz.get_fdata(),
+                                  atol=atol,
+                                  equal_nan=True)
+    # if copy good, delete nii
+    if equal_affine and similar_content:
+        if clean_nii:
+            os.remove(mri_nii)
+        return mri_niigz
+    else:
+        # if copy not good, print a warning and keep files according
+        # to the keep argument
+        if not equal_affine:
+            msg = f"Different affines for {mri_nii}."
+        elif not similar_content:
+            adiff = np.abs(img_nii.get_fdata() - img_niigz.get_fdata()).max()
+            msg = f"Images content too different for {mri_nii}: {adiff}."
+        else:
+            raise AssertionError("This shouldn't be triggered.")
+        msg += f" Keep {keep}"
+        print(msg)
+        if keep == "original":
+            os.remove(mri_niigz)
+            return mri_nii
+        elif keep == "compressed":
+            os.remove(mri_nii)
+            return mri_niigz
+        elif keep == "both":
+            return mri_nii, mri_niigz
+        else:
+            err_msg = (f"{keep} value not handled for 'keep' argument. "
+                       "Please choose between 'original', 'compressed' "
+                       "and 'both'.")
+            raise ValueError(err_msg)
