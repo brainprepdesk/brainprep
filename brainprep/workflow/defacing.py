@@ -54,6 +54,7 @@ def brainprep_defacing(
         anatomical_file: File,
         output_dir: Directory,
         keep_intermediate: bool = False,
+        t1w_run_id: str | None = None,
         **kwargs: dict,
     ) -> Bunch:
     """
@@ -82,6 +83,10 @@ def brainprep_defacing(
         If True, retains intermediate results (e.g., reoriented image); useful
         for debugging.
         Default False.
+    t1w_run_id : str | None
+        Optional run identifier to select a specific defaced T1w image when
+        defacing T2w or FLAIR images. Required when multiple T1w images exist
+        in the same session. Default None.
     **kwargs : dict
         entities: dict
             Dictionary of parsed BIDS entities.
@@ -197,10 +202,19 @@ def brainprep_defacing(
                 "defacemask.nii.gz"
             )
         )
-        if len(t1_file) != 1 or len(mask_t1_file) != 1:
+        if (len(t1_file) > 1 or len(mask_t1_file) > 1):
+            if t1w_run_id is None:
+                raise ValueError(
+                    f"Multiple T1w defaced images found: {t1_file}, {mask_t1_file}. "
+                    "Please specify a run identifier run-<t1w_run_id> using the 't1w_run_id' parameter."
+                )
+            t1_file = [f for f in t1_file if f"run-{t1w_run_id}_" in str(f)]
+            mask_t1_file = [f for f in mask_t1_file if f"run-{t1w_run_id}_" in str(f)]
+        if len(t1_file) == 0 or len(mask_t1_file) == 0:
             raise ValueError(
                 f"No T1w defaced image found: {t1_file}, {mask_t1_file}"
             )
+
         t1_file, mask_t1_file = t1_file[0], mask_t1_file[0]
         print_info(f"using T1w: {t1_file}")
         print_info(f"using defacing mask: {mask_t1_file}")

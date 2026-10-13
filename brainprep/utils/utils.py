@@ -33,6 +33,38 @@ from .color import (
     print_warn,
 )
 
+def bids_basename(
+    entities: dict[str],
+) -> str:
+    """
+    Build a BIDS-like file basename from parsed BIDS entities.
+
+    The recognized entities are kept in canonical BIDS order, so that
+    input files differing only by entities such as ``acq`` or ``rec``
+    yield distinct derivative names. The ``mod`` and ``modality`` keys
+    are ignored: the modality is handled by the callers through the
+    file suffix.
+
+    Parameters
+    ----------
+    entities : dict[str]
+        A dictionary of parsed BIDS entities, as returned by
+        :func:`parse_bids_keys`.
+
+    Returns
+    -------
+    basename : str
+        The BIDS-like basename, e.g. ``sub-01_ses-M00_acq-3DT1_run-01``.
+    """
+    order = (
+        "sub", "ses", "task", "acq", "ce", "rec", "dir",
+        "echo", "part", "run", "space", "res", "recording",
+    )
+    return "_".join(
+        f"{key}-{entities[key]}"
+        for key in order
+        if key in entities and entities[key] != ""
+    )
 
 def coerce_to_list(
         value: Any,

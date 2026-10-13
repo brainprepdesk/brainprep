@@ -24,6 +24,7 @@ from .color import (
     print_warn,
 )
 from .utils import (
+    bids_basename,
     bvecbval_from_file,
     coerce_to_list,
     coerce_to_path,
@@ -32,6 +33,7 @@ from .utils import (
     make_run_id,
     parse_bids_keys,
     sbref_from_file,
+    select_defaced_t1w,
     sidecar_from_file,
 )
 
