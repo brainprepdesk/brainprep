@@ -137,15 +137,25 @@ def fmriprep_workflow(
             work_tmp_dir,
         ):
         path.mkdir(parents=True, exist_ok=True)
-    subject, session = entities["sub"], entities["ses"]
+    subject, session, run = entities["sub"], entities["ses"], entities["run"]
     fshome_dir = os.getenv("FREESURFER_HOME")
     if fshome_dir is None:
         raise ValueError(
             "You must define the 'FREESURFER_HOME' environment variable."
         )
     fshome_dir = Path(fshome_dir)
-    fssubject_dir = freesurfer_dir / f"sub-{subject}"
-    fssubject_local_dir = work_freesurfer_dir / f"sub-{subject}_ses-{session}"
+    fssubject_dir = (
+        freesurfer_dir /
+        f"sub-{subject}" /
+        f"ses-{session}" /
+        f"run-{run}"
+    )
+    fssubject_local_dir = (
+        work_freesurfer_dir /
+        f"sub-{subject}_ses-{session}"
+    )
+    if fssubject_local_dir.is_dir():
+        shutil.rmtree(fssubject_local_dir)
 
     for source_file, target_dir in zip(
             [t1_file, *func_files],
@@ -252,22 +262,26 @@ def fmriprep_workflow(
             str(output_dir.parent.parent),
             "participant",
             "--notrack",
+            "--random-seed", "42",
             "--skip-bids-validation",
-            "--stop-on-first-crash",
+            "--skull-strip-fixed-seed",
+            "--omp-nthreads", "1",
             "--n-cpus", str(os.cpu_count()),
+            "--stop-on-first-crash",
             "--fs-license-file", str(fshome_dir / "license.txt"),
             "--fs-subjects-dir", str(work_freesurfer_dir),
-            "--work-dir", str(work_tmp_dir),
             "--fs-no-resume",
+            "--work-dir", str(work_tmp_dir),
+            "--level", "full",
             "--force", "bbr",
             "syn-sdc",
             "--no-msm",
             "--cifti-output", "91k",
-            "--output-spaces",
-            "T1w", "MNI152NLin2009cAsym", "MNI152NLin2009cAsym:res-2",
-            "fsnative", "fsLR",
+            "--output-spaces", "T1w", "MNI152NLin2009cAsym:res-2", "fsnative",
+            "fsLR:den-32k",
             "--ignore", "slicetiming",
             "--participant-label", subject,
+            "-vv",
         ],
         [
             "cp",
