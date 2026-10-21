@@ -107,7 +107,7 @@ def brainprep_defacing(
     ValueError
         If the input anatomical file do not follow BIDS convention.
         If the input modality is not supported.
-        If a T1w image in the same session has not already been faced for
+        If a T1w image in the same session has not already been defaced for
         T2w or FLAIR processings.
 
     Notes
