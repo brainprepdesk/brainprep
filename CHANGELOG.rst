@@ -10,11 +10,20 @@ HIGHLIGHTS
 NEW
 ---
 
+- :bdg-success:`Enhancement` Define NextFlow workflow for brainprep - first
+  level workflows only.
+
 Fixes
 -----
 
+- :bdg-success:`Fix` Fix geometry after brain mask computation in
+  quasiraw.
+
 Enhancements
 ------------
+
+- :bdg-success:`Enhancement` Use multi stage and bake for container image
+  generation.
 
 Changes
 -------
