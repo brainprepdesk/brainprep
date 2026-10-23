@@ -1,105 +1,88 @@
-Docker Container
-================
+Containers
+==========
 
-In order to run ``brainprep`` in a Docker container, Docker must be
-`installed <https://docs.docker.com/engine/installation>`_.
+Welcome to the ``brainprep`` containerization project. This guide will walk you
+through the process of building and using containers for brainprep. By
+leveraging Docker and Apptainer, we ensure that all necessary software
+components are isolated and easily manageable. The multi-stage build approach
+allows for efficient and modular configuration, while the automated build
+script simplifies the creation and export of container images.
+Let's get started!
 
-Recipies
---------
+Multi-Stage Builds
+------------------
 
-Docker recipies are generated using
-`neurodocker <https://github.com/ReproNim/neurodocker>`_. First, install
-``neurodocker``:
+The container build process utilizes a multi-stage Docker build approach.
+Each stage in the build process is dedicated to installing and configuring a
+specific software component required by ``brainprep``. This modular approach
+ensures that each component is isolated and can be updated and used
+independently.
 
-.. code-block:: bash
+Workflow-Dedicated Containers
+----------------------------
 
-    pip install neurodocker
+In addition to the software-specific stages, there are dedicated containers
+for the different ``brainprep`` workflows. These workflow containers are built
+from the previously defined software stages, ensuring that all necessary
+dependencies are included. This allows for a streamlined and efficient
+execution of various workflows within isolated environments.
 
-Then, generate the new recipies (one per workflow type):
+Configuration with Bake
+------------------------
 
-.. code-block:: bash
+The configuration of the containers is managed using
+`Bake <https://docs.docker.com/build/bake>`_. Bake allows for the definition
+of multi-container applications and the specification of build and run
+instructions in a declarative manner. This simplifies the configuration
+process.
 
-    neurodocker generate docker \
-        --base-image nipreps/mriqc:24.0.2 \
-        --pkg-manager apt \
-        --label description="brainprep quality assesssment" version="2.0" \
-        --yes \
-        --entrypoint python3 \
-        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
-        > Dockerfile.qa
+Automated Build Process
+-----------------------
 
-    neurodocker generate docker \
-        --base-image ubuntu:24.04 \
-        --pkg-manager apt \
-        --yes \
-        --entrypoint python3 \
-        --fsl version=6.0.7.18 \
-          install_path=/opt/fsl-6.0.7.18 \
-        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
-        > Dockerfile.defacing
+The build process is automated using the ``build.sh`` script. This script
+handles the creation of the Docker images and their export in both Docker
+tar format and Apptainer sif format.
 
-    neurodocker generate docker \
-        --base-image ubuntu:24.04 \
-        --pkg-manager apt \
-        --yes \
-        --entrypoint python3 \
-        --fsl version=6.0.7.18 \
-          install_path=/opt/fsl-6.0.7.18 \
-        --freesurfer version=7.4.1 \
-          install_path=/opt/freesurfer-7.4.1 \
-          exclude_paths="average/mult-comp-cor lib/cuda lib/qt subjects/V1_average subjects/bert subjects/cvs_avg35 subjects/cvs_avg35_inMNI152 subjects/fsaverage3 subjects/fsaverage4 subjects/fsaverage5 subjects/fsaverage6 subjects/fsaverage_sym trctrain" \
-        --ants version=2.6.2 \
-        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
-        > Dockerfile.quasiraw
+Usage
+-----
 
-    neurodocker generate docker \
-        --base-image ubuntu:24.04 \
-        --pkg-manager apt \
-        --yes \
-        --entrypoint python3 \
-        --matlabmcr version=2023b \
-        --cat12 version=12.9_R2023b \
-          install_path=/opt/cat12-12.9_R2023b \
-        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
-        > Dockerfile.vbm
+1. **Install Docker and Apptainer**:
+   Ensure that Docker and Apptainer are installed on your system. Follow the
+   installation instructions provided in the respective documentation.
 
-    neurodocker generate docker \
-        --base-image ubuntu:24.04 \
-        --pkg-manager apt \
-        --yes \
-        --entrypoint python3 \
-        --freesurfer version=7.4.1 \
-          install_path=/opt/freesurfer-7.4.1 \
-          exclude_paths="diffusion docs fsfast average/mult-comp-cor lib/cuda lib/qt subjects/V1_average subjects/bert subjects/cvs_avg35 subjects/cvs_avg35_inMNI152 subjects/fsaverage3 subjects/fsaverage4 subjects/fsaverage5 subjects/fsaverage6 subjects/fsaverage_sym trctrain" \
-        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
-        > Dockerfile.brainparc
+   - Docker: `Docker Installation Guide <https://docs.docker.com/engine/installation>`_
+   - Apptainer: `Apptainer Installation Guide <https://apptainer.org/docs/user/latest/quick_start.html#installation>`_
 
-    neurodocker generate docker \
-        --base-image ubuntu:24.04 \
-        --pkg-manager apt \
-        --yes \
-        --entrypoint python3 \
-        --fsl version=6.0.7.18 \
-          install_path=/opt/fsl-6.0.7.18 \
-        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
-        > Dockerfile.tbss
+2. **Run the Build Script**:
+   Execute the ``build.sh`` script to initiate the container build process.
+   This script will handle the multi-stage build and export the final images.
 
-    neurodocker generate docker \
-        --base-image nipreps/fmriprep:25.2.3 \
-        --pkg-manager apt \
-        --yes \
-        --entrypoint python3 \
-        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
-        > Dockerfile.fmriprep
+   .. code-block:: bash
 
-    neurodocker generate docker \
-        --base-image pennlinc/qsiprep:1.0.2 \
-        --pkg-manager apt \
-        --yes \
-        --entrypoint python3 \
-        --run-bash "pip install git+https://github.com/brainprepdesk/brainprep.git@dev" \
-        > Dockerfile.dmriprep
+      ./build.sh
 
-.. note::
+3. **Use the Containers**:
+   Once the build process is complete, you can use the generated Docker and
+   Apptainer images to run your workflows. Refer to the specific workflow
+   documentation for instructions on how to use the generated containers.
 
-    Generated recipes are manually fine‑tuned afterward.
+   - **Explore Docker Image Layers**:
+     To explore the layers of a Docker image, you can use the following command:
+
+     .. code-block:: bash
+
+        tar -tvf <TAR_IMAGE> | sort -k 3 -n -r | head -n 20 | awk '{print $3, $6}' | numfmt --to=iec
+
+   - **List Docker Image Labels**:
+     To display the labels of a Docker image, you can use the following command:
+
+     .. code-block:: bash
+
+        docker inspect --format='{{json .Config.Labels}}' <IMAGE>:<VERSION> | jq
+
+   - **Connect Apptainer Image**:
+     To connect and interact with an Apptainer image, use the following command:
+
+     .. code-block:: bash
+
+        apptainer shell <SIF_IMAGE>
