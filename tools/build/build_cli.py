@@ -6,87 +6,92 @@
 # for details.
 ##########################################################################
 
-""" Provide a command line interface.
+"""
+Provide a command line interface.
 """
 
 import sys
 from pathlib import Path
 
+import fire
+
+from brainprep import __version__
+
 cw_dir = Path(__file__).parent.resolve()
 sys.path.append(str(cw_dir))
 
-import fire
 from build_images import main as build_images_main
 from build_tests import main as build_tests_main
-
-from brainprep import __version__ as version
 
 
 def build(
         working_dir: str | Path,
-        bind_dir: str | Path,
-        freesurfer_license_file: str | Path,
+        bind_dir: str | Path | None = None,
+        freesurfer_license_file: str | Path | None = None,
         dev: bool = False,
+        dryrun: bool = False,
     ) -> None:
     """
-    Parse available Docker files and generate the associated build instructions
-    (creation and test steps).
+    Build brainprep images, and generate/execute associated test commands.
 
     Parameters
     ----------
     working_dir : str | Path
-        Directory where the generated instructions will be written.
-    bind_dir : str | Path
+        Directory where the build and tests are done.
+    bind_dir : str | Path | None
         Directory containing the data to be bound into the Apptainer
         environment.
-    freesurfer_license_file : str | Path
-        Path to the FreeSurfer license file required for container execution.
+        Default None.
+    freesurfer_license_file : str | Path | None
+        Path to the FreeSurfer license file required for some containers
+        execution.
+        Default None.
     dev : bool
         If True, overwrite the ``brainprep`` module inside the container image.
         Default False.
+    dryrun : bool
+        Dont't execute the commands.
+        Default False.
     """
-    cw_dir = Path(__file__).parent.resolve()
-    working_dir = Path(working_dir)
-    workspace_dir = working_dir / f"v{version}" / "data"
-    home_dir = workspace_dir / "home"
-    examples_dir = cw_dir.parent.parent / "examples"
+    version = __version__.replace(".dev", "")
+    working_dir = Path(working_dir) / f"v{version}"
+    home_dir = working_dir / "home"
+    brainprep_dir = Path(__file__).resolve().parent.parent.parent
+    examples_dir = brainprep_dir / "examples"
     home_dir.mkdir(parents=True, exist_ok=True)
     print(f"- Home direcotry: {home_dir}")
 
     build_images_main(
         working_dir,
+        dryrun=dryrun,
     )
 
     placeholder = "{workflow}"
-    image_parameters = f"--cleanenv --home {home_dir} --bind {bind_dir}"
+    image_parameters = f"--cleanenv --home {home_dir} "
+    if bind_dir is not None:
+        image_parameters += f"--bind {bind_dir} "
+    if freesurfer_license_file is not None:
+        image_parameters += (
+            f" --bind {freesurfer_license_file}:/opt/freesurfer/license.txt"
+        )
     if dev:
         image_parameters += (
-            f" --bind {cw_dir.parent.parent / 'brainprep'}:"
+            f" --bind {brainprep_dir / 'brainprep'}:"
             "/opt/brainprep/.pixi/envs/default/lib/python3.12/site-packages/"
             "brainprep"
         )
 
     build_tests_main(
+        working_dir,
         examples_dir,
         image_template=(
             working_dir /
-            f"v{version}" /
-            placeholder /
+            "images" /
             f"brainprep-{placeholder}-v{version}.sif"
         ),
-        save_template=(
-            working_dir /
-            f"v{version}" /
-            placeholder /
-            "commands"
-        ),
-        root_template=(
-            working_dir /
-            f"v{version}" /
-            placeholder
-        ),
-        freesurfer_license_file=freesurfer_license_file,
         image_parameters=image_parameters,
+        save_file=working_dir / "commands",
+        dryrun=dryrun,
     )
 
 
@@ -109,19 +114,22 @@ def main():
     Build test instructions from the example scripts in the ``examples``
     repository:
 
-        python3 containers/build/build_cli.py build-tests \
+        python3 tools/build/build_cli.py build-tests \
             --examples-dir examples \
             --image-template /tmp/brainprep-{workflow}-v2.0.0.sif
 
     Build image creation instructions:
 
-        python3 containers/build/build_cli.py build-images \
+        python3 tools/build/build_cli.py build-images \
             --working-dir /tmp/build
+            --dryrun
 
     Build image creation and test instructions:
 
-        python3 containers/build/build_cli.py build \
-            --working-dir /tmp/build
+        python3 tools/build/build_cli.py build \
+            --working-dir /tmp/build \
+            --dev \
+            --dryrun
     """
     fire.Fire({
         "build-tests": build_tests_main,

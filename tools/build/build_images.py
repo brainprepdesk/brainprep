@@ -7,26 +7,28 @@
 ##########################################################################
 
 """
-Provide a command line interface to generate image build instructions.
+Provide a tool to build brainprep images.
 """
 
-import shutil
 from pathlib import Path
 
-from brainprep import __version__ as version
+from brainprep.wrappers import run_command
 
 
 def main(
         working_dir: str | Path,
+        dryrun: bool = False,
     ) -> None:
     """
-    Parse available Docker files and generate associated build (creation and
-    test) instructions.
+    Build brainprep images.
 
     Parameters
     ----------
     working_dir : str | Path
-        Directory where the instructions will be generated.
+        Directory where the instructions / build environment will be generated.
+    dryrun : bool
+        Dont't execute the commands.
+        Default False.
     """
     banner = r"""
     +----------------------------------+
@@ -37,7 +39,7 @@ def main(
 
     working_dir = Path(working_dir).resolve()
     cw_dir = Path(__file__).parent.resolve()
-    image_dir = cw_dir.parent.parent / "containers"
+    image_dir = cw_dir.parent.parent / "containers" / "wip"
 
     print(
         "⚠️  WARNING: Don't use Docker default storage directory "
@@ -65,59 +67,45 @@ def main(
         "Docker will now store images in the new directory."
     )
 
-    # Iterate over Dockerfile.* files
-    for recipe_file in image_dir.glob("Dockerfile.*"):
-
+    # Build images
+    bake_file = image_dir / "docker-bake.hcl"
+    build_file = image_dir / "build.sh"
+    print(
+        "\n"
+        "ℹ️  INFO: Building from using bake Docker buildx command: "
+        f"{bake_file}"
+    )
+    if not bake_file.is_file():
+        raise ValueError(f"Can't find buid instructions: {build_file}")
+    commands = [
+        [
+            "rsync",
+            "-av",
+            str(image_dir),
+            str(working_dir),
+        ],
+        [
+            ".",
+            str(working_dir / "build.sh"),
+        ]
+    ]
+    commands_txt = ""
+    for cmd in commands:
         print(
             "\n"
-            "ℹ️  INFO: Building instructions for Docker file: "
-            f"{recipe_file.name}"
+            f"🚀 BUILD: {' '.join(cmd)}"
         )
+        commands_txt += f"{' '.join(cmd)}\n"
+        if not dryrun:
+            run_command(cmd)
 
-        # Destination folders
-        name = recipe_file.suffix.lstrip(".")
-        dest_dir = working_dir / f"v{version}" / name
-        tmp_dir = dest_dir / "tmp"
-        cache_dir = dest_dir / "cache"
-        for dir_ in (dest_dir, tmp_dir, cache_dir):
-            dir_.mkdir(parents=True, exist_ok=True)
-
-        # Copy Dockerfile
-        shutil.copy(recipe_file, dest_dir / "Dockerfile")
-
-        # Copy resources
-        resources_dir = recipe_file.parent / "resources"
-        for src in resources_dir.iterdir():
-            if src.is_file():
-                shutil.copy(src, dest_dir / src.name)
-
-        # Build command script
-        cmds = [
-            f"cd {dest_dir}",
-            (
-                "sudo DOCKER_BUILDKIT=1 docker build --no-cache "
-                f"--tag brainprep-{name}:{version} ."
-            ),
-            "sudo docker images",
-            (
-                f"sudo docker save -o brainprep-{name}-v{version}.tar "
-                f"brainprep-{name}:{version}"
-            ),
-            f"sudo chmod 755 brainprep-{name}-v{version}.tar",
-            (
-                f"sudo APPTAINER_TMPDIR=$PWD/tmp "
-                f"APPTAINER_CACHEDIR=$PWD/cache "
-                f"apptainer build brainprep-{name}-v{version}.sif "
-                f"docker-archive://brainprep-{name}-v{version}.tar"
-            ),
-            f"apptainer inspect brainprep-{name}-v{version}.sif",
-        ]
-
-        # Write commands file
-        cmds_file = dest_dir / "commands"
-        cmds_file.write_text("\n".join(cmds) + "\n")
-
-        print(f"- Generated build instructions: {cmds_file}")
+    # Write commands to file
+    commands_file = working_dir / "commands"
+    commands_file.write_text(commands_txt)
+    print(
+        "\n"
+        f"💾 SAVE: build commands - {commands_file}"
+    )
 
     print(
         "\n"
