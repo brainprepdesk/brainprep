@@ -222,7 +222,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28
     236
     [title] - Subject Level Sulci Reconstruction done.
-    __________________________________________________________________0.03s, 0.00min
+    __________________________________________________________________0.02s, 0.00min
     Bunch(
       step1: Bunch(
         module: 'brainprep.workflow.sulcirec.brainprep_sulcirec'
@@ -238,12 +238,12 @@ to actually run each step and generate results on disk.
           qc_file: PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv')
         )
         runtime: Bunch(
-          start: '2026-09-25 12:49:20.489976'
-          end: '2026-09-25 12:49:20.515241'
-          execution_time: 7.018055555555555e-06
+          start: '2026-10-23 07:59:16.759893'
+          end: '2026-10-23 07:59:16.783526'
+          execution_time: 6.564722222222223e-06
           brainprep_version: '2.2.0.dev'
           platform: 'Linux-6.17.0-1022-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmtr4k5'
+          hostname: 'runnervm8k3b6'
         )
         config: Bunch(
           verbose: True
@@ -273,12 +273,12 @@ to actually run each step and generate results on disk.
           outputs: ([PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-L.arg'), PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-R.arg')], PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv'))
         )
         runtime: Bunch(
-          start: '2026-09-25 12:49:20.495992'
-          end: '2026-09-25 12:49:20.514149'
-          execution_time: 5.043611111111111e-06
+          start: '2026-10-23 07:59:16.766057'
+          end: '2026-10-23 07:59:16.782683'
+          execution_time: 4.618333333333333e-06
           brainprep_version: '2.2.0.dev'
           platform: 'Linux-6.17.0-1022-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmtr4k5'
+          hostname: 'runnervm8k3b6'
         )
         config: Bunch(
           verbose: True
@@ -308,12 +308,12 @@ to actually run each step and generate results on disk.
           outputs: ['morphologist-wrapper', '/tmp/brainprep-data/rawdata/sub-01/ses-00/anat/sub-01_ses-00_T1w.nii.gz', '/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/workspace_28236', '--subject', '01']
         )
         runtime: Bunch(
-          start: '2026-09-25 12:49:20.502133'
-          end: '2026-09-25 12:49:20.505532'
-          execution_time: 9.441666666666667e-07
+          start: '2026-10-23 07:59:16.772285'
+          end: '2026-10-23 07:59:16.774957'
+          execution_time: 7.422222222222222e-07
           brainprep_version: '2.2.0.dev'
           platform: 'Linux-6.17.0-1022-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmtr4k5'
+          hostname: 'runnervm8k3b6'
         )
         config: Bunch(
           verbose: True
@@ -343,12 +343,12 @@ to actually run each step and generate results on disk.
           outputs: ([PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-L.arg'), PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/anat/folds/3.1/sub-01_ses-00_run-28236_hemi-R.arg')], PosixPath('/tmp/brainprep-sulcirec/derivatives/sulcirec/subjects/sub-01/ses-00/run-28236/qc.tsv'))
         )
         runtime: Bunch(
-          start: '2026-09-25 12:49:20.509336'
-          end: '2026-09-25 12:49:20.512105'
-          execution_time: 7.691666666666667e-07
+          start: '2026-10-23 07:59:16.779291'
+          end: '2026-10-23 07:59:16.781172'
+          execution_time: 5.225e-07
           brainprep_version: '2.2.0.dev'
           platform: 'Linux-6.17.0-1022-azure-x86_64-with-glibc2.39'
-          hostname: 'runnervmtr4k5'
+          hostname: 'runnervm8k3b6'
         )
         config: Bunch(
           verbose: True
@@ -494,7 +494,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.432 seconds)
+   **Total running time of the script:** (0 minutes 0.459 seconds)
 
 **Estimated memory usage:**  111 MB
 

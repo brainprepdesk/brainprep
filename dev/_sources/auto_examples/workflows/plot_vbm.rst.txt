@@ -256,8 +256,8 @@ to actually run each step and generate results on disk.
         rawdata_dir=PosixPath('/tmp/brainprep-data/rawdata'),
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
-    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmtr4k5/HOSTNAME/g -e 
-    s/10.1.0.169/X.X.X.X/g -e s/runner/USER/g -i 
+    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm8k3b6/HOSTNAME/g -e 
+    s/10.1.1.117/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-01/ses-study1/cat12vbm_matlabbat
     ch_run-15456.m
     [info] - checking output: 
@@ -382,8 +382,8 @@ to actually run each step and generate results on disk.
         rawdata_dir=PosixPath('/tmp/brainprep-data/rawdata'),
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
-    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmtr4k5/HOSTNAME/g -e 
-    s/10.1.0.169/X.X.X.X/g -e s/runner/USER/g -i 
+    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm8k3b6/HOSTNAME/g -e 
+    s/10.1.1.117/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/subjects/sub-02/ses-study1/cat12vbm_matlabbat
     ch_run-38141.m
     [info] - checking output: 
@@ -559,8 +559,8 @@ to actually run each step and generate results on disk.
         rawdata_dir=PosixPath('/tmp/brainprep-data/rawdata'),
     )
     [command] - sed -e s/\/tmp\/brainprep-vbm\/derivatives/DERIVATIVES/g -e 
-    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervmtr4k5/HOSTNAME/g -e 
-    s/10.1.0.169/X.X.X.X/g -e s/runner/USER/g -i 
+    s/\/tmp\/brainprep-data\/rawdata/RAWDATA/g -e s/runnervm8k3b6/HOSTNAME/g -e 
+    s/10.1.1.117/X.X.X.X/g -e s/runner/USER/g -i 
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/subjects/sub-01/cat12vbm_matlabb
     atch.m
     [info] - checking output: 
@@ -745,7 +745,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/figures/histogram_IQR.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level VBM done.
-    __________________________________________________________________0.04s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     [title] - Group Level VBM...
     ________________________________________________________________________________
     [call] brainprep.workflow.vbm.brainprep_group_vbm(
@@ -941,7 +941,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-vbm/derivatives/vbm/longitudinal/figures/histogram_IQR.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level VBM done.
-    __________________________________________________________________0.04s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
 
 
 
@@ -1068,7 +1068,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.533 seconds)
+   **Total running time of the script:** (0 minutes 0.588 seconds)
 
 **Estimated memory usage:**  111 MB
 

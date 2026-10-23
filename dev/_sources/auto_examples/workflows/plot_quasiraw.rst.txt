@@ -228,6 +228,16 @@ to actually run each step and generate results on disk.
     706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brain.nii.gz -m 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
     706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz --no-csf -f 0
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brain.nii.gz
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/01-reorient/sub-01_ses-01_run-34706_mod-T1w_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
+    706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brainmask.nii.gz
     [info] - checking output: 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_34
     706/02-brainmask/sub-01_ses-01_run-34706_mod-T1w_brain.nii.gz
@@ -619,6 +629,16 @@ to actually run each step and generate results on disk.
     669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brain.nii.gz -m 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
     669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz --no-csf -f 0
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brain.nii.gz
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/01-reorient/sub-02_ses-01_run-21669_mod-T1w_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
+    669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brainmask.nii.gz
     [info] - checking output: 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_21
     669/02-brainmask/sub-02_ses-01_run-21669_mod-T1w_brain.nii.gz
@@ -1123,6 +1143,16 @@ to actually run each step and generate results on disk.
     909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brain.nii.gz -m 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_17
     909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brainmask.nii.gz --no-csf -f 0
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_17
+    909/01-reorient/sub-01_ses-01_run-17909_mod-T2w_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_17
+    909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brain.nii.gz
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_17
+    909/01-reorient/sub-01_ses-01_run-17909_mod-T2w_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_17
+    909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brainmask.nii.gz
     [info] - checking output: 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_17
     909/02-brainmask/sub-01_ses-01_run-17909_mod-T2w_brain.nii.gz
@@ -1437,7 +1467,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.08s, 0.00min
+    __________________________________________________________________0.07s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_T2w.nii.gz
     [title] - Subject Level Quasi-RAW...
     ________________________________________________________________________________
@@ -1514,6 +1544,16 @@ to actually run each step and generate results on disk.
     679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brain.nii.gz -m 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_32
     679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brainmask.nii.gz --no-csf -f 0
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_32
+    679/01-reorient/sub-02_ses-01_run-32679_mod-T2w_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_32
+    679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brain.nii.gz
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_32
+    679/01-reorient/sub-02_ses-01_run-32679_mod-T2w_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_32
+    679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brainmask.nii.gz
     [info] - checking output: 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_32
     679/02-brainmask/sub-02_ses-01_run-32679_mod-T2w_brain.nii.gz
@@ -2019,6 +2059,16 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_16
     566/02-brainmask/sub-01_ses-01_run-16566_mod-FLAIR_brainmask.nii.gz --no-csf -f 
     0
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_16
+    566/01-reorient/sub-01_ses-01_run-16566_mod-FLAIR_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_16
+    566/02-brainmask/sub-01_ses-01_run-16566_mod-FLAIR_brain.nii.gz
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_16
+    566/01-reorient/sub-01_ses-01_run-16566_mod-FLAIR_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_16
+    566/02-brainmask/sub-01_ses-01_run-16566_mod-FLAIR_brainmask.nii.gz
     [info] - checking output: 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-01/ses-01/workspace_16
     566/02-brainmask/sub-01_ses-01_run-16566_mod-FLAIR_brain.nii.gz
@@ -2413,6 +2463,16 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_24
     276/02-brainmask/sub-02_ses-01_run-24276_mod-FLAIR_brainmask.nii.gz --no-csf -f 
     0
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_24
+    276/01-reorient/sub-02_ses-01_run-24276_mod-FLAIR_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_24
+    276/02-brainmask/sub-02_ses-01_run-24276_mod-FLAIR_brain.nii.gz
+    [command] - fslcpgeom 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_24
+    276/01-reorient/sub-02_ses-01_run-24276_mod-FLAIR_reorient.nii.gz 
+    /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_24
+    276/02-brainmask/sub-02_ses-01_run-24276_mod-FLAIR_brainmask.nii.gz
     [info] - checking output: 
     /tmp/brainprep-quasiraw/derivatives/quasiraw/subjects/sub-02/ses-01/workspace_24
     276/02-brainmask/sub-02_ses-01_run-24276_mod-FLAIR_brain.nii.gz
@@ -2979,7 +3039,7 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.899 seconds)
+   **Total running time of the script:** (0 minutes 0.912 seconds)
 
 **Estimated memory usage:**  111 MB
 
