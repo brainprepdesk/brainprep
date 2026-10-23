@@ -524,10 +524,6 @@ def surfreg(
     right_reg_file = (
         output_dir / subject / "xhemi" / "surf" / "lh.fsaverage_sym.sphere.reg"
     )
-
-    left_reg_file = (
-        output_dir / subject / "surf" / "lh.fsaverage_sym.sphere.reg"
-    )
     for reg_file_ in (right_reg_file, left_reg_file):
         if reg_file_.is_file():
             print_info(f"removing: {reg_file_}")
