@@ -155,4 +155,4 @@ check-style-mismatch = true
 check-arg-defaults = false
 skip-checking-raises = false
 treat-property-methods-as-class-attributes = true
-should-document-private-class-attributes = true
+ignore-private-class-attributes = false
