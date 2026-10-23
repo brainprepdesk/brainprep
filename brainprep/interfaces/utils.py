@@ -256,12 +256,12 @@ def write_uuid_mapping(
         full_path: bool = False,
     ) -> File:
     """
-    Create a TSV file that records a deterministic  UUID-based mapping.
+    Create a TSV file that records a deterministic UUID-based mapping.
 
     Each row contains:
     - filename: relative path within the BIDS dataset.
     - run_default: 5-digit deterministic run ID derived from the filename.
-    - uuid: full UUIDv5 for traceability.
+    - uuid: full UUID for traceability.
 
     Parameters
     ----------
