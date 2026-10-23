@@ -28,16 +28,16 @@ def toFile(String raw_text, int index = 0) {
 
     def file_text = parts[index].trim()
         .replace("PosixPath", "")
-        .replaceAll(/['"()]/, "")
+        .replaceAll(/['"()\[\]]/, "")
 
     def out_file = file(file_text)
 
     if (!out_file.exists()) {
-        if ( file_text.contains("null") ) {
-            out_file.text = ""
-        } else {
+        if ( !file_text.contains("null") ) {
             error "File does not exist: ${out_file}"
         }
+        out_file.getParent()?.mkdirs()
+        out_file.text = ""
     }
 
     return out_file
