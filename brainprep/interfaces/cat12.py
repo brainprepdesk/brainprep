@@ -12,6 +12,7 @@ CAT12 functions.
 """
 
 import glob
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -36,6 +37,7 @@ from ..typing import (
 )
 from ..utils import (
     coerce_to_path,
+    compress_nii,
     parse_bids_keys,
 )
 from .utils import (
@@ -404,3 +406,73 @@ def cat12vbm_morphometry(
     morphometry_files.append(volume_file)
 
     return (morphometry_files, )
+
+
+def find_cat12_input_copy(
+        matlabbatch: File,
+    ) -> list[File]:
+    """
+    When running, CAT12 copies the image(s) it works on from rawdata as
+    uncompressed nifti next to the matlabbatch.
+    The goal of this function is to get the path of these copies from the
+    matlabbatch content.
+
+    Parameters
+    ----------
+    matlabbatch: File
+        Path to the ready for execution CAT12 batch file
+
+    Returns
+    -------
+    input_copies: list[File]
+        Files copied from rawdata and processed by cat12.
+    """
+    if isinstance(matlabbatch, str):
+        matlabbatch = Path(matlabbatch)
+    cat12_outdir = matlabbatch.parent
+    input_copies = []
+    with open(matlabbatch) as file:
+        for line in file:
+            if str(cat12_outdir) in line and ".nii" in line:
+                line = line.strip().strip("\'")
+                input_copies.append(Path(line.strip()))
+    return input_copies
+
+
+def clean_cat12_outputs(
+        matlabbatch: File,
+        gm_files: list[File],
+    ) -> list[File]:
+    """
+    Compress the nifti outputs produced by cat12 using nibabel,
+    and remove the rawdata copy next to the matlabbatch file.
+
+    Parameters
+    ----------
+    matlabbatch: File
+        Path to the ready for execution CAT12 batch file.
+    gm_files: list[File]
+        Path to the modulated, normalized gray matter segmentations
+        outputed by cat12.
+
+    Returns
+    -------
+    gm_files: list[File]
+        Updated paths to the mwp1 files (with .gz if they have been
+        compressed).
+    """
+    niis = matlabbatch.parent.glob("mri/*.nii")
+    for nii in niis:
+        # compress
+        nii_gz = compress_nii(str(nii))
+        # replace by compressed image path
+        if nii in gm_files:
+            gm_files = [nii_gz if path == nii else path
+                        for path in gm_files]
+    # remove the rawdata copy next to the matlabbatch file
+    input_t1_copies = find_cat12_input_copy(matlabbatch)
+    print(f"Found inputs (to delete): {input_t1_copies}")
+    for input_file in input_t1_copies:
+        os.remove(input_file)
+    print(gm_files)
+    return gm_files

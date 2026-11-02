@@ -116,6 +116,11 @@ def brainprep_vbm(
         [entities],
     )
 
+    gm_files = interfaces.clean_cat12_outputs(
+        batch_file,
+        gm_files,
+    )
+
     interfaces.anonfile(
         batch_file,
         find_first_occurrence(output_dir, "derivatives"),
@@ -221,6 +226,11 @@ def brainprep_longitudinal_vbm(
         batch_file,
         output_dir.parent,
         entities,
+    )
+
+    gm_files = interfaces.clean_cat12_outputs(
+        batch_file,
+        gm_files,
     )
 
     interfaces.anonfile(
