@@ -552,7 +552,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.06s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_T1w.nii.gz
     [title] - Subject Level Quasi-RAW...
     ________________________________________________________________________________
@@ -953,7 +953,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     [title] - Group Level Quasi-RAW...
     ________________________________________________________________________________
     [call] brainprep.workflow.quasiraw.brainprep_group_quasiraw(
@@ -1467,7 +1467,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_T2w.nii.gz
     [title] - Subject Level Quasi-RAW...
     ________________________________________________________________________________
@@ -1868,7 +1868,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     [title] - Group Level Quasi-RAW...
     ________________________________________________________________________________
     [call] brainprep.workflow.quasiraw.brainprep_group_quasiraw(
@@ -2385,7 +2385,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     [warn] - BIDS file name does not contain run key: sub-02_FLAIR.nii.gz
     [title] - Subject Level Quasi-RAW...
     ________________________________________________________________________________
@@ -2789,7 +2789,7 @@ to actually run each step and generate results on disk.
     )
     __________________________________________________________________0.00s, 0.00min
     [title] - Subject Level Quasi-RAW done.
-    __________________________________________________________________0.07s, 0.00min
+    __________________________________________________________________0.05s, 0.00min
     [title] - Group Level Quasi-RAW...
     ________________________________________________________________________________
     [call] brainprep.workflow.quasiraw.brainprep_group_quasiraw(
@@ -2902,7 +2902,7 @@ to actually run each step and generate results on disk.
     /tmp/brainprep-quasiraw/derivatives/quasiraw/figures/pca_FLAIR.png
     __________________________________________________________________0.00s, 0.00min
     [title] - Group Level Quasi-RAW done.
-    __________________________________________________________________0.03s, 0.00min
+    __________________________________________________________________0.02s, 0.00min
 
 
 
@@ -3039,9 +3039,9 @@ Hub: `Neurospin Docker Hub <https://hub.docker.com/u/neurospin>`_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.765 seconds)
+   **Total running time of the script:** (0 minutes 0.721 seconds)
 
-**Estimated memory usage:**  111 MB
+**Estimated memory usage:**  119 MB
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_quasiraw.py:
